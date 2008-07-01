@@ -26,9 +26,9 @@ def main():
 
     # set up enviornment
     world.add.ground()
-    #world.add.wall((100, 100), (300, 300), 5)
-    #body=world.add.rect((900,300),width=300,height=25)    
-    #world.add.joint(body)
+    world.add.wall((100, 100), (300, 300), 5)
+    body=world.add.rect((900,300),width=300,height=25)    
+    world.add.joint(body)
 
     # loop control
     go = True
@@ -76,13 +76,11 @@ def main():
                 jb1 = jb2 = jb1pos = jb2pos = None
 
             elif event.type == KEYDOWN:
-                if event.key == K_1:
-                    #add a triangle
+                if event.key == K_1: # Add triangle at mouse
                     x,y = pygame.mouse.get_pos()
                     world.add.triangle((0,0),sidelength=40)
                     world.add.ball((x,y), radius=20)
-                elif event.key == K_2:
-                    #add a circle
+                elif event.key == K_2: # Add circle at mouse
                     x,y = pygame.mouse.get_pos()
                     world.add.ball((100,0),radius=20)
                     #world.add.rect((100,0),width=40,height=20,angle=90)
@@ -99,32 +97,22 @@ def main():
                 elif event.key == K_6:
 	                x,y = pygame.mouse.get_pos()
 	                world.add.ball((500,0),radius=50)
-
                 elif event.key == K_7:
                     x,y = pygame.mouse.get_pos()
                     world.add.ball((x,y),radius=60)
-                #elif event.key == K_8:
-                #    x,y = pygame.mouse.get_pos()
-                #    world.add.ball((x,y),radius=20)
-
+                elif event.key == K_8: # Add 20 high drop boxes
+                    x,y = pygame.mouse.get_pos()
+                    i = 0
+                    for j in range(20):
+                        world.add.rect((x-i,y-(j*500)),width=20,height=10,angle=a)
                 elif event.key == K_9:
                     # Add many triangles
                     x, y = pygame.mouse.get_pos()
                     for i in range(5):
                         for j in range(5):
                             world.add.triangle((x-i,y-j), sidelength=20)
-                            #a+=10 # Rotate 10 degs
-		
-                elif event.key == K_8:
-                    #add many boxes
-                    x,y = pygame.mouse.get_pos()
-                    #for i in range(5):
-                    #    for j in range(5): 
-                    i = 0
-                    for j in range(20):
-                        world.add.rect((x-i,y-(j*500)),width=20,height=10,angle=a)
-                        #world.add.ball((x,y-(j*500)),radius=60) 
-                         #a+=10            
+
+
         # Clear Display
         screen.fill((255,255,255))
 
@@ -135,9 +123,6 @@ def main():
         if jb1pos:
             pygame.draw.line(screen,THECOLORS["red"],jb1pos,pygame.mouse.get_pos(),3)
 
-#        pygame.draw.aaline(screen,THECOLORS["red"],(0,0),(1200,900),20)
-
-
         # Flip Display
         pygame.display.flip()
         
@@ -146,7 +131,7 @@ def main():
         x,y = pygame.mouse.get_pos()
         
 
-        # output framerate in caption
+        # Output framerate in caption
         pygame.display.set_caption("x: %i | y: %i | elements: %i | fps: %i" % (x, y, world.element_count, int(clock.get_fps())))
 if __name__ == "__main__":
     main()
