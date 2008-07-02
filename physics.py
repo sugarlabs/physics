@@ -170,7 +170,36 @@ class GrabTool(Tool):
     def cancel(self):
         world.add.remove_mouseJoint()                        
     
-
+# The joint tool        
+class JointTool(Tool):    
+    def __init__(self):
+        self.name = "Joint"
+        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(JointTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    # grab the first body
+                    self.jb1pos = event.pos
+                    self.jb1 = world.get_bodies_at_pos(event.pos)
+                    self.jb2 = self.jb2pos = None    
+            elif event.type == MOUSEBUTTONUP:
+                if event.button == 1:
+                    # grab the second body
+                    self.jb2pos = event.pos
+                    self.jb2 = world.get_bodies_at_pos(event.pos)
+                    # if we have two distinct bodies, add a joint!
+                    if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
+                        world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)
+                    # regardless, clean everything up
+                    self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+    def draw(self):
+        if self.jb1:
+            pygame.draw.line(screen,(100,180,255),self.jb1pos,pygame.mouse.get_pos(),3)
+    
+    def cancel(self):
+        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None             
 
 # set up pygame
 pygame.init()
@@ -191,7 +220,7 @@ tools = {
     "triangle": TriangleTool(),
     "box": BoxTool(),
     "circle": CircleTool(),
-   # "joint": JointTool(),
+    "joint": JointTool(),
     "grab": GrabTool()
 }
 currentTool = tools["triangle"]
