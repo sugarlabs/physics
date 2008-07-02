@@ -212,7 +212,8 @@ def setTool(tool,discard=None):
 
 
 # setup the menus
-menu = MenuClass()   
+menu = MenuClass()  
+menu.set_width(size[0]) 
 menu.addItem('Box', callback=setTool)
 menu.addItem('Circle', callback=setTool)
 menu.addItem('Triangle', callback=setTool)
@@ -240,16 +241,17 @@ while True:
     
     # draw output from tools
     currentTool.draw()
-
-    #Print all the text on the screen
-    #text = font.render("Current Tool: "+currentTool.name, True, (100,100,255))
-    #textpos = text.get_rect(left=1,top=1)  
-    #screen.blit(text,textpos)        
-    
+       
     # draw the menu
     menu.draw(screen)
+    
+    #Print all the text on the screen
+    text = font.render("Current Tool: "+currentTool.name, True, (255,255,255))
+    textpos = text.get_rect(left=500,top=7)  
+    screen.blit(text,textpos)  
+    
     # Flip Display
-    pygame.display.flip()
+    pygame.display.flip()  
     
     # Try to stay at 30 FPS
     clock.tick(30) # originally 50    
