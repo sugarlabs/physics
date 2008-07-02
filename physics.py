@@ -74,6 +74,17 @@ def main():
                 if jb1 and jb2 and str(jb1) != str(jb2):
                     world.add.joint(jb1[0],jb2[0],jb1pos,jb2pos)
                 jb1 = jb2 = jb1pos = jb2pos = None
+            
+            # UI design --
+            # We want to allow for the creation of different shapes
+            # UI mockups for these (to be followed along with in this section)
+            #   are available at http://wiki.laptop.org/go/Physics
+            # The important ingredients here are (1) storing the X,Y mouse coordinates
+            #   and (2) on-line resizing or visual drawing of the shapes (via
+            #   any of Elements, pyBox2D (elements.world), pyGame, GTK?)
+            # We are going to use pygame.draw for this, then upon release (and
+            #   checking for bad cases, draw the objects. Portions of these functions
+            #   should be added to Elements
 
             elif event.type == KEYDOWN:
                 if event.key == K_1: # Add triangle at mouse
@@ -83,8 +94,6 @@ def main():
                 elif event.key == K_2: # Add circle at mouse
                     x,y = pygame.mouse.get_pos()
                     world.add.ball((100,0),radius=20)
-                    #world.add.rect((100,0),width=40,height=20,angle=90)
-                    #a+=10
                 elif event.key == K_3:
                     x,y = pygame.mouse.get_pos()
                     world.add.ball((200,0),radius=20)
@@ -105,13 +114,13 @@ def main():
                     i = 0
                     for j in range(20):
                         world.add.rect((x-i,y-(j*500)),width=20,height=10,angle=a)
-                elif event.key == K_9:
-                    # Add many triangles
+                elif event.key == K_9: # Add many triangles
                     x, y = pygame.mouse.get_pos()
                     for i in range(5):
                         for j in range(5):
                             world.add.triangle((x-i,y-j), sidelength=20)
-
+                elif event.key == K_k:
+                    world.add.rect()
 
         # Clear Display
         screen.fill((255,255,255))
