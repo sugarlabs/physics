@@ -98,7 +98,7 @@ class MenuClass:
     items = []    
 
     # where to start drawing
-    start_at = (0, 0)
+    start_at = (0,0)
    
     # menubar properties
     height = 0        # px

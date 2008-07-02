@@ -12,6 +12,7 @@ from pygame.color import *
 from sugar.activity import activity
 import elements
 from elements import Elements
+from elements.menu import *
 from tools import *
 
 # =======================================Classes==================================
@@ -22,7 +23,8 @@ class Tool(object):
         self.name = "Tool"
     def handleEvents(self,event):
         # default event handling
-        global currentTool
+        if event.type == MOUSEBUTTONDOWN:
+            if menu.click(event.pos): return True
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             # bye bye! Hope you had fun!
             sys.exit()
@@ -30,21 +32,6 @@ class Tool(object):
             if event.key == K_SPACE:
                 #space pauses
                 world.run_physics = not world.run_physics  
-            elif event.key == K_c:
-                currentTool.cancel()
-                currentTool = tools["circle"]
-            elif event.key == K_b:
-                currentTool.cancel()
-                currentTool = tools["box"]
-            elif event.key == K_t: 
-                currentTool.cancel()
-                currentTool = tools["triangle"]
-            elif event.key == K_j:
-                currentTool.cancel()
-                currentTool = tools["joint"]
-            elif event.key == K_g:
-                currentTool.cancel()
-                currentTool = tools["grab"]
         else:
             # let the subclasses know that no events were handled yet
             return False  
@@ -207,6 +194,30 @@ size = (700,700)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 24) # font object
+
+# setup tools
+tools = {
+    "Triangle": TriangleTool(),
+    "Box": BoxTool(),
+    "Circle": CircleTool(),
+    "Joint": JointTool(),
+    "Grab": GrabTool()
+}
+currentTool = tools["Triangle"]
+
+def setTool(tool,discard=None):
+    global currentTool
+    currentTool.cancel()
+    currentTool = tools[tool]
+
+
+# setup the menus
+menu = MenuClass()   
+menu.addItem('Box', callback=setTool)
+menu.addItem('Circle', callback=setTool)
+menu.addItem('Triangle', callback=setTool)
+menu.addItem('Grab', callback=setTool)
+menu.addItem('Joint', callback=setTool)
     
 # set up the world
 world = elements.Elements(size)
@@ -214,16 +225,6 @@ world.renderer.set_surface(screen)
 
 # load enviornment
 world.add.ground()
-
-# setup tools
-tools = {
-    "triangle": TriangleTool(),
-    "box": BoxTool(),
-    "circle": CircleTool(),
-    "joint": JointTool(),
-    "grab": GrabTool()
-}
-currentTool = tools["triangle"]
 
 # Main Loop:    
 while True:
@@ -241,10 +242,12 @@ while True:
     currentTool.draw()
 
     #Print all the text on the screen
-    text = font.render("Current Tool: "+currentTool.name, True, (100,100,255))
-    textpos = text.get_rect(left=1,top=1)  
-    screen.blit(text,textpos)        
-
+    #text = font.render("Current Tool: "+currentTool.name, True, (100,100,255))
+    #textpos = text.get_rect(left=1,top=1)  
+    #screen.blit(text,textpos)        
+    
+    # draw the menu
+    menu.draw(screen)
     # Flip Display
     pygame.display.flip()
     
