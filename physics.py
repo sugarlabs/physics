@@ -70,7 +70,7 @@ class CircleTool(Tool):
             else:
                 thick = 0
             pygame.draw.circle(screen, (100,180,255),self.pt1,self.radius,thick) 
-            pygame.draw.line(screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),3)  
+            pygame.draw.line(screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),1)  
     def cancel(self):
         self.pt1 = None  
         self.radius = None
@@ -119,7 +119,7 @@ class TriangleTool(Tool):
                     self.pt1 = pygame.mouse.get_pos()                    
             elif event.type == MOUSEBUTTONUP:
                 if event.button == 1 and self.pt1!= None:                    
-                    if distance(self.pt1,pygame.mouse.get_pos()) > 10: # elements doesn't like tiny shapes :(
+                    if distance(self.pt1,pygame.mouse.get_pos()) > 15: # elements doesn't like tiny shapes :(
                         world.add.convexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
                     self.pt1 = None
                     self.vertices = None                    
@@ -128,10 +128,83 @@ class TriangleTool(Tool):
         if self.pt1 != None:
             self.vertices = constructTriangleFromLine(self.pt1,pygame.mouse.get_pos())
             pygame.draw.polygon(screen, (100,180,255),self.vertices, 3) 
-            pygame.draw.line(screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),3)  
+            pygame.draw.line(screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),1)  
     
     def cancel(self):
         self.pt1 = None        
+        self.vertices = None
+
+# The Polygon creation tool        
+class PolygonTool(Tool):    
+    def __init__(self):
+        self.name = "Polygon"
+        self.vertices = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(PolygonTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if not self.vertices:
+                        self.vertices=[event.pos]  
+                    elif distance(event.pos,self.vertices[0]) < 15:                     
+                        self.vertices.append(self.vertices[0]) #connect the polygon
+                        world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                        self.vertices = None  
+                    else:
+                        self.vertices.append(event.pos)
+                if event.button == 3:
+                    if self.vertices:
+                        self.vertices.append(event.pos)
+                        world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                        self.vertices = None
+                                
+    def draw(self):
+        # draw the poly being created
+        if self.vertices:
+            for i in range(len(self.vertices)-1):
+                pygame.draw.line(screen,(100,180,255),self.vertices[i],self.vertices[i+1],3)
+            pygame.draw.line(screen,(100,180,255),self.vertices[-1],pygame.mouse.get_pos(),3)
+            pygame.draw.circle(screen,(100,180,255),self.vertices[0],15,3)  
+    
+    def cancel(self):       
+        self.vertices = None
+
+# The magic pen tool        
+class MagicPenTool(Tool):    
+    def __init__(self):
+        self.name = "Magic Pen"
+        self.vertices = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(MagicPenTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if not self.vertices:
+                        self.vertices=[event.pos]  
+                    elif distance(event.pos,self.vertices[0]) < 15:                     
+                        self.vertices.append(self.vertices[0]) #connect the polygon
+                        world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                        self.vertices = None  
+                    else:
+                        self.vertices.append(event.pos)
+            elif event.type == MOUSEBUTTONUP:
+                if event.button == 1:
+                        if self.vertices:
+                            world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                        self.vertices = None
+            elif event.type == MOUSEMOTION:
+                if self.vertices:
+                    self.vertices.append(event.pos)
+                                
+    def draw(self):
+        # draw the poly being created
+        if self.vertices:
+            for i in range(len(self.vertices)-1):
+                pygame.draw.line(screen,(100,180,255),self.vertices[i],self.vertices[i+1],3)
+            pygame.draw.line(screen,(100,180,255),self.vertices[-1],pygame.mouse.get_pos(),3)
+            pygame.draw.circle(screen,(100,180,255),self.vertices[0],15,3)  
+    
+    def cancel(self):       
         self.vertices = None
 
 # The grab tool        
@@ -190,7 +263,7 @@ class JointTool(Tool):
 
 # set up pygame
 pygame.init()
-size = (700,700)
+size = (900,700)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 24) # font object
@@ -200,6 +273,8 @@ tools = {
     "Triangle": TriangleTool(),
     "Box": BoxTool(),
     "Circle": CircleTool(),
+    "Polygon": PolygonTool(),
+    "Magic Pen": MagicPenTool(),
     "Joint": JointTool(),
     "Grab": GrabTool()
 }
@@ -217,6 +292,8 @@ menu.set_width(size[0])
 menu.addItem('Box', callback=setTool)
 menu.addItem('Circle', callback=setTool)
 menu.addItem('Triangle', callback=setTool)
+menu.addItem('Polygon', callback=setTool)
+menu.addItem('Magic Pen', callback=setTool)
 menu.addItem('Grab', callback=setTool)
 menu.addItem('Joint', callback=setTool)
     
@@ -247,7 +324,7 @@ while True:
     
     #Print all the text on the screen
     text = font.render("Current Tool: "+currentTool.name, True, (255,255,255))
-    textpos = text.get_rect(left=500,top=7)  
+    textpos = text.get_rect(left=700,top=7)  
     screen.blit(text,textpos)  
     
     # Flip Display
