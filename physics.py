@@ -87,12 +87,13 @@ class CircleTool(Tool):
     def cancel(self):
         self.pt1 = None  
         self.radius = None
-"""        
+   
 # The box creation tool        
 class BoxTool(Tool):    
     def __init__(self):
         self.name = "Box"
         self.pt1 = None        
+        self.rect = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(BoxTool,self).handleEvents(event):
@@ -100,18 +101,23 @@ class BoxTool(Tool):
                 if event.button == 1:
                     self.pt1 = pygame.mouse.get_pos()                    
             elif event.type == MOUSEBUTTONUP:
-                if event.button == 1 and self.pt1!=None:                          
-                    world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                if event.button == 1 and self.pt1!=None:                                 
+                    if self.rect.width > 10 and self.rect.height > 10: # elements doesn't like small shapes :(
+                        world.add.rect(self.rect.center, self.rect.width/2, self.rect.height/2, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                   
                     self.pt1 = None        
-                    self.radius = None            
+                                
     def draw(self):
         # draw a box from pt1 to mouse
-        if self.pt1 != None:           
-            pygame.draw.box(screen, (100,180,255),self.pt1,,thick)   
+        if self.pt1 != None:
+            width = pygame.mouse.get_pos()[0] - self.pt1[0]
+            height = pygame.mouse.get_pos()[1] - self.pt1[1]
+            self.rect = pygame.Rect(self.pt1, (width, height))
+            self.rect.normalize()           
+            pygame.draw.rect(screen, (100,180,255),self.rect,3)   
     def cancel(self):
         self.pt1 = None  
         self.radius = None        
-"""            
+           
 # The triangle creation tool        
 class TriangleTool(Tool):    
     def __init__(self):
@@ -159,7 +165,7 @@ world.add.ground()
 # setup tools
 tools = {
     "triangle": TriangleTool(),
-   # "box": BoxTool(),
+    "box": BoxTool(),
     "circle": CircleTool(),
    # "joint": JointTool(),
    # "grab": GrabTool()
