@@ -116,7 +116,7 @@ class BoxTool(Tool):
             pygame.draw.rect(screen, (100,180,255),self.rect,3)   
     def cancel(self):
         self.pt1 = None  
-        self.radius = None        
+        self.rect = None      
            
 # The triangle creation tool        
 class TriangleTool(Tool):    
@@ -147,6 +147,30 @@ class TriangleTool(Tool):
         self.pt1 = None        
         self.vertices = None
 
+# The grab tool        
+class GrabTool(Tool):    
+    def __init__(self):
+        self.name = "Grab"
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(GrabTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    # grab the first object at the mouse pointer
+                    bodylist = world.get_bodies_at_pos(event.pos, include_static=False) 
+                    if bodylist and len(bodylist) > 0:
+                        world.add.mouseJoint(bodylist[0], event.pos)               
+            elif event.type == MOUSEBUTTONUP:
+                # let it go
+                if event.button == 1:
+                    world.add.remove_mouseJoint()
+            # use box2D mouse motion
+            elif event.type == MOUSEMOTION and event.buttons[0]:
+                world.mouse_move(event.pos)
+    def cancel(self):
+        world.add.remove_mouseJoint()                        
+    
+
 
 # set up pygame
 pygame.init()
@@ -168,7 +192,7 @@ tools = {
     "box": BoxTool(),
     "circle": CircleTool(),
    # "joint": JointTool(),
-   # "grab": GrabTool()
+    "grab": GrabTool()
 }
 currentTool = tools["triangle"]
 
