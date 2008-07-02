@@ -1,152 +1,193 @@
-# Physics.activity
-# Go eat an apple, Newton! 
-# Alex's Branch!
-# Brian Jordan
-# Modified from Alex Levenson's testbed
-# Modified from Elements demos
+#==================================================================
+#                           Physics.activity
+#     An attempt at a Phun / Crayon Physics style physics game
+#                  By Alex Levenson and Brian Jordan
+#==================================================================
 
+import sys
+import math
 import pygame
 from pygame.locals import *
 from pygame.color import *
-
+from sugar.activity import activity
 import elements
 from elements import Elements
+from tools import *
 
-def main():
-    # set up pygame
-    pygame.init()
-    size = (1200,900) # A - Any way of getting a lower resolution? Changing size?
-    #size = (1024, 768)
-    screen = pygame.display.set_mode(size)
-    clock = pygame.time.Clock()
-        
-    # set up the world
-    world = elements.Elements((400,400)) # A - here?
-    world.renderer.set_surface(screen)
+# =======================================Classes==================================
+# tools that can be used superlcass
+class Tool(object):
+    def __init__(self):
+        # default tool name
+        self.name = "Tool"
+    def handleEvents(self,event):
+        # default event handling
+        global currentTool
+        if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+            # bye bye! Hope you had fun!
+            sys.exit()
+        elif event.type == KEYDOWN:
+            if event.key == K_SPACE:
+                #space pauses
+                world.run_physics = not world.run_physics  
+            elif event.key == K_c:
+                currentTool.cancel()
+                currentTool = tools["circle"]
+            elif event.key == K_b:
+                currentTool.cancel()
+                currentTool = tools["box"]
+            elif event.key == K_t: 
+                currentTool.cancel()
+                currentTool = tools["triangle"]
+            elif event.key == K_j:
+                currentTool.cancel()
+                currentTool = tools["joint"]
+            elif event.key == K_g:
+                currentTool.cancel()
+                currentTool = tools["grab"]
+        else:
+            # let the subclasses know that no events were handled yet
+            return False  
+        return True                                     
+    def draw(self):
+        # default drawing method is don't draw anything
+        pass
+    def cancel(self):
+        # default cancel doesn't do anything
+        pass
 
-    # set up enviornment
-    world.add.ground()
-    #world.add.wall((100, 100), (300, 300), 5)
-    #body=world.add.rect((900,300),width=300,height=25)    
-    #world.add.joint(body)
-
-    # loop control
-    go = True
+# The circle creation tool        
+class CircleTool(Tool):    
+    def __init__(self):
+        self.name = "Circle"
+        self.pt1 = None
+        self.radius = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(CircleTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.pt1 = pygame.mouse.get_pos()                    
+            elif event.type == MOUSEBUTTONUP:
+                if event.button == 1:                    
+                    if self.radius > 1: # elements doesn't like tiny shapes :(
+                        world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                    self.pt1 = None        
+                    self.radius = None            
+    def draw(self):
+        # draw a circle from pt1 to mouse
+        if self.pt1 != None:
+            self.radius = distance(self.pt1,pygame.mouse.get_pos())
+            if self.radius > 3: 
+                thick = 3
+            else:
+                thick = 0
+            pygame.draw.circle(screen, (100,180,255),self.pt1,self.radius,thick) 
+            pygame.draw.line(screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),3)  
+    def cancel(self):
+        self.pt1 = None  
+        self.radius = None
+"""        
+# The box creation tool        
+class BoxTool(Tool):    
+    def __init__(self):
+        self.name = "Box"
+        self.pt1 = None        
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(BoxTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.pt1 = pygame.mouse.get_pos()                    
+            elif event.type == MOUSEBUTTONUP:
+                if event.button == 1 and self.pt1!=None:                          
+                    world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                    self.pt1 = None        
+                    self.radius = None            
+    def draw(self):
+        # draw a box from pt1 to mouse
+        if self.pt1 != None:           
+            pygame.draw.box(screen, (100,180,255),self.pt1,,thick)   
+    def cancel(self):
+        self.pt1 = None  
+        self.radius = None        
+"""            
+# The triangle creation tool        
+class TriangleTool(Tool):    
+    def __init__(self):
+        self.name = "Triangle"
+        self.pt1 = None
+        self.vertices = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(TriangleTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.pt1 = pygame.mouse.get_pos()                    
+            elif event.type == MOUSEBUTTONUP:
+                if event.button == 1 and self.pt1!= None:                    
+                    if distance(self.pt1,pygame.mouse.get_pos()) > 10: # elements doesn't like tiny shapes :(
+                        world.add.convexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                    self.pt1 = None
+                    self.vertices = None                    
+    def draw(self):
+        # draw a triangle from pt1 to mouse
+        if self.pt1 != None:
+            self.vertices = constructTriangleFromLine(self.pt1,pygame.mouse.get_pos())
+            pygame.draw.polygon(screen, (100,180,255),self.vertices, 3) 
+            pygame.draw.line(screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),3)  
     
-    a = 0
-    jb1=jb2=jb1pos=jb2pos=None
+    def cancel(self):
+        self.pt1 = None        
+        self.vertices = None
+
+
+# set up pygame
+pygame.init()
+size = (700,700)
+screen = pygame.display.set_mode(size)
+clock = pygame.time.Clock()
+font = pygame.font.Font(None, 24) # font object
     
-    # Main Loop: - processes key and mouse events, world update and draw
-    while go:
-        for event in pygame.event.get():
-            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                # Quit the application -- bye bye!
-                go = False
-                
-            elif event.type == KEYDOWN and event.key == K_SPACE:
-                # Pause with SPACE
-                world.run_physics = not world.run_physics
-	   
-            # Adds Mouse-->Object joints for grabbing/throwing objects
-            elif event.type == MOUSEBUTTONDOWN and event.button == 1:
-                # Add Mouse-->Object Joint if at an Object
-                bodylist = world.get_bodies_at_pos(event.pos, include_static=False)
-                if bodylist and len(bodylist) > 0:
-                    world.add.mouseJoint(bodylist[0], event.pos) 
-            elif event.type == MOUSEBUTTONUP and event.button == 1:
-                # Delete Mouse-->Object Joint
-                world.add.remove_mouseJoint()
+# set up the world
+world = elements.Elements(size)
+world.renderer.set_surface(screen)
 
-            # Uses Box2D mouse movement 
-            elif event.type == MOUSEMOTION and event.buttons[0]:
-                world.mouse_move(event.pos)
-            
-            # Adds Object-->Object joints for connecting objects
-            elif event.type == MOUSEBUTTONDOWN and event.button == 3:
-                # Connect bodies
-                jb1pos = event.pos
-                jb1 = world.get_bodies_at_pos(event.pos)
-                jb2 = None
-                jb2pos = None
-            elif event.type == MOUSEBUTTONUP and event.button == 3:
-                jb2 = world.get_bodies_at_pos(event.pos)
-                jb2pos = event.pos
-                if jb1 and jb2 and str(jb1) != str(jb2):
-                    world.add.joint(jb1[0],jb2[0],jb1pos,jb2pos)
-                jb1 = jb2 = jb1pos = jb2pos = None
+# load enviornment
+world.add.ground()
 
-            elif event.type == KEYDOWN:
-                if event.key == K_1:
-                    #add a triangle
-                    x,y = pygame.mouse.get_pos()
-                    world.add.triangle((0,0),sidelength=40)
-                    world.add.ball((x,y), radius=20)
-                elif event.key == K_2:
-                    #add a circle
-                    x,y = pygame.mouse.get_pos()
-                    world.add.ball((100,0),radius=20)
-                    #world.add.rect((100,0),width=40,height=20,angle=90)
-                    #a+=10
-                elif event.key == K_3:
-                    x,y = pygame.mouse.get_pos()
-                    world.add.ball((200,0),radius=20)
-                elif event.key == K_4:
-	        		x,y = pygame.mouse.get_pos()
-	        		world.add.ball((300,0),radius=30)
-                elif event.key == K_5:
-	                x,y = pygame.mouse.get_pos()
-	                world.add.ball((400,0),radius=40)
-                elif event.key == K_6:
-	                x,y = pygame.mouse.get_pos()
-	                world.add.ball((500,0),radius=50)
+# setup tools
+tools = {
+    "triangle": TriangleTool(),
+   # "box": BoxTool(),
+    "circle": CircleTool(),
+   # "joint": JointTool(),
+   # "grab": GrabTool()
+}
+currentTool = tools["triangle"]
 
-                elif event.key == K_7:
-                    x,y = pygame.mouse.get_pos()
-                    world.add.ball((x,y),radius=60)
-                #elif event.key == K_8:
-                #    x,y = pygame.mouse.get_pos()
-                #    world.add.ball((x,y),radius=20)
+# Main Loop:    
+while True:
+    for event in pygame.event.get():
+        currentTool.handleEvents(event)
+                        
+    # Clear Display
+    screen.fill((255,255,255))
 
-                elif event.key == K_9:
-                    # Add many triangles
-                    x, y = pygame.mouse.get_pos()
-                    for i in range(5):
-                        for j in range(5):
-                            world.add.triangle((x-i,y-j), sidelength=20)
-                            #a+=10 # Rotate 10 degs
-		
-                elif event.key == K_8:
-                    #add many boxes
-                    x,y = pygame.mouse.get_pos()
-                    #for i in range(5):
-                    #    for j in range(5): 
-                    i = 0
-                    for j in range(20):
-                        world.add.rect((x-i,y-(j*500)),width=20,height=10,angle=a)
-                        #world.add.ball((x,y-(j*500)),radius=60) 
-                         #a+=10            
-        # Clear Display
-        screen.fill((255,255,255))
+    # Update & Draw World
+    world.update()
+    world.draw()
+    
+    # draw output from tools
+    currentTool.draw()
 
-        # Update & Draw World
-        world.update()
-        world.draw()
+    #Print all the text on the screen
+    text = font.render("Current Tool: "+currentTool.name, True, (100,100,255))
+    textpos = text.get_rect(left=1,top=1)  
+    screen.blit(text,textpos)        
 
-        if jb1pos:
-            pygame.draw.line(screen,THECOLORS["red"],jb1pos,pygame.mouse.get_pos(),3)
-
-#        pygame.draw.aaline(screen,THECOLORS["red"],(0,0),(1200,900),20)
-
-
-        # Flip Display
-        pygame.display.flip()
-        
-        # Try to stay at 30 FPS
-        clock.tick(30) # originally 50
-        x,y = pygame.mouse.get_pos()
-        
-
-        # output framerate in caption
-        pygame.display.set_caption("x: %i | y: %i | elements: %i | fps: %i" % (x, y, world.element_count, int(clock.get_fps())))
-if __name__ == "__main__":
-    main()
+    # Flip Display
+    pygame.display.flip()
+    
+    # Try to stay at 30 FPS
+    clock.tick(30) # originally 50    
