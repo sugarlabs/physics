@@ -261,7 +261,19 @@ class JointTool(Tool):
     
     def cancel(self):
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None             
-
+        
+# The destroy tool        
+class DestroyTool(Tool):    
+    def __init__(self):
+        self.name = "Destroy"
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(DestroyTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    tokill = world.get_bodies_at_pos(event.pos)
+                    if tokill:
+                            world.world.DestroyBody(tokill[0])      
 # set up pygame
 pygame.init()
 size = (900,700)
@@ -277,7 +289,8 @@ tools = {
     "Polygon": PolygonTool(),
     "Magic Pen": MagicPenTool(),
     "Joint": JointTool(),
-    "Grab": GrabTool()
+    "Grab": GrabTool(),
+    "Destroy": DestroyTool()
 }
 currentTool = tools["Triangle"]
 
@@ -296,7 +309,8 @@ menu.addItem('Polygon', callback=setTool)
 menu.addItem('Magic Pen', callback=setTool)
 menu.addItem('Grab', callback=setTool)
 menu.addItem('Joint', callback=setTool)
-    
+menu.addItem('Destroy', callback=setTool)    
+
 # set up the world
 world = elements.Elements(size)
 world.renderer.set_surface(screen)
