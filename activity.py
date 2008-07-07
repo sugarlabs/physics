@@ -274,13 +274,28 @@ class JointTool(Tool):
 class DestroyTool(Tool):    
     def __init__(self):
         self.name = "Destroy"
+        self.vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(DestroyTool,self).handleEvents(event):
             if pygame.mouse.get_pressed()[0]:
+                if not self.vertices: self.vertices = []
+                self.vertices.append(pygame.mouse.get_pos())
+                if len(self.vertices) > 10:
+                    self.vertices.pop(0)
                 tokill = world.get_bodies_at_pos(pygame.mouse.get_pos())
                 if tokill:
-                        world.world.DestroyBody(tokill[0])      
+                        world.world.DestroyBody(tokill[0])
+            elif event.type == MOUSEBUTTONUP and event.button == 1:
+                self.cancel()
+    def draw(self):
+        # draw the trail
+        if self.vertices:
+            for i in range(len(self.vertices)-1):
+                pygame.draw.line(screen,(255,0,0),self.vertices[i],self.vertices[i+1],3)
+
+    def cancel(self):
+        self.vertices = None      
 # set up pygame
 pygame.init()
 size = (pygame.display.list_modes()[0])
