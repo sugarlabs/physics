@@ -283,7 +283,7 @@ class DestroyTool(Tool):
                         world.world.DestroyBody(tokill[0])      
 # set up pygame
 pygame.init()
-size = (700,700)
+size = (pygame.display.list_modes()[0])
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 24) # font object
