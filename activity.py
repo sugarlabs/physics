@@ -253,6 +253,9 @@ class JointTool(Tool):
                     # if we have two distinct bodies, add a joint!
                     if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
                         world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)
+                    # If there's only one body, add a fixed joint
+                    elif self.jb2:
+                        world.add.joint(self.jb2[0],self.jb2pos)
                     # regardless, clean everything up
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
     def draw(self):
@@ -276,7 +279,7 @@ class DestroyTool(Tool):
                             world.world.DestroyBody(tokill[0])      
 # set up pygame
 pygame.init()
-size = (900,700)
+size = (700,700)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 24) # font object

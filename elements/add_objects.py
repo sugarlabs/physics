@@ -477,8 +477,23 @@ class Add:
             # Revolute Joint
             pass
 
+        elif len(args) == 2:        
+           
+            # Revolute Joint to the Background, don't assume the center of the body
+            b1 = self.parent.world.GetGroundBody()
+            b2 = args[0]
+            p1 = self.parent.to_world(args[1])                        
+            p1x, p1y = p1         
+            p1x /= self.parent.ppm
+            p1y /= self.parent.ppm
+            p1 = box2d.b2Vec2(p1x, p1y)
+             
+            jointDef = box2d.b2RevoluteJointDef()
+            jointDef.Initialize(b1, b2, p1)
+            
+            self.parent.world.CreateJoint(jointDef)
         elif len(args) == 1:
-            # Revolute Joint to the Background
+            # Revolute Joint to the Background, assume the center of the body
             b1 = self.parent.world.GetGroundBody()
             b2 = args[0]
             p1 = b2.GetWorldCenter()
