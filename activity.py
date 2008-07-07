@@ -291,8 +291,8 @@ class DestroyTool(Tool):
     def draw(self):
         # draw the trail
         if self.vertices:
-            for i in range(len(self.vertices)-1):
-                pygame.draw.line(screen,(255,0,0),self.vertices[i],self.vertices[i+1],3)
+            if len(self.vertices) > 1:
+                pygame.draw.lines(screen,(255,0,0),False,self.vertices,3)
 
     def cancel(self):
         self.vertices = None      
