@@ -258,6 +258,11 @@ class JointTool(Tool):
                         world.add.joint(self.jb2[0],self.jb2pos)
                     # regardless, clean everything up
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+                if event.button == 3:
+                    # add a centered fixed joint
+                    self.jb2 = world.get_bodies_at_pos(event.pos)
+                    if self.jb2:
+                        world.add.joint(self.jb2[0])
     def draw(self):
         if self.jb1:
             pygame.draw.line(screen,(100,180,255),self.jb1pos,pygame.mouse.get_pos(),3)
