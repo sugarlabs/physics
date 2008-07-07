@@ -277,11 +277,10 @@ class DestroyTool(Tool):
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(DestroyTool,self).handleEvents(event):
-            if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    tokill = world.get_bodies_at_pos(event.pos)
-                    if tokill:
-                            world.world.DestroyBody(tokill[0])      
+            if pygame.mouse.get_pressed()[0]:
+                tokill = world.get_bodies_at_pos(pygame.mouse.get_pos())
+                if tokill:
+                        world.world.DestroyBody(tokill[0])      
 # set up pygame
 pygame.init()
 size = (700,700)
