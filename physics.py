@@ -24,14 +24,14 @@ class PhysicsGame:
         
         # setup tools
         self.tools = {
-            "Triangle": TriangleTool(self),
-            "Box": BoxTool(self),
-            "Circle": CircleTool(self),
-            "Polygon": PolygonTool(self),
-            "Magic Pen": MagicPenTool(self),
-            "Joint": JointTool(self),
-            "Grab": GrabTool(self),
-            "Destroy": DestroyTool(self)
+            "triangle": TriangleTool(self),
+            "box": BoxTool(self),
+            "circle": CircleTool(self),
+            "polygon": PolygonTool(self),
+            "magicpen": MagicPenTool(self),
+            "joint": JointTool(self),
+            "grab": GrabTool(self),
+            "destroy": DestroyTool(self)
         }
         self.currentTool = self.tools["Triangle"]
         
