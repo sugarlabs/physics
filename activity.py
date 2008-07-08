@@ -13,21 +13,69 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         toolbar = super(PhysicsActivity, self).build_toolbar()
         
         # Add buttons
-        toolbar.button1 = ToolButton('minus')
-        toolbar.button1.set_tooltip(_('Button One'))
-        toolbar.button1.connect('clicked', self._button1_cb)
-        toolbar.insert(toolbar.button1, 2)
-        toolbar.button1.show()
+        toolbar.box = ToolButton('box')
+        toolbar.box.set_tooltip(_('Box'))
+        toolbar.box.connect('clicked', self._box_cb)
+        toolbar.insert(toolbar.box, 2)
+        toolbar.box.show()
         
-        toolbar.button2 = ToolButton('plus')
-        toolbar.button2.set_tooltip(_('button-2'))
-        toolbar.button2.connect('clicked', self._button2_cb)
-        toolbar.insert(toolbar.button2, 2)
-        toolbar.button2.show()
+        toolbar.circle = ToolButton('circle')
+        toolbar.circle.set_tooltip(_('Circle'))
+        toolbar.circle.connect('clicked', self._circle_cb)
+        toolbar.insert(toolbar.circle, 2)
+        toolbar.circle.show()
+        
+        toolbar.triangle = ToolButton('triangle')
+        toolbar.triangle.set_tooltip(_('Triangle'))
+        toolbar.triangle.connect('clicked', self._triangle_cb)
+        toolbar.insert(toolbar.triangle, 2)
+        toolbar.triangle.show()        
+        
+        toolbar.polygon = ToolButton('polygon')
+        toolbar.polygon.set_tooltip(_('Polygon'))
+        toolbar.polygon.connect('clicked', self._polygon_cb)
+        toolbar.insert(toolbar.polygon, 2)
+        toolbar.polygon.show()
+
+        toolbar.magicpen = ToolButton('magicpen')
+        toolbar.magicpen.set_tooltip(_('Magic Pen'))
+        toolbar.magicpen.connect('clicked', self._magicpen_cb)
+        toolbar.insert(toolbar.magicpen, 2)
+        toolbar.magicpen.show()
+
+        toolbar.grab = ToolButton('grab')
+        toolbar.grab.set_tooltip(_('Grab'))
+        toolbar.grab.connect('clicked', self._grab_cb)
+        toolbar.insert(toolbar.grab, 2)
+        toolbar.grab.show()
+
+        toolbar.joint = ToolButton('joint')
+        toolbar.joint.set_tooltip(_('Joint'))
+        toolbar.joint.connect('clicked', self._joint_cb)
+        toolbar.insert(toolbar.joint, 2)
+        toolbar.joint.show()
+
+        toolbar.destroy = ToolButton('destroy')
+        toolbar.destroy.set_tooltip(_('Destroy'))
+        toolbar.destroy.connect('clicked', self._destroy_cb)
+        toolbar.insert(toolbar.destroy, 2)
+        toolbar.destroy.show()
+                
         return toolbar
 
-    def _button1_cb(self, button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='button1'))
-        
-    def _button2_cb(self, button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='button2'))
+    def _box_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='box'))
+    def _circle_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='circle'))
+    def _triangle_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='triangle'))
+    def _polygon_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='polygon'))
+    def _magicpen_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='magicpen'))
+    def _grab_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='grab'))
+    def _joint_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='joint'))
+    def _destroy_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='destroy'))                                              
