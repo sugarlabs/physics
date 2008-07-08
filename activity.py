@@ -13,13 +13,13 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         toolbar = super(PhysicsActivity, self).build_toolbar()
         
         # Add buttons
-        toolbar.button1 = ToolButton('activity-minus')
+        toolbar.button1 = ToolButton('minus')
         toolbar.button1.set_tooltip(_('Button One'))
         toolbar.button1.connect('clicked', self._button1_cb)
         toolbar.insert(toolbar.button1, 2)
         toolbar.button1.show()
         
-        toolbar.button2 = ToolButton('activity-plus')
+        toolbar.button2 = ToolButton('plus')
         toolbar.button2.set_tooltip(_('button-2'))
         toolbar.button2.connect('clicked', self._button2_cb)
         toolbar.insert(toolbar.button2, 2)
