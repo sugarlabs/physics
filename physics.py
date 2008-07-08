@@ -33,7 +33,7 @@ class PhysicsGame:
             "grab": GrabTool(self),
             "destroy": DestroyTool(self)
         }
-        self.currentTool = self.tools["Triangle"]
+        self.currentTool = self.tools["triangle"]
         
         # set up the world
         self.world = elements.Elements(self.screen.get_size())
