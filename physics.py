@@ -68,7 +68,7 @@ class PhysicsGame:
             # Try to stay at 30 FPS
             self.clock.tick(30) # originally 50    
 
-    def setTool(tool):
+    def setTool(self,tool):
         self.currentTool.cancel()
         self.currentTool = self.tools[tool]
 
