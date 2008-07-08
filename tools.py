@@ -13,8 +13,6 @@ class Tool(object):
         self.name = "Tool"
     def handleEvents(self,event):
         # default event handling
-        if event.type == MOUSEBUTTONDOWN:
-            if self.game.menu.click(event.pos): return True
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             # bye bye! Hope you had fun!
             self.game.running = False
@@ -22,6 +20,9 @@ class Tool(object):
             if event.key == K_SPACE:
                 #space pauses
                 self.game.world.run_physics = not self.game.world.run_physics  
+        elif event.type == USEREVENT:
+            # for switching tools
+            self.game.setTool(event.action)
         else:
             # let the subclasses know that no events were handled yet
             return False  

@@ -12,7 +12,6 @@ from pygame.color import *
 import olpcgames
 import elements
 from elements import Elements
-from elements.menu import *
 from tools import *
 from helpers import *
 
@@ -36,18 +35,6 @@ class PhysicsGame:
         }
         self.currentTool = self.tools["Triangle"]
         
-        # setup the menus
-        self.menu = MenuClass()  
-        self.menu.set_width(self.screen.get_width()) 
-        self.menu.addItem('Box', callback=self.setTool)
-        self.menu.addItem('Circle', callback=self.setTool)
-        self.menu.addItem('Triangle', callback=self.setTool)
-        self.menu.addItem('Polygon', callback=self.setTool)
-        self.menu.addItem('Magic Pen', callback=self.setTool)
-        self.menu.addItem('Grab', callback=self.setTool)
-        self.menu.addItem('Joint', callback=self.setTool)
-        self.menu.addItem('Destroy', callback=self.setTool)
-        
         # set up the world
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
@@ -70,9 +57,6 @@ class PhysicsGame:
             # draw output from tools
             self.currentTool.draw()
             
-            # draw the menu
-            self.menu.draw(self.screen)
-            
             #Print all the text on the screen
             text = self.font.render("Current Tool: "+self.currentTool.name, True, (255,255,255))
             textpos = text.get_rect(left=700,top=7)
@@ -84,7 +68,7 @@ class PhysicsGame:
             # Try to stay at 30 FPS
             self.clock.tick(30) # originally 50    
 
-    def setTool(self,tool,Discard=None):
+    def setTool(tool):
         self.currentTool.cancel()
         self.currentTool = self.tools[tool]
 
