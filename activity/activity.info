@@ -1,7 +1,7 @@
 [Activity]
-name = Physics
-activity_version = 1
-host_version = 1
-service_name = net.coderanger.olpc.PhysicsActivity
-icon = activity-physics
+name = physics
+service_name = org.laptop.physics
 class = activity.PhysicsActivity
+icon = activity-physics
+activity_version = 1
+show_launcher = yes
