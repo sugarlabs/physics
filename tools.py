@@ -20,6 +20,22 @@ class Tool(object):
             if event.key == K_SPACE:
                 #space pauses
                 self.game.world.run_physics = not self.game.world.run_physics  
+            elif event.key == K_t:
+                self.game.setTool("triangle")
+            elif event.key == K_b:
+                self.game.setTool("box")
+            elif event.key == K_c:
+                self.game.setTool("circle")
+            elif event.key == K_j:
+                self.game.setTool("joint")
+            elif event.key == K_p:
+                self.game.setTool("polygon")
+            elif event.key == K_g:
+                self.game.setTool("grab")
+            elif event.key == K_d:
+                self.game.setTool("destroy")
+            elif event.key == K_m:
+                self.game.setTool("magicpen")
         elif event.type == USEREVENT:
             # for switching tools
             self.game.setTool(event.action)
