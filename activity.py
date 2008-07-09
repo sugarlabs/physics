@@ -11,54 +11,54 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     # custom toolbar
     def build_toolbar(self):
         toolbar = super(PhysicsActivity, self).build_toolbar()
-        
+        toolbar.share.props.visible = False # hide the share dropdown
         # Add buttons
         toolbar.box = ToolButton('box')
         toolbar.box.set_tooltip(_('Box'))
         toolbar.box.connect('clicked', self._box_cb)
-        toolbar.insert(toolbar.box, 2)
+        toolbar.insert(toolbar.box, 1)
         toolbar.box.show()
         
         toolbar.circle = ToolButton('circle')
         toolbar.circle.set_tooltip(_('Circle'))
         toolbar.circle.connect('clicked', self._circle_cb)
-        toolbar.insert(toolbar.circle, 2)
+        toolbar.insert(toolbar.circle, 1)
         toolbar.circle.show()
         
         toolbar.triangle = ToolButton('triangle')
         toolbar.triangle.set_tooltip(_('Triangle'))
         toolbar.triangle.connect('clicked', self._triangle_cb)
-        toolbar.insert(toolbar.triangle, 2)
+        toolbar.insert(toolbar.triangle, 1)
         toolbar.triangle.show()        
         
         toolbar.polygon = ToolButton('polygon')
         toolbar.polygon.set_tooltip(_('Polygon'))
         toolbar.polygon.connect('clicked', self._polygon_cb)
-        toolbar.insert(toolbar.polygon, 2)
+        toolbar.insert(toolbar.polygon, 1)
         toolbar.polygon.show()
 
         toolbar.magicpen = ToolButton('magicpen')
         toolbar.magicpen.set_tooltip(_('Magic Pen'))
         toolbar.magicpen.connect('clicked', self._magicpen_cb)
-        toolbar.insert(toolbar.magicpen, 2)
+        toolbar.insert(toolbar.magicpen, 1)
         toolbar.magicpen.show()
 
         toolbar.grab = ToolButton('grab')
         toolbar.grab.set_tooltip(_('Grab'))
         toolbar.grab.connect('clicked', self._grab_cb)
-        toolbar.insert(toolbar.grab, 2)
+        toolbar.insert(toolbar.grab, 1)
         toolbar.grab.show()
 
         toolbar.joint = ToolButton('joint')
         toolbar.joint.set_tooltip(_('Joint'))
         toolbar.joint.connect('clicked', self._joint_cb)
-        toolbar.insert(toolbar.joint, 2)
+        toolbar.insert(toolbar.joint, 1)
         toolbar.joint.show()
 
         toolbar.destroy = ToolButton('destroy')
         toolbar.destroy.set_tooltip(_('Destroy'))
         toolbar.destroy.connect('clicked', self._destroy_cb)
-        toolbar.insert(toolbar.destroy, 2)
+        toolbar.insert(toolbar.destroy, 1)
         toolbar.destroy.show()
                 
         return toolbar
