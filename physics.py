@@ -80,7 +80,6 @@ class PhysicsGame:
 
     def setTool(self,tool):
         self.currentTool.cancel()
-        self.currentTool = self.tools[tool]
         self.currentTool = self.tools[tool] 
 
 def main():
