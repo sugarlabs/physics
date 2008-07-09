@@ -1,5 +1,5 @@
 [Activity]
-name = physics
+name = Physics
 service_name = org.laptop.physics
 class = activity.PhysicsActivity
 icon = activity-physics
