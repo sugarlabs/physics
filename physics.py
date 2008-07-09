@@ -1,8 +1,18 @@
-#==================================================================
-#                           Physics.activity
-#     An attempt at a Phun / Crayon Physics style physics game
-#                  By Alex Levenson and Brian Jordan
-#==================================================================
+#!/usr/bin/python
+"""
+This file is part of the 'Physics' Project
+Physics is a 2D Physics Playground for Kids (supporting Box2D2)
+Physics Copyright (C) 2008, Alex Levenson, Brian Jordan
+Elements Copyright (C) 2008, The Elements Team, <elements@linuxuser.at>
+
+Wiki:   http://wiki.laptop.org/wiki/Physics
+IRC:    #olpc-physics on irc.freenode.org
+
+Code:   http://dev.laptop.org/git?p=activities/physics
+        git clone git://dev.laptop.org/activities/physics
+
+License:  GPLv3 http://gplv3.fsf.org/
+"""
 
 import sys
 import math
@@ -35,11 +45,11 @@ class PhysicsGame:
         }
         self.currentTool = self.tools["triangle"]
         
-        # set up the world
+        # set up the world (instance of Elements)
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
 
-        # load enviornment
+        # set up static environment
         self.world.add.ground()    
     
     def run(self):
@@ -71,9 +81,9 @@ class PhysicsGame:
     def setTool(self,tool):
         self.currentTool.cancel()
         self.currentTool = self.tools[tool]
+        self.currentTool = self.tools[tool] 
 
 def main():
-    # compensate for the size of the toolbar
     toolbarheight = 75
     pygame.init()
     pygame.display.init()
@@ -87,11 +97,4 @@ def main():
 # make sure that main get's called
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
 
