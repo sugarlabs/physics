@@ -84,10 +84,11 @@ class PhysicsGame:
 
 def main():
     toolbarheight = 75
+    tabheight = 30
     pygame.init()
     pygame.display.init()
     x,y  = pygame.display.list_modes()[0]
-    screen = pygame.display.set_mode((x,y-toolbarheight))
+    screen = pygame.display.set_mode((x,y-toolbarheight-tabheight))
     # create an instance of the game
     game = PhysicsGame(screen) 
     # start the main loop

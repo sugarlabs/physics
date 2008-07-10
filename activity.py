@@ -1,6 +1,6 @@
 import olpcgames
 import pygame
-from sugar.graphics.toolbutton import ToolButton
+from sugar.graphics.radiotoolbutton import RadioToolButton
 from sugar.activity import activity
 from gettext import gettext as _
 import gtk
@@ -23,53 +23,53 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         create_toolbar = gtk.Toolbar()
         
         # make + add the creation buttons
-        box = ToolButton('box')
-        box.set_tooltip(_("Box"))
-        box.connect('clicked',self._box_cb)
-        create_toolbar.insert(box,-1)    
-        box.show()
+        self.box = RadioToolButton(named_icon='box')
+        self.box.set_tooltip(_("Box"))
+        self.box.connect('clicked',self._box_cb)
+        create_toolbar.insert(self.box,-1)    
+        self.box.show()
 
-        circle = ToolButton('circle')
-        circle.set_tooltip(_("Circle"))
-        circle.connect('clicked',self._circle_cb)
-        create_toolbar.insert(circle,-1)    
-        circle.show()
+        self.circle = RadioToolButton(group=self.box, named_icon='circle')
+        self.circle.set_tooltip(_("Circle"))
+        self.circle.connect('clicked',self._circle_cb)
+        create_toolbar.insert(self.circle,-1)    
+        self.circle.show()
 
-        triangle = ToolButton('triangle')
-        triangle.set_tooltip(_("Triangle"))
-        triangle.connect('clicked',self._triangle_cb)
-        create_toolbar.insert(triangle,-1)    
-        triangle.show()
+        self.triangle = RadioToolButton(group=self.box, named_icon='triangle')
+        self.triangle.set_tooltip(_("Triangle"))
+        self.triangle.connect('clicked',self._triangle_cb)
+        create_toolbar.insert(self.triangle,-1)    
+        self.triangle.show()
         
-        polygon = ToolButton('polygon')
-        polygon.set_tooltip(_("Polygon"))
-        polygon.connect('clicked',self._polygon_cb)
-        create_toolbar.insert(polygon,-1)    
-        polygon.show()        
+        self.polygon = RadioToolButton(group=self.box, named_icon='polygon')
+        self.polygon.set_tooltip(_("Polygon"))
+        self.polygon.connect('clicked',self._polygon_cb)
+        create_toolbar.insert(self.polygon,-1)    
+        self.polygon.show()        
         
-        magicpen = ToolButton('magicpen')
-        magicpen.set_tooltip(_("Magic Pen"))
-        magicpen.connect('clicked',self._magicpen_cb)
-        create_toolbar.insert(magicpen,-1)    
-        magicpen.show()         
+        self.magicpen = RadioToolButton(group=self.box, named_icon='magicpen')
+        self.magicpen.set_tooltip(_("Magic Pen"))
+        self.magicpen.connect('clicked',self._magicpen_cb)
+        create_toolbar.insert(self.magicpen,-1)    
+        self.magicpen.show()         
         
-        grab = ToolButton('grab')
-        grab.set_tooltip(_("Grab"))
-        grab.connect('clicked',self._grab_cb)
-        create_toolbar.insert(grab,-1)    
-        grab.show()         
+        self.grab = RadioToolButton(group=self.box, named_icon='grab')
+        self.grab.set_tooltip(_("Grab"))
+        self.grab.connect('clicked',self._grab_cb)
+        create_toolbar.insert(self.grab,-1)    
+        self.grab.show()         
 
-        joint = ToolButton('joint')
-        joint.set_tooltip(_("Joint"))
-        joint.connect('clicked',self._joint_cb)
-        create_toolbar.insert(joint,-1)    
-        joint.show()         
+        self.joint = RadioToolButton(group=self.box, named_icon='joint')
+        self.joint.set_tooltip(_("Joint"))
+        self.joint.connect('clicked',self._joint_cb)
+        create_toolbar.insert(self.joint,-1)    
+        self.joint.show()         
 
-        destroy = ToolButton('destroy')
-        destroy.set_tooltip(_("Destroy"))
-        destroy.connect('clicked',self._destroy_cb)
-        create_toolbar.insert(destroy,-1)    
-        destroy.show()         
+        self.destroy = RadioToolButton(group=self.box, named_icon='destroy')
+        self.destroy.set_tooltip(_("Destroy"))
+        self.destroy.connect('clicked',self._destroy_cb)
+        create_toolbar.insert(self.destroy,-1)    
+        self.destroy.show()         
 
         # add the toolbars to the toolbox
         toolbox.add_toolbar("Create",create_toolbar)
@@ -81,8 +81,12 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         
     def _box_cb(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='box'))    
+        #self.box.do_toggled(self.box)
+    
     def _circle_cb(self,button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='circle'))        
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='circle'))
+        #self.circle.set_active(True)
+        
     def _triangle_cb(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='triangle'))        
     def _polygon_cb(self,button):
