@@ -12,6 +12,7 @@ class Tool(object):
         self.game = gameInstance
         self.name = "Tool"
     def handleEvents(self,event):
+        handled = True
         # default event handling
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             # bye bye! Hope you had fun!
@@ -39,11 +40,12 @@ class Tool(object):
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.tools.has_key(event.action): self.game.setTool(event.action)
-
+        elif event.type == MOUSEBUTTONDOWN and event.button == 1:
+            self.game.canvas.grab_focus()
+            handled = False
         else:
-            # let the subclasses know that no events were handled yet
-            return False  
-        return True                                     
+            handled = False
+        return handled                                     
     def draw(self):
         # default drawing method is don't draw anything
         pass

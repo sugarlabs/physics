@@ -31,6 +31,7 @@ class PhysicsGame:
         # get everything set up
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 24) # font object
+        self.canvas = olpcgames.ACTIVITY.canvas
         
         # setup tools
         self.tools = {
