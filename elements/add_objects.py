@@ -445,8 +445,77 @@ class Add:
         # Define the body
         x, y = c = tools_poly.calc_center(vertices_orig_reduced)
         return self.poly((x,y), vertices, dynamic, density, restitution, friction)
+    
+    # Alex Levenson's added joint methods:
+    def distanceJoint(self,b1,b2,p1,p2):
+            # Distance Joint
+            p1 = self.parent.to_world(p1)            
+            p2 = self.parent.to_world(p2)                       
+            p1x, p1y = p1
+            p2x, p2y = p2          
+            p1x /= self.parent.ppm
+            p1y /= self.parent.ppm
+            p2x /= self.parent.ppm
+            p2y /= self.parent.ppm           
+            p1 = box2d.b2Vec2(p1x, p1y)
+            p2 = box2d.b2Vec2(p2x, p2y)           
+            jointDef = box2d.b2DistanceJointDef()
+            jointDef.Initialize(b1, b2, p1, p2)
+            jointDef.collideConnected = True            
+            self.parent.world.CreateJoint(jointDef)
+    
+    def fixedJoint(self, *args):
+        if len(args) == 2:           
+            # Fixed Joint to the Background, don't assume the center of the body
+            b1 = self.parent.world.GetGroundBody()
+            b2 = args[0]
+            p1 = self.parent.to_world(args[1])                        
+            p1x, p1y = p1         
+            p1x /= self.parent.ppm
+            p1y /= self.parent.ppm
+            p1 = box2d.b2Vec2(p1x, p1y)
+             
+            jointDef = box2d.b2RevoluteJointDef()
+            jointDef.Initialize(b1, b2, p1)
+            
+            self.parent.world.CreateJoint(jointDef)
+        elif len(args) == 1:
+            # Fixed Joint to the Background, assume the center of the body
+            b1 = self.parent.world.GetGroundBody()
+            b2 = args[0]
+            p1 = b2.GetWorldCenter()
+            
+            jointDef = box2d.b2RevoluteJointDef()
+            jointDef.Initialize(b1, b2, p1)
+            
+            self.parent.world.CreateJoint(jointDef)  
+    
+    def revoluteJoint(self,b1,b2,p1):
+        # revolute joint between to bodies
+        p1 = self.parent.to_world(p1)                        
+        p1x, p1y = p1         
+        p1x /= self.parent.ppm
+        p1y /= self.parent.ppm
+        p1 = box2d.b2Vec2(p1x, p1y)
+            
+        jointDef = box2d.b2RevoluteJointDef()
+        jointDef.Initialize(b1, b2, p1)
+        
+        self.parent.world.CreateJoint(jointDef)
+    
+    def prismaticJoint(self,b1,b2,Axis=(0.0,1.0),lower=-2,upper=2):
+        jointDef = box2d.b2PrismaticJointDef()
+        worldAxis = box2d.b2Vec2(Axis[0],Axis[1])
+        jointDef.Initialize(b1, b2, b1.GetWorldCenter(), worldAxis)
+        jointDef.lowerTranslation = lower
+        jointDef.upperTranslation = upper
+        jointDef.enableLimit = True
 
-    def joint(self, *args):
+        self.parent.world.CreateJoint(jointDef)
+
+    def
+
+    def joint(self, *args):        
         print "* Add Joint:", args
 
         if len(args) == 4:
@@ -477,23 +546,8 @@ class Add:
             # Revolute Joint
             pass
 
-        elif len(args) == 2:        
-           
-            # Revolute Joint to the Background, don't assume the center of the body
-            b1 = self.parent.world.GetGroundBody()
-            b2 = args[0]
-            p1 = self.parent.to_world(args[1])                        
-            p1x, p1y = p1         
-            p1x /= self.parent.ppm
-            p1y /= self.parent.ppm
-            p1 = box2d.b2Vec2(p1x, p1y)
-             
-            jointDef = box2d.b2RevoluteJointDef()
-            jointDef.Initialize(b1, b2, p1)
-            
-            self.parent.world.CreateJoint(jointDef)
         elif len(args) == 1:
-            # Revolute Joint to the Background, assume the center of the body
+            # Fixed Joint to the Background, assume the center of the body
             b1 = self.parent.world.GetGroundBody()
             b2 = args[0]
             p1 = b2.GetWorldCenter()
