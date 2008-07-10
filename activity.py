@@ -14,18 +14,17 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     def build_toolbar(self):        
         # make a toolbox
         toolbox = activity.ActivityToolbox(self)
-        
+         
         # modify the Activity tab
         activity_toolbar = toolbox.get_activity_toolbar()
         activity_toolbar.share.props.visible = False
-        
+        self.blocklist = [] 
         # make a 'create' toolbar
         create_toolbar = gtk.Toolbar()
-        
         # make + add the creation buttons
         self.box = RadioToolButton(named_icon='box')
         self.box.set_tooltip(_("Box"))
-        self.box.connect('clicked',self._box_cb)
+        self.blocklist[len(self.blocklist):] = [self.box.connect('clicked',self._box_cb)]
         create_toolbar.insert(self.box,-1)    
         self.box.show()
 
@@ -73,14 +72,19 @@ class PhysicsActivity(olpcgames.PyGameActivity):
 
         # add the toolbars to the toolbox
         toolbox.add_toolbar("Create",create_toolbar)
-        create_toolbar.show()        
+        create_toolbar.show()       
         
         toolbox.show()
         self.set_toolbox(toolbox)
+        toolbox.set_current_toolbar(1)
         return activity_toolbar
         
     def _box_cb(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='box'))    
+        #self.box.handler_block(self.blocklist[0])
+        #self.box.set_active(True)
+        #print "Hello!"
+        #self.box.handler_unblock(self.blocklist[0])
         #self.box.do_toggled(self.box)
     
     def _circle_cb(self,button):
@@ -98,5 +102,5 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     def _joint_cb(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='joint'))        
     def _destroy_cb(self,button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='destroy'))                
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action='destroy'))
 
