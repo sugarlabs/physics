@@ -490,6 +490,31 @@ class Add:
             
             self.parent.world.CreateJoint(jointDef)  
     
+    def revoluteJoint(self,b1,b2,p1):
+        # revolute joint between to bodies
+        p1 = self.parent.to_world(p1)                        
+        p1x, p1y = p1         
+        p1x /= self.parent.ppm
+        p1y /= self.parent.ppm
+        p1 = box2d.b2Vec2(p1x, p1y)
+            
+        jointDef = box2d.b2RevoluteJointDef()
+        jointDef.Initialize(b1, b2, p1)
+        
+        self.parent.world.CreateJoint(jointDef)
+    
+    def prismaticJoint(self,b1,b2,Axis=(0.0,1.0),lower=-2,upper=2):
+        jointDef = box2d.b2PrismaticJointDef()
+        worldAxis = box2d.b2Vec2(Axis[0],Axis[1])
+        jointDef.Initialize(b1, b2, b1.GetWorldCenter(), worldAxis)
+        jointDef.lowerTranslation = lower
+        jointDef.upperTranslation = upper
+        jointDef.enableLimit = True
+
+        self.parent.world.CreateJoint(jointDef)
+
+    def
+
     def joint(self, *args):        
         print "* Add Joint:", args
 
@@ -522,7 +547,7 @@ class Add:
             pass
 
         elif len(args) == 1:
-            # Revolute Joint to the Background, assume the center of the body
+            # Fixed Joint to the Background, assume the center of the body
             b1 = self.parent.world.GetGroundBody()
             b2 = args[0]
             p1 = b2.GetWorldCenter()

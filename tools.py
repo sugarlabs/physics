@@ -259,15 +259,19 @@ class JointTool(Tool):
                     # grab the first body
                     self.jb1pos = event.pos
                     self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
-                    self.jb2 = self.jb2pos = None    
+                    self.jb2 = self.jb2pos = None 
+                if event.button == 2:
+                    bodies = self.game.world.get_bodies_at_pos(event.pos)
+                    if len(bodies) >=2:
+                        self.game.world.add.revoluteJoint(bodies[0],bodies[1],event.pos)
             elif event.type == MOUSEBUTTONUP:
                 if event.button == 1:
                     # grab the second body
                     self.jb2pos = event.pos
                     self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
-                    # if we have two distinct bodies, add a joint!
+                    # if we have two distinct bodies, add a distance joint!
                     if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
-                        self.game.world.add.distanceJoint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)
+                        self.game.world.add.distanceJoint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)                    
                     # If there's only one body, add a fixed joint
                     elif self.jb2:
                         self.game.world.add.fixedJoint(self.jb2[0],self.jb2pos)
