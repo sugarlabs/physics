@@ -240,7 +240,6 @@ class Elements:
         """ Transfers a coordinate from the screen to the world coordinate system (pixels)
             - Change to the right axis orientation
             - Include the offset: screen -- world coordinate system
-            - Include the scale factor (Screen coordinate system might have a scale factor)
         """
         dx, dy = self.screen_offset_pixel
         
@@ -362,9 +361,9 @@ class Elements:
             p1 = joint.GetAnchor2()
             p1 = self.to_screen((p1.x*self.ppm, p1.y*self.ppm))
             
-            if p1 == p2:
-                self.renderer.draw_circle((255,255,255), p1, 2, 0)
-            else:
+            if p1 == p2: # Fixation
+                self.renderer.draw_circle((255,0,0), p1, 4, 0)
+            else: # Object to object joint
                 self.renderer.draw_lines((0,0,0), False, [p1, p2], 3)
             joint = joint.GetNext()
 

@@ -513,7 +513,7 @@ class Add:
         mj.body1 = self.parent.world.GetGroundBody()
         mj.body2 = body
         mj.target = box2d.b2Vec2(x, y)
-        mj.maxForce = 50.0 * body.GetMass()
+        mj.maxForce = 100.0 * body.GetMass() # give humans POWER!
         self.parent.mouseJoint = self.parent.world.CreateJoint(mj).getAsType()
         body.WakeUp()
         

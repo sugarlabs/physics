@@ -311,4 +311,33 @@ class DestroyTool(Tool):
                 pygame.draw.lines(self.game.screen,(255,0,0),False,self.vertices,3)
 
     def cancel(self):
-        self.vertices = None      
+        self.vertices = None     
+
+ # The joystick tool        
+class JoystickTool(Tool):
+    def __init__(self,gameInstance):
+        self.game = gameInstance
+        self.name = "Joystick"
+        self.vertices = None
+        self.joystickobject
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(JoystickTool,self).handleEvents(event):
+            if pygame.mouse.get_pressed()[0]:
+                if not self.vertices: self.vertices = []
+                self.vertices.append(pygame.mouse.get_pos())
+                if len(self.vertices) > 10:
+                    self.vertices.pop(0)
+                self.joystickobject = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
+                if tokill:
+                        self.game.world.world.DestroyBody(tokill[0])
+            elif event.type == MOUSEBUTTONUP and event.button == 1:
+                self.cancel()
+    def draw(self):
+        # draw the trail
+        if self.vertices:
+            if len(self.vertices) > 1:
+                pygame.draw.lines(self.game.screen,(255,0,0),False,self.vertices,3)
+
+    def cancel(self):
+        self.vertices = None
