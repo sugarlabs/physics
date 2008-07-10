@@ -36,10 +36,6 @@ class Tool(object):
                 self.game.setTool("destroy")
             elif event.key == K_m:
                 self.game.setTool("magicpen")
-            elif event.key == K_z:
-                b1 = self.game.world.world.GetBodyList()
-                b2 = b1.GetNext()
-                self.game.world.add.pully(b1,b2,b1.GetWorldCenter(),b2.GetWorldCenter(),(100,100),(400,100))
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.tools.has_key(event.action): self.game.setTool(event.action)
@@ -306,7 +302,7 @@ class DestroyTool(Tool):
                 if len(self.vertices) > 10:
                     self.vertices.pop(0)
                 tokill = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
-                if tokill:
+                if tokill:                        
                         self.game.world.world.DestroyBody(tokill[0])
             elif event.type == MOUSEBUTTONUP and event.button == 1:
                 self.cancel()
