@@ -445,20 +445,20 @@ class Add:
         # Define the body
         x, y = c = tools_poly.calc_center(vertices_orig_reduced)
         return self.poly((x,y), vertices, dynamic, density, restitution, friction)
-    
+        
+    def to_b2vec(self,pt):
+        pt = self.parent.to_world(pt)
+        ptx, pty = pt
+        ptx /= self.parent.ppm
+        pty /= self.parent.ppm
+        pt = box2d.b2Vec2(ptx, pty)
+        return pt    
     # Alex Levenson's added joint methods:
     def distanceJoint(self,b1,b2,p1,p2):
             # Distance Joint
-            p1 = self.parent.to_world(p1)            
-            p2 = self.parent.to_world(p2)                       
-            p1x, p1y = p1
-            p2x, p2y = p2          
-            p1x /= self.parent.ppm
-            p1y /= self.parent.ppm
-            p2x /= self.parent.ppm
-            p2y /= self.parent.ppm           
-            p1 = box2d.b2Vec2(p1x, p1y)
-            p2 = box2d.b2Vec2(p2x, p2y)           
+            p1 = self.to_b2vec(p1)            
+            p2 = self.to_b2vec(p2)                      
+            
             jointDef = box2d.b2DistanceJointDef()
             jointDef.Initialize(b1, b2, p1, p2)
             jointDef.collideConnected = True            
@@ -469,11 +469,7 @@ class Add:
             # Fixed Joint to the Background, don't assume the center of the body
             b1 = self.parent.world.GetGroundBody()
             b2 = args[0]
-            p1 = self.parent.to_world(args[1])                        
-            p1x, p1y = p1         
-            p1x /= self.parent.ppm
-            p1y /= self.parent.ppm
-            p1 = box2d.b2Vec2(p1x, p1y)
+            p1 = self.to_b2vec(args[1])                        
              
             jointDef = box2d.b2RevoluteJointDef()
             jointDef.Initialize(b1, b2, p1)
@@ -492,17 +488,14 @@ class Add:
     
     def revoluteJoint(self,b1,b2,p1):
         # revolute joint between to bodies
-        p1 = self.parent.to_world(p1)                        
-        p1x, p1y = p1         
-        p1x /= self.parent.ppm
-        p1y /= self.parent.ppm
-        p1 = box2d.b2Vec2(p1x, p1y)
+        p1 = self.to_b2vec(p1)                        
             
         jointDef = box2d.b2RevoluteJointDef()
         jointDef.Initialize(b1, b2, p1)
         
         self.parent.world.CreateJoint(jointDef)
     
+    # prismatic joint + pully not fully functional at this point
     def prismaticJoint(self,b1,b2,Axis=(0.0,1.0),lower=-2,upper=2):
         jointDef = box2d.b2PrismaticJointDef()
         worldAxis = box2d.b2Vec2(Axis[0],Axis[1])
@@ -512,7 +505,20 @@ class Add:
         jointDef.enableLimit = True
 
         self.parent.world.CreateJoint(jointDef)
-
+        
+    def pully(self,b1,b2,p1,p2,g1,g2,ratio=1.0,maxLength1=5,maxLength2=5):
+        p1 = self.to_b2vec(p1)
+        p2 = self.to_b2vec(p2)
+        g1 = self.to_b2vec(g1)
+        g2 = self.to_b2vec(g2)
+        
+        jointDef = box2d.b2PulleyJointDef()
+        jointDef.Initialize(b1, b2, g1, g2, p1, p2, ratio)
+        jointDef.maxLength1 = maxLength1
+        jointDef.maxLength2 = maxLength2
+        
+        self.parent.world.CreateJoint(jointDef)
+        
     def joint(self, *args):        
         print "* Add Joint:", args
 

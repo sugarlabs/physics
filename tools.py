@@ -36,6 +36,10 @@ class Tool(object):
                 self.game.setTool("destroy")
             elif event.key == K_m:
                 self.game.setTool("magicpen")
+            elif event.key == K_z:
+                b1 = self.game.world.world.GetBodyList()
+                b2 = b1.GetNext()
+                self.game.world.add.pully(b1,b2,b1.GetWorldCenter(),b2.GetWorldCenter(),(100,100),(400,100))
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.tools.has_key(event.action): self.game.setTool(event.action)
@@ -260,10 +264,6 @@ class JointTool(Tool):
                     self.jb1pos = event.pos
                     self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
                     self.jb2 = self.jb2pos = None 
-                if event.button == 2:
-                    bodies = self.game.world.get_bodies_at_pos(event.pos)
-                    if len(bodies) >=2:
-                        self.game.world.add.revoluteJoint(bodies[0],bodies[1],event.pos)
             elif event.type == MOUSEBUTTONUP:
                 if event.button == 1:
                     # grab the second body
