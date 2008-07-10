@@ -513,8 +513,6 @@ class Add:
 
         self.parent.world.CreateJoint(jointDef)
 
-    def
-
     def joint(self, *args):        
         print "* Add Joint:", args
 
