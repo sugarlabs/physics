@@ -161,8 +161,11 @@ class PolygonTool(Tool):
                     if not self.vertices:
                         self.vertices=[event.pos]  
                     elif distance(event.pos,self.vertices[0]) < 15:                     
-                        self.vertices.append(self.vertices[0]) #connect the polygon
-                        self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                        #self.vertices.append(self.vertices[0]) #connect the polygon
+                        gons = decomposePoly(self.vertices)
+                        for g in gons:
+                            self.game.world.add.convexPoly(g, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                        #self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
                         self.vertices = None  
                     else:
                         self.vertices.append(event.pos)
