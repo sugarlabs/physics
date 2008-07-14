@@ -37,6 +37,8 @@ class Tool(object):
                 self.game.setTool("destroy")
             elif event.key == K_m:
                 self.game.setTool("magicpen")
+            elif event.key == K_g:
+                self.game.setTool("gear")
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.tools.has_key(event.action): self.game.setTool(event.action)
@@ -260,11 +262,11 @@ class JointTool(Tool):
         #look for default events, and if none are handled then try the custom events 
         if not super(JointTool,self).handleEvents(event):
             if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
+                if event.button >= 1:
                     # grab the first body
                     self.jb1pos = event.pos
                     self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
-                    self.jb2 = self.jb2pos = None 
+                    self.jb2 = self.jb2pos = None
             elif event.type == MOUSEBUTTONUP:
                 if event.button == 1:
                     # grab the second body
@@ -280,10 +282,12 @@ class JointTool(Tool):
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
                 if event.button == 3:
                     # add a centered fixed joint
-                    self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
+                    '''self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
                     if self.jb2:
                         self.game.world.add.fixedJoint(self.jb2[0])
                     # regardless, clean everything up
+                    self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None'''
+                    self.game.world.add.fixedJoint(self.jb1[0],self.jb1pos, True)
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
     def draw(self):
         if self.jb1:
