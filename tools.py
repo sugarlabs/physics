@@ -287,7 +287,7 @@ class JointTool(Tool):
                         self.game.world.add.fixedJoint(self.jb2[0])
                     # regardless, clean everything up
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None'''
-                    self.game.world.add.fixedJoint(self.jb1[0],self.jb1pos, True)
+                    self.game.world.add.motor(self.jb1[0],self.jb1pos)
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
     def draw(self):
         if self.jb1:

@@ -465,7 +465,7 @@ class Add:
             self.parent.world.CreateJoint(jointDef)
     
     def fixedJoint(self, *args):
-        if len(args) >= 2:           
+        if len(args) == 2:           
             # Fixed Joint to the Background, don't assume the center of the body
             b1 = self.parent.world.GetGroundBody()
             b2 = args[0]
@@ -473,10 +473,6 @@ class Add:
              
             jointDef = box2d.b2RevoluteJointDef()
             jointDef.Initialize(b1, b2, p1)
-            if len(args) == 3:
-                jointDef.maxMotorTorque = 900.0
-                jointDef.motorSpeed = 20.0
-                jointDef.enableMotor = True
             self.parent.world.CreateJoint(jointDef)
         elif len(args) == 1:
             # Fixed Joint to the Background, assume the center of the body
@@ -522,6 +518,17 @@ class Add:
         
         self.parent.world.CreateJoint(jointDef)
 
+    def motor(self, body,pt,torque=900,speed=-10):           
+        # Fixed Joint to the Background with a motor on it
+        b1 = self.parent.world.GetGroundBody()
+        pt = self.to_b2vec(pt)                        
+            
+        jointDef = box2d.b2RevoluteJointDef()
+        jointDef.Initialize(b1, body, pt)
+        jointDef.maxMotorTorque = torque
+        jointDef.motorSpeed = speed
+        jointDef.enableMotor = True
+        self.parent.world.CreateJoint(jointDef)
     #def jointMotor(self,b1,b2,p1,speed):
     #    p1 = self.tob2vec(p1)
     #    jointDef = box2d.b2RevoluteJointDef()
