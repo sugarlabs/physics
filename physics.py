@@ -32,7 +32,7 @@ class PhysicsGame:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 24) # font object
         self.canvas = olpcgames.ACTIVITY.canvas
-        
+         
         # setup tools
         self.tools = {
             "triangle": TriangleTool(self),
@@ -49,17 +49,17 @@ class PhysicsGame:
         # set up the world (instance of Elements)
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
-
+        
         # set up static environment
         self.world.add.ground()    
-    
+        
     def run(self):
         self.running = True    
         while self.running:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
             # Clear Display
-            self.screen.fill((255,255,255))
+            self.screen.fill((0,0,0)) #255 for white
         
             # Update & Draw World
             self.world.update()
