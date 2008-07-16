@@ -45,7 +45,7 @@ class Tool(object):
             #    self.game.setTool("gear")
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
-                if self.game.tools.has_key(event.action): self.game.setTool(event.action)
+                if self.game.toolList.has_key(event.action): self.game.setTool(event.action)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.game.canvas.grab_focus()
             handled = False
@@ -371,7 +371,7 @@ class JoystickTool(Tool):
         self.game = gameInstance
         self.name = "Joystick"
         self.vertices = None
-        self.joystickobject
+        #self.joystickobject
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(JoystickTool,self).handleEvents(event):

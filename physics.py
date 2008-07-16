@@ -22,7 +22,7 @@ from pygame.color import *
 import olpcgames
 import elements
 from elements import Elements
-from tools import *
+import tools
 from helpers import *
 
 class PhysicsGame:
@@ -33,18 +33,11 @@ class PhysicsGame:
         self.font = pygame.font.Font(None, 24) # font object
         self.canvas = olpcgames.ACTIVITY.canvas
          
-        # setup tools
-        self.tools = {
-            "triangle": TriangleTool(self),
-            "box": BoxTool(self),
-            "circle": CircleTool(self),
-            "polygon": PolygonTool(self),
-            "magicpen": MagicPenTool(self),
-            "joint": JointTool(self),
-            "grab": GrabTool(self),
-            "destroy": DestroyTool(self)
-        }
-        self.currentTool = self.tools["triangle"]
+        # create the name --> instance map for components
+        self.toolList = {}
+        for c in tools.allTools:
+             self.toolList[c.name] = c(self)
+        self.currentTool = self.toolList[tools.allTools[0].name]
         
         # set up the world (instance of Elements)
         self.world = elements.Elements(self.screen.get_size())
@@ -81,7 +74,7 @@ class PhysicsGame:
 
     def setTool(self,tool):
         self.currentTool.cancel()
-        self.currentTool = self.tools[tool] 
+        self.currentTool = self.toolList[tool] 
 
 def main():
     toolbarheight = 75
