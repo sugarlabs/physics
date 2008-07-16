@@ -6,6 +6,7 @@
 import pygame
 from pygame.locals import *
 from helpers import *
+from inspect import getmro
 # tools that can be used superlcass
 class Tool(object):
     name = "Tool"
@@ -394,9 +395,13 @@ class JoystickTool(Tool):
         self.vertices = None
 
 
-def list_local_classes():
+def getAllTools():
     this_mod = __import__(__name__)
-    return [val for val in this_mod.__dict__.values()
-                if isinstance(val, type)]
+    all = [val for val in this_mod.__dict__.values() if isinstance(val, type)]
+    allTools = []
+    for a in all:
+        if getmro(a).__contains__(Tool) and a!= Tool: allTools.append(a)
+    return allTools
+            
 
-local_classes = list_local_classes()
+allTools = getAllTools()
