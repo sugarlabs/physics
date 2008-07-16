@@ -119,26 +119,5 @@ def decomposePoly(vertices):
             nv -= 1
             # reset error detection
             count = 2*nv
-    return result       
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    return result
+
