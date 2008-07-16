@@ -40,8 +40,8 @@ class Tool(object):
                 self.game.setTool("destroy")
             elif event.key == K_m:
                 self.game.setTool("magicpen")
-            elif event.key == K_g:
-                self.game.setTool("gear")
+            #elif event.key == K_g:
+            #    self.game.setTool("gear")
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.tools.has_key(event.action): self.game.setTool(event.action)
