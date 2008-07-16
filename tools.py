@@ -8,6 +8,9 @@ from pygame.locals import *
 from helpers import *
 # tools that can be used superlcass
 class Tool(object):
+    name = "Tool"
+    icon = "icon"
+    toolTip = "Tool Tip"
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Tool"
@@ -56,7 +59,11 @@ class Tool(object):
         pass
 
 # The circle creation tool        
-class CircleTool(Tool):    
+class CircleTool(Tool): 
+    name = "circle"
+    icon = "circle"
+    toolTip = "Circle"
+   
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Circle"
@@ -90,6 +97,10 @@ class CircleTool(Tool):
    
 # The box creation tool        
 class BoxTool(Tool):    
+    name = "box"
+    icon = "box"
+    toolTip = "Box"
+
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Box"
@@ -120,7 +131,11 @@ class BoxTool(Tool):
         self.rect = None      
            
 # The triangle creation tool        
-class TriangleTool(Tool):    
+class TriangleTool(Tool): 
+    name = "triangle"
+    icon = "triangle"
+    toolTip = "Triangle"
+   
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Triangle"
@@ -150,7 +165,11 @@ class TriangleTool(Tool):
         self.vertices = None
 
 # The Polygon creation tool        
-class PolygonTool(Tool):    
+class PolygonTool(Tool):  
+    name = "polygon"
+    icon = "polygon"
+    toolTip = "Polygon"
+  
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Polygon"
@@ -189,7 +208,11 @@ class PolygonTool(Tool):
         self.vertices = None
 
 # The magic pen tool        
-class MagicPenTool(Tool):    
+class MagicPenTool(Tool):
+    name = "magicpen"
+    icon = "magicpen"
+    toolTip = "Magic Pen"
+    
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Magic Pen"
@@ -228,7 +251,11 @@ class MagicPenTool(Tool):
         self.vertices = None
 
 # The grab tool        
-class GrabTool(Tool):    
+class GrabTool(Tool):
+    name = "grab"
+    icon = "grab"
+    toolTip = "Grab"
+    
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Grab"
@@ -253,7 +280,11 @@ class GrabTool(Tool):
         self.game.world.add.remove_mouseJoint()                        
     
 # The joint tool        
-class JointTool(Tool):    
+class JointTool(Tool):
+    name = "joint"
+    icon = "joint"
+    toolTip = "Joint"
+    
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Joint"
@@ -297,7 +328,11 @@ class JointTool(Tool):
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None             
         
 # The destroy tool        
-class DestroyTool(Tool):    
+class DestroyTool(Tool):
+    name = "destroy"
+    icon = "destroy"
+    toolTip = "Destroy"
+    
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Destroy"
@@ -326,6 +361,10 @@ class DestroyTool(Tool):
 
  # The joystick tool        
 class JoystickTool(Tool):
+    name = "joystick"
+    icon = "magicpen" # for now
+    toolTip = "Joystick"
+
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Joystick"
@@ -352,3 +391,11 @@ class JoystickTool(Tool):
 
     def cancel(self):
         self.vertices = None
+
+
+def list_local_classes():
+    this_mod = __import__(__name__)
+    return [val for val in this_mod.__dict__.values()
+                if isinstance(val, type)]
+
+local_classes = list_local_classes()
