@@ -23,14 +23,9 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         # make a 'create' toolbar
         create_toolbar = gtk.Toolbar()
         
-        # get a list of all component classes
-        componentsList = tools.local_classes
-        componentsList.remove(tools.Tool)
-        #hack (For now)
-        componentsList.remove(pygame.Rect)
         # make + add the component buttons
         self.radioList = {}
-        for c in componentsList:                             
+        for c in tools.allTools:                             
             button = RadioToolButton(named_icon=c.icon)
             button.set_tooltip(_(c.toolTip))
             button.connect('clicked',self.radioClicked)
