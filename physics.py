@@ -52,7 +52,7 @@ class PhysicsGame:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
             # Clear Display
-            self.screen.fill((0,0,0)) #255 for white
+            self.screen.fill((255,255,255)) #255 for white
         
             # Update & Draw World
             self.world.update()
