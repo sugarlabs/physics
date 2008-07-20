@@ -32,7 +32,8 @@ class PhysicsGame:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 24) # font object
         self.canvas = olpcgames.ACTIVITY.canvas
-         
+        self.joystickobject = None 
+        self.debug = True
         # create the name --> instance map for components
         self.toolList = {}
         for c in tools.allTools:

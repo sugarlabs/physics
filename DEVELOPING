@@ -1,6 +1,6 @@
 activity/
 activity.py
-elements/ -r (upstream, but branched here) Simplification wrapper around pyBox2D (in a subdirectory here)
+elements/ - (upstream, but branched here) Simplification wrapper around pyBox2D (in a subdirectory here)
 helpers.py - mathematical helper functions
 icons/ - all graphics used in Physics (mostly svg menu icons)
 olpcgames/ - (upstream) The Pygame wrapper for the OLPC Sugar platform

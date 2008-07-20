@@ -43,6 +43,39 @@ class Tool(object):
                 self.game.setTool("magicpen")
             #elif event.key == K_g:
             #    self.game.setTool("gear")
+            # Game/joystick-related keys
+            elif event.key == K_KP4: # Left gamepad, left arrow
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(9000) 
+                elif self.game.debug: print "Left gamepad left arrow error: no joystick object selected"
+            elif event.key == K_KP6: # Left gamepad, right arrow
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(9000) 
+                elif self.game.debug: print "Left gamepad right arrow error: no joystick object selected"
+            elif event.key == K_KP8: # Left gamepad, up arrow
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(9000) 
+                elif self.game.debug: print "Left gamepad up arrow error: no joystick object selected"
+            elif event.key == K_KP2: # Left gamepad, down arrow
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(9000) 
+                elif self.game.debug: print "Left gamepad down arrow error: no joystick object selected"
+            elif event.key == K_KP7: # Right gamepad, square
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(-9000) 
+                elif self.game.debug: print "Right gamepad square button error: no joystick object selected"
+            elif event.key == K_KP1: # Right gamepad, check
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(-9000) 
+                elif self.game.debug: print "Right gamepad check button error: no joystick object selected"
+            elif event.key == K_KP9: # Right gamepad, circle
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(-9000) 
+                elif self.game.debug: print "Right gamepad circle button error: no joystick object selected"
+            elif event.key == K_KP3: # Right gamepad, X
+                if self.game.joystickobject:
+                    self.game.joystickobject[0].ApplyTorque(-9000) 
+                elif self.game.debug: print "Right gamepad X button error: no joystick object selected"
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.toolList.has_key(event.action): self.game.setTool(event.action)
@@ -374,17 +407,19 @@ class JoystickTool(Tool):
         #self.joystickobject
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
-        if not super(JoystickTool,self).handleEvents(event):
-            if pygame.mouse.get_pressed()[0]:
-                if not self.vertices: self.vertices = []
+        super(JoystickTool,self).handleEvents(event)
+        if pygame.mouse.get_pressed()[0]:
+            if not self.vertices:
+                self.vertices = []
                 self.vertices.append(pygame.mouse.get_pos())
-                if len(self.vertices) > 10:
-                    self.vertices.pop(0)
-                self.joystickobject = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
-                if tokill:
-                        self.game.world.world.DestroyBody(tokill[0])
-            elif event.type == MOUSEBUTTONUP and event.button == 1:
-                self.cancel()
+            if len(self.vertices) > 10:
+                self.vertices.pop(0)
+            self.game.joystickobject = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
+            if self.game.joystickobject:
+                print "hi1"                
+        #self.game.world.world.DestroyBody(self.joystickobject[0])
+        elif event.type == MOUSEBUTTONUP and event.button == 1:
+            self.cancel()
     def draw(self):
         # draw the trail
         if self.vertices:
