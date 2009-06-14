@@ -328,8 +328,56 @@ class JointTool(Tool):
             pygame.draw.line(self.game.screen,(100,180,255),self.jb1pos,pygame.mouse.get_pos(),3)
     
     def cancel(self):
-        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None             
-        
+        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None   
+
+# The pin tool        
+class PinTool(Tool):
+    name = "pin"
+    icon = "pin"
+    toolTip = "Pin"
+    
+    def __init__(self,gameInstance):
+        self.game = gameInstance
+        self.name = "Pin"
+        self.jb1 = self.jb1pos = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(PinTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                self.jb1pos = event.pos
+                self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
+                if self.jb1:
+                    self.game.world.add.fixedJoint(self.jb1[0],self.jb1pos)
+                self.jb1 = self.jb1pos = None
+
+    def cancel(self):
+        self.jb1 = self.jb1pos = None
+         
+# The motor tool        
+class MotorTool(Tool):
+    name = "motor"
+    icon = "motor"
+    toolTip = "Motor"
+    
+    def __init__(self,gameInstance):
+        self.game = gameInstance
+        self.name = "Motor"
+        self.jb1 = self.jb1pos = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events 
+        if not super(MotorTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button >= 1:
+                    # grab the first body
+                    self.jb1pos = event.pos
+                    self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
+                    if self.jb1:
+                        self.game.world.add.motor(self.jb1[0],self.jb1pos)
+                    self.jb1 = self.jb1pos = None
+    def cancel(self):
+        self.jb1 = self.jb1pos = None
+   
+   
 # The destroy tool        
 class DestroyTool(Tool):
     name = "destroy"
