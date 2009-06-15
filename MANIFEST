@@ -64,3 +64,5 @@ olpcgames/video.py
 olpcgames/data/__init__.py
 olpcgames/data/sleeping.svg
 olpcgames/data/sleeping_svg.py
+icons/motor.svg
+icons/pin.svg
