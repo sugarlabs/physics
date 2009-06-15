@@ -25,8 +25,14 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         
         # make + add the component buttons
         self.radioList = {}
+        firstButton = None
         for c in tools.allTools:                             
             button = RadioToolButton(named_icon=c.icon)
+            if firstButton:
+                button.set_group(firstButton)
+            else:
+                button.set_group(None)
+                firstButton = button
             button.set_tooltip(_(c.toolTip))
             button.connect('clicked',self.radioClicked)
             create_toolbar.insert(button,-1)    
