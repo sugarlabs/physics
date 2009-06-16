@@ -59,12 +59,7 @@ class PhysicsGame:
             
             # draw output from tools
             self.currentTool.draw()
-            
-            #Print all the text on the screen
-            text = self.font.render("Current Tool: "+self.currentTool.name, True, (255,255,255))
-            textpos = text.get_rect(left=700,top=7)
-            self.screen.blit(text,textpos)  
-            
+                        
             # Flip Display
             pygame.display.flip()  
             
