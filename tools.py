@@ -20,7 +20,7 @@ class Tool(object):
     def handleEvents(self,event):
         handled = True
         # default event handling
-        if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+        if event.type == QUIT:
             # bye bye! Hope you had fun!
             self.game.running = False
         elif event.type == KEYDOWN:
