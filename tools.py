@@ -25,24 +25,6 @@ class Tool(object):
             if event.key == K_SPACE:
                 #space pauses
                 self.game.world.run_physics = not self.game.world.run_physics  
-            elif event.key == K_t:
-                self.game.setTool("triangle")
-            elif event.key == K_b:
-                self.game.setTool("box")
-            elif event.key == K_c:
-                self.game.setTool("circle")
-            elif event.key == K_j:
-                self.game.setTool("joint")
-            elif event.key == K_p:
-                self.game.setTool("polygon")
-            elif event.key == K_g:
-                self.game.setTool("grab")
-            elif event.key == K_d:
-                self.game.setTool("destroy")
-            elif event.key == K_m:
-                self.game.setTool("magicpen")
-            #elif event.key == K_g:
-            #    self.game.setTool("gear")
 
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
@@ -65,6 +47,7 @@ class CircleTool(Tool):
     name = "circle"
     icon = "circle"
     toolTip = "Circle"
+    toolAccelerator = "c"
    
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -102,6 +85,7 @@ class BoxTool(Tool):
     name = "box"
     icon = "box"
     toolTip = "Box"
+    toolAccelerator = "b"
 
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -137,6 +121,7 @@ class TriangleTool(Tool):
     name = "triangle"
     icon = "triangle"
     toolTip = "Triangle"
+    toolAccelerator = "t"
    
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -171,6 +156,7 @@ class PolygonTool(Tool):
     name = "polygon"
     icon = "polygon"
     toolTip = "Polygon"
+    toolAccelerator = "p"
   
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -214,6 +200,7 @@ class MagicPenTool(Tool):
     name = "magicpen"
     icon = "magicpen"
     toolTip = "Magic Pen"
+    toolAccelerator = "m"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -257,6 +244,7 @@ class GrabTool(Tool):
     name = "grab"
     icon = "grab"
     toolTip = "Grab"
+    toolAccelerator = "g"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -286,6 +274,7 @@ class JointTool(Tool):
     name = "joint"
     icon = "joint"
     toolTip = "Joint"
+    toolAccelerator = "j"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -335,6 +324,7 @@ class PinTool(Tool):
     name = "pin"
     icon = "pin"
     toolTip = "Pin"
+    toolAccelerator = None
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -358,6 +348,7 @@ class MotorTool(Tool):
     name = "motor"
     icon = "motor"
     toolTip = "Motor"
+    toolAccelerator = None
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -383,6 +374,7 @@ class DestroyTool(Tool):
     name = "destroy"
     icon = "destroy"
     toolTip = "Destroy"
+    toolAccelerator = "d"
     
     def __init__(self,gameInstance):
         self.game = gameInstance

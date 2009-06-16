@@ -34,6 +34,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
                 button.set_group(None)
                 firstButton = button
             button.set_tooltip(_(c.toolTip))
+            button.set_accelerator(c.toolAccelerator)
             button.connect('clicked',self.radioClicked)
             create_toolbar.insert(button,-1)    
             button.show()
