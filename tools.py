@@ -215,24 +215,19 @@ class MagicPenTool(Tool):
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(MagicPenTool,self).handleEvents(event):
-            if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    if not self.vertices:
-                        self.vertices=[event.pos]  
-                    elif distance(event.pos,self.vertices[0]) < 15:                     
-                        self.vertices.append(self.vertices[0]) #connect the polygon
-                        self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
-                        self.vertices = None  
-                    else:
-                        self.vertices.append(event.pos)
-            elif event.type == MOUSEBUTTONUP:
-                if event.button == 1:
-                        if self.vertices:
-                            self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
-                        self.vertices = None
-            elif event.type == MOUSEMOTION:
-                if self.vertices:
-                    self.vertices.append(event.pos)
+            if event.type == MOUSEBUTTONDOWN and event.button == 1:
+                self.vertices=[event.pos]
+                self.safe = False
+            elif event.type == MOUSEBUTTONUP and event.button == 1:
+                if self.vertices and self.safe:
+                    self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                    self.vertices = None
+                else:
+                    self.vertices = None
+            elif event.type == MOUSEMOTION and self.vertices:
+                self.vertices.append(event.pos)
+                if distance(event.pos,self.vertices[0]) >= 55 and len(self.vertices) > 3:
+                    self.safe = True
                                 
     def draw(self):
         # draw the poly being created
