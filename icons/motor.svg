@@ -113,4 +113,6 @@
    style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.40237498;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
    d="M 15.424531,40.206691 C 15.424531,40.206691 14.755821,37.527594 7.182978,32.30782 C 5.336619,41.89277 7.820278,43.898803 7.820278,43.898803"
    id="path4290"
-   sodipodi:nodetypes="ccc" /></svg>
+   sodipodi:nodetypes="ccc" />
+   <circle display="inline" fill="#ffffff" cx="27.5" cy="27.5" r="3"/>
+</svg>
