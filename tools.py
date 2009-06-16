@@ -12,6 +12,8 @@ class Tool(object):
     name = "Tool"
     icon = "icon"
     toolTip = "Tool Tip"
+    toolAccelerator = None
+    
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = "Tool"
@@ -199,12 +201,12 @@ class PolygonTool(Tool):
 class MagicPenTool(Tool):
     name = "magicpen"
     icon = "magicpen"
-    toolTip = "Magic Pen"
-    toolAccelerator = "m"
+    toolTip = "Draw"
+    toolAccelerator = "d"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Magic Pen"
+        self.name = "Draw"
         self.vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
@@ -324,7 +326,7 @@ class PinTool(Tool):
     name = "pin"
     icon = "pin"
     toolTip = "Pin"
-    toolAccelerator = None
+    toolAccelerator = "o"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -348,7 +350,7 @@ class MotorTool(Tool):
     name = "motor"
     icon = "motor"
     toolTip = "Motor"
-    toolAccelerator = None
+    toolAccelerator = "m"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -373,12 +375,12 @@ class MotorTool(Tool):
 class DestroyTool(Tool):
     name = "destroy"
     icon = "destroy"
-    toolTip = "Destroy"
-    toolAccelerator = "d"
+    toolTip = "Erase"
+    toolAccelerator = "e"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Destroy"
+        self.name = "Erase"
         self.vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
