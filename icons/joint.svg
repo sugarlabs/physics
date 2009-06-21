@@ -5,7 +5,8 @@
 	 height="55px" viewBox="0 0 55 55" enable-background="new 0 0 55 55" xml:space="preserve">
 
 <g id="Line" >
-	<line display="inline" fill="none" stroke="#FFFFFF" stroke-width="2.25" x1="8.708" y1="47.167" x2="48.042" y2="7.833"/>
+	<line display="inline" fill="none" stroke="#FFFFFF" stroke-width="2.25" x1="10" y1="45" x2="45" y2="10"/>
 </g>
-
+<circle display="inline" fill="#ffffff" cx="10" cy="45" r="3"/>
+<circle display="inline" fill="#ffffff" cx="45" cy="10" r="3"/>
 </svg>
