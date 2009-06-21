@@ -2,6 +2,7 @@ import tools
 import olpcgames
 import pygame
 from sugar.graphics.radiotoolbutton import RadioToolButton
+from sugar.graphics.toolbutton import ToolButton
 from sugar.activity import activity
 from gettext import gettext as _
 import gtk
@@ -22,6 +23,19 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         self.blocklist = [] 
         # make a 'create' toolbar
         create_toolbar = gtk.Toolbar()
+        
+        # stop/play button
+        self.stop_play_state = True
+        self.stop_play = ToolButton('media-playback-stop')
+        self.stop_play.set_tooltip(_('Stop'))
+        self.stop_play.set_accelerator(_('space'))
+        self.stop_play.connect('clicked', self.stop_play_cb)
+        create_toolbar.insert(self.stop_play, 0)
+        self.stop_play.show()
+
+        separator = gtk.SeparatorToolItem()
+        create_toolbar.insert(separator, 1)
+        separator.show()
         
         # make + add the component buttons
         self.radioList = {}
@@ -49,5 +63,16 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         toolbox.set_current_toolbar(1)
         return activity_toolbar
 
+    def stop_play_cb(self, button):
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.KEYDOWN, key=pygame.K_SPACE))
+        self.stop_play_state = not self.stop_play_state
+        # Update button
+        if self.stop_play_state:
+            self.stop_play.set_icon('media-playback-stop')
+            self.stop_play.set_tooltip(_('Stop'))
+        else:
+            self.stop_play.set_icon('media-playback-start')
+            self.stop_play.set_tooltip(_('Start'))
+                    
     def radioClicked(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))
