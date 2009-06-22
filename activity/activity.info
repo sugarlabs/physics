@@ -3,5 +3,5 @@ name = Physics
 service_name = org.laptop.physics
 class = activity.PhysicsActivity
 icon = activity-physics
-activity_version = 1
+activity_version = 2
 show_launcher = yes
