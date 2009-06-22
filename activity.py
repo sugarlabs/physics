@@ -9,7 +9,7 @@ import gtk
 
 class PhysicsActivity(olpcgames.PyGameActivity):
     game_name = 'physics'
-    game_title = 'Physics'
+    game_title = _('Physics')
     game_size = None # olpcgame will choose size
 
     # setup the toolbar
@@ -27,7 +27,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         # stop/play button
         self.stop_play_state = True
         self.stop_play = ToolButton('media-playback-stop')
-        self.stop_play.set_tooltip(_('Stop'))
+        self.stop_play.set_tooltip(_("Stop"))
         self.stop_play.set_accelerator(_('space'))
         self.stop_play.connect('clicked', self.stop_play_cb)
         create_toolbar.insert(self.stop_play, 0)
@@ -47,7 +47,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             else:
                 button.set_group(None)
                 firstButton = button
-            button.set_tooltip(_(c.toolTip))
+            button.set_tooltip(c.toolTip)
             button.set_accelerator(c.toolAccelerator)
             button.connect('clicked',self.radioClicked)
             create_toolbar.insert(button,-1)    
@@ -55,7 +55,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             self.radioList[button] = c.name
 
         # add the toolbars to the toolbox
-        toolbox.add_toolbar("Create",create_toolbar)
+        toolbox.add_toolbar(_("Create"),create_toolbar)
         create_toolbar.show()       
         
         toolbox.show()
@@ -69,10 +69,10 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         # Update button
         if self.stop_play_state:
             self.stop_play.set_icon('media-playback-stop')
-            self.stop_play.set_tooltip(_('Stop'))
+            self.stop_play.set_tooltip(_("Stop"))
         else:
             self.stop_play.set_icon('media-playback-start')
-            self.stop_play.set_tooltip(_('Start'))
+            self.stop_play.set_tooltip(_("Start"))
                     
     def radioClicked(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))

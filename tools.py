@@ -7,16 +7,17 @@ import pygame
 from pygame.locals import *
 from helpers import *
 from inspect import getmro
+from gettext import gettext as _
 # tools that can be used superlcass
 class Tool(object):
-    name = "Tool"
-    icon = "icon"
+    name = 'Tool'
+    icon = 'icon'
     toolTip = "Tool Tip"
     toolAccelerator = None
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Tool"
+        self.name = 'Tool'
     def handleEvents(self,event):
         handled = True
         # default event handling
@@ -46,14 +47,14 @@ class Tool(object):
 
 # The circle creation tool        
 class CircleTool(Tool): 
-    name = "circle"
-    icon = "circle"
-    toolTip = "Circle"
-    toolAccelerator = "c"
+    name = 'Circle'
+    icon = 'circle'
+    toolTip = _("Circle")
+    toolAccelerator = _("c")
    
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Circle"
+        self.name = 'Circle'
         self.pt1 = None
         self.radius = None
     def handleEvents(self,event):
@@ -84,14 +85,14 @@ class CircleTool(Tool):
    
 # The box creation tool        
 class BoxTool(Tool):    
-    name = "box"
-    icon = "box"
-    toolTip = "Box"
-    toolAccelerator = "b"
+    name = 'Box'
+    icon = 'box'
+    toolTip = _("Box")
+    toolAccelerator = _("b")
 
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Box"
+        self.name = 'Box'
         self.pt1 = None        
         self.rect = None
     def handleEvents(self,event):
@@ -120,14 +121,14 @@ class BoxTool(Tool):
            
 # The triangle creation tool        
 class TriangleTool(Tool): 
-    name = "triangle"
-    icon = "triangle"
-    toolTip = "Triangle"
-    toolAccelerator = "t"
+    name = 'Triangle'
+    icon = 'triangle'
+    toolTip = _("Triangle")
+    toolAccelerator = _("t")
    
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Triangle"
+        self.name = 'Triangle'
         self.pt1 = None
         self.vertices = None
     def handleEvents(self,event):
@@ -155,14 +156,14 @@ class TriangleTool(Tool):
 
 # The Polygon creation tool        
 class PolygonTool(Tool):  
-    name = "polygon"
-    icon = "polygon"
-    toolTip = "Polygon"
-    toolAccelerator = "p"
+    name = 'Polygon'
+    icon = 'polygon'
+    toolTip = _("Polygon")
+    toolAccelerator = _("p")
   
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Polygon"
+        self.name = 'Polygon'
         self.vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
@@ -214,14 +215,14 @@ class PolygonTool(Tool):
 
 # The magic pen tool        
 class MagicPenTool(Tool):
-    name = "magicpen"
-    icon = "magicpen"
-    toolTip = "Draw"
-    toolAccelerator = "d"
+    name = 'Magicpen'
+    icon = 'magicpen'
+    toolTip = _("Draw")
+    toolAccelerator = _("d")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Draw"
+        self.name = 'Magicpen'
         self.vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
@@ -253,14 +254,14 @@ class MagicPenTool(Tool):
 
 # The grab tool        
 class GrabTool(Tool):
-    name = "grab"
-    icon = "grab"
-    toolTip = "Grab"
-    toolAccelerator = "g"
+    name = 'Grab'
+    icon = 'grab'
+    toolTip = _("Grab")
+    toolAccelerator = _("g")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Grab"
+        self.name = 'Grab'
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(GrabTool,self).handleEvents(event):
@@ -283,14 +284,14 @@ class GrabTool(Tool):
     
 # The joint tool        
 class JointTool(Tool):
-    name = "joint"
-    icon = "joint"
-    toolTip = "Joint"
+    name = 'Joint'
+    icon = 'joint'
+    toolTip = _("Joint")
     toolAccelerator = "j"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Joint"
+        self.name = 'Joint'
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
@@ -333,14 +334,14 @@ class JointTool(Tool):
 
 # The pin tool        
 class PinTool(Tool):
-    name = "pin"
-    icon = "pin"
-    toolTip = "Pin"
-    toolAccelerator = "o"
+    name = 'Pin'
+    icon = 'pin'
+    toolTip = _("Pin")
+    toolAccelerator = _("o")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Pin"
+        self.name = 'Pin'
         self.jb1 = self.jb1pos = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
@@ -357,14 +358,14 @@ class PinTool(Tool):
          
 # The motor tool        
 class MotorTool(Tool):
-    name = "motor"
-    icon = "motor"
-    toolTip = "Motor"
-    toolAccelerator = "m"
+    name = 'Motor'
+    icon = 'motor'
+    toolTip = _("Motor")
+    toolAccelerator = _("m")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Motor"
+        self.name = 'Motor'
         self.jb1 = self.jb1pos = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
@@ -383,14 +384,14 @@ class MotorTool(Tool):
    
 # The destroy tool        
 class DestroyTool(Tool):
-    name = "destroy"
-    icon = "destroy"
-    toolTip = "Erase"
-    toolAccelerator = "e"
+    name = 'Destroy'
+    icon = 'destroy'
+    toolTip = _("Erase")
+    toolAccelerator = _("e")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = "Erase"
+        self.name = 'Destroy'
         self.vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
