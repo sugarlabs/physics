@@ -49,7 +49,7 @@
 
 <path
    sodipodi:type="arc"
-  fill="&fill_color;" stroke="&stroke_color;" style="fill-opacity:1;fill-rule:nonzero;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+  fill="&fill_color;" stroke="&stroke_color;" style="fill-opacity:1;fill-rule:nonzero;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
    id="path2208"
    sodipodi:cx="13.558201"
    sodipodi:cy="15.145503"
@@ -58,7 +58,7 @@
    d="M 22.751323 15.145503 A 9.1931219 9.1931219 0 1 1  4.3650789,15.145503 A 9.1931219 9.1931219 0 1 1  22.751323 15.145503 z"
    transform="translate(-2.3809524,3.8359789)" /><path
    sodipodi:type="star"
-    fill="&fill_color;" stroke="&stroke_color;"  style="fill-opacity:1;fill-rule:nonzero;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+    fill="&fill_color;" stroke="&stroke_color;"  style="fill-opacity:1;fill-rule:nonzero;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
    id="path2210"
    sodipodi:sides="3"
    sodipodi:cx="29.100529"
@@ -73,7 +73,7 @@
    d="M 35.185185,28.174601 L 16.664804,17.174228 L 35.451598,6.6352942 L 35.185185,28.174601 z "
    transform="matrix(0.8539616,-0.5203361,0.5203361,0.8539616,-7.6318759,40.439437)" /><path
    sodipodi:type="star"
-    fill="&fill_color;" stroke="&stroke_color;"  style="fill-opacity:1;fill-rule:nonzero;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+    fill="&fill_color;" stroke="&stroke_color;"  style="fill-opacity:1;fill-rule:nonzero;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
    id="path2212"
    sodipodi:sides="4"
    sodipodi:cx="17.063492"
@@ -87,7 +87,7 @@
    inkscape:randomized="0"
    d="M 28.835979,40.608468 L 10.978836,46.296298 L 5.2910049,28.439155 L 23.148148,22.751324 L 28.835979,40.608468 z "
    transform="matrix(0.8992892,-0.4373546,-0.4373546,-0.8992892,36.526622,53.589052)" /><rect
-    fill="&fill_color;" stroke="&stroke_color;"  style="fill-opacity:1;fill-rule:nonzero;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+    fill="&fill_color;" stroke="&stroke_color;"  style="fill-opacity:1;fill-rule:nonzero;stroke-width:3;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
    id="rect2214"
    width="45.899471"
    height="3.7037036"
