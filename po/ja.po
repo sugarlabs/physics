@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-22 03:08+0100\n"
+"PO-Revision-Date: 2009-07-03 12:22-0400\n"
+"Last-Translator: korakurider <korakurider@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.2.1\n"
+
+#: activity/activity.info:2
+#: /home/garycmartin/sugar_olpc/physics/activity.py:12
+msgid "Physics"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/activity.py:30
+#: /home/garycmartin/sugar_olpc/physics/activity.py:72
+msgid "Stop"
+msgstr "停止"
+
+#: /home/garycmartin/sugar_olpc/physics/activity.py:75
+msgid "Start"
+msgstr "開始"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:52
+msgid "Circle"
+msgstr "円"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:53
+msgid "c"
+msgstr "c"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:90
+msgid "Box"
+msgstr "四角形"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:91
+msgid "b"
+msgstr "b"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:126
+msgid "Triangle"
+msgstr "三角形"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:127
+msgid "t"
+msgstr "t"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:161
+msgid "Polygon"
+msgstr "多角形"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:162
+msgid "p"
+msgstr "p"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:220
+msgid "Draw"
+msgstr "描画"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:221
+msgid "d"
+msgstr "d"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:259
+msgid "Grab"
+msgstr "つかむ"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:260
+msgid "g"
+msgstr "g"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:289
+msgid "Joint"
+msgstr "つなぐ"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+msgid "Pin"
+msgstr "ピンで止める"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:340
+msgid "o"
+msgstr "o"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:363
+msgid "Motor"
+msgstr "動力"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:364
+msgid "m"
+msgstr "m"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:389
+msgid "Erase"
+msgstr "消す"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:390
+msgid "e"
+msgstr "e"
