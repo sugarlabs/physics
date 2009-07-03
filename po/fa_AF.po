@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-22 03:08+0100\n"
+"PO-Revision-Date: 2009-06-30 04:51-0400\n"
+"Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fa_AF\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.2.1\n"
+
+#: activity/activity.info:2
+#: /home/garycmartin/sugar_olpc/physics/activity.py:12
+msgid "Physics"
+msgstr "فزیک ها"
+
+#: /home/garycmartin/sugar_olpc/physics/activity.py:30
+#: /home/garycmartin/sugar_olpc/physics/activity.py:72
+msgid "Stop"
+msgstr "توقف"
+
+#: /home/garycmartin/sugar_olpc/physics/activity.py:75
+msgid "Start"
+msgstr "شروع کردن"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:52
+msgid "Circle"
+msgstr "دایره"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:53
+msgid "c"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:90
+msgid "Box"
+msgstr "بکس"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:91
+msgid "b"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:126
+msgid "Triangle"
+msgstr "مثلث"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:127
+msgid "t"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:161
+msgid "Polygon"
+msgstr "چند گوشه"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:162
+msgid "p"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:220
+msgid "Draw"
+msgstr "کشیدن"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:221
+msgid "d"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:259
+msgid "Grab"
+msgstr "قاپیدن"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:260
+msgid "g"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:289
+msgid "Joint"
+msgstr "محل اتصالات"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+msgid "Pin"
+msgstr "سنجاق"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:340
+msgid "o"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:363
+msgid "Motor"
+msgstr "ماشین"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:364
+msgid "m"
+msgstr ""
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:389
+msgid "Erase"
+msgstr "پاک کردن"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:390
+msgid "e"
+msgstr ""
