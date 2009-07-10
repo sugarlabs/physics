@@ -8,6 +8,7 @@ from pygame.locals import *
 from helpers import *
 from inspect import getmro
 from gettext import gettext as _
+
 # tools that can be used superlcass
 class Tool(object):
     name = 'Tool'
@@ -309,10 +310,10 @@ class JointTool(Tool):
                     self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
                     # if we have two distinct bodies, add a distance joint!
                     if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
-                        self.game.world.add.distanceJoint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)                    
+                        self.game.world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)                    
                     # If there's only one body, add a fixed joint
                     elif self.jb2:
-                        self.game.world.add.fixedJoint(self.jb2[0],self.jb2pos)
+                        self.game.world.add.joint(self.jb2[0],self.jb2pos)
                     # regardless, clean everything up
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
                 if event.button == 3:
@@ -350,7 +351,7 @@ class PinTool(Tool):
                 self.jb1pos = event.pos
                 self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
                 if self.jb1:
-                    self.game.world.add.fixedJoint(self.jb1[0],self.jb1pos)
+                   self.game.world.add.joint(self.jb1[0],self.jb1pos)
                 self.jb1 = self.jb1pos = None
 
     def cancel(self):
@@ -402,6 +403,9 @@ class DestroyTool(Tool):
                 if len(self.vertices) > 10:
                     self.vertices.pop(0)
                 tokill = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
+                #self.game.world.world.DestroyJoint(
+                #jointlist = tokill[0].GetJointList()
+                #print jointlist.joint
                 if tokill:                        
                         self.game.world.world.DestroyBody(tokill[0])
             elif event.type == MOUSEBUTTONUP and event.button == 1:

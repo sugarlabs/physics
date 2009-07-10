@@ -20,10 +20,13 @@ import pygame
 from pygame.locals import *
 from pygame.color import *
 import olpcgames
+sys.path.append("lib/Elements-0.12-py2.5.egg")
+sys.path.append("lib/Box2D-2.0.2b1-py2.5-linux-i686.egg")
+import Box2D as box2d
 import elements
-from elements import Elements
 import tools
 from helpers import *
+
 
 class PhysicsGame:
     def __init__(self,screen):
@@ -37,8 +40,8 @@ class PhysicsGame:
         for c in tools.allTools:
              self.toolList[c.name] = c(self)
         self.currentTool = self.toolList[tools.allTools[0].name]
-        
         # set up the world (instance of Elements)
+        self.box2d = box2d
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
         
