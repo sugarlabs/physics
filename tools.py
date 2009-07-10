@@ -402,11 +402,15 @@ class DestroyTool(Tool):
                 self.vertices.append(pygame.mouse.get_pos())
                 if len(self.vertices) > 10:
                     self.vertices.pop(0)
+
                 tokill = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
-                #self.game.world.world.DestroyJoint(
-                #jointlist = tokill[0].GetJointList()
-                #print jointlist.joint
+                
                 if tokill:                        
+ 	            jointnode = tokill[0].GetJointList()
+                    if jointnode:
+                        joint = jointnode.joint
+                        self.game.world.world.DestroyJoint(joint)
+                    else:
                         self.game.world.world.DestroyBody(tokill[0])
             elif event.type == MOUSEBUTTONUP and event.button == 1:
                 self.cancel()
