@@ -4,6 +4,7 @@
 #                           By Alex Levenson
 #==================================================================
 import pygame
+import olpcgames
 from pygame.locals import *
 from helpers import *
 from inspect import getmro
@@ -33,6 +34,13 @@ class Tool(object):
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if self.game.toolList.has_key(event.action): self.game.setTool(event.action)
+            if hasattr(event,"code"):
+                if event.code == olpcgames.FILE_WRITE_REQUEST:
+                    #saving to journal
+                    self.game.world.pickle_save(event.filename)
+                if event.code == olpcgames.FILE_READ_REQUEST:
+                    #loading from journal
+                    self.game.world.pickle_load(event.filename)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.game.canvas.grab_focus()
             handled = False
