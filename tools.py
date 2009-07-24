@@ -318,7 +318,10 @@ class JointTool(Tool):
                     self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
                     # if we have two distinct bodies, add a distance joint!
                     if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
-                        self.game.world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)                    
+                        self.game.world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)
+                    elif self.jb1:
+                        groundBody = self.game.world.world.GetGroundBody()
+                        self.game.world.add.joint(self.jb1[0],groundBody,self.jb1pos,self.jb2pos)
                     # If there's only one body, add a fixed joint
                     elif self.jb2:
                         self.game.world.add.joint(self.jb2[0],self.jb2pos)
