@@ -56,6 +56,13 @@ class PhysicsGame:
                 self.currentTool.handleEvents(event)
             # Clear Display
             self.screen.fill((255,255,255)) #255 for white
+
+            if self.world.run_physics:
+                for body in self.world.world.GetBodyList():
+                    if type(body.userData) == type({}):
+                        if body.userData.has_key('rollMotor'):
+                            diff =  body.userData['rollMotor']['targetVelocity']- body.GetAngularVelocity()
+                            body.ApplyTorque(body.userData['rollMotor']['strength']*diff*body.getMassData().I)
         
             # Update & Draw World
             self.world.update()

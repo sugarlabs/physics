@@ -41,6 +41,7 @@ icons/joint.svg
 icons/magicpen.svg
 icons/polygon.svg
 icons/triangle.svg
+icons/roll.svg
 olpcgames/__init__.py
 olpcgames/_cairoimage.py
 olpcgames/_gtkmain.py

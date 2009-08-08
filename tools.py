@@ -380,6 +380,32 @@ class MotorTool(Tool):
                     self.jb1 = self.jb1pos = None
     def cancel(self):
         self.jb1 = self.jb1pos = None
+
+class RollTool(Tool):
+    name = 'Roll'
+    icon = 'roll'
+    toolTip = _("Roll")
+    toolAccelerator = _("r")
+
+    def __init__(self,gameInstance):
+        self.game = gameInstance
+        self.name = 'Roll'
+        self.jb1 = self.jb1pos = None
+    def handleEvents(self,event):
+        #look for default events, and if none are handled then try the custom events
+        if not super(RollTool,self).handleEvents(event):
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.jb1pos = event.pos
+                    self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
+                    if self.jb1:
+                        if type(self.jb1[0].userData) == type({}):
+                            self.jb1[0].userData['rollMotor'] = {}
+                            self.jb1[0].userData['rollMotor']['targetVelocity'] = -10
+                            self.jb1[0].userData['rollMotor']['strength'] = 40
+                    self.jb1 = self.jb1pos = None
+    def cancel(self):
+        self.jb1 = self.jb1pos = None
    
    
 # The destroy tool        
