@@ -20,6 +20,8 @@ import pygame
 from pygame.locals import *
 from pygame.color import *
 import olpcgames
+sys.path.append("lib/")
+import pkg_resources
 sys.path.append("lib/Elements-0.12-py2.6.egg")
 sys.path.append("lib/Elements-0.12-py2.5.egg")
 sys.path.append("lib/Box2D-2.0.2b1-py2.5-linux-i686.egg")
