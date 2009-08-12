@@ -37,10 +37,11 @@ class Tool(object):
             if hasattr(event,"code"):
                 if event.code == olpcgames.FILE_WRITE_REQUEST:
                     #saving to journal
-                    self.game.world.pickle_save(event.filename)
+                    self.game.world.add.remove_mouseJoint()
+                    self.game.world.json_save(event.filename)
                 if event.code == olpcgames.FILE_READ_REQUEST:
                     #loading from journal
-                    self.game.world.pickle_load(event.filename)
+                    self.game.world.json_load(event.filename)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.game.canvas.grab_focus()
             handled = False
