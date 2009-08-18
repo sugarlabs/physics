@@ -450,12 +450,15 @@ class DestroyTool(Tool):
         self.vertices = None     
 
 def getAllTools():
-    this_mod = __import__(__name__)
-    all = [val for val in this_mod.__dict__.values() if isinstance(val, type)]
-    allTools = []
-    for a in all:
-        if getmro(a).__contains__(Tool) and a!= Tool: allTools.append(a)
-    return allTools
+    return [MagicPenTool,
+            CircleTool,
+            TriangleTool,
+            BoxTool,
+            PolygonTool,
+            GrabTool,
+            MotorTool,
+            PinTool,
+            JointTool,
+            DestroyTool]
             
-
 allTools = getAllTools()
