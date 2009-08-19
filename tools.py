@@ -321,9 +321,9 @@ class JointTool(Tool):
                     if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
                         self.game.world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)
                     #add joint to ground body
-                    elif self.jb1:
-                        groundBody = self.game.world.world.GetGroundBody()
-                        self.game.world.add.joint(self.jb1[0],groundBody,self.jb1pos,self.jb2pos)
+                    #elif self.jb1:
+                    #    groundBody = self.game.world.world.GetGroundBody()
+                    #    self.game.world.add.joint(self.jb1[0],groundBody,self.jb1pos,self.jb2pos)
                     # regardless, clean everything up
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
     def draw(self):
