@@ -68,9 +68,9 @@ olpcgames/data/sleeping_svg.py
 icons/motor.svg
 icons/pin.svg
 po/Physics.pot
-lib/Elements-0.12-py2.5.egg
+
 lib/Box2D-2.0.2b1-py2.5-linux-i686.egg
-lib/Elements-0.12-py2.6.egg
+
 locale/cs/activity.linfo
 locale/cs/LC_MESSAGES/org.laptop.physics.mo
 locale/te/activity.linfo
@@ -290,3 +290,5 @@ po/sd.po
 po/ro.po
 po/ca.po
 po/te.po
+lib/Elements-0.13-py2.5.egg
+lib/pkg_resources.py
