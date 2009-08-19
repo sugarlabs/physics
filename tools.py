@@ -60,7 +60,7 @@ class CircleTool(Tool):
     name = 'Circle'
     icon = 'circle'
     toolTip = _("Circle")
-    toolAccelerator = _("c")
+    toolAccelerator = _("<ctrl>c")
    
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -98,7 +98,7 @@ class BoxTool(Tool):
     name = 'Box'
     icon = 'box'
     toolTip = _("Box")
-    toolAccelerator = _("b")
+    toolAccelerator = _("<ctrl>b")
 
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -134,7 +134,7 @@ class TriangleTool(Tool):
     name = 'Triangle'
     icon = 'triangle'
     toolTip = _("Triangle")
-    toolAccelerator = _("t")
+    toolAccelerator = _("<ctrl>t")
    
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -169,7 +169,7 @@ class PolygonTool(Tool):
     name = 'Polygon'
     icon = 'polygon'
     toolTip = _("Polygon")
-    toolAccelerator = _("p")
+    toolAccelerator = _("<ctrl>p")
   
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -228,7 +228,7 @@ class MagicPenTool(Tool):
     name = 'Magicpen'
     icon = 'magicpen'
     toolTip = _("Draw")
-    toolAccelerator = _("d")
+    toolAccelerator = _("<ctrl>d")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -267,7 +267,7 @@ class GrabTool(Tool):
     name = 'Grab'
     icon = 'grab'
     toolTip = _("Grab")
-    toolAccelerator = _("g")
+    toolAccelerator = _("<ctrl>g")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -297,7 +297,7 @@ class JointTool(Tool):
     name = 'Joint'
     icon = 'joint'
     toolTip = _("Joint")
-    toolAccelerator = "j"
+    toolAccelerator = "<ctrl>j"
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -338,7 +338,7 @@ class PinTool(Tool):
     name = 'Pin'
     icon = 'pin'
     toolTip = _("Pin")
-    toolAccelerator = _("o")
+    toolAccelerator = _("<ctrl>o")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -362,7 +362,7 @@ class MotorTool(Tool):
     name = 'Motor'
     icon = 'motor'
     toolTip = _("Motor")
-    toolAccelerator = _("m")
+    toolAccelerator = _("<ctrl>m")
     
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -386,7 +386,7 @@ class RollTool(Tool):
     name = 'Roll'
     icon = 'roll'
     toolTip = _("Roll")
-    toolAccelerator = _("r")
+    toolAccelerator = _("<ctrl>r")
 
     def __init__(self,gameInstance):
         self.game = gameInstance
@@ -414,7 +414,7 @@ class DestroyTool(Tool):
     name = 'Destroy'
     icon = 'destroy'
     toolTip = _("Erase")
-    toolAccelerator = _("e")
+    toolAccelerator = _("<ctrl>e")
     
     def __init__(self,gameInstance):
         self.game = gameInstance

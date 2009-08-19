@@ -28,7 +28,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         self.stop_play_state = True
         self.stop_play = ToolButton('media-playback-stop')
         self.stop_play.set_tooltip(_("Stop"))
-        self.stop_play.set_accelerator(_('space'))
+        self.stop_play.set_accelerator(_('<ctrl>space'))
         self.stop_play.connect('clicked', self.stop_play_cb)
         create_toolbar.insert(self.stop_play, 0)
         self.stop_play.show()
