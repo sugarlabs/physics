@@ -5,3 +5,4 @@ class = activity.PhysicsActivity
 icon = activity-physics
 activity_version = 2
 show_launcher = yes
+mime_types = application/x-physics-activity;

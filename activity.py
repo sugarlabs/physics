@@ -11,6 +11,10 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     game_name = 'physics'
     game_title = _('Physics')
     game_size = None # olpcgame will choose size
+    
+    def __init__(self, handle):
+        super(PhysicsActivity, self).__init__(handle)
+        self.metadata['mime_type'] = 'application/x-physics-activity'
 
     # setup the toolbar
     def build_toolbar(self):        
