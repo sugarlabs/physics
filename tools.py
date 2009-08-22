@@ -243,9 +243,7 @@ class MagicPenTool(Tool):
             elif event.type == MOUSEBUTTONUP and event.button == 1:
                 if self.vertices and self.safe:
                     self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
-                    self.vertices = None
-                else:
-                    self.vertices = None
+                self.vertices = None
             elif event.type == MOUSEMOTION and self.vertices:
                 self.vertices.append(event.pos)
                 if distance(event.pos,self.vertices[0]) >= 55 and len(self.vertices) > 3:
