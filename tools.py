@@ -66,7 +66,7 @@ class CircleTool(Tool):
         self.game = gameInstance
         self.name = 'Circle'
         self.pt1 = None
-        self.radius = None
+        self.radius = 50
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(CircleTool,self).handleEvents(event):
@@ -76,22 +76,22 @@ class CircleTool(Tool):
             elif event.type == MOUSEBUTTONUP:
                 if event.button == 1:                    
                     if self.radius > 1: # elements doesn't like tiny shapes :(
-                        self.game.world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
+                        self.game.world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
                     self.pt1 = None        
-                    self.radius = None            
     def draw(self):
         # draw a circle from pt1 to mouse
         if self.pt1 != None:
-            self.radius = distance(self.pt1,pygame.mouse.get_pos())
-            if self.radius > 3: 
-                thick = 3
-            else:
-                thick = 0
-            pygame.draw.circle(self.game.screen, (100,180,255),self.pt1,self.radius,thick) 
-            pygame.draw.line(self.game.screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),1)  
+            delta = distance(self.pt1, pygame.mouse.get_pos())
+            if delta > 0:
+                self.radius = delta
+                if self.radius > 3:
+                    thick = 3
+                else:
+                    thick = 0
+                pygame.draw.circle(self.game.screen, (100,180,255),self.pt1,self.radius,thick)
+                pygame.draw.line(self.game.screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),1)
     def cancel(self):
         self.pt1 = None  
-        self.radius = None
    
 # The box creation tool        
 class BoxTool(Tool):    
@@ -105,6 +105,8 @@ class BoxTool(Tool):
         self.name = 'Box'
         self.pt1 = None        
         self.rect = None
+        self.width = 100
+        self.height = 100
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(BoxTool,self).handleEvents(event):
@@ -112,7 +114,11 @@ class BoxTool(Tool):
                 if event.button == 1:
                     self.pt1 = pygame.mouse.get_pos()                    
             elif event.type == MOUSEBUTTONUP:
-                if event.button == 1 and self.pt1!=None:                                 
+                if event.button == 1 and self.pt1!=None:
+                    mouse_x_y = pygame.mouse.get_pos()
+                    if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
+                        self.rect = pygame.Rect(self.pt1, (-self.width, -self.height))
+                        self.rect.normalize()           
                     if self.rect.width > 10 and self.rect.height > 10: # elements doesn't like small shapes :(
                         self.game.world.add.rect(self.rect.center, self.rect.width/2, self.rect.height/2, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                   
                     self.pt1 = None        
@@ -120,11 +126,13 @@ class BoxTool(Tool):
     def draw(self):
         # draw a box from pt1 to mouse
         if self.pt1 != None:
-            width = pygame.mouse.get_pos()[0] - self.pt1[0]
-            height = pygame.mouse.get_pos()[1] - self.pt1[1]
-            self.rect = pygame.Rect(self.pt1, (width, height))
-            self.rect.normalize()           
-            pygame.draw.rect(self.game.screen, (100,180,255),self.rect,3)   
+            mouse_x_y = pygame.mouse.get_pos()
+            if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
+                self.width = mouse_x_y[0] - self.pt1[0]
+                self.height = mouse_x_y[1] - self.pt1[1]
+                self.rect = pygame.Rect(self.pt1, (self.width, self.height))
+                self.rect.normalize()           
+                pygame.draw.rect(self.game.screen, (100,180,255),self.rect,3)   
     def cancel(self):
         self.pt1 = None  
         self.rect = None      
@@ -141,6 +149,7 @@ class TriangleTool(Tool):
         self.name = 'Triangle'
         self.pt1 = None
         self.vertices = None
+        self.line_delta = [0, -100]
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(TriangleTool,self).handleEvents(event):
@@ -148,7 +157,11 @@ class TriangleTool(Tool):
                 if event.button == 1:
                     self.pt1 = pygame.mouse.get_pos()                    
             elif event.type == MOUSEBUTTONUP:
-                if event.button == 1 and self.pt1!= None:                    
+                if event.button == 1 and self.pt1!= None:
+                    mouse_x_y = pygame.mouse.get_pos()
+                    if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
+                        self.pt1 = [mouse_x_y[0] - self.line_delta[0], mouse_x_y[1] - self.line_delta[1]]
+                        self.vertices = constructTriangleFromLine(self.pt1, mouse_x_y)
                     if distance(self.pt1,pygame.mouse.get_pos()) > 15: # elements doesn't like tiny shapes :(
                         self.game.world.add.convexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
                     self.pt1 = None
@@ -156,9 +169,12 @@ class TriangleTool(Tool):
     def draw(self):
         # draw a triangle from pt1 to mouse
         if self.pt1 != None:
-            self.vertices = constructTriangleFromLine(self.pt1,pygame.mouse.get_pos())
-            pygame.draw.polygon(self.game.screen, (100,180,255),self.vertices, 3) 
-            pygame.draw.line(self.game.screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),1)  
+            mouse_x_y = pygame.mouse.get_pos()
+            if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
+                self.vertices = constructTriangleFromLine(self.pt1, mouse_x_y)
+                self.line_delta = [mouse_x_y[0] - self.pt1[0], mouse_x_y[1] - self.pt1[1]]
+                pygame.draw.polygon(self.game.screen, (100,180,255),self.vertices, 3) 
+                pygame.draw.line(self.game.screen,(100,180,255),self.pt1,mouse_x_y,1)  
     
     def cancel(self):
         self.pt1 = None        
@@ -175,6 +191,7 @@ class PolygonTool(Tool):
         self.game = gameInstance
         self.name = 'Polygon'
         self.vertices = None
+        self.previous_vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(PolygonTool,self).handleEvents(event):
@@ -216,6 +233,7 @@ class MagicPenTool(Tool):
         self.game = gameInstance
         self.name = 'Magicpen'
         self.vertices = None
+        self.previous_vertices = None
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(MagicPenTool,self).handleEvents(event):
@@ -223,8 +241,16 @@ class MagicPenTool(Tool):
                 self.vertices=[event.pos]
                 self.safe = False
             elif event.type == MOUSEBUTTONUP and event.button == 1:
+                if len(self.vertices) == 1 and self.previous_vertices is not None:
+                    last_x_y = self.previous_vertices[-1]
+                    delta_x = last_x_y[0] - event.pos[0]
+                    delta_y = last_x_y[1] - event.pos[1]
+                    self.vertices = [[i[0] - delta_x, i[1] - delta_y]
+                                                for i in self.previous_vertices]
+                    self.safe = True
                 if self.vertices and self.safe:
                     self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                    self.previous_vertices = self.vertices[:]
                 self.vertices = None
             elif event.type == MOUSEMOTION and self.vertices:
                 self.vertices.append(event.pos)
@@ -234,10 +260,11 @@ class MagicPenTool(Tool):
     def draw(self):
         # draw the poly being created
         if self.vertices:
-            for i in range(len(self.vertices)-1):
-                pygame.draw.line(self.game.screen,(100,180,255),self.vertices[i],self.vertices[i+1],3)
-            pygame.draw.line(self.game.screen,(100,180,255),self.vertices[-1],pygame.mouse.get_pos(),3)
-            pygame.draw.circle(self.game.screen,(100,180,255),self.vertices[0],15,3)  
+            if len(self.vertices) > 1:
+                for i in range(len(self.vertices)-1):
+                    pygame.draw.line(self.game.screen,(100,180,255),self.vertices[i],self.vertices[i+1],3)
+                pygame.draw.line(self.game.screen,(100,180,255),self.vertices[-1],pygame.mouse.get_pos(),3)
+                pygame.draw.circle(self.game.screen,(100,180,255),self.vertices[0],15,3)  
     
     def cancel(self):       
         self.vertices = None
