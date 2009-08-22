@@ -179,7 +179,6 @@ class PolygonTool(Tool):
         #look for default events, and if none are handled then try the custom events 
         if not super(PolygonTool,self).handleEvents(event):
             if event.type == MOUSEBUTTONDOWN:
-                # Solid poly
                 if event.button == 1:
                     if not self.vertices:
                         self.vertices=[event.pos]
@@ -195,23 +194,6 @@ class PolygonTool(Tool):
                         if distance(event.pos,self.vertices[0]) >= 55 and self.vertices:
                             self.safe = True
 
-                # Polygon of triangles
-                elif event.button == 3:
-                    if not self.vertices:
-                        self.vertices=[event.pos]
-                        self.safe = False
-                    elif distance(event.pos,self.vertices[0]) < 15 and self.safe:                     
-                        gons = decomposePoly(self.vertices)
-                        for g in gons:
-                            self.game.world.add.convexPoly(g, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
-                        self.vertices = None
-                    elif distance(event.pos,self.vertices[0]) < 15:
-                        self.vertices = None
-                    else:
-                        self.vertices.append(event.pos)
-                        if distance(event.pos,self.vertices[0]) >= 55 and self.vertices:
-                            self.safe = True
-                                
     def draw(self):
         # draw the poly being created
         if self.vertices:
