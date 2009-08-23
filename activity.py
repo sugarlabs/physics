@@ -68,7 +68,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         return activity_toolbar
 
     def stop_play_cb(self, button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.KEYDOWN, key=pygame.K_SPACE))
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="stop_start_toggle"))
         self.stop_play_state = not self.stop_play_state
         # Update button
         if self.stop_play_state:

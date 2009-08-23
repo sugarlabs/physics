@@ -26,20 +26,19 @@ class Tool(object):
         if event.type == QUIT:
             # bye bye! Hope you had fun!
             self.game.running = False
-        elif event.type == KEYDOWN:
-            if event.key == K_SPACE:
-                #space pauses
-                self.game.world.run_physics = not self.game.world.run_physics  
-
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
-                if self.game.toolList.has_key(event.action): self.game.setTool(event.action)
-            if hasattr(event,"code"):
+                if event.action == "stop_start_toggle":
+                    # stop/start simulation
+                    self.game.world.run_physics = not self.game.world.run_physics  
+                elif self.game.toolList.has_key(event.action):
+                    self.game.setTool(event.action)
+            elif hasattr(event,"code"):
                 if event.code == olpcgames.FILE_WRITE_REQUEST:
                     #saving to journal
                     self.game.world.add.remove_mouseJoint()
                     self.game.world.json_save(event.filename)
-                if event.code == olpcgames.FILE_READ_REQUEST:
+                elif event.code == olpcgames.FILE_READ_REQUEST:
                     #loading from journal
                     self.game.world.json_load(event.filename)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
