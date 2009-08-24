@@ -294,3 +294,5 @@ lib/Elements-0.13-py2.5.egg
 lib/pkg_resources.py
 activity/application-x-physics-project.svg
 activity/mimetypes.xml
+standardcursor.xbm
+standardcursor_mask.xbm

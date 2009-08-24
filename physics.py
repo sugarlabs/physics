@@ -49,6 +49,9 @@ class PhysicsGame:
         
         # set up static environment
         self.world.add.ground()    
+
+        a, b, c, d = pygame.cursors.load_xbm("standardcursor.xbm", "standardcursor_mask.xbm")
+        pygame.mouse.set_cursor(a, b, c, d)
         
     def run(self):
         self.running = True    
