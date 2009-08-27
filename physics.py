@@ -28,7 +28,7 @@ import Box2D as box2d
 import elements
 import tools
 from helpers import *
-
+import gtk
 
 class PhysicsGame:
     def __init__(self,screen):
@@ -48,10 +48,23 @@ class PhysicsGame:
         self.world.renderer.set_surface(self.screen)
         
         # set up static environment
-        self.world.add.ground()    
+        self.world.add.ground()
 
-        a, b, c, d = pygame.cursors.load_xbm("standardcursor.xbm", "standardcursor_mask.xbm")
-        pygame.mouse.set_cursor(a, b, c, d)
+        # Fake a Sugar cursor for the pyGame canvas area
+        self.show_fake_cursor = False
+        pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+        self.cursor_picture = pygame.image.load('standardcursor.png')
+        self.cursor_picture.convert_alpha()        
+        self.canvas.connect("enter_notify_event", self.switch_on_fake_pygame_cursor_cb)
+        self.canvas.connect("leave_notify_event", self.switch_off_fake_pygame_cursor_cb)
+        self.canvas.add_events(gtk.gdk.ENTER_NOTIFY_MASK
+                               | gtk.gdk.LEAVE_NOTIFY_MASK)
+
+    def switch_off_fake_pygame_cursor_cb(self, panel, event):
+        self.show_fake_cursor = False
+
+    def switch_on_fake_pygame_cursor_cb(self, panel, event):
+        self.show_fake_cursor = True
         
     def run(self):
         self.running = True    
@@ -60,7 +73,6 @@ class PhysicsGame:
                 self.currentTool.handleEvents(event)
             # Clear Display
             self.screen.fill((255,255,255)) #255 for white
-
             if self.world.run_physics:
                 for body in self.world.world.GetBodyList():
                     if type(body.userData) == type({}):
@@ -74,7 +86,11 @@ class PhysicsGame:
             
             # draw output from tools
             self.currentTool.draw()
-                        
+
+            # Show Sugar like cursor for UI consistancy
+            if self.show_fake_cursor:
+                self.screen.blit(self.cursor_picture, pygame.mouse.get_pos())
+            
             # Flip Display
             pygame.display.flip()  
             
