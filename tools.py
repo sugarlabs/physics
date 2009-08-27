@@ -65,7 +65,7 @@ class CircleTool(Tool):
         self.game = gameInstance
         self.name = 'Circle'
         self.pt1 = None
-        self.radius = 50
+        self.radius = 40
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(CircleTool,self).handleEvents(event):
@@ -104,8 +104,8 @@ class BoxTool(Tool):
         self.name = 'Box'
         self.pt1 = None        
         self.rect = None
-        self.width = 100
-        self.height = 100
+        self.width = 80
+        self.height = 80
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(BoxTool,self).handleEvents(event):
@@ -148,7 +148,7 @@ class TriangleTool(Tool):
         self.name = 'Triangle'
         self.pt1 = None
         self.vertices = None
-        self.line_delta = [0, -100]
+        self.line_delta = [0, -80]
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(TriangleTool,self).handleEvents(event):
