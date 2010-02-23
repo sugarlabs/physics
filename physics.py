@@ -1,17 +1,28 @@
 #!/usr/bin/python
 """
-This file is part of the 'Physics' Project
-Physics is a 2D Physics Playground for Kids (supporting Box2D2)
-Physics Copyright (C) 2008, Alex Levenson, Brian Jordan
-Elements Copyright (C) 2008, The Elements Team, <elements@linuxuser.at>
+    Physics, a 2D Physics Playground for Kids
+    Copyright (C) 2008  Alex Levenson and Brian Jordan
 
-Wiki:   http://wiki.laptop.org/wiki/Physics
-IRC:    #olpc-physics on irc.freenode.org
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Code:   http://dev.laptop.org/git?p=activities/physics
-        git clone git://dev.laptop.org/activities/physics
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-License:  GPLv3 http://gplv3.fsf.org/
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+--
+
+Elements is Copyright (C) 2008, The Elements Team, <elements@linuxuser.at>
+
+Wiki:   http://wiki.sugarlabs.org/go/Activities/Physics
+Code:   git://git.sugarlabs.org/physics/mainline.git
+
 """
 
 import sys
