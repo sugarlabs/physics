@@ -298,3 +298,15 @@ activity/mimetypes.xml
 
 
 standardcursor.png
+locale/fil/activity.linfo
+locale/fil/LC_MESSAGES/org.laptop.physics.mo
+locale/kos/activity.linfo
+locale/kos/LC_MESSAGES/org.laptop.physics.mo
+locale/tvl/activity.linfo
+locale/tvl/LC_MESSAGES/org.laptop.physics.mo
+locale/tzo/activity.linfo
+locale/tzo/LC_MESSAGES/org.laptop.physics.mo
+po/fil.po
+po/kos.po
+po/tvl.po
+po/tzo.po
