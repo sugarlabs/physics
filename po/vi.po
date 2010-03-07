@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-22 03:08+0100\n"
-"PO-Revision-Date: 2009-09-25 10:31-0400\n"
+"POT-Creation-Date: 2010-01-17 10:59-0500\n"
+"PO-Revision-Date: 2010-03-07 17:03+0200\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: vi\n"
@@ -15,94 +15,140 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 1.2.1\n"
+"X-Generator: Pootle 2.0.1\n"
 
-#: activity/activity.info:2
-#: /home/garycmartin/sugar_olpc/physics/activity.py:12
+#: activity/activity.info:2 activity.py:12
 msgid "Physics"
 msgstr "Vật lý"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:30
-#: /home/garycmartin/sugar_olpc/physics/activity.py:72
+#: activity.py:46 activity.py:88
 msgid "Stop"
 msgstr "Dừng"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:75
+#: activity.py:47
+msgid "<ctrl>space"
+msgstr "<ctrl>phím_dài"
+
+#: activity.py:74
+msgid "Create"
+msgstr "Tạo"
+
+#: activity.py:91
 msgid "Start"
 msgstr "Chạy"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:52
+#: tools.py:61
 msgid "Circle"
 msgstr "Tròn"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:53
-msgid "c"
-msgstr "r"
+#: tools.py:62
+msgid "<ctrl>c"
+msgstr "<ctrl>r"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:90
+#: tools.py:99
 msgid "Box"
 msgstr "Hộp"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:91
-msgid "b"
-msgstr "h"
+#: tools.py:100
+msgid "<ctrl>b"
+msgstr "<ctrl>h"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:126
+#: tools.py:143
 msgid "Triangle"
 msgstr "Tam giác"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:127
-msgid "t"
-msgstr "t"
+#: tools.py:144
+msgid "<ctrl>t"
+msgstr "<ctrl>t"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:161
+#: tools.py:186
 msgid "Polygon"
 msgstr "Đa giác"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:162
-msgid "p"
-msgstr "g"
+#: tools.py:187
+msgid "<ctrl>p"
+msgstr "<ctrl>g"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:220
+#: tools.py:241
 msgid "Draw"
 msgstr "Vẽ"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:221
-msgid "d"
-msgstr "v"
+#: tools.py:242
+msgid "<ctrl>d"
+msgstr "<ctrl>v"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:259
+#: tools.py:288
 msgid "Grab"
 msgstr "Lấy"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:260
-msgid "g"
-msgstr "l"
+#: tools.py:289
+msgid "<ctrl>g"
+msgstr "<ctrl>l"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:289
+#: tools.py:318
 msgid "Joint"
 msgstr "Chỗ nối"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+#: tools.py:359
 msgid "Pin"
 msgstr "Ghim"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:340
-msgid "o"
-msgstr "g"
+#: tools.py:360
+msgid "<ctrl>o"
+msgstr "<ctrl>g"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:363
+#: tools.py:383
 msgid "Motor"
 msgstr "Mô tô"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:364
-msgid "m"
-msgstr "m"
+#: tools.py:384
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:389
+#: tools.py:407
+msgid "Roll"
+msgstr "Cuộn"
+
+#: tools.py:408
+msgid "<ctrl>r"
+msgstr "<ctrl>c"
+
+#: tools.py:435
 msgid "Erase"
 msgstr "Xoá"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:390
-msgid "e"
-msgstr "x"
+#: tools.py:436
+msgid "<ctrl>e"
+msgstr "<ctrl>x"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "Nguồn %s"
+
+#~ msgid "c"
+#~ msgstr "r"
+
+#~ msgid "b"
+#~ msgstr "h"
+
+#~ msgid "t"
+#~ msgstr "t"
+
+#~ msgid "p"
+#~ msgstr "g"
+
+#~ msgid "d"
+#~ msgstr "v"
+
+#~ msgid "g"
+#~ msgstr "l"
+
+#~ msgid "o"
+#~ msgstr "g"
+
+#~ msgid "m"
+#~ msgstr "m"
+
+#~ msgid "e"
+#~ msgstr "x"
