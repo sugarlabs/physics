@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-22 03:08+0100\n"
+"POT-Creation-Date: 2010-01-17 10:59-0500\n"
 "PO-Revision-Date: 2009-07-12 23:57-0400\n"
 "Last-Translator: Asaf Paris Mandoki <asafpm@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,92 +17,138 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.2.1\n"
 
-#: activity/activity.info:2
-#: /home/garycmartin/sugar_olpc/physics/activity.py:12
+#: activity/activity.info:2 activity.py:12
 msgid "Physics"
 msgstr "Physik"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:30
-#: /home/garycmartin/sugar_olpc/physics/activity.py:72
+#: activity.py:46 activity.py:88
 msgid "Stop"
 msgstr "Halt"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:75
+#: activity.py:47
+msgid "<ctrl>space"
+msgstr ""
+
+#: activity.py:74
+msgid "Create"
+msgstr ""
+
+#: activity.py:91
 msgid "Start"
 msgstr "Anfangen"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:52
+#: tools.py:61
 msgid "Circle"
 msgstr "Kreis"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:53
-msgid "c"
-msgstr "k"
+#: tools.py:62
+msgid "<ctrl>c"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:90
+#: tools.py:99
 msgid "Box"
 msgstr "Viereck"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:91
-msgid "b"
-msgstr "v"
+#: tools.py:100
+msgid "<ctrl>b"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:126
+#: tools.py:143
 msgid "Triangle"
 msgstr "Dreieck"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:127
-msgid "t"
-msgstr "d"
+#: tools.py:144
+msgid "<ctrl>t"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:161
+#: tools.py:186
 msgid "Polygon"
 msgstr "Polygon"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:162
-msgid "p"
-msgstr "p"
+#: tools.py:187
+msgid "<ctrl>p"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:220
+#: tools.py:241
 msgid "Draw"
 msgstr "Zeichnen"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:221
-msgid "d"
-msgstr "z"
+#: tools.py:242
+msgid "<ctrl>d"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:259
+#: tools.py:288
 msgid "Grab"
 msgstr "Fassen"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:260
-msgid "g"
-msgstr "f"
+#: tools.py:289
+msgid "<ctrl>g"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:289
+#: tools.py:318
 msgid "Joint"
 msgstr "Zusammenfügen"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+#: tools.py:359
 msgid "Pin"
 msgstr "Stecknadel"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:340
-msgid "o"
-msgstr "s"
+#: tools.py:360
+msgid "<ctrl>o"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:363
+#: tools.py:383
 msgid "Motor"
 msgstr "Motor"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:364
-msgid "m"
-msgstr "m"
+#: tools.py:384
+msgid "<ctrl>m"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:389
+#: tools.py:407
+msgid "Roll"
+msgstr ""
+
+#: tools.py:408
+msgid "<ctrl>r"
+msgstr ""
+
+#: tools.py:435
 msgid "Erase"
 msgstr "Löschen"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:390
-msgid "e"
-msgstr "l"
+#: tools.py:436
+msgid "<ctrl>e"
+msgstr ""
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr ""
+
+#~ msgid "c"
+#~ msgstr "k"
+
+#~ msgid "b"
+#~ msgstr "v"
+
+#~ msgid "t"
+#~ msgstr "d"
+
+#~ msgid "p"
+#~ msgstr "p"
+
+#~ msgid "d"
+#~ msgstr "z"
+
+#~ msgid "g"
+#~ msgstr "f"
+
+#~ msgid "o"
+#~ msgstr "s"
+
+#~ msgid "m"
+#~ msgstr "m"
+
+#~ msgid "e"
+#~ msgstr "l"
