@@ -28,6 +28,7 @@ from helpers import *
 from inspect import getmro
 from gettext import gettext as _
 
+
 # tools that can be used superlcass
 class Tool(object):
     name = 'Tool'
@@ -38,6 +39,7 @@ class Tool(object):
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = 'Tool'
+    
     def handleEvents(self,event):
         handled = True
         # default event handling
@@ -65,12 +67,15 @@ class Tool(object):
         else:
             handled = False
         return handled                                     
+    
     def draw(self):
         # default drawing method is don't draw anything
         pass
+    
     def cancel(self):
         # default cancel doesn't do anything
         pass
+
 
 # The circle creation tool        
 class CircleTool(Tool): 
@@ -84,6 +89,7 @@ class CircleTool(Tool):
         self.name = 'Circle'
         self.pt1 = None
         self.radius = 40
+    
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(CircleTool,self).handleEvents(event):
@@ -95,6 +101,7 @@ class CircleTool(Tool):
                     if self.radius > 1: # elements doesn't like tiny shapes :(
                         self.game.world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
                     self.pt1 = None        
+    
     def draw(self):
         # draw a circle from pt1 to mouse
         if self.pt1 != None:
@@ -107,8 +114,10 @@ class CircleTool(Tool):
                     thick = 0
                 pygame.draw.circle(self.game.screen, (100,180,255),self.pt1,self.radius,thick)
                 pygame.draw.line(self.game.screen,(100,180,255),self.pt1,pygame.mouse.get_pos(),1)
+    
     def cancel(self):
         self.pt1 = None  
+
    
 # The box creation tool        
 class BoxTool(Tool):    
@@ -124,6 +133,7 @@ class BoxTool(Tool):
         self.rect = None
         self.width = 80
         self.height = 80
+    
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(BoxTool,self).handleEvents(event):
@@ -150,9 +160,11 @@ class BoxTool(Tool):
                 self.rect = pygame.Rect(self.pt1, (self.width, self.height))
                 self.rect.normalize()           
                 pygame.draw.rect(self.game.screen, (100,180,255),self.rect,3)   
+    
     def cancel(self):
         self.pt1 = None  
         self.rect = None      
+
            
 # The triangle creation tool        
 class TriangleTool(Tool): 
@@ -167,6 +179,7 @@ class TriangleTool(Tool):
         self.pt1 = None
         self.vertices = None
         self.line_delta = [0, -80]
+    
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(TriangleTool,self).handleEvents(event):
@@ -183,6 +196,7 @@ class TriangleTool(Tool):
                         self.game.world.add.convexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
                     self.pt1 = None
                     self.vertices = None                    
+    
     def draw(self):
         # draw a triangle from pt1 to mouse
         if self.pt1 != None:
@@ -197,6 +211,7 @@ class TriangleTool(Tool):
         self.pt1 = None        
         self.vertices = None
 
+
 # The Polygon creation tool        
 class PolygonTool(Tool):  
     name = 'Polygon'
@@ -209,6 +224,7 @@ class PolygonTool(Tool):
         self.name = 'Polygon'
         self.vertices = None
         self.previous_vertices = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(PolygonTool,self).handleEvents(event):
@@ -252,6 +268,7 @@ class PolygonTool(Tool):
     def cancel(self):       
         self.vertices = None
 
+
 # The magic pen tool        
 class MagicPenTool(Tool):
     name = 'Magicpen'
@@ -264,6 +281,7 @@ class MagicPenTool(Tool):
         self.name = 'Magicpen'
         self.vertices = None
         self.previous_vertices = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(MagicPenTool,self).handleEvents(event):
@@ -299,6 +317,7 @@ class MagicPenTool(Tool):
     def cancel(self):       
         self.vertices = None
 
+
 # The grab tool        
 class GrabTool(Tool):
     name = 'Grab'
@@ -309,6 +328,7 @@ class GrabTool(Tool):
     def __init__(self,gameInstance):
         self.game = gameInstance
         self.name = 'Grab'
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(GrabTool,self).handleEvents(event):
@@ -328,6 +348,7 @@ class GrabTool(Tool):
             
     def cancel(self):
         self.game.world.add.remove_mouseJoint()                        
+
     
 # The joint tool        
 class JointTool(Tool):
@@ -340,6 +361,7 @@ class JointTool(Tool):
         self.game = gameInstance
         self.name = 'Joint'
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(JointTool,self).handleEvents(event):
@@ -363,12 +385,14 @@ class JointTool(Tool):
                     #    self.game.world.add.joint(self.jb1[0],groundBody,self.jb1pos,self.jb2pos)
                     # regardless, clean everything up
                     self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+    
     def draw(self):
         if self.jb1:
             pygame.draw.line(self.game.screen,(100,180,255),self.jb1pos,pygame.mouse.get_pos(),3)
     
     def cancel(self):
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None   
+
 
 # The pin tool        
 class PinTool(Tool):
@@ -381,6 +405,7 @@ class PinTool(Tool):
         self.game = gameInstance
         self.name = 'Pin'
         self.jb1 = self.jb1pos = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(PinTool,self).handleEvents(event):
@@ -394,6 +419,7 @@ class PinTool(Tool):
     def cancel(self):
         self.jb1 = self.jb1pos = None
          
+         
 # The motor tool        
 class MotorTool(Tool):
     name = 'Motor'
@@ -405,6 +431,7 @@ class MotorTool(Tool):
         self.game = gameInstance
         self.name = 'Motor'
         self.jb1 = self.jb1pos = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(MotorTool,self).handleEvents(event):
@@ -416,8 +443,10 @@ class MotorTool(Tool):
                     if self.jb1:
                         self.game.world.add.motor(self.jb1[0],self.jb1pos)
                     self.jb1 = self.jb1pos = None
+                    
     def cancel(self):
         self.jb1 = self.jb1pos = None
+
 
 class RollTool(Tool):
     name = 'Roll'
@@ -429,6 +458,7 @@ class RollTool(Tool):
         self.game = gameInstance
         self.name = 'Roll'
         self.jb1 = self.jb1pos = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events
         if not super(RollTool,self).handleEvents(event):
@@ -442,6 +472,7 @@ class RollTool(Tool):
                             self.jb1[0].userData['rollMotor']['targetVelocity'] = -10
                             self.jb1[0].userData['rollMotor']['strength'] = 40
                     self.jb1 = self.jb1pos = None
+    
     def cancel(self):
         self.jb1 = self.jb1pos = None
    
@@ -457,6 +488,7 @@ class DestroyTool(Tool):
         self.game = gameInstance
         self.name = 'Destroy'
         self.vertices = None
+        
     def handleEvents(self,event):
         #look for default events, and if none are handled then try the custom events 
         if not super(DestroyTool,self).handleEvents(event):
@@ -469,7 +501,7 @@ class DestroyTool(Tool):
                 tokill = self.game.world.get_bodies_at_pos(pygame.mouse.get_pos())
                 
                 if tokill:                        
- 	            jointnode = tokill[0].GetJointList()
+                    jointnode = tokill[0].GetJointList()
                     if jointnode:
                         joint = jointnode.joint
                         self.game.world.world.DestroyJoint(joint)
@@ -477,6 +509,7 @@ class DestroyTool(Tool):
                         self.game.world.world.DestroyBody(tokill[0])
             elif event.type == MOUSEBUTTONUP and event.button == 1:
                 self.cancel()
+    
     def draw(self):
         # draw the trail
         if self.vertices:
@@ -485,6 +518,7 @@ class DestroyTool(Tool):
 
     def cancel(self):
         self.vertices = None     
+
 
 def getAllTools():
     return [MagicPenTool,
