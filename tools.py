@@ -38,7 +38,7 @@ class Tool(object):
     
     def __init__(self,gameInstance):
         self.game = gameInstance
-        self.name = 'Tool'
+        self.name = self.__class__.name
     
     def handleEvents(self,event):
         handled = True
@@ -92,8 +92,7 @@ class CircleTool(Tool):
     toolAccelerator = _("<ctrl>c")
    
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Circle'
+        Tool.__init__(self,gameInstance)
         self.pt1 = None
         self.radius = 40
     
@@ -132,8 +131,7 @@ class BoxTool(Tool):
     toolAccelerator = _("<ctrl>b")
 
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Box'
+        Tool.__init__(self,gameInstance)
         self.pt1 = None        
         self.rect = None
         self.width = 80
@@ -177,8 +175,7 @@ class TriangleTool(Tool):
     toolAccelerator = _("<ctrl>t")
    
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Triangle'
+        Tool.__init__(self,gameInstance)
         self.pt1 = None
         self.vertices = None
         self.line_delta = [0, -80]
@@ -221,8 +218,7 @@ class PolygonTool(Tool):
     toolAccelerator = _("<ctrl>p")
   
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Polygon'
+        Tool.__init__(self,gameInstance)
         self.vertices = None
         self.previous_vertices = None
         
@@ -276,8 +272,7 @@ class MagicPenTool(Tool):
     toolAccelerator = _("<ctrl>d")
     
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Magicpen'
+        Tool.__init__(self,gameInstance)
         self.vertices = None
         self.previous_vertices = None
         
@@ -321,10 +316,6 @@ class GrabTool(Tool):
     icon = 'grab'
     toolTip = _("Grab")
     toolAccelerator = _("<ctrl>g")
-    
-    def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Grab'
         
     def handleToolEvent(self,event):
         if event.type == MOUSEBUTTONDOWN:
@@ -353,8 +344,7 @@ class JointTool(Tool):
     toolAccelerator = "<ctrl>j"
     
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Joint'
+        Tool.__init__(self,gameInstance)
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
         
     def handleToolEvent(self,event):
@@ -395,8 +385,7 @@ class PinTool(Tool):
     toolAccelerator = _("<ctrl>o")
     
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Pin'
+        Tool.__init__(self,gameInstance)
         self.jb1 = self.jb1pos = None
         
     def handleToolEvent(self,event):
@@ -419,8 +408,7 @@ class MotorTool(Tool):
     toolAccelerator = _("<ctrl>m")
     
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Motor'
+        Tool.__init__(self,gameInstance)
         self.jb1 = self.jb1pos = None
         
     def handleToolEvent(self,event):
@@ -444,8 +432,7 @@ class RollTool(Tool):
     toolAccelerator = _("<ctrl>r")
 
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Roll'
+        Tool.__init__(self,gameInstance)
         self.jb1 = self.jb1pos = None
         
     def handleToolEvent(self,event):
@@ -472,8 +459,7 @@ class DestroyTool(Tool):
     toolAccelerator = _("<ctrl>e")
     
     def __init__(self,gameInstance):
-        self.game = gameInstance
-        self.name = 'Destroy'
+        Tool.__init__(self,gameInstance)
         self.vertices = None
         
     def handleToolEvent(self,event):
