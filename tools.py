@@ -316,21 +316,43 @@ class GrabTool(Tool):
     icon = 'grab'
     toolTip = _("Grab")
     toolAccelerator = _("<ctrl>g")
-        
+    
+    def __init__(self,gameInstance):
+        Tool.__init__(self,gameInstance)
+        self._current_body = None
+
     def handleToolEvent(self,event):
-        if event.type == MOUSEBUTTONDOWN:
-            if event.button == 1:
-                # grab the first object at the mouse pointer
-                bodylist = self.game.world.get_bodies_at_pos(event.pos, include_static=False) 
-                if bodylist and len(bodylist) > 0:
-                    self.game.world.add.mouseJoint(bodylist[0], event.pos)               
-        elif event.type == MOUSEBUTTONUP:
-            # let it go
-            if event.button == 1:
-                self.game.world.add.remove_mouseJoint()
-        # use box2D mouse motion
-        elif event.type == MOUSEMOTION and event.buttons[0]:
-            self.game.world.mouse_move(event.pos)
+        #look for default events, and if none are handled then try the custom events 
+        if not super(GrabTool,self).handleEvents(event):
+            # we handle two types of "grab" depending on simulation running or not
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    # grab the first object at the mouse pointer
+                    bodylist = self.game.world.get_bodies_at_pos(event.pos, include_static=False) 
+                    if bodylist and len(bodylist) > 0:
+                        if self.game.world.run_physics:
+                            self.game.world.add.mouseJoint(bodylist[0], event.pos)
+                        else:
+                            self._current_body = bodylist[0]
+            elif event.type == MOUSEBUTTONUP:
+                # let it go
+                if event.button == 1:
+                    if self.game.world.run_physics:
+                        self.game.world.add.remove_mouseJoint()
+                    else:
+                        self._current_body = None
+            elif event.type == MOUSEMOTION and event.buttons[0]:
+                # move it around
+                if self.game.world.run_physics:
+                    # use box2D mouse motion
+                    self.game.world.mouse_move(event.pos)
+                else:
+                    # position directly (if we have a current body)
+                    if self._current_body is not None:
+                        x, y = self.game.world.to_world(event.pos)
+                        x /= self.game.world.ppm
+                        y /= self.game.world.ppm
+                        self._current_body.position = (x, y)
             
     def cancel(self):
         self.game.world.add.remove_mouseJoint()                        
