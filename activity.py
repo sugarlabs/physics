@@ -89,7 +89,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         toolbar_box.show()
         return toolbar_box
 
-
         except NameError:
             #Use old <= 0.84 toolbar design
             # make a toolbox
@@ -132,9 +131,9 @@ class PhysicsActivity(olpcgames.PyGameActivity):
                 button.show()
                 self.radioList[button] = c.name
 
-                # add the toolbars to the toolbox
-                toolbox.add_toolbar(_("Create"),create_toolbar)
-                create_toolbar.show()
+            # add the toolbars to the toolbox
+            toolbox.add_toolbar(_("Create"),create_toolbar)
+            create_toolbar.show()
 
         toolbox.show()
         self.set_toolbox(toolbox)
