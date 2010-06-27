@@ -60,34 +60,34 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     # setup the toolbar
     def build_toolbar(self):
         try:
-        #Use new >= 0.86 toolbar
-        self.max_participants = 1
-        toolbar_box = ToolbarBox()
-        activity_button = ActivityToolbarButton(self)
-        toolbar_box.toolbar.insert(activity_button, 0)
-        activity_button.show()
+            #Use new >= 0.86 toolbar
+            self.max_participants = 1
+            toolbar_box = ToolbarBox()
+            activity_button = ActivityToolbarButton(self)
+            toolbar_box.toolbar.insert(activity_button, 0)
+            activity_button.show()
 
-        create_toolbar = self._create_create_toolbar()
-        create_toolbar_button = ToolbarButton(
-                            page=create_toolbar,
-                            icon_name='toolbar-create')
-        create_toolbar.show()
-        toolbar_box.toolbar.insert(create_toolbar_button, -1)
-        create_toolbar_button.show()
+            create_toolbar = self._create_create_toolbar()
+            create_toolbar_button = ToolbarButton(
+                                page=create_toolbar,
+                                icon_name='toolbar-create')
+            create_toolbar.show()
+            toolbar_box.toolbar.insert(create_toolbar_button, -1)
+            create_toolbar_button.show()
 
-        separator = gtk.SeparatorToolItem()
-        separator.props.draw = False
-        separator.set_expand(True)
-        toolbar_box.toolbar.insert(separator, -1)
-        separator.show()
+            separator = gtk.SeparatorToolItem()
+            separator.props.draw = False
+            separator.set_expand(True)
+            toolbar_box.toolbar.insert(separator, -1)
+            separator.show()
 
-        stop_button = StopButton(self)
-        toolbar_box.toolbar.insert(stop_button, -1)
-        stop_button.show()
+            stop_button = StopButton(self)
+            toolbar_box.toolbar.insert(stop_button, -1)
+            stop_button.show()
 
-        self.set_toolbar_box(toolbar_box)
-        toolbar_box.show()
-        return toolbar_box
+            self.set_toolbar_box(toolbar_box)
+            toolbar_box.show()
+            return toolbar_box
 
         except NameError:
             #Use old <= 0.84 toolbar design
