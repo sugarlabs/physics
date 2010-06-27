@@ -65,7 +65,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         toolbar_box = ToolbarBox()
         activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(activity_button, 0)
-        activity_button.page.keep.props.accelerator = '<Ctrl><Shift>S'
         activity_button.show()
 
         create_toolbar = self._create_create_toolbar()
@@ -83,7 +82,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         separator.show()
 
         stop_button = StopButton(self)
-        stop_button.props.accelerator = '<Ctrl><Shift>Q'
         toolbar_box.toolbar.insert(stop_button, -1)
         stop_button.show()
 
