@@ -86,15 +86,12 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         except NameError:
             #Use old <= 0.84 toolbar design
             toolbox = activity.ActivityToolbox(self)
-
-            # modify the Activity tab
             activity_toolbar = toolbox.get_activity_toolbar()
             activity_toolbar.share.props.visible = False
-            # make a 'create' toolbar
+
             create_toolbar = gtk.Toolbar()
             self._insert_create_tools(create_toolbar)
 
-            # add the toolbar to the toolbox
             toolbox.add_toolbar(_("Create"), create_toolbar)
             create_toolbar.show()
             toolbox.set_current_toolbar(1)
