@@ -97,7 +97,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             # modify the Activity tab
             activity_toolbar = toolbox.get_activity_toolbar()
             activity_toolbar.share.props.visible = False
-            self.blocklist = []
             # make a 'create' toolbar
             create_toolbar = gtk.Toolbar()
 
