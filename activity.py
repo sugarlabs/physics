@@ -67,6 +67,10 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             toolbar_box.toolbar.insert(activity_button, 0)
             activity_button.show()
 
+            separator = gtk.SeparatorToolItem()
+            toolbar_box.toolbar.insert(separator, -1)
+            separator.show()
+
             self._insert_create_tools(toolbar_box.toolbar)
 
             separator = gtk.SeparatorToolItem()
