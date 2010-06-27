@@ -126,13 +126,13 @@ class PhysicsActivity(olpcgames.PyGameActivity):
                     firstButton = button
                 button.set_tooltip(c.toolTip)
                 button.set_accelerator(c.toolAccelerator)
-                button.connect('clicked',self.radioClicked)
-                create_toolbar.insert(button,-1)
+                button.connect('clicked', self.radioClicked)
+                create_toolbar.insert(button, -1)
                 button.show()
                 self.radioList[button] = c.name
 
             # add the toolbars to the toolbox
-            toolbox.add_toolbar(_("Create"),create_toolbar)
+            toolbox.add_toolbar(_("Create"), create_toolbar)
             create_toolbar.show()
 
         toolbox.show()
@@ -169,8 +169,8 @@ class PhysicsActivity(olpcgames.PyGameActivity):
                 firstButton = button
             button.set_tooltip(c.toolTip)
             button.set_accelerator(c.toolAccelerator)
-            button.connect('clicked',self.radioClicked)
-            create_toolbar.insert(button,-1)
+            button.connect('clicked', self.radioClicked)
+            create_toolbar.insert(button, -1)
             button.show()
             self.radioList[button] = c.name
         return create_toolbar
@@ -187,7 +187,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             self.stop_play.set_icon('media-playback-start')
             self.stop_play.set_tooltip(_("Start"))
 
-    def radioClicked(self,button):
+    def radioClicked(self, button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))
 
 
