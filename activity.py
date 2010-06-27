@@ -61,6 +61,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     def build_toolbar(self): 
         try:
 	    #Use new >= 0.86 toolbar
+        self.max_participants = 1
    	    toolbar_box = ToolbarBox()
  	    activity_button = ActivityToolbarButton(self)
             toolbar_box.toolbar.insert(activity_button, 0)
