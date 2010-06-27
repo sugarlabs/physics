@@ -40,7 +40,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     game_name = 'physics'
     game_title = _('Physics')
     game_size = None # olpcgame will choose size
-    
+
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
@@ -58,52 +58,52 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         event.retire() # <- without this, title editing stops updating
 
     # setup the toolbar
-    def build_toolbar(self): 
+    def build_toolbar(self):
         try:
-	    #Use new >= 0.86 toolbar
+        #Use new >= 0.86 toolbar
         self.max_participants = 1
-   	    toolbar_box = ToolbarBox()
- 	    activity_button = ActivityToolbarButton(self)
-            toolbar_box.toolbar.insert(activity_button, 0)
-            activity_button.page.keep.props.accelerator = '<Ctrl><Shift>S'
-            activity_button.show()
+        toolbar_box = ToolbarBox()
+        activity_button = ActivityToolbarButton(self)
+        toolbar_box.toolbar.insert(activity_button, 0)
+        activity_button.page.keep.props.accelerator = '<Ctrl><Shift>S'
+        activity_button.show()
 
-            create_toolbar = self._create_create_toolbar()
-            create_toolbar_button = ToolbarButton(
+        create_toolbar = self._create_create_toolbar()
+        create_toolbar_button = ToolbarButton(
                             page=create_toolbar,
                             icon_name='toolbar-create')
-            create_toolbar.show()
-            toolbar_box.toolbar.insert(create_toolbar_button, -1)
-            create_toolbar_button.show()
+        create_toolbar.show()
+        toolbar_box.toolbar.insert(create_toolbar_button, -1)
+        create_toolbar_button.show()
 
-            separator = gtk.SeparatorToolItem()
-            separator.props.draw = False
-            separator.set_expand(True)
-            toolbar_box.toolbar.insert(separator, -1)
-            separator.show()
-	
-  	    stop_button = StopButton(self)
-            stop_button.props.accelerator = '<Ctrl><Shift>Q'
-            toolbar_box.toolbar.insert(stop_button, -1)
-            stop_button.show()
+        separator = gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+        separator.show()
 
-	    self.set_toolbar_box(toolbar_box)
-            toolbar_box.show()
-	    return toolbar_box	
+        stop_button = StopButton(self)
+        stop_button.props.accelerator = '<Ctrl><Shift>Q'
+        toolbar_box.toolbar.insert(stop_button, -1)
+        stop_button.show()
+
+        self.set_toolbar_box(toolbar_box)
+        toolbar_box.show()
+        return toolbar_box
 
 
-        except NameError:       
-	    #Use old <= 0.84 toolbar design
+        except NameError:
+            #Use old <= 0.84 toolbar design
             # make a toolbox
             toolbox = activity.ActivityToolbox(self)
-         
+
             # modify the Activity tab
             activity_toolbar = toolbox.get_activity_toolbar()
             activity_toolbar.share.props.visible = False
-            self.blocklist = [] 
+            self.blocklist = []
             # make a 'create' toolbar
             create_toolbar = gtk.Toolbar()
-        
+
             # stop/play button
             self.stop_play_state = True
             self.stop_play = ToolButton('media-playback-stop')
@@ -116,11 +116,11 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             separator = gtk.SeparatorToolItem()
             create_toolbar.insert(separator, 1)
             separator.show()
-         
+
             # make + add the component buttons
             self.radioList = {}
             firstButton = None
-            for c in tools.allTools:                             
+            for c in tools.allTools:
                 button = RadioToolButton(named_icon=c.icon)
                 if firstButton:
                     button.set_group(firstButton)
@@ -130,14 +130,14 @@ class PhysicsActivity(olpcgames.PyGameActivity):
                 button.set_tooltip(c.toolTip)
                 button.set_accelerator(c.toolAccelerator)
                 button.connect('clicked',self.radioClicked)
-                create_toolbar.insert(button,-1)    
+                create_toolbar.insert(button,-1)
                 button.show()
                 self.radioList[button] = c.name
-   
+
                 # add the toolbars to the toolbox
                 toolbox.add_toolbar(_("Create"),create_toolbar)
-        	create_toolbar.show()       
-        
+                create_toolbar.show()
+
         toolbox.show()
         self.set_toolbox(toolbox)
         toolbox.set_current_toolbar(1)
@@ -163,7 +163,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         # make + add the component buttons
         self.radioList = {}
         firstButton = None
-        for c in tools.allTools:                             
+        for c in tools.allTools:
             button = RadioToolButton(named_icon=c.icon)
             if firstButton:
                 button.set_group(firstButton)
@@ -173,10 +173,10 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             button.set_tooltip(c.toolTip)
             button.set_accelerator(c.toolAccelerator)
             button.connect('clicked',self.radioClicked)
-            create_toolbar.insert(button,-1)    
+            create_toolbar.insert(button,-1)
             button.show()
             self.radioList[button] = c.name
-	return create_toolbar	
+        return create_toolbar
 
 
     def stop_play_cb(self, button):
@@ -189,7 +189,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         else:
             self.stop_play.set_icon('media-playback-start')
             self.stop_play.set_tooltip(_("Start"))
-                    
+
     def radioClicked(self,button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))
 
