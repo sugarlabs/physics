@@ -75,6 +75,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
 
             separator = gtk.SeparatorToolItem()
             separator.props.draw = False
+            separator.set_size_request(0, -1)
             separator.set_expand(True)
             toolbar_box.toolbar.insert(separator, -1)
             separator.show()
