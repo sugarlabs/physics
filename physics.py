@@ -82,8 +82,8 @@ class PhysicsGame:
         while self.running:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
-            # Clear Display
-            self.screen.fill((255,255,255)) #255 for white
+
+            # Drive motors
             if self.world.run_physics:
                 for body in self.world.world.GetBodyList():
                     if type(body.userData) == type({}):
@@ -93,6 +93,7 @@ class PhysicsGame:
         
             # Update & Draw World
             self.world.update()
+            self.screen.fill((255,255,255)) #255 for white
             self.world.draw()
             
             # draw output from tools
