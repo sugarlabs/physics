@@ -44,21 +44,21 @@ import gtk
 class PhysicsGame:
     def __init__(self,screen):
         self.screen = screen
-        # get everything set up
+        # Get everything set up
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 24) # font object
         self.canvas = olpcgames.ACTIVITY.canvas
-        # create the name --> instance map for components
+        # Create the name --> instance map for components
         self.toolList = {}
         for c in tools.allTools:
              self.toolList[c.name] = c(self)
         self.currentTool = self.toolList[tools.allTools[0].name]
-        # set up the world (instance of Elements)
+        # Set up the world (instance of Elements)
         self.box2d = box2d
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
         
-        # set up static environment
+        # Set up static environment
         self.world.add.ground()
 
         # Fake a Sugar cursor for the pyGame canvas area
@@ -93,10 +93,10 @@ class PhysicsGame:
         
             # Update & Draw World
             self.world.update()
-            self.screen.fill((255, 255, 255)) #255 for white
+            self.screen.fill((255, 255, 255)) # 255 for white
             self.world.draw()
             
-            # draw output from tools
+            # Draw output from tools
             self.currentTool.draw()
 
             # Show Sugar like cursor for UI consistancy
@@ -107,7 +107,7 @@ class PhysicsGame:
             pygame.display.flip()  
             
             # Try to stay at 30 FPS
-            self.clock.tick(30) # originally 50    
+            self.clock.tick(30) # Originally 50    
 
     def setTool(self, tool):
         self.currentTool.cancel()
@@ -120,12 +120,12 @@ def main():
     pygame.display.init()
     x,y  = pygame.display.list_modes()[0]
     screen = pygame.display.set_mode((x, y - toolbarheight - tabheight))
-    # create an instance of the game
+    # Create an instance of the game
     game = PhysicsGame(screen) 
-    # start the main loop
+    # Start the main loop
     game.run()
 
-# make sure that main get's called
+# Make sure that main get's called
 if __name__ == '__main__':
     main()
 

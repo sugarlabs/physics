@@ -39,7 +39,7 @@ except ImportError:
 class PhysicsActivity(olpcgames.PyGameActivity):
     game_name = 'physics'
     game_title = _('Physics')
-    game_size = None # olpcgame will choose size
+    game_size = None # Olpcgame will choose size
 
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
@@ -75,12 +75,12 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             metadata = self.metadata)
         olpcgames.eventwrap.post(event)
         event.block()
-        event.retire() # <- without this, title editing stops updating
+        event.retire() # <- Without this, title editing stops updating
 
-    # setup the toolbar
+    # Setup the toolbar
     def build_toolbar(self):
         try:
-            #Use new >= 0.86 toolbar
+            # Use new >= 0.86 toolbar
             self.max_participants = 1
             toolbar_box = ToolbarBox()
             activity_button = ActivityToolbarButton(self)
@@ -109,7 +109,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             return toolbar_box
 
         except NameError:
-            #Use old <= 0.84 toolbar design
+            # Use old <= 0.84 toolbar design
             toolbox = activity.ActivityToolbox(self)
             activity_toolbar = toolbox.get_activity_toolbar()
             activity_toolbar.share.props.visible = False
@@ -127,7 +127,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
 
 
     def _insert_create_tools(self, create_toolbar):
-        # stop/play button
+        # Stop/play button
         self.stop_play_state = True
         self.stop_play = ToolButton('media-playback-stop')
         self.stop_play.set_tooltip(_("Stop"))
@@ -140,7 +140,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         create_toolbar.insert(separator, -1)
         separator.show()
 
-        # make + add the component buttons
+        # Make + add the component buttons
         self.radioList = {}
         firstButton = None
         for c in tools.allTools:

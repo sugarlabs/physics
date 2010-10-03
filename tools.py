@@ -29,7 +29,7 @@ from inspect import getmro
 from gettext import gettext as _
 
 
-# tools that can be used superlcass
+# Tools that can be superlcassed
 class Tool(object):
     name = 'Tool'
     icon = 'icon'
@@ -42,24 +42,24 @@ class Tool(object):
     
     def handleEvents(self,event):
         handled = True
-        # default event handling
+        # Default event handling
         if event.type == QUIT:
-            # bye bye! Hope you had fun!
+            # Bye bye! Hope you had fun!
             self.game.running = False
         elif event.type == USEREVENT:
             if hasattr(event,"action"):
                 if event.action == "stop_start_toggle":
-                    # stop/start simulation
+                    # Stop/start simulation
                     self.game.world.run_physics = not self.game.world.run_physics  
                 elif self.game.toolList.has_key(event.action):
                     self.game.setTool(event.action)
             elif hasattr(event,"code"):
                 if event.code == olpcgames.FILE_WRITE_REQUEST:
-                    #saving to journal
+                    #Saving to journal
                     self.game.world.add.remove_mouseJoint()
                     self.game.world.json_save(event.filename)
                 elif event.code == olpcgames.FILE_READ_REQUEST:
-                    #loading from journal
+                    #Loading from journal
                     self.game.world.json_load(event.filename)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.game.canvas.grab_focus()
@@ -72,15 +72,15 @@ class Tool(object):
             return self.handleToolEvent(event)
                 
     def handleToolEvent(self,event):
-        # overload to handel events for Tool subclasses
+        # Overload to handel events for Tool subclasses
         pass
         
     def draw(self):
-        # default drawing method is don't draw anything
+        # Default drawing method is don't draw anything
         pass
     
     def cancel(self):
-        # default cancel doesn't do anything
+        # Default cancel doesn't do anything
         pass
 
 
@@ -102,12 +102,12 @@ class CircleTool(Tool):
                 self.pt1 = pygame.mouse.get_pos()                    
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:                    
-                if self.radius > 1: # elements doesn't like tiny shapes :(
+                if self.radius > 1: # Elements doesn't like tiny shapes :(
                     self.game.world.add.ball(self.pt1,self.radius, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
                 self.pt1 = None        
     
     def draw(self):
-        # draw a circle from pt1 to mouse
+        # Draw a circle from pt1 to mouse
         if self.pt1 != None:
             delta = distance(self.pt1, pygame.mouse.get_pos())
             if delta > 0:
@@ -147,12 +147,12 @@ class BoxTool(Tool):
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
                     self.rect = pygame.Rect(self.pt1, (-self.width, -self.height))
                     self.rect.normalize()           
-                if self.rect.width > 10 and self.rect.height > 10: # elements doesn't like small shapes :(
+                if self.rect.width > 10 and self.rect.height > 10: # Elements doesn't like small shapes :(
                     self.game.world.add.rect(self.rect.center, self.rect.width/2, self.rect.height/2, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                   
                 self.pt1 = None        
                             
     def draw(self):
-        # draw a box from pt1 to mouse
+        # Draw a box from pt1 to mouse
         if self.pt1 != None:
             mouse_x_y = pygame.mouse.get_pos()
             if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
@@ -190,13 +190,13 @@ class TriangleTool(Tool):
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
                     self.pt1 = [mouse_x_y[0] - self.line_delta[0], mouse_x_y[1] - self.line_delta[1]]
                     self.vertices = constructTriangleFromLine(self.pt1, mouse_x_y)
-                if distance(self.pt1,pygame.mouse.get_pos()) > 15: # elements doesn't like tiny shapes :(
+                if distance(self.pt1,pygame.mouse.get_pos()) > 15: # Elements doesn't like tiny shapes :(
                     self.game.world.add.convexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)                    
                 self.pt1 = None
                 self.vertices = None                    
 
     def draw(self):
-        # draw a triangle from pt1 to mouse
+        # Draw a triangle from pt1 to mouse
         if self.pt1 != None:
             mouse_x_y = pygame.mouse.get_pos()
             if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
@@ -253,7 +253,7 @@ class PolygonTool(Tool):
                     self.safe = True
 
     def draw(self):
-        # draw the poly being created
+        # Draw the poly being created
         if self.vertices:
             for i in range(len(self.vertices)-1):
                 pygame.draw.line(self.game.screen,(100,180,255),self.vertices[i],self.vertices[i+1],3)
@@ -298,7 +298,7 @@ class MagicPenTool(Tool):
                 self.safe = True
                                 
     def draw(self):
-        # draw the poly being created
+        # Draw the poly being created
         if self.vertices:
             if len(self.vertices) > 1:
                 for i in range(len(self.vertices)-1):
@@ -322,10 +322,10 @@ class GrabTool(Tool):
         self._current_body = None
 
     def handleToolEvent(self,event):
-        # we handle two types of "grab" depending on simulation running or not
+        # We handle two types of "grab" depending on simulation running or not
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
-                # grab the first object at the mouse pointer
+                # Grab the first object at the mouse pointer
                 bodylist = self.game.world.get_bodies_at_pos(event.pos, include_static=False) 
                 if bodylist and len(bodylist) > 0:
                     if self.game.world.run_physics:
@@ -333,19 +333,19 @@ class GrabTool(Tool):
                     else:
                         self._current_body = bodylist[0]
         elif event.type == MOUSEBUTTONUP:
-            # let it go
+            # Let it go
             if event.button == 1:
                 if self.game.world.run_physics:
                     self.game.world.add.remove_mouseJoint()
                 else:
                     self._current_body = None
         elif event.type == MOUSEMOTION and event.buttons[0]:
-            # move it around
+            # Move it around
             if self.game.world.run_physics:
-                # use box2D mouse motion
+                # Use box2D mouse motion
                 self.game.world.mouse_move(event.pos)
             else:
-                # position directly (if we have a current body)
+                # Position directly (if we have a current body)
                 if self._current_body is not None:
                     x, y = self.game.world.to_world(event.pos)
                     x /= self.game.world.ppm
@@ -370,16 +370,16 @@ class JointTool(Tool):
     def handleToolEvent(self,event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
-                # grab the first body
+                # Grab the first body
                 self.jb1pos = event.pos
                 self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
                 self.jb2 = self.jb2pos = None
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
-                # grab the second body
+                # Grab the second body
                 self.jb2pos = event.pos
                 self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
-                # if we have two distinct bodies, add a distance joint!
+                # If we have two distinct bodies, add a distance joint!
                 if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
                     self.game.world.add.joint(self.jb1[0],self.jb2[0],self.jb1pos,self.jb2pos)
                 #add joint to ground body
@@ -434,7 +434,7 @@ class MotorTool(Tool):
     def handleToolEvent(self,event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
-                # grab the first body
+                # Grab the first body
                 self.jb1pos = event.pos
                 self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
                 if self.jb1:
@@ -502,7 +502,7 @@ class DestroyTool(Tool):
             self.cancel()
     
     def draw(self):
-        # draw the trail
+        # Draw the trail
         if self.vertices:
             if len(self.vertices) > 1:
                 pygame.draw.lines(self.game.screen,(255,0,0),False,self.vertices,3)
