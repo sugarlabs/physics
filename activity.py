@@ -45,6 +45,26 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
 
+    def get_preview(self):
+        """Custom preview code to get image from pygame.
+        """
+        surface = pygame.display.get_surface()
+        width, height = surface.get_width(), surface.get_height()
+        pixbuf = gtk.gdk.pixbuf_new_from_data(pygame.image.tostring(surface, "RGB"),
+                                              gtk.gdk.COLORSPACE_RGB, 0, 8,
+                                              width, height,
+                                              3 * width)
+        pixbuf = pixbuf.scale_simple(300, 225, gtk.gdk.INTERP_BILINEAR)
+
+        preview_data = []
+        def save_func(buf, data):
+            data.append(buf)
+
+        pixbuf.save_to_callback(save_func, 'png', user_data=preview_data)
+        preview_data = ''.join(preview_data)
+
+        return preview_data
+
     def write_file(self, file_path):
         """Over-ride olpcgames write_file so that title keeps working.
         """
