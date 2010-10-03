@@ -63,7 +63,7 @@ class PhysicsGame:
 
         # Fake a Sugar cursor for the pyGame canvas area
         self.show_fake_cursor = False
-        pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+        pygame.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
         self.cursor_picture = pygame.image.load('standardcursor.png')
         self.cursor_picture.convert_alpha()        
         self.canvas.connect("enter_notify_event", self.switch_on_fake_pygame_cursor_cb)
@@ -88,12 +88,12 @@ class PhysicsGame:
                 for body in self.world.world.GetBodyList():
                     if type(body.userData) == type({}):
                         if body.userData.has_key('rollMotor'):
-                            diff =  body.userData['rollMotor']['targetVelocity']- body.GetAngularVelocity()
-                            body.ApplyTorque(body.userData['rollMotor']['strength']*diff*body.getMassData().I)
+                            diff = body.userData['rollMotor']['targetVelocity'] - body.GetAngularVelocity()
+                            body.ApplyTorque(body.userData['rollMotor']['strength'] * diff * body.getMassData().I)
         
             # Update & Draw World
             self.world.update()
-            self.screen.fill((255,255,255)) #255 for white
+            self.screen.fill((255, 255, 255)) #255 for white
             self.world.draw()
             
             # draw output from tools
@@ -109,7 +109,7 @@ class PhysicsGame:
             # Try to stay at 30 FPS
             self.clock.tick(30) # originally 50    
 
-    def setTool(self,tool):
+    def setTool(self, tool):
         self.currentTool.cancel()
         self.currentTool = self.toolList[tool] 
 
@@ -119,7 +119,7 @@ def main():
     pygame.init()
     pygame.display.init()
     x,y  = pygame.display.list_modes()[0]
-    screen = pygame.display.set_mode((x,y-toolbarheight-tabheight))
+    screen = pygame.display.set_mode((x, y - toolbarheight - tabheight))
     # create an instance of the game
     game = PhysicsGame(screen) 
     # start the main loop
