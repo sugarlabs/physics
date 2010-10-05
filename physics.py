@@ -57,7 +57,7 @@ class PhysicsGame:
         self.box2d = box2d
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
-        
+
         # Set up static environment
         self.world.add.ground()
 
@@ -65,7 +65,7 @@ class PhysicsGame:
         self.show_fake_cursor = False
         pygame.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
         self.cursor_picture = pygame.image.load('standardcursor.png')
-        self.cursor_picture.convert_alpha()        
+        self.cursor_picture.convert_alpha()
         self.canvas.connect("enter_notify_event", self.switch_on_fake_pygame_cursor_cb)
         self.canvas.connect("leave_notify_event", self.switch_off_fake_pygame_cursor_cb)
         self.canvas.add_events(gtk.gdk.ENTER_NOTIFY_MASK
@@ -76,9 +76,9 @@ class PhysicsGame:
 
     def switch_on_fake_pygame_cursor_cb(self, panel, event):
         self.show_fake_cursor = True
-        
+
     def run(self):
-        self.running = True    
+        self.running = True
         while self.running:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
@@ -90,24 +90,24 @@ class PhysicsGame:
                         if body.userData.has_key('rollMotor'):
                             diff = body.userData['rollMotor']['targetVelocity'] - body.GetAngularVelocity()
                             body.ApplyTorque(body.userData['rollMotor']['strength'] * diff * body.getMassData().I)
-        
+
             # Update & Draw World
             self.world.update()
             self.screen.fill((255, 255, 255)) # 255 for white
             self.world.draw()
-            
+
             # Draw output from tools
             self.currentTool.draw()
 
             # Show Sugar like cursor for UI consistancy
             if self.show_fake_cursor:
                 self.screen.blit(self.cursor_picture, pygame.mouse.get_pos())
-            
+
             # Flip Display
             pygame.display.flip()  
-            
+
             # Try to stay at 30 FPS
-            self.clock.tick(30) # Originally 50    
+            self.clock.tick(30) # Originally 50
 
     def setTool(self, tool):
         self.currentTool.cancel()
