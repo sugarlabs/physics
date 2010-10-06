@@ -103,14 +103,14 @@ class PhysicsGame:
                 self.screen.blit(self.cursor_picture, pygame.mouse.get_pos())
 
             # Flip Display
-            pygame.display.flip()  
+            pygame.display.flip()
 
             # Try to stay at 30 FPS
             self.clock.tick(30) # Originally 50
 
     def setTool(self, tool):
         self.currentTool.cancel()
-        self.currentTool = self.toolList[tool] 
+        self.currentTool = self.toolList[tool]
 
 def main():
     toolbarheight = 75
