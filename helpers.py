@@ -138,3 +138,8 @@ def decomposePoly(vertices):
             # reset error detection
             count = 2 * nv
     return result
+
+def cast_tuple_to_int(tuple):
+    """Cast tuple values to ints to avoid gtk+ and pygame's dislike of floats.
+    """
+    return [int(i) for i in tuple]
