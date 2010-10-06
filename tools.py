@@ -43,10 +43,7 @@ class Tool(object):
     def handleEvents(self, event):
         handled = True
         # Default event handling
-        if event.type == QUIT:
-            # Bye bye! Hope you had fun!
-            self.game.running = False
-        elif event.type == USEREVENT:
+        if event.type == USEREVENT:
             if hasattr(event,"action"):
                 if event.action == "stop_start_toggle":
                     # Stop/start simulation

@@ -78,8 +78,7 @@ class PhysicsGame:
         self.show_fake_cursor = True
 
     def run(self):
-        self.running = True
-        while self.running:
+        while True:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
 
