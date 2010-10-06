@@ -105,7 +105,7 @@ class PhysicsGame:
             # Flip Display
             pygame.display.flip()
 
-            # Try to stay at 30 FPS
+            # Stay under 30 FPS to help keep the rest of the platform responsive
             self.clock.tick(30) # Originally 50
 
     def setTool(self, tool):
