@@ -126,7 +126,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             self.set_toolbox(toolbox)
             return activity_toolbar
 
-
     def _insert_create_tools(self, create_toolbar):
         # Stop/play button
         self.stop_play_state = True
@@ -158,7 +157,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             button.show()
             self.radioList[button] = c.name
 
-
     def stop_play_cb(self, button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="stop_start_toggle"))
         self.stop_play_state = not self.stop_play_state
@@ -172,7 +170,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
 
     def radioClicked(self, button):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))
-
 
     def _focus_event(self, event, data=None):
         """Send focus events to pygame to allow it to more gracefully idle when in the background.
