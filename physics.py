@@ -78,32 +78,34 @@ class PhysicsGame:
         self.show_fake_cursor = True
 
     def run(self):
+        self.in_focus = True
         while True:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
 
-            # Drive motors
-            if self.world.run_physics:
-                for body in self.world.world.GetBodyList():
-                    if type(body.userData) == type({}):
-                        if body.userData.has_key('rollMotor'):
-                            diff = body.userData['rollMotor']['targetVelocity'] - body.GetAngularVelocity()
-                            body.ApplyTorque(body.userData['rollMotor']['strength'] * diff * body.getMassData().I)
+            if self.in_focus:
+                # Drive motors
+                if self.world.run_physics:
+                    for body in self.world.world.GetBodyList():
+                        if type(body.userData) == type({}):
+                            if body.userData.has_key('rollMotor'):
+                                diff = body.userData['rollMotor']['targetVelocity'] - body.GetAngularVelocity()
+                                body.ApplyTorque(body.userData['rollMotor']['strength'] * diff * body.getMassData().I)
 
-            # Update & Draw World
-            self.world.update()
-            self.screen.fill((255, 255, 255)) # 255 for white
-            self.world.draw()
+                # Update & Draw World
+                self.world.update()
+                self.screen.fill((255, 255, 255)) # 255 for white
+                self.world.draw()
 
-            # Draw output from tools
-            self.currentTool.draw()
+                # Draw output from tools
+                self.currentTool.draw()
 
-            # Show Sugar like cursor for UI consistancy
-            if self.show_fake_cursor:
-                self.screen.blit(self.cursor_picture, pygame.mouse.get_pos())
+                # Show Sugar like cursor for UI consistancy
+                if self.show_fake_cursor:
+                    self.screen.blit(self.cursor_picture, pygame.mouse.get_pos())
 
-            # Flip Display
-            pygame.display.flip()
+                # Flip Display
+                pygame.display.flip()
 
             # Stay under 30 FPS to help keep the rest of the platform responsive
             self.clock.tick(30) # Originally 50

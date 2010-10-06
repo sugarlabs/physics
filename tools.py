@@ -48,6 +48,10 @@ class Tool(object):
                 if event.action == "stop_start_toggle":
                     # Stop/start simulation
                     self.game.world.run_physics = not self.game.world.run_physics
+                elif event.action == "focus_in":
+                    self.game.in_focus = True
+                elif event.action == "focus_out":
+                    self.game.in_focus = False
                 elif self.game.toolList.has_key(event.action):
                     self.game.setTool(event.action)
             elif hasattr(event,"code"):

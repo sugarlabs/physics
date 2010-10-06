@@ -44,6 +44,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
+        self.connect('visibility-notify-event', self._focus_event)
 
     def get_preview(self):
         """Custom preview code to get image from pygame.
@@ -173,3 +174,10 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))
 
 
+    def _focus_event(self, event, data=None):
+        """Send focus events to pygame to allow it to more gracefully idle when in the background.
+        """
+        if data.state == gtk.gdk.VISIBILITY_FULLY_OBSCURED:
+            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="focus_out"))
+        else:
+            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="focus_in"))
