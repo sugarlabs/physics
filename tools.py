@@ -147,16 +147,14 @@ class BoxTool(Tool):
                 mouse_x_y = cast_tuple_to_int(pygame.mouse.get_pos())
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
                     self.rect = pygame.Rect(self.pt1, (-self.width, -self.height))
-                    self.rect.normalize()           
-                if self.rect.width > 10 and self.rect.height > 10:
-                    # Elements doesn't like small shapes :(
-                    self.game.world.add.rect(self.rect.center,
-                                             self.rect.width / 2,
-                                             self.rect.height / 2,
-                                             dynamic=True,
-                                             density=1.0,
-                                             restitution=0.16,
-                                             friction=0.5)
+                    self.rect.normalize()
+                self.game.world.add.rect(self.rect.center,
+                                         max(self.rect.width, 10) / 2,
+                                         max(self.rect.height, 10) / 2,
+                                         dynamic=True,
+                                         density=1.0,
+                                         restitution=0.16,
+                                         friction=0.5)
                 self.pt1 = None
 
     def draw(self):
