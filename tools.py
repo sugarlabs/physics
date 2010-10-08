@@ -103,10 +103,9 @@ class CircleTool(Tool):
                 self.pt1 = cast_tuple_to_int(pygame.mouse.get_pos())
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
-                if self.radius > 1: # Elements doesn't like tiny shapes :(
-                    self.game.world.add.ball(self.pt1, self.radius,
-                                             dynamic=True, density=1.0,
-                                             restitution=0.16, friction=0.5)
+                self.game.world.add.ball(self.pt1, self.radius,
+                                         dynamic=True, density=1.0,
+                                         restitution=0.16, friction=0.5)
                 self.pt1 = None
 
     def draw(self):
@@ -115,13 +114,9 @@ class CircleTool(Tool):
             delta = distance(self.pt1,
                              cast_tuple_to_int(pygame.mouse.get_pos()))
             if delta > 0:
-                self.radius = delta
-                if self.radius > 3:
-                    thick = 3
-                else:
-                    thick = 0
+                self.radius = max(delta, 5)
                 pygame.draw.circle(self.game.screen, (100, 180, 255),
-                                   self.pt1, int(self.radius), thick)
+                                   self.pt1, int(self.radius), 3)
                 pygame.draw.line(self.game.screen, (100, 180, 255), self.pt1,
                                  cast_tuple_to_int(pygame.mouse.get_pos()), 1)
 
