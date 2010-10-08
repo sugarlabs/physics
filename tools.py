@@ -44,7 +44,7 @@ class Tool(object):
         handled = True
         # Default event handling
         if event.type == USEREVENT:
-            if hasattr(event,"action"):
+            if hasattr(event, "action"):
                 if event.action == "stop_start_toggle":
                     # Stop/start simulation
                     self.game.world.run_physics = not self.game.world.run_physics
@@ -54,7 +54,7 @@ class Tool(object):
                     self.game.in_focus = False
                 elif self.game.toolList.has_key(event.action):
                     self.game.setTool(event.action)
-            elif hasattr(event,"code"):
+            elif hasattr(event, "code"):
                 if event.code == olpcgames.FILE_WRITE_REQUEST:
                     #Saving to journal
                     self.game.world.add.remove_mouseJoint()
@@ -97,7 +97,7 @@ class CircleTool(Tool):
         self.pt1 = None
         self.radius = 40
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.pt1 = cast_tuple_to_int(pygame.mouse.get_pos())
@@ -181,7 +181,7 @@ class TriangleTool(Tool):
         self.vertices = None
         self.line_delta = [0, -80]
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.pt1 = cast_tuple_to_int(pygame.mouse.get_pos())
@@ -223,7 +223,7 @@ class PolygonTool(Tool):
         self.vertices = None
         self.previous_vertices = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN and event.button == 1 and self.vertices is None:
             self.vertices = [event.pos]
             self.safe = False
@@ -241,16 +241,16 @@ class PolygonTool(Tool):
             if self.vertices is None or (event.pos[0] == self.vertices[-1][0] and event.pos[1] == self.vertices[-1][1]):
                 # Skip if coordinate is same as last one
                 return
-            if distance(event.pos,self.vertices[0]) < 15 and self.safe:
+            if distance(event.pos, self.vertices[0]) < 15 and self.safe:
                 self.vertices.append(self.vertices[0]) # Connect the polygon
                 self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
                 self.previous_vertices = self.vertices[:]
                 self.vertices = None
-            elif distance(event.pos,self.vertices[0]) < 15:
+            elif distance(event.pos, self.vertices[0]) < 15:
                 self.vertices = None
             else:
                 self.vertices.append(event.pos)
-                if distance(event.pos,self.vertices[0]) >= 55 and self.vertices:
+                if distance(event.pos, self.vertices[0]) >= 55 and self.vertices:
                     self.safe = True
 
     def draw(self):
@@ -277,7 +277,7 @@ class MagicPenTool(Tool):
         self.vertices = None
         self.previous_vertices = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.vertices = [event.pos]
             self.safe = False
@@ -322,7 +322,7 @@ class GrabTool(Tool):
         Tool.__init__(self, gameInstance)
         self._current_body = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         # We handle two types of "grab" depending on simulation running or not
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
@@ -368,7 +368,7 @@ class JointTool(Tool):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
                 # Grab the first body
@@ -386,7 +386,7 @@ class JointTool(Tool):
                 #add joint to ground body
                 #elif self.jb1:
                 #    groundBody = self.game.world.world.GetGroundBody()
-                #    self.game.world.add.joint(self.jb1[0],groundBody,self.jb1pos,self.jb2pos)
+                #    self.game.world.add.joint(self.jb1[0], groundBody, self.jb1pos, self.jb2pos)
                 # regardless, clean everything up
                 self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
 
@@ -409,7 +409,7 @@ class PinTool(Tool):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN:
             self.jb1pos = event.pos
             self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
@@ -432,7 +432,7 @@ class MotorTool(Tool):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
                 # Grab the first body
@@ -456,7 +456,7 @@ class RollTool(Tool):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.jb1pos = event.pos
@@ -483,7 +483,7 @@ class DestroyTool(Tool):
         Tool.__init__(self, gameInstance)
         self.vertices = None
 
-    def handleToolEvent(self,event):
+    def handleToolEvent(self, event):
         if pygame.mouse.get_pressed()[0]:
             if not self.vertices: self.vertices = []
             self.vertices.append(cast_tuple_to_int(pygame.mouse.get_pos()))

@@ -27,7 +27,7 @@ def distance(pt1, pt2):
         return math.sqrt((pt1[0] - pt2[0]) ** 2 + (pt1[1] - pt2[1]) ** 2)
 
 # returns the angle between the line segment from pt1 --> pt2 and the x axis, from -pi to pi
-def getAngle(pt1,pt2):
+def getAngle(pt1, pt2):
     xcomp = pt2[0] - pt1[0]
     ycomp = pt1[1] - pt2[1]
     return math.atan2(ycomp, xcomp)

@@ -42,7 +42,7 @@ from helpers import *
 import gtk
 
 class PhysicsGame:
-    def __init__(self,screen):
+    def __init__(self, screen):
         self.screen = screen
         # Get everything set up
         self.clock = pygame.time.Clock()
@@ -119,7 +119,7 @@ def main():
     tabheight = 45
     pygame.init()
     pygame.display.init()
-    x,y  = pygame.display.list_modes()[0]
+    x, y  = pygame.display.list_modes()[0]
     screen = pygame.display.set_mode((x, y - toolbarheight - tabheight))
     # Create an instance of the game
     game = PhysicsGame(screen) 
