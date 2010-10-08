@@ -48,10 +48,11 @@ class PhysicsGame:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 24) # font object
         self.canvas = olpcgames.ACTIVITY.canvas
+        self.in_focus = True
         # Create the name --> instance map for components
         self.toolList = {}
         for c in tools.allTools:
-             self.toolList[c.name] = c(self)
+            self.toolList[c.name] = c(self)
         self.currentTool = self.toolList[tools.allTools[0].name]
         # Set up the world (instance of Elements)
         self.box2d = box2d
@@ -78,7 +79,6 @@ class PhysicsGame:
         self.show_fake_cursor = True
 
     def run(self):
-        self.in_focus = True
         while True:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)

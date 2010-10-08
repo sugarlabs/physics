@@ -104,21 +104,26 @@ class CircleTool(Tool):
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
                 if self.radius > 1: # Elements doesn't like tiny shapes :(
-                    self.game.world.add.ball(self.pt1, self.radius, dynamic=True, density=1.0, restitution=0.16,friction=0.5)
+                    self.game.world.add.ball(self.pt1, self.radius,
+                                             dynamic=True, density=1.0,
+                                             restitution=0.16, friction=0.5)
                 self.pt1 = None
 
     def draw(self):
         # Draw a circle from pt1 to mouse
         if self.pt1 != None:
-            delta = distance(self.pt1, cast_tuple_to_int(pygame.mouse.get_pos()))
+            delta = distance(self.pt1,
+                             cast_tuple_to_int(pygame.mouse.get_pos()))
             if delta > 0:
                 self.radius = delta
                 if self.radius > 3:
                     thick = 3
                 else:
                     thick = 0
-                pygame.draw.circle(self.game.screen, (100, 180, 255), self.pt1, int(self.radius), thick)
-                pygame.draw.line(self.game.screen, (100, 180, 255), self.pt1, cast_tuple_to_int(pygame.mouse.get_pos()), 1)
+                pygame.draw.circle(self.game.screen, (100, 180, 255),
+                                   self.pt1, int(self.radius), thick)
+                pygame.draw.line(self.game.screen, (100, 180, 255), self.pt1,
+                                 cast_tuple_to_int(pygame.mouse.get_pos()), 1)
 
     def cancel(self):
         self.pt1 = None
@@ -148,8 +153,15 @@ class BoxTool(Tool):
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
                     self.rect = pygame.Rect(self.pt1, (-self.width, -self.height))
                     self.rect.normalize()           
-                if self.rect.width > 10 and self.rect.height > 10: # Elements doesn't like small shapes :(
-                    self.game.world.add.rect(self.rect.center, self.rect.width / 2, self.rect.height / 2, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                if self.rect.width > 10 and self.rect.height > 10:
+                    # Elements doesn't like small shapes :(
+                    self.game.world.add.rect(self.rect.center,
+                                             self.rect.width / 2,
+                                             self.rect.height / 2,
+                                             dynamic=True,
+                                             density=1.0,
+                                             restitution=0.16,
+                                             friction=0.5)
                 self.pt1 = None
 
     def draw(self):
@@ -161,7 +173,8 @@ class BoxTool(Tool):
                 self.height = mouse_x_y[1] - self.pt1[1]
                 self.rect = pygame.Rect(self.pt1, (self.width, self.height))
                 self.rect.normalize()
-                pygame.draw.rect(self.game.screen, (100, 180, 255), self.rect, 3)
+                pygame.draw.rect(self.game.screen, (100, 180, 255),
+                                 self.rect, 3)
 
     def cancel(self):
         self.pt1 = None
@@ -189,10 +202,17 @@ class TriangleTool(Tool):
             if event.button == 1 and self.pt1 != None:
                 mouse_x_y = cast_tuple_to_int(pygame.mouse.get_pos())
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
-                    self.pt1 = [mouse_x_y[0] - self.line_delta[0], mouse_x_y[1] - self.line_delta[1]]
-                    self.vertices = constructTriangleFromLine(self.pt1, mouse_x_y)
-                if distance(self.pt1, cast_tuple_to_int(pygame.mouse.get_pos())) > 15: # Elements doesn't like tiny shapes :(
-                    self.game.world.add.convexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16,friction=0.5)
+                    self.pt1 = [mouse_x_y[0] - self.line_delta[0],
+                                mouse_x_y[1] - self.line_delta[1]]
+                    self.vertices = constructTriangleFromLine(self.pt1,
+                                                              mouse_x_y)
+                if distance(self.pt1, cast_tuple_to_int(pygame.mouse.get_pos())) > 15:
+                    # Elements doesn't like tiny shapes :(
+                    self.game.world.add.convexPoly(self.vertices,
+                                                   dynamic=True,
+                                                   density=1.0,
+                                                   restitution=0.16,
+                                                   friction=0.5)
                 self.pt1 = None
                 self.vertices = None
 
@@ -202,9 +222,12 @@ class TriangleTool(Tool):
             mouse_x_y = cast_tuple_to_int(pygame.mouse.get_pos())
             if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
                 self.vertices = constructTriangleFromLine(self.pt1, mouse_x_y)
-                self.line_delta = [mouse_x_y[0] - self.pt1[0], mouse_x_y[1] - self.pt1[1]]
-                pygame.draw.polygon(self.game.screen, (100, 180, 255), self.vertices, 3) 
-                pygame.draw.line(self.game.screen, (100, 180, 255), self.pt1, mouse_x_y, 1)
+                self.line_delta = [mouse_x_y[0] - self.pt1[0],
+                                   mouse_x_y[1] - self.pt1[1]]
+                pygame.draw.polygon(self.game.screen, (100, 180, 255),
+                                    self.vertices, 3) 
+                pygame.draw.line(self.game.screen, (100, 180, 255),
+                                 self.pt1, mouse_x_y, 1)
 
     def cancel(self):
         self.pt1 = None
@@ -222,6 +245,7 @@ class PolygonTool(Tool):
         Tool.__init__(self, gameInstance)
         self.vertices = None
         self.previous_vertices = None
+        self.safe = False
 
     def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN and event.button == 1 and self.vertices is None:
@@ -235,7 +259,10 @@ class PolygonTool(Tool):
                 self.vertices = [[i[0] - delta_x, i[1] - delta_y]
                                             for i in self.previous_vertices]
                 self.safe = True
-                self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                self.game.world.add.complexPoly(self.vertices, dynamic=True,
+                                                density=1.0,
+                                                restitution=0.16,
+                                                friction=0.5)
             self.vertices = None
         elif (event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN) and event.button == 1:
             if self.vertices is None or (event.pos[0] == self.vertices[-1][0] and event.pos[1] == self.vertices[-1][1]):
@@ -243,7 +270,10 @@ class PolygonTool(Tool):
                 return
             if distance(event.pos, self.vertices[0]) < 15 and self.safe:
                 self.vertices.append(self.vertices[0]) # Connect the polygon
-                self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                self.game.world.add.complexPoly(self.vertices, dynamic=True,
+                                                density=1.0,
+                                                restitution=0.16,
+                                                friction=0.5)
                 self.previous_vertices = self.vertices[:]
                 self.vertices = None
             elif distance(event.pos, self.vertices[0]) < 15:
@@ -257,9 +287,13 @@ class PolygonTool(Tool):
         # Draw the poly being created
         if self.vertices:
             for i in range(len(self.vertices) - 1):
-                pygame.draw.line(self.game.screen, (100, 180, 255), self.vertices[i], self.vertices[i + 1], 3)
-            pygame.draw.line(self.game.screen, (100, 180, 255), self.vertices[-1], cast_tuple_to_int(pygame.mouse.get_pos()), 3)
-            pygame.draw.circle(self.game.screen, (100, 180, 255), self.vertices[0], 15, 3)
+                pygame.draw.line(self.game.screen, (100, 180, 255),
+                                 self.vertices[i], self.vertices[i + 1], 3)
+            pygame.draw.line(self.game.screen, (100, 180, 255),
+                             self.vertices[-1],
+                             cast_tuple_to_int(pygame.mouse.get_pos()), 3)
+            pygame.draw.circle(self.game.screen, (100, 180, 255),
+                               self.vertices[0], 15, 3)
 
     def cancel(self):
         self.vertices = None
@@ -276,6 +310,7 @@ class MagicPenTool(Tool):
         Tool.__init__(self, gameInstance)
         self.vertices = None
         self.previous_vertices = None
+        self.safe = False
 
     def handleToolEvent(self, event):
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
@@ -290,7 +325,10 @@ class MagicPenTool(Tool):
                                             for i in self.previous_vertices]
                 self.safe = True
             if self.vertices and self.safe:
-                self.game.world.add.complexPoly(self.vertices, dynamic=True, density=1.0, restitution=0.16, friction=0.5)
+                self.game.world.add.complexPoly(self.vertices, dynamic=True,
+                                                density=1.0,
+                                                restitution=0.16,
+                                                friction=0.5)
                 self.previous_vertices = self.vertices[:]
             self.vertices = None
         elif event.type == MOUSEMOTION and self.vertices:
@@ -303,9 +341,13 @@ class MagicPenTool(Tool):
         if self.vertices:
             if len(self.vertices) > 1:
                 for i in range(len(self.vertices) - 1):
-                    pygame.draw.line(self.game.screen, (100, 180, 255), self.vertices[i], self.vertices[i + 1], 3)
-                pygame.draw.line(self.game.screen, (100, 180, 255), self.vertices[-1], cast_tuple_to_int(pygame.mouse.get_pos()), 3)
-                pygame.draw.circle(self.game.screen, (100, 180, 255), self.vertices[0], 15, 3)
+                    pygame.draw.line(self.game.screen, (100, 180, 255),
+                                     self.vertices[i], self.vertices[i + 1], 3)
+                pygame.draw.line(self.game.screen, (100, 180, 255),
+                                 self.vertices[-1],
+                                 cast_tuple_to_int(pygame.mouse.get_pos()), 3)
+                pygame.draw.circle(self.game.screen, (100, 180, 255),
+                                   self.vertices[0], 15, 3)
 
     def cancel(self):
         self.vertices = None
@@ -327,7 +369,8 @@ class GrabTool(Tool):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 # Grab the first object at the mouse pointer
-                bodylist = self.game.world.get_bodies_at_pos(event.pos, include_static=False)
+                bodylist = self.game.world.get_bodies_at_pos(event.pos,
+                                                           include_static=False)
                 if bodylist and len(bodylist) > 0:
                     if self.game.world.run_physics:
                         self.game.world.add.mouseJoint(bodylist[0], event.pos)
@@ -382,17 +425,20 @@ class JointTool(Tool):
                 self.jb2 = self.game.world.get_bodies_at_pos(event.pos)
                 # If we have two distinct bodies, add a distance joint!
                 if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
-                    self.game.world.add.joint(self.jb1[0], self.jb2[0], self.jb1pos, self.jb2pos)
+                    self.game.world.add.joint(self.jb1[0], self.jb2[0],
+                                              self.jb1pos, self.jb2pos)
                 #add joint to ground body
                 #elif self.jb1:
                 #    groundBody = self.game.world.world.GetGroundBody()
-                #    self.game.world.add.joint(self.jb1[0], groundBody, self.jb1pos, self.jb2pos)
+                #    self.game.world.add.joint(self.jb1[0], groundBody,
+                #                              self.jb1pos, self.jb2pos)
                 # regardless, clean everything up
                 self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
 
     def draw(self):
         if self.jb1:
-            pygame.draw.line(self.game.screen, (100, 180, 255), self.jb1pos, cast_tuple_to_int(pygame.mouse.get_pos()), 3)
+            pygame.draw.line(self.game.screen, (100, 180, 255), self.jb1pos,
+                             cast_tuple_to_int(pygame.mouse.get_pos()), 3)
 
     def cancel(self):
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
@@ -414,7 +460,7 @@ class PinTool(Tool):
             self.jb1pos = event.pos
             self.jb1 = self.game.world.get_bodies_at_pos(event.pos)
             if self.jb1:
-               self.game.world.add.joint(self.jb1[0], self.jb1pos)
+                self.game.world.add.joint(self.jb1[0], self.jb1pos)
             self.jb1 = self.jb1pos = None
 
     def cancel(self):
@@ -506,7 +552,8 @@ class DestroyTool(Tool):
         # Draw the trail
         if self.vertices:
             if len(self.vertices) > 1:
-                pygame.draw.lines(self.game.screen, (255, 0, 0), False, self.vertices, 3)
+                pygame.draw.lines(self.game.screen, (255, 0, 0), False,
+                                  self.vertices, 3)
 
     def cancel(self):
         self.vertices = None

@@ -28,7 +28,7 @@ import gtk
 
 try:
     # >= 0.86 toolbars
-    from sugar.graphics.toolbarbox import ToolbarButton, ToolbarBox
+    from sugar.graphics.toolbarbox import ToolbarBox
     from sugar.activity.widgets import ActivityToolbarButton
     from sugar.activity.widgets import StopButton
 except ImportError:
@@ -51,7 +51,8 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         """
         surface = pygame.display.get_surface()
         width, height = surface.get_width(), surface.get_height()
-        pixbuf = gtk.gdk.pixbuf_new_from_data(pygame.image.tostring(surface, "RGB"),
+        pixbuf = gtk.gdk.pixbuf_new_from_data(pygame.image.tostring(surface,
+                                                                    "RGB"),
                                               gtk.gdk.COLORSPACE_RGB, 0, 8,
                                               width, height,
                                               3 * width)
@@ -158,7 +159,8 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             self.radioList[button] = c.name
 
     def stop_play_cb(self, button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="stop_start_toggle"))
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT,
+                                                    action="stop_start_toggle"))
         self.stop_play_state = not self.stop_play_state
         # Update button
         if self.stop_play_state:
@@ -169,12 +171,15 @@ class PhysicsActivity(olpcgames.PyGameActivity):
             self.stop_play.set_tooltip(_("Start"))
 
     def radioClicked(self, button):
-        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action=self.radioList[button]))
+        pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT,
+                                                 action=self.radioList[button]))
 
     def _focus_event(self, event, data=None):
-        """Send focus events to pygame to allow it to more gracefully idle when in the background.
+        """Send focus events to pygame to allow it to idle when in background.
         """
         if data.state == gtk.gdk.VISIBILITY_FULLY_OBSCURED:
-            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="focus_out"))
+            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT,
+                                                        action="focus_out"))
         else:
-            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT, action="focus_in"))
+            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT,
+                                                        action="focus_in"))
