@@ -199,13 +199,28 @@ class TriangleTool(Tool):
                                 mouse_x_y[1] - self.line_delta[1]]
                     self.vertices = constructTriangleFromLine(self.pt1,
                                                               mouse_x_y)
-                if distance(self.pt1, cast_tuple_to_int(pygame.mouse.get_pos())) > 15:
-                    # Elements doesn't like tiny shapes :(
-                    self.game.world.add.convexPoly(self.vertices,
-                                                   dynamic=True,
-                                                   density=1.0,
-                                                   restitution=0.16,
-                                                   friction=0.5)
+
+                # Use minimum sized triangle if user input too small
+                minimum_size_check = float(distance(self.pt1, mouse_x_y))
+                if minimum_size_check < 20:
+                    middle_x = (self.pt1[0] + mouse_x_y[0]) / 2.0
+                    self.pt1[0] = middle_x - (((middle_x - self.pt1[0]) /
+                                              minimum_size_check) * 20)
+                    mouse_x_y[0] = middle_x - (((middle_x - mouse_x_y[0]) /
+                                               minimum_size_check) * 20)
+                    middle_y = (self.pt1[1] + mouse_x_y[1]) / 2.0
+                    self.pt1[1] = middle_y - (((middle_y - self.pt1[1]) /
+                                              minimum_size_check) * 20)
+                    mouse_x_y[1] = middle_y - (((middle_y - mouse_x_y[1]) /
+                                               minimum_size_check) * 20)
+                    self.vertices = constructTriangleFromLine(self.pt1,
+                                                              mouse_x_y)
+
+                self.game.world.add.convexPoly(self.vertices,
+                                               dynamic=True,
+                                               density=1.0,
+                                               restitution=0.16,
+                                               friction=0.5)
                 self.pt1 = None
                 self.vertices = None
 
