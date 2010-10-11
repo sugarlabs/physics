@@ -256,40 +256,41 @@ class PolygonTool(Tool):
         self.safe = False
 
     def handleToolEvent(self, event):
-        if event.type == MOUSEBUTTONDOWN and event.button == 1 and self.vertices is None:
-            self.vertices = [event.pos]
-            self.safe = False
-        if event.type == MOUSEBUTTONUP and event.button == 1 and self.vertices is not None and len(self.vertices) == 1 and event.pos[0] == self.vertices[0][0] and event.pos[1] == self.vertices[0][1]:
-            if self.previous_vertices is not None:
-                last_x_y = self.previous_vertices[-1]
-                delta_x = last_x_y[0] - event.pos[0]
-                delta_y = last_x_y[1] - event.pos[1]
-                self.vertices = [[i[0] - delta_x, i[1] - delta_y]
-                                            for i in self.previous_vertices]
-                self.safe = True
-                self.game.world.add.complexPoly(self.vertices, dynamic=True,
-                                                density=1.0,
-                                                restitution=0.16,
-                                                friction=0.5)
-            self.vertices = None
-        elif (event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN) and event.button == 1:
-            if self.vertices is None or (event.pos[0] == self.vertices[-1][0] and event.pos[1] == self.vertices[-1][1]):
-                # Skip if coordinate is same as last one
-                return
-            if distance(event.pos, self.vertices[0]) < 15 and self.safe:
-                self.vertices.append(self.vertices[0]) # Connect the polygon
-                self.game.world.add.complexPoly(self.vertices, dynamic=True,
-                                                density=1.0,
-                                                restitution=0.16,
-                                                friction=0.5)
-                self.previous_vertices = self.vertices[:]
-                self.vertices = None
-            elif distance(event.pos, self.vertices[0]) < 15:
-                self.vertices = None
-            else:
-                self.vertices.append(event.pos)
-                if distance(event.pos, self.vertices[0]) >= 55 and self.vertices:
+        if hasattr(event, 'button') and event.button == 1:
+            if event.type == MOUSEBUTTONDOWN and self.vertices is None:
+                self.vertices = [event.pos]
+                self.safe = False
+            if event.type == MOUSEBUTTONUP and self.vertices is not None and len(self.vertices) == 1 and event.pos[0] == self.vertices[0][0] and event.pos[1] == self.vertices[0][1]:
+                if self.previous_vertices is not None:
+                    last_x_y = self.previous_vertices[-1]
+                    delta_x = last_x_y[0] - event.pos[0]
+                    delta_y = last_x_y[1] - event.pos[1]
+                    self.vertices = [[i[0] - delta_x, i[1] - delta_y]
+                                                for i in self.previous_vertices]
                     self.safe = True
+                    self.game.world.add.complexPoly(self.vertices, dynamic=True,
+                                                    density=1.0,
+                                                    restitution=0.16,
+                                                    friction=0.5)
+                self.vertices = None
+            elif (event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN):
+                if self.vertices is None or (event.pos[0] == self.vertices[-1][0] and event.pos[1] == self.vertices[-1][1]):
+                    # Skip if coordinate is same as last one
+                    return
+                if distance(event.pos, self.vertices[0]) < 15 and self.safe:
+                    self.vertices.append(self.vertices[0]) # Connect polygon
+                    self.game.world.add.complexPoly(self.vertices, dynamic=True,
+                                                    density=1.0,
+                                                    restitution=0.16,
+                                                    friction=0.5)
+                    self.previous_vertices = self.vertices[:]
+                    self.vertices = None
+                elif distance(event.pos, self.vertices[0]) < 15:
+                    self.vertices = None
+                else:
+                    self.vertices.append(event.pos)
+                    if distance(event.pos, self.vertices[0]) >= 55:
+                        self.safe = True
 
     def draw(self):
         # Draw the poly being created
