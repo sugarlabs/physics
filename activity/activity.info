@@ -3,6 +3,6 @@ name = Physics
 service_name = org.laptop.physics
 exec = sugar-activity activity.PhysicsActivity
 icon = activity-physics
-activity_version = 5
+activity_version = 6
 show_launcher = yes
 mime_types = application/x-physics-activity;
