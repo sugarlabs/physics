@@ -45,6 +45,7 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
         self.connect('visibility-notify-event', self._focus_event)
+        self.connect('window-state-event', self._window_event)
 
     def get_preview(self):
         """Custom preview code to get image from pygame.
@@ -183,3 +184,10 @@ class PhysicsActivity(olpcgames.PyGameActivity):
         else:
             pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT,
                                                         action="focus_in"))
+
+    def _window_event(self, window, event):
+        """Send focus out event to pygame when switching to a desktop view.
+        """
+        if event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED:
+            pygame.event.post(olpcgames.eventwrap.Event(pygame.USEREVENT,
+                                                        action="focus_out"))
