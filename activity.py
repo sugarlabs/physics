@@ -44,6 +44,8 @@ class PhysicsActivity(olpcgames.PyGameActivity):
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
+        self.add_events(gtk.gdk.ALL_EVENTS_MASK |
+                        gtk.gdk.VISIBILITY_NOTIFY_MASK)
         self.connect('visibility-notify-event', self._focus_event)
         self.connect('window-state-event', self._window_event)
 
