@@ -2,125 +2,126 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-17 10:59-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-04-06 18:40+0200\n"
+"Last-Translator: Aputsiaq <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.7.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2 activity.py:12
 msgid "Physics"
-msgstr ""
+msgstr "Fysik"
 
 #: activity.py:46 activity.py:88
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: activity.py:47
 msgid "<ctrl>space"
-msgstr ""
+msgstr "<ctrl>mellemrum"
 
 #: activity.py:74
 msgid "Create"
-msgstr ""
+msgstr "Opret"
 
 #: activity.py:91
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: tools.py:61
 msgid "Circle"
-msgstr ""
+msgstr "Cirkel"
 
 #: tools.py:62
 msgid "<ctrl>c"
-msgstr ""
+msgstr "<ctrl>c"
 
 #: tools.py:99
 msgid "Box"
-msgstr ""
+msgstr "Boks"
 
 #: tools.py:100
 msgid "<ctrl>b"
-msgstr ""
+msgstr "<ctrl>b"
 
 #: tools.py:143
 msgid "Triangle"
-msgstr ""
+msgstr "Trekant"
 
 #: tools.py:144
 msgid "<ctrl>t"
-msgstr ""
+msgstr "<ctrl>t"
 
 #: tools.py:186
 msgid "Polygon"
-msgstr ""
+msgstr "Polygon"
 
 #: tools.py:187
 msgid "<ctrl>p"
-msgstr ""
+msgstr "<ctrl>p"
 
 #: tools.py:241
 msgid "Draw"
-msgstr ""
+msgstr "Tegn"
 
 #: tools.py:242
 msgid "<ctrl>d"
-msgstr ""
+msgstr "<ctrl>d"
 
 #: tools.py:288
 msgid "Grab"
-msgstr ""
+msgstr "Grib"
 
 #: tools.py:289
 msgid "<ctrl>g"
-msgstr ""
+msgstr "<ctrl>g"
 
 #: tools.py:318
 msgid "Joint"
-msgstr ""
+msgstr "Fælles"
 
 #: tools.py:359
 msgid "Pin"
-msgstr ""
+msgstr "Fastgør"
 
 #: tools.py:360
 msgid "<ctrl>o"
-msgstr ""
+msgstr "<ctrl>o"
 
 #: tools.py:383
 msgid "Motor"
-msgstr ""
+msgstr "Motor"
 
 #: tools.py:384
 msgid "<ctrl>m"
-msgstr ""
+msgstr "<ctrl>m"
 
 #: tools.py:407
 msgid "Roll"
-msgstr ""
+msgstr "Rul"
 
 #: tools.py:408
 msgid "<ctrl>r"
-msgstr ""
+msgstr "<ctrl>r"
 
 #: tools.py:435
 msgid "Erase"
-msgstr ""
+msgstr "Slet"
 
 #: tools.py:436
 msgid "<ctrl>e"
-msgstr ""
+msgstr "<ctrl>s"
 
 #: olpcgames/canvas.py:151
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s Kilde"
