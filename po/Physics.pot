@@ -8,119 +8,116 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 10:59-0500\n"
+"POT-Creation-Date: 2011-08-15 05:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: activity/activity.info:2 activity.py:12
+#: activity/activity.info:2
 msgid "Physics"
 msgstr ""
 
-#: activity.py:46 activity.py:88
+#: activity.py:49
+#: activity.py:91
 msgid "Stop"
 msgstr ""
 
-#: activity.py:47
+#: activity.py:50
 msgid "<ctrl>space"
 msgstr ""
 
-#: activity.py:74
+#: activity.py:77
 msgid "Create"
 msgstr ""
 
-#: activity.py:91
+#: activity.py:94
 msgid "Start"
 msgstr ""
 
-#: tools.py:61
+#: tools.py:45
 msgid "Circle"
 msgstr ""
 
-#: tools.py:62
+#: tools.py:46
 msgid "<ctrl>c"
 msgstr ""
 
-#: tools.py:99
+#: tools.py:83
 msgid "Box"
 msgstr ""
 
-#: tools.py:100
+#: tools.py:84
 msgid "<ctrl>b"
 msgstr ""
 
-#: tools.py:143
+#: tools.py:127
 msgid "Triangle"
 msgstr ""
 
-#: tools.py:144
+#: tools.py:128
 msgid "<ctrl>t"
 msgstr ""
 
-#: tools.py:186
+#: tools.py:170
 msgid "Polygon"
 msgstr ""
 
-#: tools.py:187
+#: tools.py:171
 msgid "<ctrl>p"
 msgstr ""
 
-#: tools.py:241
+#: tools.py:225
 msgid "Draw"
 msgstr ""
 
-#: tools.py:242
+#: tools.py:226
 msgid "<ctrl>d"
 msgstr ""
 
-#: tools.py:288
+#: tools.py:272
 msgid "Grab"
 msgstr ""
 
-#: tools.py:289
+#: tools.py:273
 msgid "<ctrl>g"
 msgstr ""
 
-#: tools.py:318
+#: tools.py:302
 msgid "Joint"
 msgstr ""
 
-#: tools.py:359
+#: tools.py:343
 msgid "Pin"
 msgstr ""
 
-#: tools.py:360
+#: tools.py:344
 msgid "<ctrl>o"
 msgstr ""
 
-#: tools.py:383
+#: tools.py:367
 msgid "Motor"
 msgstr ""
 
-#: tools.py:384
+#: tools.py:368
 msgid "<ctrl>m"
 msgstr ""
 
-#: tools.py:407
+#: tools.py:391
 msgid "Roll"
 msgstr ""
 
-#: tools.py:408
+#: tools.py:392
 msgid "<ctrl>r"
 msgstr ""
 
-#: tools.py:435
+#: tools.py:419
 msgid "Erase"
 msgstr ""
 
-#: tools.py:436
+#: tools.py:420
 msgid "<ctrl>e"
-msgstr ""
-
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
 msgstr ""
