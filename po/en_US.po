@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 10:59-0500\n"
+"POT-Creation-Date: 2011-08-16 00:31-0400\n"
 "PO-Revision-Date: 2010-12-21 06:14+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,107 +41,107 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.3\n"
 
-#: activity/activity.info:2 activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr "Physics"
 
-#: activity.py:46 activity.py:88
-msgid "Stop"
-msgstr "Stop"
-
-#: activity.py:47
-msgid "<ctrl>space"
-msgstr "<ctrl>space"
-
-#: activity.py:74
+#: activity.py:125
 msgid "Create"
 msgstr "Create"
 
-#: activity.py:91
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Stop"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>space"
+
+#: activity.py:174
 msgid "Start"
 msgstr "Start"
 
-#: tools.py:61
+#: tools.py:92
 msgid "Circle"
 msgstr "Circle"
 
-#: tools.py:62
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:99
+#: tools.py:131
 msgid "Box"
 msgstr "Box"
 
-#: tools.py:100
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:143
+#: tools.py:181
 msgid "Triangle"
 msgstr "Triangle"
 
-#: tools.py:144
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:186
+#: tools.py:249
 msgid "Polygon"
 msgstr "Polygon"
 
-#: tools.py:187
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:241
+#: tools.py:315
 msgid "Draw"
 msgstr "Draw"
 
-#: tools.py:242
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:288
+#: tools.py:369
 msgid "Grab"
 msgstr "Grab"
 
-#: tools.py:289
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:318
+#: tools.py:416
 msgid "Joint"
 msgstr "Joint"
 
-#: tools.py:359
+#: tools.py:460
 msgid "Pin"
 msgstr "Pin"
 
-#: tools.py:360
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:383
+#: tools.py:483
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:384
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:407
+#: tools.py:507
 msgid "Roll"
 msgstr "Roll"
 
-#: tools.py:408
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:435
+#: tools.py:534
 msgid "Erase"
 msgstr "Erase"
 
-#: tools.py:436
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
 
