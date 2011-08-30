@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-17 10:59-0500\n"
+"PO-Revision-Date: 2011-08-16 17:19+0200\n"
+"Last-Translator:  <saulleoart@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hus\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#: activity/activity.info:2 activity.py:12
+msgid "Physics"
+msgstr "Física"
+
+#: activity.py:46 activity.py:88
+msgid "Stop"
+msgstr "ka kuba'"
+
+#: activity.py:47
+msgid "<ctrl>space"
+msgstr "ctrl>jolat"
+
+#: activity.py:74
+msgid "Create"
+msgstr "ts'ejka'"
+
+#: activity.py:91
+msgid "Start"
+msgstr "ok'xi'"
+
+#: tools.py:61
+msgid "Circle"
+msgstr "Kwechodh"
+
+#: tools.py:62
+msgid "<ctrl>c"
+msgstr "Ctrl>c"
+
+#: tools.py:99
+msgid "Box"
+msgstr "t'ujub"
+
+#: tools.py:100
+msgid "<ctrl>b"
+msgstr "Ctrl>b"
+
+#: tools.py:143
+msgid "Triangle"
+msgstr "Ox ts’upi’"
+
+#: tools.py:144
+msgid "<ctrl>t"
+msgstr "Ctrl>t"
+
+#: tools.py:186
+msgid "Polygon"
+msgstr "yan walte'"
+
+#: tools.py:187
+msgid "<ctrl>p"
+msgstr "ctrl>p"
+
+#: tools.py:241
+msgid "Draw"
+msgstr "t'ipol"
+
+#: tools.py:242
+msgid "<ctrl>d"
+msgstr "Ctrl>d"
+
+#: tools.py:288
+msgid "Grab"
+msgstr "yak'wa'"
+
+#: tools.py:289
+msgid "<ctrl>g"
+msgstr "Ctrl<g"
+
+#: tools.py:318
+msgid "Joint"
+msgstr "Junkudh"
+
+#: tools.py:359
+msgid "Pin"
+msgstr "ts'pti' t'exk'extalab"
+
+#: tools.py:360
+msgid "<ctrl>o"
+msgstr "Ctrl>o"
+
+#: tools.py:383
+msgid "Motor"
+msgstr "Íchich pat’al"
+
+#: tools.py:384
+msgid "<ctrl>m"
+msgstr "Ctrl>m"
+
+#: tools.py:407
+msgid "Roll"
+msgstr "t'ulilil"
+
+#: tools.py:408
+msgid "<ctrl>r"
+msgstr "Ctrl>r"
+
+#: tools.py:435
+msgid "Erase"
+msgstr "pakuw"
+
+#: tools.py:436
+msgid "<ctrl>e"
+msgstr "Ctrl>e"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%sEleltaláb"
