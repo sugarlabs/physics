@@ -2,12 +2,16 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-22 03:08+0100\n"
-"PO-Revision-Date: 2011-01-24 00:53+0200\n"
+"POT-Creation-Date: 2011-08-16 00:31-0400\n"
+"PO-Revision-Date: 2011-09-23 11:49+0200\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ar\n"
@@ -16,107 +20,140 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
-#: /home/garycmartin/sugar_olpc/physics/activity.py:12
-#: activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr "الفيزياء"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:30
-#: /home/garycmartin/sugar_olpc/physics/activity.py:72
-#: activity.py:46
-#: activity.py:88
+#: activity.py:125
+msgid "Create"
+msgstr "أنشئ"
+
+#: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "أوقف"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:75
-#: activity.py:91
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr ""
+
+#: activity.py:174
 msgid "Start"
 msgstr "ابدأ"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:52
-#: tools.py:61
+#: tools.py:92
 msgid "Circle"
 msgstr "دائرة"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:53
-msgid "c"
-msgstr "د"
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:90
-#: tools.py:99
+#: tools.py:131
 msgid "Box"
 msgstr "صندوق"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:91
-msgid "b"
-msgstr "ص"
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:126
-#: tools.py:143
+#: tools.py:181
 msgid "Triangle"
 msgstr "مثلث"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:127
-msgid "t"
-msgstr "ث"
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:161
-#: tools.py:186
+#: tools.py:249
 msgid "Polygon"
 msgstr "مضلع"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:162
-msgid "p"
-msgstr "ض"
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:220
-#: tools.py:241
+#: tools.py:315
 msgid "Draw"
 msgstr "رسم"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:221
-msgid "d"
-msgstr "ر"
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:259
-#: tools.py:288
+#: tools.py:369
 msgid "Grab"
 msgstr "حرك"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:260
-msgid "g"
-msgstr "ح"
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:289
-#: tools.py:318
+#: tools.py:416
 msgid "Joint"
 msgstr "ربط"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+#: tools.py:460
 msgid "Pin"
 msgstr "دبوس"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:340
-msgid "o"
-msgstr "ط"
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:363
-#: tools.py:383
+#: tools.py:483
 msgid "Motor"
 msgstr "محرك"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:364
-msgid "m"
-msgstr "م"
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:389
-#: tools.py:435
+#: tools.py:507
+msgid "Roll"
+msgstr "لف"
+
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr ""
+
+#: tools.py:534
 msgid "Erase"
-msgstr "مسح"
+msgstr "امسح"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:390
-msgid "e"
-msgstr "ح"
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr ""
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "مصدر %s"
+
+#~ msgid "c"
+#~ msgstr "د"
+
+#~ msgid "b"
+#~ msgstr "ص"
+
+#~ msgid "t"
+#~ msgstr "ث"
+
+#~ msgid "p"
+#~ msgstr "ض"
+
+#~ msgid "d"
+#~ msgstr "ر"
+
+#~ msgid "g"
+#~ msgstr "ح"
+
+#~ msgid "o"
+#~ msgstr "ط"
+
+#~ msgid "m"
+#~ msgstr "م"
+
+#~ msgid "e"
+#~ msgstr "ح"
