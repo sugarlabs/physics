@@ -117,11 +117,11 @@ def main():
     toolbarheight = 75
     tabheight = 45
     pygame.display.init()
-    x, y  = pygame.display.list_modes()[0]
+    video_info = pygame.display.Info()
+    x = video_info.current_w
+    y = video_info.current_h
     screen = pygame.display.set_mode((x, y - toolbarheight - tabheight))
-    # Create an instance of the game
     game = PhysicsGame(screen) 
-    # Start the main loop
     game.run()
 
 # Make sure that main get's called
