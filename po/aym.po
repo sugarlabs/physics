@@ -1,0 +1,150 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-16 00:31-0400\n"
+"PO-Revision-Date: 2011-11-26 05:05+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: aym\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#  "Física"
+#: activity/activity.info:2 activity.py:41
+msgid "Physics"
+msgstr ""
+
+#  "Crear"
+#: activity.py:125
+msgid "Create"
+msgstr "Machaqata Luraña"
+
+#  "Detener"
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Sayt'ayaña"
+
+#  "<ctrl>Espacio"
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr ""
+
+#  "Avanzar"
+#: activity.py:174
+msgid "Start"
+msgstr "Qalltawi"
+
+#  "Círculo"
+#: tools.py:92
+msgid "Circle"
+msgstr "Muyu"
+
+#  "<ctrl>c"
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>c muyu"
+
+#  "Bloque"
+#: tools.py:131
+msgid "Box"
+msgstr ""
+
+#  "<ctrl>b"
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr ""
+
+#  "Triángulo"
+#: tools.py:181
+msgid "Triangle"
+msgstr "Kimsa k'uchu"
+
+#  "<ctrl>t"
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>t kimsa k'uchu"
+
+#  "Polígono"
+#: tools.py:249
+msgid "Polygon"
+msgstr "K'uchunakani luraña"
+
+#  "<ctrl>p"
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<ctrl>p k'uchunakani luraña"
+
+#  "Dibujar"
+#: tools.py:315
+msgid "Draw"
+msgstr "Jiruña"
+
+#  "<ctrl>d"
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>d Jiruña"
+
+#  "Agarrar"
+#: tools.py:369
+msgid "Grab"
+msgstr ""
+
+#  "<ctrl>g"
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr ""
+
+#  "Unión"
+#: tools.py:416
+msgid "Joint"
+msgstr ""
+
+#  "Tachuela"
+#: tools.py:460
+msgid "Pin"
+msgstr ""
+
+#  "<ctrl>o"
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr ""
+
+#  "Motor"
+#: tools.py:483
+msgid "Motor"
+msgstr ""
+
+#  "<ctrl>m"
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr ""
+
+#  "Rodar"
+#: tools.py:507
+msgid "Roll"
+msgstr ""
+
+#  "<ctrl>r"
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr ""
+
+#  "Borrar"
+#: tools.py:534
+msgid "Erase"
+msgstr ""
+
+#  "<ctrl>e"
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr ""
+
+#  "%s Fuente"
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Tunu"
