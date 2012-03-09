@@ -35,8 +35,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-15 00:33-0500\n"
-"PO-Revision-Date: 2011-11-19 06:52+0200\n"
-"Last-Translator: malaku <malaku38@hotmail.com>\n"
+"PO-Revision-Date: 2012-03-09 10:51+0200\n"
+"Last-Translator: Meechai <malaku38@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
@@ -47,11 +47,11 @@ msgstr ""
 
 #: activity/activity.info:2 activity.py:41
 msgid "Physics"
-msgstr "ฟิสิกข์"
+msgstr "ฟิสิกส์"
 
 #: activity.py:125
 msgid "Create"
-msgstr "สร้างสรรค์"
+msgstr "สร้าง"
 
 #: activity.py:137 activity.py:171
 msgid "Stop"
@@ -107,7 +107,7 @@ msgstr "<ctrl>d"
 
 #: tools.py:369
 msgid "Grab"
-msgstr "ดึงรูป"
+msgstr "จับ"
 
 #: tools.py:370
 msgid "<ctrl>g"
@@ -135,7 +135,7 @@ msgstr "<ctrl>m"
 
 #: tools.py:507
 msgid "Roll"
-msgstr "ทอย"
+msgstr " ม้วน"
 
 #: tools.py:508
 msgid "<ctrl>r"
@@ -152,4 +152,4 @@ msgstr "<ctrl>e"
 #: olpcgames/canvas.py:151
 #, python-format
 msgid "%s Source"
-msgstr "%s ต้นทาง"
+msgstr "%s แหล่งข้อมูล"
