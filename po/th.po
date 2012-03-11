@@ -35,8 +35,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-02-15 00:33-0500\n"
-"PO-Revision-Date: 2012-03-09 10:51+0200\n"
-"Last-Translator: Meechai <malaku38@hotmail.com>\n"
+"PO-Revision-Date: 2012-03-11 15:52+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
@@ -135,7 +135,7 @@ msgstr "<ctrl>m"
 
 #: tools.py:507
 msgid "Roll"
-msgstr " ม้วน"
+msgstr "ม้วน"
 
 #: tools.py:508
 msgid "<ctrl>r"
