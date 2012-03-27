@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 10:59-0500\n"
-"PO-Revision-Date: 2011-08-16 17:19+0200\n"
-"Last-Translator:  <saulleoart@gmail.com>\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"PO-Revision-Date: 2011-08-29 07:15+0200\n"
+"Last-Translator: <zurisadai_k@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hus\n"
 "MIME-Version: 1.0\n"
@@ -17,109 +17,109 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
-#: activity/activity.info:2 activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr "Física"
 
-#: activity.py:46 activity.py:88
-msgid "Stop"
-msgstr "ka kuba'"
-
-#: activity.py:47
-msgid "<ctrl>space"
-msgstr "ctrl>jolat"
-
-#: activity.py:74
+#: activity.py:125
 msgid "Create"
-msgstr "ts'ejka'"
+msgstr "Ts'ejka'"
 
-#: activity.py:91
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Ka kuba'"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>jolat"
+
+#: activity.py:174
 msgid "Start"
-msgstr "ok'xi'"
+msgstr "Tujuw"
 
-#: tools.py:61
+#: tools.py:92
 msgid "Circle"
 msgstr "Kwechodh"
 
-#: tools.py:62
+#: tools.py:93
 msgid "<ctrl>c"
-msgstr "Ctrl>c"
+msgstr "<ctrl>c"
 
-#: tools.py:99
+#: tools.py:131
 msgid "Box"
-msgstr "t'ujub"
+msgstr "T'ujub"
 
-#: tools.py:100
+#: tools.py:132
 msgid "<ctrl>b"
-msgstr "Ctrl>b"
+msgstr "<ctrl>b"
 
-#: tools.py:143
+#: tools.py:181
 msgid "Triangle"
 msgstr "Ox ts’upi’"
 
-#: tools.py:144
+#: tools.py:182
 msgid "<ctrl>t"
-msgstr "Ctrl>t"
+msgstr "<ctrl>t"
 
-#: tools.py:186
+#: tools.py:249
 msgid "Polygon"
-msgstr "yan walte'"
+msgstr "Yan walte'"
 
-#: tools.py:187
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "ctrl>p"
 
-#: tools.py:241
+#: tools.py:315
 msgid "Draw"
-msgstr "t'ipol"
+msgstr "T'ipoy"
 
-#: tools.py:242
+#: tools.py:316
 msgid "<ctrl>d"
-msgstr "Ctrl>d"
+msgstr "<ctrl>d"
 
-#: tools.py:288
+#: tools.py:369
 msgid "Grab"
-msgstr "yak'wa'"
+msgstr "Yak'wa'"
 
-#: tools.py:289
+#: tools.py:370
 msgid "<ctrl>g"
-msgstr "Ctrl<g"
+msgstr "<ctrl>g"
 
-#: tools.py:318
+#: tools.py:416
 msgid "Joint"
 msgstr "Junkudh"
 
-#: tools.py:359
+#: tools.py:460
 msgid "Pin"
-msgstr "ts'pti' t'exk'extalab"
+msgstr "Ts'pti' t'exk'extalab"
 
-#: tools.py:360
+#: tools.py:461
 msgid "<ctrl>o"
-msgstr "Ctrl>o"
+msgstr "<ctrl>o"
 
-#: tools.py:383
+#: tools.py:483
 msgid "Motor"
 msgstr "Íchich pat’al"
 
-#: tools.py:384
+#: tools.py:484
 msgid "<ctrl>m"
-msgstr "Ctrl>m"
+msgstr "<ctrl>m"
 
-#: tools.py:407
+#: tools.py:507
 msgid "Roll"
-msgstr "t'ulilil"
+msgstr "T'ulilil"
 
-#: tools.py:408
+#: tools.py:508
 msgid "<ctrl>r"
-msgstr "Ctrl>r"
+msgstr "<ctrl>r"
 
-#: tools.py:435
+#: tools.py:534
 msgid "Erase"
-msgstr "pakuw"
+msgstr "Pakuw"
 
-#: tools.py:436
+#: tools.py:535
 msgid "<ctrl>e"
-msgstr "Ctrl>e"
+msgstr "<ctrl>e"
 
 #: olpcgames/canvas.py:151
 #, python-format

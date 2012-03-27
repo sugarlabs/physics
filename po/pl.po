@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-16 00:31-0400\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
 "PO-Revision-Date: 2011-12-06 12:12+0200\n"
 "Last-Translator: FRKS <frks@frks.pl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,17 +50,15 @@ msgstr ""
 msgid "Physics"
 msgstr "Fizyka"
 
-#: activity.py:125
-msgid "Create"
-msgstr "Twórz"
+#~ msgid "Create"
+#~ msgstr "Twórz"
 
 #: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "Zatrzymaj"
 
-#: activity.py:138
-msgid "<ctrl>space"
-msgstr "<ctrl>spacja"
+#~ msgid "<ctrl>space"
+#~ msgstr "<ctrl>spacja"
 
 #: activity.py:174
 msgid "Start"
@@ -70,49 +68,43 @@ msgstr "Uruchom"
 msgid "Circle"
 msgstr "Okrąg"
 
-#: tools.py:93
-msgid "<ctrl>c"
-msgstr "<ctrl>c"
+#~ msgid "<ctrl>c"
+#~ msgstr "<ctrl>c"
 
 #: tools.py:131
 msgid "Box"
 msgstr "Pudełko"
 
-#: tools.py:132
-msgid "<ctrl>b"
-msgstr "<ctrl>b"
+#~ msgid "<ctrl>b"
+#~ msgstr "<ctrl>b"
 
 #: tools.py:181
 msgid "Triangle"
 msgstr "Trójkąt"
 
-#: tools.py:182
-msgid "<ctrl>t"
-msgstr "<ctrl>t"
+#~ msgid "<ctrl>t"
+#~ msgstr "<ctrl>t"
 
 #: tools.py:249
 msgid "Polygon"
 msgstr "Wielobok"
 
-#: tools.py:250
-msgid "<ctrl>p"
-msgstr "<ctrl>p"
+#~ msgid "<ctrl>p"
+#~ msgstr "<ctrl>p"
 
 #: tools.py:315
 msgid "Draw"
 msgstr "Rysuj"
 
-#: tools.py:316
-msgid "<ctrl>d"
-msgstr "<ctrl>d"
+#~ msgid "<ctrl>d"
+#~ msgstr "<ctrl>d"
 
 #: tools.py:369
 msgid "Grab"
 msgstr "Weź"
 
-#: tools.py:370
-msgid "<ctrl>g"
-msgstr "<ctrl>g"
+#~ msgid "<ctrl>g"
+#~ msgstr "<ctrl>g"
 
 #: tools.py:416
 msgid "Joint"
@@ -122,35 +114,65 @@ msgstr "Połączenie"
 msgid "Pin"
 msgstr "Pinezka"
 
-#: tools.py:461
-msgid "<ctrl>o"
-msgstr "<ctrl>o"
+#~ msgid "<ctrl>o"
+#~ msgstr "<ctrl>o"
 
 #: tools.py:483
 msgid "Motor"
 msgstr "Silnik"
 
-#: tools.py:484
-msgid "<ctrl>m"
-msgstr "<ctrl>m"
+#~ msgid "<ctrl>m"
+#~ msgstr "<ctrl>m"
 
-#: tools.py:507
-msgid "Roll"
-msgstr "Rolka"
+#~ msgid "Roll"
+#~ msgstr "Rolka"
 
-#: tools.py:508
-msgid "<ctrl>r"
-msgstr "<ctrl>r"
+#~ msgid "<ctrl>r"
+#~ msgstr "<ctrl>r"
 
 #: tools.py:534
 msgid "Erase"
 msgstr "Wyczyść"
 
-#: tools.py:535
-msgid "<ctrl>e"
-msgstr "<ctrl>e"
+#~ msgid "<ctrl>e"
+#~ msgstr "<ctrl>e"
 
-#: olpcgames/canvas.py:151
 #, python-format
-msgid "%s Source"
-msgstr "%s Źródło"
+#~ msgid "%s Source"
+#~ msgstr "%s Źródło"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:53
+msgid "c"
+msgstr "c"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:91
+msgid "b"
+msgstr "s"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:390
+msgid "e"
+msgstr "u"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:221
+msgid "d"
+msgstr "d"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:260
+msgid "g"
+msgstr "g"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:364
+msgid "m"
+msgstr "m"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:340
+msgid "o"
+msgstr "o"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:162
+msgid "p"
+msgstr "p"
+
+#: /home/garycmartin/sugar_olpc/physics/tools.py:127
+msgid "t"
+msgstr "t"

@@ -2,11 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 10:59-0500\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
 "PO-Revision-Date: 2010-11-08 02:03+0200\n"
 "Last-Translator: deivs001 <deivs001@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,107 +22,107 @@ msgstr ""
 "2);\n"
 "X-Generator: Pootle 2.0.3\n"
 
-#: activity/activity.info:2 activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr "Fizika"
 
-#: activity.py:46 activity.py:88
-msgid "Stop"
-msgstr "Beigt"
-
-#: activity.py:47
-msgid "<ctrl>space"
-msgstr ""
-
-#: activity.py:74
+#: activity.py:125
 msgid "Create"
 msgstr ""
 
-#: activity.py:91
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Beigt"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr ""
+
+#: activity.py:174
 msgid "Start"
 msgstr ""
 
-#: tools.py:61
+#: tools.py:92
 msgid "Circle"
 msgstr ""
 
-#: tools.py:62
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr ""
 
-#: tools.py:99
+#: tools.py:131
 msgid "Box"
 msgstr ""
 
-#: tools.py:100
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr ""
 
-#: tools.py:143
+#: tools.py:181
 msgid "Triangle"
 msgstr ""
 
-#: tools.py:144
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr ""
 
-#: tools.py:186
+#: tools.py:249
 msgid "Polygon"
 msgstr ""
 
-#: tools.py:187
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr ""
 
-#: tools.py:241
+#: tools.py:315
 msgid "Draw"
 msgstr ""
 
-#: tools.py:242
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr ""
 
-#: tools.py:288
+#: tools.py:369
 msgid "Grab"
 msgstr ""
 
-#: tools.py:289
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr ""
 
-#: tools.py:318
+#: tools.py:416
 msgid "Joint"
 msgstr ""
 
-#: tools.py:359
+#: tools.py:460
 msgid "Pin"
 msgstr ""
 
-#: tools.py:360
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr ""
 
-#: tools.py:383
+#: tools.py:483
 msgid "Motor"
 msgstr ""
 
-#: tools.py:384
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr ""
 
-#: tools.py:407
+#: tools.py:507
 msgid "Roll"
 msgstr ""
 
-#: tools.py:408
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr ""
 
-#: tools.py:435
+#: tools.py:534
 msgid "Erase"
 msgstr ""
 
-#: tools.py:436
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr ""
 

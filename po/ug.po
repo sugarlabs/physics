@@ -2,106 +2,154 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-22 03:08+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"PO-Revision-Date: 2011-05-12 22:58+0200\n"
+"Last-Translator: <b.kurbanjan@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.3.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
 
-#: activity/activity.info:2
-#: /home/garycmartin/sugar_olpc/physics/activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
-msgstr ""
+msgstr "فىزىكا"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:30
-#: /home/garycmartin/sugar_olpc/physics/activity.py:72
+#: activity.py:125
+msgid "Create"
+msgstr "ياراتماق"
+
+#: activity.py:137 activity.py:171
 msgid "Stop"
-msgstr ""
+msgstr "توختا"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:75
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>بوشلۇق"
+
+#: activity.py:174
 msgid "Start"
-msgstr ""
+msgstr "باشلا"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:52
+#: tools.py:92
 msgid "Circle"
-msgstr ""
+msgstr "چەمبەر"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:53
-msgid "c"
-msgstr ""
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>c"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:90
+#: tools.py:131
 msgid "Box"
-msgstr ""
+msgstr "ساندۇق"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:91
-msgid "b"
-msgstr ""
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr "<ctrl>b"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:126
+#: tools.py:181
 msgid "Triangle"
-msgstr ""
+msgstr "ئۈچبۇلۇڭ"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:127
-msgid "t"
-msgstr ""
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>t"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:161
+#: tools.py:249
 msgid "Polygon"
-msgstr ""
+msgstr "كۆپتەرەپلىك"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:162
-msgid "p"
-msgstr ""
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<ctrl>p"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:220
+#: tools.py:315
 msgid "Draw"
-msgstr ""
+msgstr "سىزىش"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:221
-msgid "d"
-msgstr ""
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>d"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:259
+#: tools.py:369
 msgid "Grab"
-msgstr ""
+msgstr "تۇت"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:260
-msgid "g"
-msgstr ""
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr "<ctrl>g"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:289
+#: tools.py:416
 msgid "Joint"
-msgstr ""
+msgstr "ئۇلا"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+#: tools.py:460
 msgid "Pin"
-msgstr ""
+msgstr "مىخلا"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:340
-msgid "o"
-msgstr ""
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr "<ctrl>o"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:363
+#: tools.py:483
 msgid "Motor"
-msgstr ""
+msgstr "ماتۇر"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:364
-msgid "m"
-msgstr ""
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:389
+#: tools.py:507
+msgid "Roll"
+msgstr "يۆگە"
+
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr "<ctrl>r"
+
+#: tools.py:534
 msgid "Erase"
-msgstr ""
+msgstr "ئۆچۈر"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:390
-msgid "e"
-msgstr ""
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr "<ctrl>e"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s مەنبە"

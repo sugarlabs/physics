@@ -22,125 +22,127 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 10:59-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"PO-Revision-Date: 2012-02-13 04:07+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.6.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2 activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
-msgstr ""
+msgstr "Физика"
 
-#: activity.py:46 activity.py:88
-msgid "Stop"
-msgstr ""
-
-#: activity.py:47
-msgid "<ctrl>space"
-msgstr ""
-
-#: activity.py:74
+#: activity.py:125
 msgid "Create"
-msgstr ""
+msgstr "Направи"
 
-#: activity.py:91
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Заустави"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>размак"
+
+#: activity.py:174
 msgid "Start"
-msgstr ""
+msgstr "Почетак"
 
-#: tools.py:61
+#: tools.py:92
 msgid "Circle"
-msgstr ""
+msgstr "Круг"
 
-#: tools.py:62
+#: tools.py:93
 msgid "<ctrl>c"
-msgstr ""
+msgstr "<ctrl>ц"
 
-#: tools.py:99
+#: tools.py:131
 msgid "Box"
-msgstr ""
+msgstr "Кутија"
 
-#: tools.py:100
+#: tools.py:132
 msgid "<ctrl>b"
-msgstr ""
+msgstr "<ctrl>в"
 
-#: tools.py:143
+#: tools.py:181
 msgid "Triangle"
-msgstr ""
+msgstr "Троугао"
 
-#: tools.py:144
+#: tools.py:182
 msgid "<ctrl>t"
-msgstr ""
+msgstr "<ctrl>т"
 
-#: tools.py:186
+#: tools.py:249
 msgid "Polygon"
-msgstr ""
+msgstr "Полигон"
 
-#: tools.py:187
+#: tools.py:250
 msgid "<ctrl>p"
-msgstr ""
+msgstr "<ctrl>п"
 
-#: tools.py:241
+#: tools.py:315
 msgid "Draw"
-msgstr ""
+msgstr "Нацртај"
 
-#: tools.py:242
+#: tools.py:316
 msgid "<ctrl>d"
-msgstr ""
+msgstr "<ctrl>д"
 
-#: tools.py:288
+#: tools.py:369
 msgid "Grab"
-msgstr ""
+msgstr "Ухвати"
 
-#: tools.py:289
+#: tools.py:370
 msgid "<ctrl>g"
-msgstr ""
+msgstr "<ctrl>г"
 
-#: tools.py:318
+#: tools.py:416
 msgid "Joint"
-msgstr ""
+msgstr "Састав"
 
-#: tools.py:359
+#: tools.py:460
 msgid "Pin"
-msgstr ""
+msgstr "Игла"
 
-#: tools.py:360
+#: tools.py:461
 msgid "<ctrl>o"
-msgstr ""
+msgstr "<ctrl>о"
 
-#: tools.py:383
+#: tools.py:483
 msgid "Motor"
-msgstr ""
+msgstr "Мотор"
 
-#: tools.py:384
+#: tools.py:484
 msgid "<ctrl>m"
-msgstr ""
+msgstr "<ctrl>м"
 
-#: tools.py:407
+#: tools.py:507
 msgid "Roll"
-msgstr ""
+msgstr "Котурај"
 
-#: tools.py:408
+#: tools.py:508
 msgid "<ctrl>r"
-msgstr ""
+msgstr "<ctrl>р"
 
-#: tools.py:435
+#: tools.py:534
 msgid "Erase"
-msgstr ""
+msgstr "Избриши"
 
-#: tools.py:436
+#: tools.py:535
 msgid "<ctrl>e"
-msgstr ""
+msgstr "<ctrl>е"
 
 #: olpcgames/canvas.py:151
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s Извор"

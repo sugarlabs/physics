@@ -22,11 +22,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-17 10:59-0500\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
 "PO-Revision-Date: 2010-01-18 15:09+0200\n"
 "Last-Translator: Carlo Falciola <cfalciola@yahoo.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,107 +45,107 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
-#: activity/activity.info:2 activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr "Fisica"
 
-#: activity.py:46 activity.py:88
-msgid "Stop"
-msgstr "Stop"
-
-#: activity.py:47
-msgid "<ctrl>space"
-msgstr "<ctrl>spazio"
-
-#: activity.py:74
+#: activity.py:125
 msgid "Create"
 msgstr "Crea"
 
-#: activity.py:91
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Stop"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>spazio"
+
+#: activity.py:174
 msgid "Start"
 msgstr "Avvia"
 
-#: tools.py:61
+#: tools.py:92
 msgid "Circle"
 msgstr "Cerchio"
 
-#: tools.py:62
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:99
+#: tools.py:131
 msgid "Box"
 msgstr "Scatola"
 
-#: tools.py:100
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr "<ctrl>s"
 
-#: tools.py:143
+#: tools.py:181
 msgid "Triangle"
 msgstr "Triangolo"
 
-#: tools.py:144
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:186
+#: tools.py:249
 msgid "Polygon"
 msgstr "Poligono"
 
-#: tools.py:187
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:241
+#: tools.py:315
 msgid "Draw"
 msgstr "Disegno"
 
-#: tools.py:242
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:288
+#: tools.py:369
 msgid "Grab"
 msgstr "Afferra"
 
-#: tools.py:289
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr "<ctrl>a"
 
-#: tools.py:318
+#: tools.py:416
 msgid "Joint"
 msgstr "Unisci"
 
-#: tools.py:359
+#: tools.py:460
 msgid "Pin"
 msgstr "Fissa"
 
-#: tools.py:360
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr "<ctrl>f"
 
-#: tools.py:383
+#: tools.py:483
 msgid "Motor"
 msgstr "Motore"
 
-#: tools.py:384
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:407
+#: tools.py:507
 msgid "Roll"
 msgstr "Rotola"
 
-#: tools.py:408
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:435
+#: tools.py:534
 msgid "Erase"
 msgstr "Gomma"
 
-#: tools.py:436
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>g"
 

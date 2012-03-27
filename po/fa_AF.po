@@ -2,12 +2,40 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-22 03:08+0100\n"
-"PO-Revision-Date: 2009-06-30 04:51-0400\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"PO-Revision-Date: 2009-07-07 03:39-0400\n"
 "Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa_AF\n"
@@ -17,92 +45,138 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 1.2.1\n"
 
-#: activity/activity.info:2
-#: /home/garycmartin/sugar_olpc/physics/activity.py:12
+#: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr "فزیک ها"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:30
-#: /home/garycmartin/sugar_olpc/physics/activity.py:72
+#: activity.py:125
+msgid "Create"
+msgstr ""
+
+#: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "توقف"
 
-#: /home/garycmartin/sugar_olpc/physics/activity.py:75
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr ""
+
+#: activity.py:174
 msgid "Start"
 msgstr "شروع کردن"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:52
+#: tools.py:92
 msgid "Circle"
 msgstr "دایره"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:53
-msgid "c"
+#: tools.py:93
+msgid "<ctrl>c"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:90
+#: tools.py:131
 msgid "Box"
 msgstr "بکس"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:91
-msgid "b"
+#: tools.py:132
+msgid "<ctrl>b"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:126
+#: tools.py:181
 msgid "Triangle"
 msgstr "مثلث"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:127
-msgid "t"
+#: tools.py:182
+msgid "<ctrl>t"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:161
+#: tools.py:249
 msgid "Polygon"
 msgstr "چند گوشه"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:162
-msgid "p"
+#: tools.py:250
+msgid "<ctrl>p"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:220
+#: tools.py:315
 msgid "Draw"
 msgstr "کشیدن"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:221
-msgid "d"
+#: tools.py:316
+msgid "<ctrl>d"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:259
+#: tools.py:369
 msgid "Grab"
 msgstr "قاپیدن"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:260
-msgid "g"
+#: tools.py:370
+msgid "<ctrl>g"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:289
+#: tools.py:416
 msgid "Joint"
 msgstr "محل اتصالات"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:339
+#: tools.py:460
 msgid "Pin"
 msgstr "سنجاق"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:340
-msgid "o"
+#: tools.py:461
+msgid "<ctrl>o"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:363
+#: tools.py:483
 msgid "Motor"
 msgstr "ماشین"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:364
-msgid "m"
+#: tools.py:484
+msgid "<ctrl>m"
 msgstr ""
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:389
+#: tools.py:507
+msgid "Roll"
+msgstr ""
+
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr ""
+
+#: tools.py:534
 msgid "Erase"
 msgstr "پاک کردن"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:390
-msgid "e"
+#: tools.py:535
+msgid "<ctrl>e"
 msgstr ""
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr ""
+
+#~ msgid "c"
+#~ msgstr "c"
+
+#~ msgid "b"
+#~ msgstr "b"
+
+#~ msgid "t"
+#~ msgstr "t"
+
+#~ msgid "p"
+#~ msgstr "p"
+
+#~ msgid "d"
+#~ msgstr "d"
+
+#~ msgid "g"
+#~ msgstr "g"
+
+#~ msgid "o"
+#~ msgstr "o"
+
+#~ msgid "m"
+#~ msgstr "m"
+
+#~ msgid "e"
+#~ msgstr "e"
