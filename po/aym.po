@@ -1,8 +1,12 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-16 00:31-0400\n"
+"POT-Creation-Date: 2012-02-15 00:33-0500\n"
 "PO-Revision-Date: 2011-11-26 05:05+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,7 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#  "Física"
 #: activity/activity.info:2 activity.py:41
 msgid "Physics"
 msgstr ""
@@ -28,7 +31,6 @@ msgstr "Machaqata Luraña"
 msgid "Stop"
 msgstr "Sayt'ayaña"
 
-#  "<ctrl>Espacio"
 #: activity.py:138
 msgid "<ctrl>space"
 msgstr ""
@@ -48,15 +50,15 @@ msgstr "Muyu"
 msgid "<ctrl>c"
 msgstr "<ctrl>c muyu"
 
-#  "Bloque"
 #: tools.py:131
 msgid "Box"
 msgstr ""
 
-#  "<ctrl>b"
+# "<ctrl>c"
 #: tools.py:132
+#, fuzzy
 msgid "<ctrl>b"
-msgstr ""
+msgstr "<ctrl>c muyu"
 
 #  "Triángulo"
 #: tools.py:181
@@ -88,60 +90,59 @@ msgstr "Jiruña"
 msgid "<ctrl>d"
 msgstr "<ctrl>d Jiruña"
 
-#  "Agarrar"
 #: tools.py:369
 msgid "Grab"
 msgstr ""
 
-#  "<ctrl>g"
+# "<ctrl>c"
 #: tools.py:370
+#, fuzzy
 msgid "<ctrl>g"
-msgstr ""
+msgstr "<ctrl>c muyu"
 
-#  "Unión"
 #: tools.py:416
 msgid "Joint"
 msgstr ""
 
-#  "Tachuela"
 #: tools.py:460
 msgid "Pin"
 msgstr ""
 
-#  "<ctrl>o"
+# "<ctrl>c"
 #: tools.py:461
+#, fuzzy
 msgid "<ctrl>o"
-msgstr ""
+msgstr "<ctrl>c muyu"
 
-#  "Motor"
 #: tools.py:483
 msgid "Motor"
 msgstr ""
 
-#  "<ctrl>m"
+# "<ctrl>c"
 #: tools.py:484
+#, fuzzy
 msgid "<ctrl>m"
-msgstr ""
+msgstr "<ctrl>c muyu"
 
-#  "Rodar"
 #: tools.py:507
 msgid "Roll"
 msgstr ""
 
-#  "<ctrl>r"
+# "<ctrl>c"
 #: tools.py:508
+#, fuzzy
 msgid "<ctrl>r"
-msgstr ""
+msgstr "<ctrl>c muyu"
 
-#  "Borrar"
 #: tools.py:534
 msgid "Erase"
 msgstr ""
 
-#  "<ctrl>e"
+# "<ctrl>c"
 #: tools.py:535
+#, fuzzy
 msgid "<ctrl>e"
-msgstr ""
+msgstr "<ctrl>c muyu"
 
 #  "%s Fuente"
 #: olpcgames/canvas.py:151
