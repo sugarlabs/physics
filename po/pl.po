@@ -50,15 +50,17 @@ msgstr ""
 msgid "Physics"
 msgstr "Fizyka"
 
-#~ msgid "Create"
-#~ msgstr "Twórz"
+#: activity.py:125
+msgid "Create"
+msgstr "Twórz"
 
 #: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "Zatrzymaj"
 
-#~ msgid "<ctrl>space"
-#~ msgstr "<ctrl>spacja"
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>spacja"
 
 #: activity.py:174
 msgid "Start"
@@ -68,43 +70,49 @@ msgstr "Uruchom"
 msgid "Circle"
 msgstr "Okrąg"
 
-#~ msgid "<ctrl>c"
-#~ msgstr "<ctrl>c"
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>c"
 
 #: tools.py:131
 msgid "Box"
 msgstr "Pudełko"
 
-#~ msgid "<ctrl>b"
-#~ msgstr "<ctrl>b"
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr "<ctrl>b"
 
 #: tools.py:181
 msgid "Triangle"
 msgstr "Trójkąt"
 
-#~ msgid "<ctrl>t"
-#~ msgstr "<ctrl>t"
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>t"
 
 #: tools.py:249
 msgid "Polygon"
 msgstr "Wielobok"
 
-#~ msgid "<ctrl>p"
-#~ msgstr "<ctrl>p"
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<ctrl>p"
 
 #: tools.py:315
 msgid "Draw"
 msgstr "Rysuj"
 
-#~ msgid "<ctrl>d"
-#~ msgstr "<ctrl>d"
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>d"
 
 #: tools.py:369
 msgid "Grab"
 msgstr "Weź"
 
-#~ msgid "<ctrl>g"
-#~ msgstr "<ctrl>g"
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr "<ctrl>g"
 
 #: tools.py:416
 msgid "Joint"
@@ -114,65 +122,62 @@ msgstr "Połączenie"
 msgid "Pin"
 msgstr "Pinezka"
 
-#~ msgid "<ctrl>o"
-#~ msgstr "<ctrl>o"
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr "<ctrl>o"
 
 #: tools.py:483
 msgid "Motor"
 msgstr "Silnik"
 
-#~ msgid "<ctrl>m"
-#~ msgstr "<ctrl>m"
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
 
-#~ msgid "Roll"
-#~ msgstr "Rolka"
+#: tools.py:507
+msgid "Roll"
+msgstr "Rolka"
 
-#~ msgid "<ctrl>r"
-#~ msgstr "<ctrl>r"
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr "<ctrl>r"
 
 #: tools.py:534
 msgid "Erase"
 msgstr "Wyczyść"
 
-#~ msgid "<ctrl>e"
-#~ msgstr "<ctrl>e"
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr "<ctrl>e"
 
+#: olpcgames/canvas.py:151
 #, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s Źródło"
+msgid "%s Source"
+msgstr "%s Źródło"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:53
-msgid "c"
-msgstr "c"
+#~ msgid "c"
+#~ msgstr "c"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:91
-msgid "b"
-msgstr "s"
+#~ msgid "b"
+#~ msgstr "s"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:390
-msgid "e"
-msgstr "u"
+#~ msgid "e"
+#~ msgstr "u"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:221
-msgid "d"
-msgstr "d"
+#~ msgid "d"
+#~ msgstr "d"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:260
-msgid "g"
-msgstr "g"
+#~ msgid "g"
+#~ msgstr "g"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:364
-msgid "m"
-msgstr "m"
+#~ msgid "m"
+#~ msgstr "m"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:340
-msgid "o"
-msgstr "o"
+#~ msgid "o"
+#~ msgstr "o"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:162
-msgid "p"
-msgstr "p"
+#~ msgid "p"
+#~ msgstr "p"
 
-#: /home/garycmartin/sugar_olpc/physics/tools.py:127
-msgid "t"
-msgstr "t"
+#~ msgid "t"
+#~ msgstr "t"
