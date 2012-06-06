@@ -3,6 +3,6 @@ name = Physics
 bundle_id = org.laptop.physics
 exec = sugar-activity activity.PhysicsActivity
 icon = activity-physics
-activity_version = 9
+activity_version = 10
 show_launcher = yes
 mime_types = application/x-physics-activity;
