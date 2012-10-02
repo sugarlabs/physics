@@ -1,5 +1,6 @@
 [Activity]
 name = Physics
+summary = Prove Sir Issac Newton right! Create real life simulations using different shapes and see them come to life with forces!
 bundle_id = org.laptop.physics
 exec = sugar-activity activity.PhysicsActivity
 icon = activity-physics
