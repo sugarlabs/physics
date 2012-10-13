@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:33-0500\n"
-"PO-Revision-Date: 2011-12-06 12:12+0200\n"
-"Last-Translator: FRKS <frks@frks.pl>\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2012-10-13 00:56+0200\n"
+"Last-Translator: Kamila <kamilafilipowska@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,17 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2 activity.py:41
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Fizyka"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Issac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
 
 #: activity.py:125
 msgid "Create"
@@ -64,7 +72,12 @@ msgstr "<ctrl>spacja"
 
 #: activity.py:174
 msgid "Start"
-msgstr "Uruchom"
+msgstr "Start"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Źródło"
 
 #: tools.py:92
 msgid "Circle"
@@ -120,7 +133,7 @@ msgstr "Połączenie"
 
 #: tools.py:460
 msgid "Pin"
-msgstr "Pinezka"
+msgstr "Przypnij"
 
 #: tools.py:461
 msgid "<ctrl>o"
@@ -149,11 +162,6 @@ msgstr "Wyczyść"
 #: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
-
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Źródło"
 
 #~ msgid "c"
 #~ msgstr "c"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2011-11-20 01:51+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: Voluntarios Quechua Sugar Camp\n"
@@ -16,9 +16,17 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #  "Física"
-#: activity/activity.info:2 activity.py:41
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Física nisqa"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Issac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
 
 #  "Crear"
 #: activity.py:125
@@ -39,6 +47,12 @@ msgstr "<ctrl>s"
 #: activity.py:174
 msgid "Start"
 msgstr "Qallariy"
+
+#  "%s Fuente"
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Chimpu"
 
 #  "Círculo"
 #: tools.py:92
@@ -144,9 +158,3 @@ msgstr "Pichay"
 #: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
-
-#  "%s Fuente"
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Chimpu"

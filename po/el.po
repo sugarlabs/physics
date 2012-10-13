@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2010-01-26 15:46+0200\n"
 "Last-Translator: Γιάννης Κασκαμανίδης <ttnfy17@yahoo.gr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,9 +49,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
-#: activity/activity.info:2 activity.py:41
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Φυσική"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Issac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
 
 #: activity.py:125
 msgid "Create"
@@ -68,6 +76,11 @@ msgstr "<ctrl>διάστημα"
 #: activity.py:174
 msgid "Start"
 msgstr "Έναρξη"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Πόρος"
 
 #: tools.py:92
 msgid "Circle"
@@ -152,11 +165,6 @@ msgstr "Διαγραφή"
 #: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
-
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Πόρος"
 
 #~ msgid "c"
 #~ msgstr "c"

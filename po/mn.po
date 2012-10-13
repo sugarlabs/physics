@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:33-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2010-01-12 21:54-0400\n"
 "Last-Translator: Odontsetseg Bat-Erdene <obat-erdene@suffolk.edu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 1.3.0\n"
 
-#: activity/activity.info:2 activity.py:41
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Физик"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Issac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
 
 #: activity.py:125
 msgid "Create"
@@ -36,6 +44,11 @@ msgstr ""
 #: activity.py:174
 msgid "Start"
 msgstr "Эхлүүлэх"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr ""
 
 #: tools.py:92
 msgid "Circle"
@@ -119,11 +132,6 @@ msgstr "Aрилгах"
 
 #: tools.py:535
 msgid "<ctrl>e"
-msgstr ""
-
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
 msgstr ""
 
 #~ msgid "c"
