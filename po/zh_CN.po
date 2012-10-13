@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:33-0500\n"
-"PO-Revision-Date: 2011-12-22 15:44+0200\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2012-10-13 12:16+0200\n"
 "Last-Translator: lite <litekok@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -49,9 +49,17 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2 activity.py:41
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "物理"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Issac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr "证明牛顿爵士正确！使用不同形状模拟创建现实生活，并观察在生活中的受力！"
 
 #: activity.py:125
 msgid "Create"
@@ -68,6 +76,11 @@ msgstr "<ctrl>空格"
 #: activity.py:174
 msgid "Start"
 msgstr "开始"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s源"
 
 #: tools.py:92
 msgid "Circle"
@@ -152,8 +165,3 @@ msgstr "清除"
 #: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
-
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s源"
