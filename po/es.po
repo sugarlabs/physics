@@ -158,8 +158,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-15 00:33-0500\n"
-"PO-Revision-Date: 2012-08-06 22:19+0200\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2012-10-13 05:15+0200\n"
 "Last-Translator: AlanJAS <alanjas@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -169,9 +169,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2 activity.py:41
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Física"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Issac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
+"¡Comprueba que Isaac Newton tenía razón! Crea simulaciones de la vida real "
+"usando las diferentes formas y viendo como cobran vida con las fuerzas."
 
 #: activity.py:125
 msgid "Create"
@@ -188,6 +198,11 @@ msgstr "<ctrl>Espacio"
 #: activity.py:174
 msgid "Start"
 msgstr "Avanzar"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Fuente"
 
 #: tools.py:92
 msgid "Circle"
@@ -272,11 +287,6 @@ msgstr "Borrar"
 #: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
-
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Fuente"
 
 #~ msgid "c"
 #~ msgstr "c"
