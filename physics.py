@@ -63,11 +63,14 @@ class PhysicsGame:
 
         # Fake a Sugar cursor for the pyGame canvas area
         self.show_fake_cursor = False
-        pygame.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
+        pygame.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0),
+                                                (0, 0, 0, 0, 0, 0, 0, 0))
         self.cursor_picture = pygame.image.load('standardcursor.png')
         self.cursor_picture.convert_alpha()
-        self.canvas.connect("enter_notify_event", self.switch_on_fake_pygame_cursor_cb)
-        self.canvas.connect("leave_notify_event", self.switch_off_fake_pygame_cursor_cb)
+        self.canvas.connect("enter_notify_event",
+                                         self.switch_on_fake_pygame_cursor_cb)
+        self.canvas.connect("leave_notify_event",
+                                        self.switch_off_fake_pygame_cursor_cb)
         self.canvas.add_events(gtk.gdk.ENTER_NOTIFY_MASK
                                | gtk.gdk.LEAVE_NOTIFY_MASK)
 
@@ -88,8 +91,12 @@ class PhysicsGame:
                     for body in self.world.world.GetBodyList():
                         if type(body.userData) == type({}):
                             if body.userData.has_key('rollMotor'):
-                                diff = body.userData['rollMotor']['targetVelocity'] - body.GetAngularVelocity()
-                                body.ApplyTorque(body.userData['rollMotor']['strength'] * diff * body.getMassData().I)
+                                diff = body.userData['rollMotor'] \
+                                                   ['targetVelocity'] \
+                                                   - body.GetAngularVelocity()
+                                body.ApplyTorque(body.userData['rollMotor'] \
+                                                   ['strength'] * diff \
+                                                   * body.getMassData().I)
 
                 # Update & Draw World
                 self.world.update()
@@ -101,12 +108,13 @@ class PhysicsGame:
 
                 # Show Sugar like cursor for UI consistancy
                 if self.show_fake_cursor:
-                    self.screen.blit(self.cursor_picture, pygame.mouse.get_pos())
+                    self.screen.blit(self.cursor_picture,
+                                                       pygame.mouse.get_pos())
 
                 # Flip Display
                 pygame.display.flip()
 
-            # Stay under 30 FPS to help keep the rest of the platform responsive
+            # Stay < 30 FPS to help keep the rest of the platform responsive
             self.clock.tick(30) # Originally 50
 
     def setTool(self, tool):
