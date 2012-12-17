@@ -70,18 +70,6 @@ class PhysicsActivity(olpcgames.PyGameActivity):
 
         return preview_data
 
-    def write_file(self, file_path):
-        """Over-ride olpcgames write_file so that title keeps working.
-        """
-        event = olpcgames.eventwrap.Event(
-            type = pygame.USEREVENT,
-            code = olpcgames.FILE_WRITE_REQUEST,
-            filename = file_path,
-            metadata = self.metadata)
-        olpcgames.eventwrap.post(event)
-        event.block()
-        event.retire() # <- Without this, title editing stops updating
-
     # Setup the toolbar
     def build_toolbar(self):
         try:
