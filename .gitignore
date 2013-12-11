@@ -1,4 +1,4 @@
 *.pyc
+*~
 locale
-.DS_Store
 dist
