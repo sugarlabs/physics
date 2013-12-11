@@ -1,27 +1,14 @@
-"""gtkEvent.py: translate GTK events into Pygame events."""
-import pygtk
-pygtk.require('2.0')
 import gtk
 import gobject
 import pygame
-from olpcgames import eventwrap
+import pygame.event
 import logging 
-log = logging.getLogger( 'olpcgames.gtkevent' )
-##log.setLevel( logging.DEBUG )
 
 class _MockEvent(object):
-    """Used to inject key-repeat events on the gtk side."""
     def __init__(self, keyval):
         self.keyval = keyval
 
 class Translator(object):
-    """Utility class to translate GTK events into Pygame events 
-    
-    The Translator object interprets incoming GTK events and generates
-    Pygame events in the eventwrap module's queue as a result.
-    It also handles generating Pygame style key-repeat events 
-    by synthesizing them via a GTK timer.
-    """
     key_trans = {
         'Alt_L': pygame.K_LALT,
         'Alt_R': pygame.K_RALT,
@@ -51,17 +38,14 @@ class Translator(object):
         pygame.K_RSHIFT: pygame.KMOD_RSHIFT,
     }
     
-    def __init__(self, mainwindow, mouselistener=None):
+    def __init__(self, mainwindow, inner_evb):
         """Initialise the Translator with the windows to which to listen"""
-        # _inner_evb is Mouselistener
         self._mainwindow = mainwindow
-        if mouselistener is None:
-            mouselistener = mainwindow
+        self._inner_evb = inner_evb
 
-        self._inner_evb = mouselistener
-
-        # Need to set our X event masks so we see mouse motion and stuff --
-        mainwindow.set_events(
+        # Enable events
+        # (add instead of set here because the main window is already realized)
+        self._mainwindow.add_events(
             gtk.gdk.KEY_PRESS_MASK | \
             gtk.gdk.KEY_RELEASE_MASK \
         )
@@ -73,18 +57,19 @@ class Translator(object):
             gtk.gdk.BUTTON_PRESS_MASK | \
             gtk.gdk.BUTTON_RELEASE_MASK 
         )
-          
-        # Callback functions to link the event systems
-        mainwindow.connect('unrealize', self._quit)
-        mainwindow.connect('key_press_event', self._keydown)
-        mainwindow.connect('key_release_event', self._keyup)
-        self._inner_evb.connect('button_press_event', self._mousedown)
-        self._inner_evb.connect('button_release_event', self._mouseup)
-        self._inner_evb.connect('motion-notify-event', self._mousemove)
 
-        # You might need to do this
-        mainwindow.set_flags(gtk.CAN_FOCUS)
+        self._mainwindow.set_flags(gtk.CAN_FOCUS)
         self._inner_evb.set_flags(gtk.CAN_FOCUS)
+        
+        # Callback functions to link the event systems
+        self._mainwindow.connect('unrealize', self._quit_cb)
+        self._inner_evb.connect('key_press_event', self._keydown_cb)
+        self._inner_evb.connect('key_release_event', self._keyup_cb)
+        self._inner_evb.connect('button_press_event', self._mousedown_cb)
+        self._inner_evb.connect('button_release_event', self._mouseup_cb)
+        self._inner_evb.connect('motion-notify-event', self._mousemove_cb)
+        self._inner_evb.connect('expose-event', self._expose_cb)
+        self._inner_evb.connect('configure-event', self._resize_cb)
         
         # Internal data
         self.__stopped = False
@@ -97,47 +82,32 @@ class Translator(object):
         self.__held_last_time = {}
         self.__tick_id = None
 
-        #print "translator  initialized"
-        self._inner_evb.connect( 'expose-event', self.do_expose_event )
-#        screen = gtk.gdk.screen_get_default()
-#        screen.connect( 'size-changed', self.do_resize_event )
-        self._inner_evb.connect( 'configure-event', self.do_resize_event )
-    def do_expose_event(self, event, widget):
-        """Handle exposure event (trigger redraw by gst)"""
-        log.info( 'Expose event: %s', event )
-        from olpcgames import eventwrap
-        eventwrap.post( eventwrap.Event( eventwrap.pygame.VIDEOEXPOSE ))
-        return True
-    def do_resize_event( self, activity, event ):
-        """Our screen (actually, the default screen) has resized"""
-        log.info( 'Resize event: %s %s', activity, event )
-        log.info( 'Event values: %s', (event.width,event.height) )
-#        from olpcgames import eventwrap
-#        # shouldn't the activity's window have this information too?
-#        eventwrap.post( 
-#            eventwrap.Event( 
-#                eventwrap.pygame.VIDEORESIZE, 
-#                dict(size=(event.width,event.height), width=event.width, height=event.height) 
-#            )
-#        )
-        return False # continue processing
     def hook_pygame(self):
-        """Hook the various Pygame features so that we implement the event APIs"""
-        # Pygame should be initialized. Hijack their key and mouse methods
         pygame.key.get_pressed = self._get_pressed
         pygame.key.set_repeat = self._set_repeat
         pygame.mouse.get_pressed = self._get_mouse_pressed
         pygame.mouse.get_pos = self._get_mouse_pos
-        import eventwrap
-        eventwrap.install()
         
-    def _quit(self, data=None):
-        self.__stopped = True
-        eventwrap.post(eventwrap.Event(pygame.QUIT))
+    def _expose_cb(self, event, widget):
+        if pygame.display.get_init():
+            pygame.event.post(pygame.event.Event(pygame.VIDEOEXPOSE))
+        return True
 
-    def _keydown(self, widget, event):
+    def _resize_cb(self, widget, event):
+        evt = pygame.event.Event(pygame.VIDEORESIZE, 
+                                 size=(event.width,event.height), width=event.width, height=event.height)
+        pygame.event.post(evt)
+        return False # continue processing
+
+    def _quit_cb(self, data=None):
+        self.__stopped = True
+        try:
+            pygame.event.post(pygame.event.Event(pygame.QUIT))
+        except pygame.error, e:
+            logging.error('pygame already stopped? %s' % (e))
+
+    def _keydown_cb(self, widget, event):
         key = event.keyval
-        log.debug( 'key down: %s', key )
         if key in self.__held:
             return True
         else:
@@ -148,7 +118,7 @@ class Translator(object):
             
         return self._keyevent(widget, event, pygame.KEYDOWN)
         
-    def _keyup(self, widget, event):
+    def _keyup_cb(self, widget, event):
         key = event.keyval
         if self.__repeat[0] is not None:
             if key in self.__held:
@@ -160,12 +130,10 @@ class Translator(object):
         return self._keyevent(widget, event, pygame.KEYUP)
         
     def _keymods(self):
-        """Extract the keymods as they stand currently."""
         mod = 0
         for key_val, mod_val in self.mod_map.iteritems():
             mod |= self.__keystate[key_val] and mod_val
         return mod
-        
         
     def _keyevent(self, widget, event, type):
         key = gtk.gdk.keyval_name(event.keyval)
@@ -184,7 +152,7 @@ class Translator(object):
             # view source request, specially handled...
             self._mainwindow.view_source()
         else:
-            print 'Key %s unrecognized'%key
+            print 'Key %s unrecognized' % key
             
         if keycode is not None:
             if type == pygame.KEYDOWN:
@@ -195,36 +163,31 @@ class Translator(object):
             ukey = unichr(gtk.gdk.keyval_to_unicode(event.keyval))
             if ukey == '\000':
                 ukey = ''
-            evt = eventwrap.Event(type, key=keycode, unicode=ukey, mod=mod)
-            assert evt.key, evt
+            evt = pygame.event.Event(type, key=keycode, unicode=ukey, mod=mod)
             self._post(evt)
+            
         return True
 
     def _get_pressed(self):
-        """Retrieve map/array of which keys are currently depressed (held down)"""
         return self.__keystate
 
     def _get_mouse_pressed(self):
-        """Return three-element array of which mouse-buttons are currently depressed (held down)"""
         return self.__button_state
 
-    def _mousedown(self, widget, event):
+    def _mousedown_cb(self, widget, event):
         self.__button_state[event.button-1] = 1
         return self._mouseevent(widget, event, pygame.MOUSEBUTTONDOWN)
 
-    def _mouseup(self, widget, event):
+    def _mouseup_cb(self, widget, event):
         self.__button_state[event.button-1] = 0
         return self._mouseevent(widget, event, pygame.MOUSEBUTTONUP)
         
     def _mouseevent(self, widget, event, type):
-
-        evt = eventwrap.Event(type, 
-                                             button=event.button, 
-                                             pos=(event.x, event.y))
+        evt = pygame.event.Event(type, button=event.button, pos=(event.x, event.y))
         self._post(evt)
         return True
         
-    def _mousemove(self, widget, event):
+    def _mousemove_cb(self, widget, event):
         # From http://www.learningpython.com/2006/07/25/writing-a-custom-widget-using-pygtk/
         # if this is a hint, then let's get all the necessary 
         # information, if not it's all we need.
@@ -235,8 +198,7 @@ class Translator(object):
             y = event.y
             state = event.state
 
-        rel = (x - self.__mouse_pos[0],
-                y - self.__mouse_pos[1])
+        rel = (x - self.__mouse_pos[0], y - self.__mouse_pos[1])
         self.__mouse_pos = (x, y)
         
         self.__button_state = [
@@ -245,15 +207,12 @@ class Translator(object):
             state & gtk.gdk.BUTTON3_MASK and 1 or 0,
         ]
         
-        evt = eventwrap.Event(pygame.MOUSEMOTION,
-                                             pos=self.__mouse_pos,
-                                             rel=rel,
-                                             buttons=self.__button_state)
+        evt = pygame.event.Event(pygame.MOUSEMOTION,
+                                 pos=self.__mouse_pos, rel=rel, buttons=self.__button_state)
         self._post(evt)
         return True
         
-    def _tick(self):
-        """Generate synthetic events for held-down keys"""
+    def _tick_cb(self):
         cur_time = pygame.time.get_ticks()
         for key in self.__held:
             delta = cur_time - self.__held_last_time[key] 
@@ -267,20 +226,18 @@ class Translator(object):
         return True
         
     def _set_repeat(self, delay=None, interval=None):
-        """Set the key-repetition frequency for held-down keys"""
         if delay is not None and self.__repeat[0] is None:
-            self.__tick_id = gobject.timeout_add(10, self._tick)
+            self.__tick_id = gobject.timeout_add(10, self._tick_cb)
         elif delay is None and self.__repeat[0] is not None:
             gobject.source_remove(self.__tick_id)
         self.__repeat = (delay, interval)
         
     def _get_mouse_pos(self):
-        """Retrieve the current mouse position as a two-tuple of integers"""
         return self.__mouse_pos
-            
+
     def _post(self, evt):
         try:
-            eventwrap.post(evt)
+            pygame.event.post(evt)
         except pygame.error, e:
             if str(e) == 'Event queue full':
                 print "Event queue full!"

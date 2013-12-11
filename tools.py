@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     Physics, a 2D Physics Playground for Kids
     Copyright (C) 2008  Alex Levenson and Brian Jordan
@@ -22,11 +23,13 @@
 #                           By Alex Levenson
 #==================================================================
 import pygame
-import olpcgames
+import sugargame
 from pygame.locals import *
 from helpers import *
 from inspect import getmro
 from gettext import gettext as _
+from sugar.graphics.alert import ConfirmationAlert
+import gtk
 
 
 # Tools that can be superlcassed
@@ -49,20 +52,20 @@ class Tool(object):
                     # Stop/start simulation
                     toggle = self.game.world.run_physics
                     self.game.world.run_physics = not toggle
+                elif event.action == "clear_all":
+                    if len(self.game.world.world.GetBodyList()) > 1:
+                        # Get bodies and destroy them too
+                        for body in self.game.world.world.GetBodyList():
+                            self.game.world.world.DestroyBody(body)
+
+                        # Add ground, because we destroyed it before
+                        self.game.world.add.ground()
                 elif event.action == "focus_in":
                     self.game.in_focus = True
                 elif event.action == "focus_out":
                     self.game.in_focus = False
                 elif self.game.toolList.has_key(event.action):
                     self.game.setTool(event.action)
-            elif hasattr(event, "code"):
-                if event.code == olpcgames.FILE_WRITE_REQUEST:
-                    #Saving to journal
-                    self.game.world.add.remove_mouseJoint()
-                    self.game.world.json_save(event.filename)
-                elif event.code == olpcgames.FILE_READ_REQUEST:
-                    #Loading from journal
-                    self.game.world.json_load(event.filename)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.game.canvas.grab_focus()
             handled = False
@@ -99,6 +102,7 @@ class CircleTool(Tool):
         self.radius = 40
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.pt1 = tuple_to_int(event.pos)
@@ -140,6 +144,7 @@ class BoxTool(Tool):
         self.height = 80
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.pt1 = tuple_to_int(event.pos)
@@ -190,6 +195,7 @@ class TriangleTool(Tool):
         self.line_delta = [0, -80]
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.pt1 = tuple_to_int(event.pos)
@@ -258,6 +264,7 @@ class PolygonTool(Tool):
         self.safe = False
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if hasattr(event, 'button') and event.button == 1:
             if event.type == MOUSEBUTTONDOWN and self.vertices is None:
                 self.vertices = [tuple_to_int(event.pos)]
@@ -332,6 +339,7 @@ class MagicPenTool(Tool):
         self.safe = False
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.vertices = [tuple_to_int(event.pos)]
             self.safe = False
@@ -385,6 +393,7 @@ class GrabTool(Tool):
         self._current_body = None
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         # We handle two types of "grab" depending on simulation running or not
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
@@ -434,6 +443,7 @@ class JointTool(Tool):
         self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
                 # Grab the first body
@@ -480,6 +490,7 @@ class PinTool(Tool):
         self.jb1 = self.jb1pos = None
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             self.jb1pos = tuple_to_int(event.pos)
             self.jb1 = self.game.world.get_bodies_at_pos(
@@ -504,6 +515,7 @@ class MotorTool(Tool):
         self.jb1 = self.jb1pos = None
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
                 # Grab the first body
@@ -529,6 +541,7 @@ class RollTool(Tool):
         self.jb1 = self.jb1pos = None
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.jb1pos = tuple_to_int(event.pos)
@@ -555,6 +568,7 @@ class DestroyTool(Tool):
         self.vertices = None
 
     def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
         if pygame.mouse.get_pressed()[0]:
             if not self.vertices: self.vertices = []
             self.vertices.append(tuple_to_int(event.pos))
@@ -583,6 +597,83 @@ class DestroyTool(Tool):
     def cancel(self):
         self.vertices = None
 
+class EraseAllTool(Tool):
+    name = 'Erase All'
+    icon = 'destroy-all'
+    toolTip = _("Erase all")
+
+    def __init__(self, gameInstance, activity=None):
+        super(EraseAllTool, self).__init__(gameInstance)
+        self.game = gameInstance
+        self.response_alert = None
+        self.activity = activity
+
+    def handleToolEvent(self, event, action=False):
+        if event.type == MOUSEBUTTONDOWN:
+            if not action:
+                # Add alert for confirm the delete all action.
+                alert = ConfirmationAlert()
+                alert.props.title = _("Delete all shapes?")
+                alert.props.msg = _("¡This can't be undone!")
+                alert.connect('response', self.alert_info, event)
+                self.activity.add_alert(alert)
+                return
+        else:
+            if self.response_alert:
+                self.response_alert = False
+                # Obtain all figures
+                bodys = []
+                for body in self.game.world.world.GetBodyList():
+                    bodys.append(body)
+
+                # Erase all ;)
+                for body in bodys:
+                    self.game.world.world.DestroyBody(body)
+
+                # The ground has deleted, restore..
+                self.game.world.add.ground()
+            else:
+                pass
+
+    def alert_info(self, alert, response_id, event):
+        self.activity.remove_alert(alert)
+        if response_id is gtk.RESPONSE_OK:
+            self.response_alert = True
+        elif response_id is gtk.RESPONSE_CANCEL:
+            self.response_alert = False
+
+        self.handleToolEvent(event, True)
+
+
+# Track tool
+class TrackTool(Tool):
+    name = 'Track'
+    icon = 'track'
+    toolTip = _('Track Object')
+    toolAccelerator = _("<ctrl>r")
+
+    def __init__(self, game):
+        Tool.__init__(self, game)
+        self.radius = 1
+
+    def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
+
+        if pygame.mouse.get_pressed()[0]:
+            current_body = self.game.world.get_bodies_at_pos(
+                tuple_to_int(event.pos))[0]
+            if current_body:
+                point_pos = tuple_to_int(event.pos)
+                track_circle = self.game.world.add.ball(
+                    point_pos, self.radius, dynamic=True, density=0.001,
+                    restitution=0.16, friction=0.1)
+                track_circle.userData['track_index'] = \
+                    len(self.game.tracked_bodies)
+
+                self.game.world.add.joint(
+                    track_circle, current_body, point_pos, point_pos, False)
+                self.game.tracked_bodies.append(track_circle)
+
 
 def getAllTools():
     return [MagicPenTool,
@@ -594,6 +685,9 @@ def getAllTools():
             MotorTool,
             PinTool,
             JointTool,
-            DestroyTool]
+            TrackTool,
+            DestroyTool,
+            # EraseAllTool,  # moved to main toolbar
+            ]
 
 allTools = getAllTools()

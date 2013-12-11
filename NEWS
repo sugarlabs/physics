@@ -1,0 +1,7 @@
+11.9
+
+* Removed cjson dependency for elements
+* Added option to joints to set collideConnected = False
+* Added clear_all (svineet)
+* Added tracking (svineet)
+* Added tracing (svineet)
