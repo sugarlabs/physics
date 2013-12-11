@@ -60,6 +60,9 @@ class Tool(object):
 
                         # Add ground, because we destroyed it before
                         self.game.world.add.ground()
+                        # Also clear the points recorded in pens.
+                        self.game.full_pos_list = \
+                            [[] for _ in self.game.full_pos_list]
                 elif event.action == "focus_in":
                     self.game.in_focus = True
                 elif event.action == "focus_out":
@@ -77,12 +80,22 @@ class Tool(object):
             return self.handleToolEvent(event)
 
     def handleToolEvent(self, event):
-        # Overload to handel events for Tool subclasses
+        # Overload to handle events for Tool subclasses
         pass
 
     def draw(self):
-        # Default drawing method is don't draw anything
-        pass
+        # Default drawing method is draw the pen points.
+        full_pos_list = self.game.full_pos_list
+        surface = self.game.world.renderer.get_surface()
+        for i, pos_list in enumerate(full_pos_list):
+            if len(self.game.body_colors) > i:
+                color = self.game.body_colors[i]
+            else:
+                color = 0
+            for i in range(0, len(pos_list), 2):
+                posx = int(pos_list[i])
+                posy = int(pos_list[i+1])
+                pygame.draw.circle(surface, color, (posx, posy), 2)
 
     def cancel(self):
         # Default cancel doesn't do anything
@@ -114,6 +127,7 @@ class CircleTool(Tool):
                 self.pt1 = None
 
     def draw(self):
+        Tool.draw(self)
         # Draw a circle from pt1 to mouse
         if self.pt1 != None:
             delta = distance(self.pt1,
@@ -165,6 +179,7 @@ class BoxTool(Tool):
                 self.pt1 = None
 
     def draw(self):
+        Tool.draw(self)
         # Draw a box from pt1 to mouse
         if self.pt1 != None:
             mouse_x_y = tuple_to_int(pygame.mouse.get_pos())
@@ -233,6 +248,7 @@ class TriangleTool(Tool):
                 self.vertices = None
 
     def draw(self):
+        Tool.draw(self)
         # Draw a triangle from pt1 to mouse
         if self.pt1 != None:
             mouse_x_y = tuple_to_int(pygame.mouse.get_pos())
@@ -310,6 +326,7 @@ class PolygonTool(Tool):
                         self.safe = True
 
     def draw(self):
+        Tool.draw(self)
         # Draw the poly being created
         if self.vertices:
             for i in range(len(self.vertices) - 1):
@@ -365,6 +382,7 @@ class MagicPenTool(Tool):
                 self.safe = True
 
     def draw(self):
+        Tool.draw(self)
         # Draw the poly being created
         if self.vertices:
             if len(self.vertices) > 1:
@@ -470,6 +488,7 @@ class JointTool(Tool):
                 self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
 
     def draw(self):
+        Tool.draw(self)
         if self.jb1:
             pygame.draw.line(self.game.screen, (100, 180, 255), self.jb1pos,
                              tuple_to_int(pygame.mouse.get_pos()), 3)
@@ -588,6 +607,7 @@ class DestroyTool(Tool):
             self.cancel()
 
     def draw(self):
+        Tool.draw(self)
         # Draw the trail
         if self.vertices:
             if len(self.vertices) > 1:
@@ -596,6 +616,7 @@ class DestroyTool(Tool):
 
     def cancel(self):
         self.vertices = None
+
 
 class EraseAllTool(Tool):
     name = 'Erase All'
@@ -614,7 +635,7 @@ class EraseAllTool(Tool):
                 # Add alert for confirm the delete all action.
                 alert = ConfirmationAlert()
                 alert.props.title = _("Delete all shapes?")
-                alert.props.msg = _("¡This can't be undone!")
+                alert.props.msg = _("This can't be undone!")
                 alert.connect('response', self.alert_info, event)
                 self.activity.add_alert(alert)
                 return
@@ -661,8 +682,10 @@ class TrackTool(Tool):
 
         if pygame.mouse.get_pressed()[0]:
             current_body = self.game.world.get_bodies_at_pos(
-                tuple_to_int(event.pos))[0]
+                tuple_to_int(event.pos))
             if current_body:
+                current_body = current_body[0]
+                color = current_body.userData['color']
                 point_pos = tuple_to_int(event.pos)
                 track_circle = self.game.world.add.ball(
                     point_pos, self.radius, dynamic=True, density=0.001,
@@ -673,6 +696,7 @@ class TrackTool(Tool):
                 self.game.world.add.joint(
                     track_circle, current_body, point_pos, point_pos, False)
                 self.game.tracked_bodies.append(track_circle)
+                self.game.body_colors.append(color)
 
 
 def getAllTools():

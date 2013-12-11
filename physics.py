@@ -70,6 +70,7 @@ class PhysicsGame:
 
         self.full_pos_list = []
         self.tracked_bodies = []
+        self.body_colors = []
 
     def switch_off_fake_pygame_cursor_cb(self, panel, event):
         self.show_fake_cursor = False
@@ -138,14 +139,25 @@ class PhysicsGame:
                         if type(body.userData) == type({}):
                             if body.userData.has_key('track_index'):
                                 trackdex = body.userData['track_index']
-                                tupled_pos = tuple_to_int(
-                                    (body.position.x, body.position.y))
+
+                                def to_screen(pos):
+                                    px = self.world.meter_to_screen(
+                                                pos[0])
+                                    py = self.world.meter_to_screen(
+                                                pos[1])
+                                    py = self.world.renderer.get_surface() \
+                                            .get_height() - py
+                                    return (px, py)
+
+                                x = body.position.x
+                                y = body.position.y
+                                tupled_pos = to_screen((x, y))
                                 posx = tupled_pos[0]
                                 posy = tupled_pos[1]
                                 try:
                                     self.full_pos_list[trackdex].append(posx)
                                     self.full_pos_list[trackdex].append(posy)
-                                except:
+                                except IndexError:
                                     self.full_pos_list.append([posx, posy])
 
                             if body.userData.has_key('rollMotor'):

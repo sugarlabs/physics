@@ -41,6 +41,7 @@ from sugar.graphics.alert import ConfirmationAlert
 from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.graphics.toolbarbox import ToolbarButton
 from sugar.graphics.style import GRID_CELL_SIZE
+from sugar.datastore import datastore
 
 import tools
 import physics
@@ -239,7 +240,7 @@ class PhysicsActivity(activity.Activity):
         clear_all_alert = ConfirmationAlert()
         clear_all_alert.props.title = _('Are You Sure?')
         clear_all_alert.props.msg = \
-             _('All you work will be discarded. This cannot be undone!')
+             _('All your work will be discarded. This cannot be undone!')
         clear_all_alert.connect('response', clear_all_alert_cb)
         self.add_alert(clear_all_alert)
 
@@ -275,7 +276,7 @@ class PhysicsActivity(activity.Activity):
         jsonfile.write(json.dumps(data))
         jsonfile.close()
 
-        jobject.set_file_path(os.path.abspath(csvfile.name))
+        jobject.set_file_path(os.path.abspath(jsonfile.name))
         datastore.write(jobject)
 
     def _export_csv_cb(self, button):
