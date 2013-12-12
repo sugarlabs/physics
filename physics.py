@@ -50,6 +50,7 @@ from helpers import *
 
 class PhysicsGame:
     def __init__(self, activity):
+        self.activity = activity
         # Get everything set up
         self.clock = pygame.time.Clock()
         self.canvas = activity.canvas
@@ -69,8 +70,9 @@ class PhysicsGame:
         self.pygame_started = False
 
         self.full_pos_list = []
-        self.tracked_bodies = []
-        self.body_colors = []
+        self.tracked_bodies = 0
+
+        self.trackinfo = {}
 
     def switch_off_fake_pygame_cursor_cb(self, panel, event):
         self.show_fake_cursor = False
@@ -135,31 +137,50 @@ class PhysicsGame:
             if self.in_focus:
                 # Drive motors
                 if self.world.run_physics:
+                    bodies_present = len(self.world.world.GetBodyList())
+                    clear_all_active = self.activity.clear_all.get_sensitive()
+                    if (bodies_present > 1) and clear_all_active is False:
+                        self.activity.clear_all.set_sensitive(True)
+                    elif (bodies_present > 1) is False and \
+                                     clear_all_active is True:
+                        self.activity.clear_all.set_sensitive(False)
+
+                    poslist = self.full_pos_list
+                    clear_trace_active = self.activity.clear_trace.get_sensitive()
+                    if poslist:
+                        if not poslist[0]:
+                            if clear_trace_active:
+                                self.activity.clear_trace.set_sensitive(False)
+                        else:
+                            if clear_trace_active is False:
+                                self.activity.clear_trace.set_sensitive(True)
+
+
+                    for key, info in self.trackinfo.iteritems():
+                        body = info[1] # Format - [host_body, tracker, color]
+                        trackdex = body.userData['track_index']
+                        def to_screen(pos):
+                            px = self.world.meter_to_screen(
+                                        pos[0])
+                            py = self.world.meter_to_screen(
+                                        pos[1])
+                            py = self.world.renderer.get_surface() \
+                                    .get_height() - py
+                            return (px, py)
+
+                        x = body.position.x
+                        y = body.position.y
+                        tupled_pos = to_screen((x, y))
+                        posx = tupled_pos[0]
+                        posy = tupled_pos[1]
+                        try:
+                            self.full_pos_list[trackdex].append(posx)
+                            self.full_pos_list[trackdex].append(posy)
+                        except IndexError:
+                            self.full_pos_list.append([posx, posy])
+
                     for body in self.world.world.GetBodyList():
                         if type(body.userData) == type({}):
-                            if body.userData.has_key('track_index'):
-                                trackdex = body.userData['track_index']
-
-                                def to_screen(pos):
-                                    px = self.world.meter_to_screen(
-                                                pos[0])
-                                    py = self.world.meter_to_screen(
-                                                pos[1])
-                                    py = self.world.renderer.get_surface() \
-                                            .get_height() - py
-                                    return (px, py)
-
-                                x = body.position.x
-                                y = body.position.y
-                                tupled_pos = to_screen((x, y))
-                                posx = tupled_pos[0]
-                                posy = tupled_pos[1]
-                                try:
-                                    self.full_pos_list[trackdex].append(posx)
-                                    self.full_pos_list[trackdex].append(posy)
-                                except IndexError:
-                                    self.full_pos_list.append([posx, posy])
-
                             if body.userData.has_key('rollMotor'):
                                 diff = body.userData['rollMotor'] \
                                     ['targetVelocity'] \

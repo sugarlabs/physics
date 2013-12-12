@@ -88,10 +88,9 @@ class Tool(object):
         full_pos_list = self.game.full_pos_list
         surface = self.game.world.renderer.get_surface()
         for i, pos_list in enumerate(full_pos_list):
-            if len(self.game.body_colors) > i:
-                color = self.game.body_colors[i]
-            else:
-                color = 0
+            dictkey = "pen{0}".format(i)
+            color = self.game.trackinfo[dictkey][2]
+
             for i in range(0, len(pos_list), 2):
                 posx = int(pos_list[i])
                 posy = int(pos_list[i+1])
@@ -690,13 +689,17 @@ class TrackTool(Tool):
                 track_circle = self.game.world.add.ball(
                     point_pos, self.radius, dynamic=True, density=0.001,
                     restitution=0.16, friction=0.1)
-                track_circle.userData['track_index'] = \
-                    len(self.game.tracked_bodies)
-
+                trackdex = self.game.tracked_bodies
+                track_circle.userData['track_index'] = trackdex
+                dictkey = "pen{0}".format(trackdex)
                 self.game.world.add.joint(
                     track_circle, current_body, point_pos, point_pos, False)
-                self.game.tracked_bodies.append(track_circle)
-                self.game.body_colors.append(color)
+
+                self.game.trackinfo[dictkey] = [0, 1, 2]
+                self.game.trackinfo[dictkey][0] = current_body
+                self.game.trackinfo[dictkey][1] = track_circle
+                self.game.trackinfo[dictkey][2] = color
+                self.game.tracked_bodies += 1       # counter of tracked bodies.
 
 
 def getAllTools():
