@@ -526,7 +526,8 @@ class Add:
         mj.target = (x, y)
         mj.maxForce = jointForce * body.GetMass()
         if 'getAsType' in dir(box2d.b2Joint):
-            self.parent.mouseJoint = self.parent.world.CreateJoint(mj).getAsType()
+            self.parent.mouseJoint = \
+                self.parent.world.CreateJoint(mj).getAsType()
         else:
             self.parent.mouseJoint = self.parent.world.CreateJoint(mj)
         body.WakeUp()
