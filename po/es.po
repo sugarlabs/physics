@@ -158,8 +158,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: 2012-10-13 05:15+0200\n"
+"POT-Creation-Date: 2013-12-12 00:31-0500\n"
+"PO-Revision-Date: 2013-12-13 04:41+0200\n"
 "Last-Translator: AlanJAS <alanjas@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -170,7 +170,6 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
-#: activity.py:41
 msgid "Physics"
 msgstr "Física"
 
@@ -183,110 +182,150 @@ msgstr ""
 "¡Comprueba que Isaac Newton tenía razón! Crea simulaciones de la vida real "
 "usando las diferentes formas y viendo como cobran vida con las fuerzas."
 
-#: activity.py:125
+#: activity.py:123
 msgid "Create"
 msgstr "Crear"
 
-#: activity.py:137 activity.py:171
+#: activity.py:151 activity.py:157
+#, fuzzy
+msgid "Export tracked objects to journal"
+msgstr "Exportar objetos al Diario"
+
+#: activity.py:175 activity.py:228
 msgid "Stop"
 msgstr "Detener"
 
-#: activity.py:138
+#: activity.py:176
 msgid "<ctrl>space"
 msgstr "<ctrl>Espacio"
 
-#: activity.py:174
+#: activity.py:183
+msgid "Erase All"
+msgstr "Borrar todo"
+
+#: activity.py:184
+msgid "<ctrl>a"
+msgstr "<ctrl>a"
+
+#: activity.py:231
 msgid "Start"
 msgstr "Avanzar"
 
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Fuente"
+#: activity.py:241
+msgid "Are You Sure?"
+msgstr "¿Estás seguro?"
 
-#: tools.py:92
+#: activity.py:243
+msgid "All your work will be discarded. This cannot be undone!"
+msgstr "Todo tu trabajo será descartado. ¡Esto no se puede deshacer!"
+
+#: activity.py:267 activity.py:284
+msgid "Physics export"
+msgstr "Exportar Física"
+
+#: tools.py:109
 msgid "Circle"
 msgstr "Círculo"
 
-#: tools.py:93
+#: tools.py:110
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:131
+#: tools.py:150
 msgid "Box"
 msgstr "Bloque"
 
-#: tools.py:132
+#: tools.py:151
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:181
+#: tools.py:203
 msgid "Triangle"
 msgstr "Triángulo"
 
-#: tools.py:182
+#: tools.py:204
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:249
+#: tools.py:273
 msgid "Polygon"
 msgstr "Polígono"
 
-#: tools.py:250
+#: tools.py:274
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:315
+#: tools.py:349
 msgid "Draw"
 msgstr "Dibujar"
 
-#: tools.py:316
+#: tools.py:350
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:369
+#: tools.py:406
 msgid "Grab"
 msgstr "Agarrar"
 
-#: tools.py:370
+#: tools.py:407
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:416
+#: tools.py:456
 msgid "Joint"
 msgstr "Unión"
 
-#: tools.py:460
+#: tools.py:504
 msgid "Pin"
 msgstr "Tachuela"
 
-#: tools.py:461
+#: tools.py:505
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:483
+#: tools.py:529
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:484
+#: tools.py:530
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:507
+#: tools.py:555
 msgid "Roll"
 msgstr "Rodar"
 
-#: tools.py:508
+#: tools.py:556 tools.py:674
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:534
+#: tools.py:582
 msgid "Erase"
 msgstr "Borrar"
 
-#: tools.py:535
+#: tools.py:583
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
+
+#: tools.py:624
+msgid "Erase all"
+msgstr "Borrar todo"
+
+#: tools.py:637
+msgid "Delete all shapes?"
+msgstr "¿Borrar todas las formas?"
+
+#: tools.py:638
+msgid "This can't be undone!"
+msgstr "¡Esto no puede ser revertido!"
+
+#: tools.py:673
+msgid "Track Object"
+msgstr "Seguir Objeto"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s Fuente"
 
 #~ msgid "c"
 #~ msgstr "c"
