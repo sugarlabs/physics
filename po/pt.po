@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-12 00:31-0500\n"
-"PO-Revision-Date: 2012-03-23 22:38+0200\n"
+"PO-Revision-Date: 2013-12-14 17:42+0200\n"
 "Last-Translator: Eduardo H. <hoboprimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
@@ -55,6 +55,8 @@ msgid ""
 "Prove Sir Issac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
+"Prova que Isaac Newton tinha razão! Cria simulações da vida real utilizando "
+"as diferentes formas e vê como ganham vida com as forças!"
 
 #: activity.py:123
 msgid "Create"
@@ -74,12 +76,11 @@ msgstr "<ctrl>espaço"
 
 #: activity.py:183
 msgid "Erase All"
-msgstr ""
+msgstr "Apagar Tudo"
 
 #: activity.py:184
-#, fuzzy
 msgid "<ctrl>a"
-msgstr "<ctrl>c"
+msgstr "<ctrl>a"
 
 #: activity.py:231
 msgid "Start"
@@ -87,15 +88,15 @@ msgstr "Iniciar"
 
 #: activity.py:241
 msgid "Are You Sure?"
-msgstr ""
+msgstr "Tens a certeza?"
 
 #: activity.py:243
 msgid "All your work will be discarded. This cannot be undone!"
-msgstr ""
+msgstr "Todo o teu trabalho será descartado. Isto não pode ser desfeito!"
 
 #: activity.py:267 activity.py:284
 msgid "Physics export"
-msgstr ""
+msgstr "Exportar Física"
 
 #: tools.py:109
 msgid "Circle"
@@ -183,19 +184,19 @@ msgstr "<ctrl>e"
 
 #: tools.py:624
 msgid "Erase all"
-msgstr ""
+msgstr "Apagar tudo"
 
 #: tools.py:637
 msgid "Delete all shapes?"
-msgstr ""
+msgstr "Apagar todas as formas?"
 
 #: tools.py:638
 msgid "This can't be undone!"
-msgstr ""
+msgstr "Isto não pode ser desfeito!"
 
 #: tools.py:673
 msgid "Track Object"
-msgstr ""
+msgstr "Seguir Objeto"
 
 #, python-format
 #~ msgid "%s Source"
