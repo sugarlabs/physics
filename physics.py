@@ -83,7 +83,11 @@ class PhysicsGame:
     def write_file(self, path):
         #Saving to journal
         self.world.add.remove_mouseJoint()
-        self.world.json_save(path)
+        additional_data = {
+            "trackinfo" : self.trackinfo,
+            "full_pos_list" : self.full_pos_list
+        }
+        self.world.json_save(path, additional_data, serialize=True)
 
     def read_file(self, path):
         #Loading from journal
@@ -117,7 +121,9 @@ class PhysicsGame:
         if self.opening_queue:
             path = self.opening_queue.encode('ascii', 'convert')
             if os.path.exists(path):
-                self.world.json_load(path)
+                self.world.json_load(path, serialized=True)
+                self.full_pos_list = self.world.additional_vars['full_pos_list']
+                self.trackinfo = self.world.additional_vars['trackinfo']
 
         while self.loop:
             while gtk.events_pending():
@@ -157,27 +163,28 @@ class PhysicsGame:
 
 
                     for key, info in self.trackinfo.iteritems():
-                        body = info[1] # Format - [host_body, tracker, color]
-                        trackdex = body.userData['track_index']
-                        def to_screen(pos):
-                            px = self.world.meter_to_screen(
-                                        pos[0])
-                            py = self.world.meter_to_screen(
-                                        pos[1])
-                            py = self.world.renderer.get_surface() \
-                                    .get_height() - py
-                            return (px, py)
+                        body = info[1] # [host_body, tracker, color, destroyed?]
+                        if info[3] is False: # Not destroyed the pen 
+                            trackdex = info[4]
+                            def to_screen(pos):
+                                px = self.world.meter_to_screen(
+                                            pos[0])
+                                py = self.world.meter_to_screen(
+                                            pos[1])
+                                py = self.world.renderer.get_surface() \
+                                        .get_height() - py
+                                return (px, py)
 
-                        x = body.position.x
-                        y = body.position.y
-                        tupled_pos = to_screen((x, y))
-                        posx = tupled_pos[0]
-                        posy = tupled_pos[1]
-                        try:
-                            self.full_pos_list[trackdex].append(posx)
-                            self.full_pos_list[trackdex].append(posy)
-                        except IndexError:
-                            self.full_pos_list.append([posx, posy])
+                            x = body.position.x
+                            y = body.position.y
+                            tupled_pos = to_screen((x, y))
+                            posx = tupled_pos[0]
+                            posy = tupled_pos[1]
+                            try:
+                                self.full_pos_list[trackdex].append(posx)
+                                self.full_pos_list[trackdex].append(posy)
+                            except IndexError:
+                                self.full_pos_list.append([posx, posy])
 
                     for body in self.world.world.GetBodyList():
                         if type(body.userData) == type({}):
