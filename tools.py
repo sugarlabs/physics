@@ -87,15 +87,17 @@ class Tool(object):
         # Default drawing method is draw the pen points.
         full_pos_list = self.game.full_pos_list
         surface = self.game.world.renderer.get_surface()
-        for i, pos_list in enumerate(full_pos_list):
-            if len(self.game.body_colors) > i:
-                color = self.game.body_colors[i]
-            else:
-                color = 0
-            for i in range(0, len(pos_list), 2):
-                posx = int(pos_list[i])
-                posy = int(pos_list[i+1])
-                pygame.draw.circle(surface, color, (posx, posy), 2)
+        for key, info in self.game.trackinfo.iteritems():
+            color = info[2]
+            trackdex = info[4]
+            try: 
+                pos_list = self.game.full_pos_list[trackdex]
+                for i in range(0, len(pos_list), 2):
+                    posx = int(pos_list[i])
+                    posy = int(pos_list[i+1])
+                    pygame.draw.circle(surface, color, (posx, posy), 2)
+            except IndexError:
+                pass
 
     def cancel(self):
         # Default cancel doesn't do anything
@@ -597,11 +599,22 @@ class DestroyTool(Tool):
             tokill = self.game.world.get_bodies_at_pos(tuple_to_int(event.pos))
 
             if tokill:
+                tracklist = self.game.trackinfo.items()
+                destroyed_body = False
+                for key, info in tracklist:
+                    trackdex = info[4]
+                    if trackdex in tokill[0].userData['track_indices'] and \
+                        info[3] is False:
+                        self.game.world.world.DestroyBody(info[1])
+                        self.game.trackinfo[key][3] = True
+                        destroyed_body = True
+                        break
+
                 jointnode = tokill[0].GetJointList()
-                if jointnode:
+                if jointnode and not destroyed_body:
                     joint = jointnode.joint
                     self.game.world.world.DestroyJoint(joint)
-                else:
+                elif not destroyed_body:
                     self.game.world.world.DestroyBody(tokill[0])
         elif event.type == MOUSEBUTTONUP and event.button == 1:
             self.cancel()
@@ -690,13 +703,24 @@ class TrackTool(Tool):
                 track_circle = self.game.world.add.ball(
                     point_pos, self.radius, dynamic=True, density=0.001,
                     restitution=0.16, friction=0.1)
-                track_circle.userData['track_index'] = \
-                    len(self.game.tracked_bodies)
-
+                trackdex = self.game.tracked_bodies
+                track_circle.userData['track_index'] = trackdex
+                dictkey = "pen{0}".format(trackdex)
                 self.game.world.add.joint(
                     track_circle, current_body, point_pos, point_pos, False)
-                self.game.tracked_bodies.append(track_circle)
-                self.game.body_colors.append(color)
+
+                if 'track_indices' in current_body.userData:
+                    current_body.userData['track_indices'].append(trackdex)
+                else:
+                    current_body.userData['track_indices'] = [trackdex] 
+
+                self.game.trackinfo[dictkey] = [0, 1, 2, 4, 5]
+                self.game.trackinfo[dictkey][0] = current_body
+                self.game.trackinfo[dictkey][1] = track_circle
+                self.game.trackinfo[dictkey][2] = color
+                self.game.trackinfo[dictkey][3] = False # Pen destroyed or not.
+                self.game.trackinfo[dictkey][4] = trackdex # Tracking index.
+                self.game.tracked_bodies += 1       # counter of tracked bodies.
 
 
 def getAllTools():

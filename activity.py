@@ -130,6 +130,15 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.toolbar.insert(separator, -1)
         separator.show()
 
+        clear_trace = ToolButton("clear-trace")
+        clear_trace.set_tooltip(_("Clear Trace Marks"))
+        clear_trace.set_accelerator(_("<ctrl>x"))
+        clear_trace.connect("clicked", self.clear_trace_cb)
+        clear_trace.set_sensitive(False)
+        toolbar_box.toolbar.insert(clear_trace, -1)
+        clear_trace.show()
+        self.clear_trace = clear_trace
+
         self._insert_clear_all_button(toolbar_box.toolbar)
 
         separator = gtk.SeparatorToolItem()
@@ -184,6 +193,7 @@ class PhysicsActivity(activity.Activity):
         self.clear_all.set_accelerator(_('<ctrl>a'))
         self.clear_all.connect('clicked', self.clear_all_cb)
         toolbar.insert(self.clear_all, -1)
+        self.clear_all.set_sensitive(False)
         self.clear_all.show()
 
     def _insert_create_tools(self, create_toolbar):
@@ -212,11 +222,25 @@ class PhysicsActivity(activity.Activity):
                 separator.show()
 
             button.set_tooltip(c.toolTip)
-            # button.set_accelerator(c.toolAccelerator)
+            button.set_accelerator(c.toolAccelerator)
             button.connect('clicked', self.radioClicked)
             _insert_item(create_toolbar, button, -1)
             button.show()
             self.radioList[button] = c.name
+
+    def clear_trace_alert_cb(self, alert, response):
+        self.remove_alert(alert)
+        if response is gtk.RESPONSE_OK:
+            self.game.full_pos_list = [[] for _ in self.game.full_pos_list]
+            self.game.tracked_bodies = 0
+
+    def clear_trace_cb(self, button):
+        clear_trace_alert = ConfirmationAlert()
+        clear_trace_alert.props.title = _('Are You Sure?')
+        clear_trace_alert.props.msg = \
+            _('All trace points will be erased. This cannot be undone!')
+        clear_trace_alert.connect('response', self.clear_trace_alert_cb)
+        self.add_alert(clear_trace_alert)
 
     def stop_play_cb(self, button):
         pygame.event.post(pygame.event.Event(pygame.USEREVENT,
