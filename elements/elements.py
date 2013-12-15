@@ -430,7 +430,7 @@ class Elements:
 
         return variables
 
-    def json_save(self, path, additional_vars = {}):
+    def json_save(self, path, additional_vars = {}, serialize=False):
         import json
         worldmodel = {}
 
@@ -501,8 +501,21 @@ class Elements:
         controllerlist = []
         worldmodel['controllerlist'] = controllerlist
 
-        worldmodel['additional_vars'] = additional_vars
+        if serialize:
+            addvars = additional_vars
+            trackinfo = addvars['trackinfo']
+            backup = trackinfo
+            for key, info in backup.iteritems():
+                if not info[3]:
+                    trackinfo[key][0] = info[0].userData['saveid']
+                    trackinfo[key][1] = info[1].userData['saveid']
+                else:
+                    addvars['trackinfo'][key][0] = None
+                    addvars['trackinfo'][key][1] = None
 
+            additional_vars['trackinfo'] = trackinfo
+
+        worldmodel['additional_vars'] = additional_vars
         f = open(path,'w')
         f.write(json.dumps(worldmodel))
         f.close()
@@ -510,7 +523,7 @@ class Elements:
         for body in self.world.GetBodyList():
             del body.userData['saveid'] #remove temporary data
 
-    def json_load(self, path, additional_vars = {}):
+    def json_load(self, path, serialized=False):
         import json
 
         self.world.GetGroundBody().userData = {"saveid" : 0}
@@ -577,8 +590,24 @@ class Elements:
                 jointDef.maxMotorTorque = joint['maxMotorTorque']
                 self.world.CreateJoint(jointDef)
 
+        self.additional_vars = {}
+        addvars = {}
         for (k,v) in worldmodel['additional_vars'].items():
-            additional_vars[k] = v
+            addvars[k] = v
+
+        if serialized:
+            trackinfo = addvars['trackinfo']
+            for key, info in trackinfo.iteritems():
+                if not info[3]:
+                    addvars['trackinfo'][key][0] =  \
+                                                self.getBodyWithSaveId(info[0])
+                    addvars['trackinfo'][key][1] =  \
+                                                self.getBodyWithSaveId(info[1])
+                else:
+                    addvars['trackinfo'][key][0] = None
+                    addvars['trackinfo'][key][1] = None
+
+        self.additional_vars = addvars
 
         for body in self.world.GetBodyList():
             del body.userData['saveid'] #remove temporary data
