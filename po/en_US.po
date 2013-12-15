@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-12 00:31-0500\n"
-"PO-Revision-Date: 2013-12-12 22:59+0200\n"
+"POT-Creation-Date: 2013-12-15 00:31-0500\n"
+"PO-Revision-Date: 2013-12-15 18:43+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
@@ -51,146 +51,158 @@ msgid ""
 "Prove Sir Issac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
-"Prove Sir Issac Newton right! Create real life simulations using different "
+"Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 
 #: activity.py:123
 msgid "Create"
 msgstr "Create"
 
-#: activity.py:151 activity.py:157
+#: activity.py:134
+msgid "Clear Trace Marks"
+msgstr "Clear Trace Marks"
+
+#: activity.py:135
+msgid "<ctrl>x"
+msgstr "<ctrl>x"
+
+#: activity.py:160 activity.py:166
 msgid "Export tracked objects to journal"
 msgstr "Export tracked objects to journal"
 
-#: activity.py:175 activity.py:228
+#: activity.py:184 activity.py:252
 msgid "Stop"
 msgstr "Stop"
 
-#: activity.py:176
+#: activity.py:185
 msgid "<ctrl>space"
 msgstr "<ctrl>space"
 
-#: activity.py:183
+#: activity.py:192
 msgid "Erase All"
 msgstr "Erase All"
 
-#: activity.py:184
+#: activity.py:193
 msgid "<ctrl>a"
 msgstr "<ctrl>a"
 
-#: activity.py:231
-msgid "Start"
-msgstr "Start"
-
-#: activity.py:241
+#: activity.py:239 activity.py:265
 msgid "Are You Sure?"
 msgstr "Are You Sure?"
 
-#: activity.py:243
+#: activity.py:241
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr "All trace points will be erased. This cannot be undone!"
+
+#: activity.py:255
+msgid "Start"
+msgstr "Start"
+
+#: activity.py:267
 msgid "All your work will be discarded. This cannot be undone!"
 msgstr "All your work will be discarded. This cannot be undone!"
 
-#: activity.py:267 activity.py:284
+#: activity.py:291 activity.py:308
 msgid "Physics export"
 msgstr "Physics export"
 
-#: tools.py:109
+#: tools.py:111
 msgid "Circle"
 msgstr "Circle"
 
-#: tools.py:110
+#: tools.py:112
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:150
+#: tools.py:152
 msgid "Box"
 msgstr "Box"
 
-#: tools.py:151
+#: tools.py:153
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:203
+#: tools.py:205
 msgid "Triangle"
 msgstr "Triangle"
 
-#: tools.py:204
+#: tools.py:206
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:273
+#: tools.py:275
 msgid "Polygon"
 msgstr "Polygon"
 
-#: tools.py:274
+#: tools.py:276
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:349
+#: tools.py:351
 msgid "Draw"
 msgstr "Draw"
 
-#: tools.py:350
+#: tools.py:352
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:406
+#: tools.py:408
 msgid "Grab"
 msgstr "Grab"
 
-#: tools.py:407
+#: tools.py:409
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:456
+#: tools.py:458
 msgid "Joint"
 msgstr "Joint"
 
-#: tools.py:504
+#: tools.py:506
 msgid "Pin"
 msgstr "Pin"
 
-#: tools.py:505
+#: tools.py:507
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:529
+#: tools.py:531
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:530
+#: tools.py:532
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:555
+#: tools.py:557
 msgid "Roll"
 msgstr "Roll"
 
-#: tools.py:556 tools.py:674
+#: tools.py:558 tools.py:687
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:582
+#: tools.py:584
 msgid "Erase"
 msgstr "Erase"
 
-#: tools.py:583
+#: tools.py:585
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
 
-#: tools.py:624
+#: tools.py:637
 msgid "Erase all"
 msgstr "Erase all"
 
-#: tools.py:637
+#: tools.py:650
 msgid "Delete all shapes?"
 msgstr "Delete all shapes?"
 
-#: tools.py:638
+#: tools.py:651
 msgid "This can't be undone!"
 msgstr "This can't be undone!"
 
-#: tools.py:673
+#: tools.py:686
 msgid "Track Object"
 msgstr "Track Object"
 
