@@ -27,17 +27,13 @@ Code:   git://git.sugarlabs.org/physics/mainline.git
 
 import os
 import sys
-import math
 import gtk
-import logging
 
 import pygame
 from pygame.locals import *
 from pygame.color import *
-import sugargame
 
 sys.path.append("lib/")
-import pkg_resources
 # If your architecture is different, comment these lines and install
 # the modules in your system.
 sys.path.append("lib/Box2D-2.0.2b1-py2.5-linux-i686.egg")
@@ -84,8 +80,8 @@ class PhysicsGame:
         #Saving to journal
         self.world.add.remove_mouseJoint()
         additional_data = {
-            "trackinfo" : self.trackinfo,
-            "full_pos_list" : self.full_pos_list
+            "trackinfo": self.trackinfo,
+            "full_pos_list": self.full_pos_list
         }
         self.world.json_save(path, additional_data, serialize=True)
 
@@ -122,7 +118,8 @@ class PhysicsGame:
             path = self.opening_queue.encode('ascii', 'convert')
             if os.path.exists(path):
                 self.world.json_load(path, serialized=True)
-                self.full_pos_list = self.world.additional_vars['full_pos_list']
+                self.full_pos_list = \
+                    self.world.additional_vars['full_pos_list']
                 self.trackinfo = self.world.additional_vars['trackinfo']
 
         while self.loop:
@@ -148,11 +145,12 @@ class PhysicsGame:
                     if (bodies_present > 1) and clear_all_active is False:
                         self.activity.clear_all.set_sensitive(True)
                     elif (bodies_present > 1) is False and \
-                                     clear_all_active is True:
+                            clear_all_active is True:
                         self.activity.clear_all.set_sensitive(False)
 
                     poslist = self.full_pos_list
-                    clear_trace_active = self.activity.clear_trace.get_sensitive()
+                    clear_trace_active = \
+                        self.activity.clear_trace.get_sensitive()
                     if poslist:
                         if not poslist[0]:
                             if clear_trace_active:
@@ -161,18 +159,19 @@ class PhysicsGame:
                             if clear_trace_active is False:
                                 self.activity.clear_trace.set_sensitive(True)
 
-
                     for key, info in self.trackinfo.iteritems():
-                        body = info[1] # [host_body, tracker, color, destroyed?]
-                        if info[3] is False: # Not destroyed the pen 
+                        # [host_body, tracker, color, destroyed?]
+                        body = info[1]
+                        if info[3] is False:  # Not destroyed the pen
                             trackdex = info[4]
+
                             def to_screen(pos):
                                 px = self.world.meter_to_screen(
-                                            pos[0])
+                                    pos[0])
                                 py = self.world.meter_to_screen(
-                                            pos[1])
+                                    pos[1])
                                 py = self.world.renderer.get_surface() \
-                                        .get_height() - py
+                                    .get_height() - py
                                 return (px, py)
 
                             x = body.position.x
@@ -187,7 +186,7 @@ class PhysicsGame:
                                 self.full_pos_list.append([posx, posy])
 
                     for body in self.world.world.GetBodyList():
-                        if type(body.userData) == type({}):
+                        if isinstance(body.userData, dict):
                             if body.userData.has_key('rollMotor'):
                                 diff = body.userData['rollMotor'] \
                                     ['targetVelocity'] \
@@ -198,7 +197,7 @@ class PhysicsGame:
 
                 # Update & Draw World
                 self.world.update()
-                self.screen.fill((255, 255, 255)) # 255 for white
+                self.screen.fill((255, 255, 255))  # 255 for white
                 self.world.draw()
 
                 # Draw output from tools
@@ -213,17 +212,17 @@ class PhysicsGame:
                 pygame.display.flip()
 
             # Stay < 30 FPS to help keep the rest of the platform responsive
-            self.clock.tick(30) # Originally 50
+            self.clock.tick(30)  # Originally 50
 
     def setTool(self, tool):
         self.currentTool.cancel()
         self.currentTool = self.toolList[tool]
 
+
 def main(activity):
-    game = PhysicsGame(activity) 
+    game = PhysicsGame(activity)
     return game
 
 # Make sure that main get's called
 if __name__ == '__main__':
     main()
-
