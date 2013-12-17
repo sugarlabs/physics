@@ -23,10 +23,8 @@
 #                           By Alex Levenson
 #==================================================================
 import pygame
-import sugargame
 from pygame.locals import *
 from helpers import *
-from inspect import getmro
 from gettext import gettext as _
 from sugar.graphics.alert import ConfirmationAlert
 import gtk
@@ -85,12 +83,11 @@ class Tool(object):
 
     def draw(self):
         # Default drawing method is draw the pen points.
-        full_pos_list = self.game.full_pos_list
         surface = self.game.world.renderer.get_surface()
         for key, info in self.game.trackinfo.iteritems():
             color = info[2]
             trackdex = info[4]
-            try: 
+            try:
                 pos_list = self.game.full_pos_list[trackdex]
                 for i in range(0, len(pos_list), 2):
                     posx = int(pos_list[i])
@@ -131,7 +128,7 @@ class CircleTool(Tool):
     def draw(self):
         Tool.draw(self)
         # Draw a circle from pt1 to mouse
-        if self.pt1 != None:
+        if self.pt1 is not None:
             delta = distance(self.pt1,
                              tuple_to_int(pygame.mouse.get_pos()))
             if delta > 0:
@@ -165,7 +162,7 @@ class BoxTool(Tool):
             if event.button == 1:
                 self.pt1 = tuple_to_int(event.pos)
         elif event.type == MOUSEBUTTONUP:
-            if event.button == 1 and self.pt1 != None:
+            if event.button == 1 and self.pt1 is not None:
                 mouse_x_y = tuple_to_int(event.pos)
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
                     self.rect = pygame.Rect(self.pt1,
@@ -183,7 +180,7 @@ class BoxTool(Tool):
     def draw(self):
         Tool.draw(self)
         # Draw a box from pt1 to mouse
-        if self.pt1 != None:
+        if self.pt1 is not None:
             mouse_x_y = tuple_to_int(pygame.mouse.get_pos())
             if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
                 self.width = mouse_x_y[0] - self.pt1[0]
@@ -217,7 +214,7 @@ class TriangleTool(Tool):
             if event.button == 1:
                 self.pt1 = tuple_to_int(event.pos)
         elif event.type == MOUSEBUTTONUP:
-            if event.button == 1 and self.pt1 != None:
+            if event.button == 1 and self.pt1 is not None:
                 mouse_x_y = tuple_to_int(event.pos)
                 if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
                     self.pt1 = [mouse_x_y[0] - self.line_delta[0],
@@ -252,14 +249,14 @@ class TriangleTool(Tool):
     def draw(self):
         Tool.draw(self)
         # Draw a triangle from pt1 to mouse
-        if self.pt1 != None:
+        if self.pt1 is not None:
             mouse_x_y = tuple_to_int(pygame.mouse.get_pos())
             if mouse_x_y[0] != self.pt1[0] or mouse_x_y[1] != self.pt1[1]:
                 self.vertices = constructTriangleFromLine(self.pt1, mouse_x_y)
                 self.line_delta = [mouse_x_y[0] - self.pt1[0],
                                    mouse_x_y[1] - self.pt1[1]]
                 pygame.draw.polygon(self.game.screen, (100, 180, 255),
-                                    self.vertices, 3) 
+                                    self.vertices, 3)
                 pygame.draw.line(self.game.screen, (100, 180, 255),
                                  self.pt1, mouse_x_y, 1)
 
@@ -288,15 +285,15 @@ class PolygonTool(Tool):
                 self.vertices = [tuple_to_int(event.pos)]
                 self.safe = False
             if event.type == MOUSEBUTTONUP and self.vertices is not None and \
-                  len(self.vertices) == 1 and \
-                  tuple_to_int(event.pos)[0] == self.vertices[0][0] and \
-                  tuple_to_int(event.pos)[1] == self.vertices[0][1]:
+                    len(self.vertices) == 1 and \
+                    tuple_to_int(event.pos)[0] == self.vertices[0][0] and \
+                    tuple_to_int(event.pos)[1] == self.vertices[0][1]:
                 if self.previous_vertices is not None:
                     last_x_y = self.previous_vertices[-1]
                     delta_x = last_x_y[0] - tuple_to_int(event.pos)[0]
                     delta_y = last_x_y[1] - tuple_to_int(event.pos)[1]
                     self.vertices = [[i[0] - delta_x, i[1] - delta_y]
-                                                for i in self.previous_vertices]
+                                     for i in self.previous_vertices]
                     self.safe = True
                     self.game.world.add.complexPoly(self.vertices, dynamic=True,
                                                     density=1.0,
@@ -311,8 +308,8 @@ class PolygonTool(Tool):
                     # Skip if coordinate is same as last one
                     return
                 if distance(tuple_to_int(event.pos), self.vertices[0]) < 15 \
-                                                                  and self.safe:
-                    self.vertices.append(self.vertices[0]) # Connect polygon
+                        and self.safe:
+                    self.vertices.append(self.vertices[0])  # Connect polygon
                     self.game.world.add.complexPoly(self.vertices,
                                                     dynamic=True,
                                                     density=1.0,
@@ -368,7 +365,7 @@ class MagicPenTool(Tool):
                 delta_x = last_x_y[0] - tuple_to_int(event.pos)[0]
                 delta_y = last_x_y[1] - tuple_to_int(event.pos)[1]
                 self.vertices = [[i[0] - delta_x, i[1] - delta_y]
-                                            for i in self.previous_vertices]
+                                 for i in self.previous_vertices]
                 self.safe = True
             if self.vertices and self.safe:
                 self.game.world.add.complexPoly(self.vertices, dynamic=True,
@@ -380,7 +377,7 @@ class MagicPenTool(Tool):
         elif event.type == MOUSEMOTION and self.vertices:
             self.vertices.append(tuple_to_int(event.pos))
             if distance(tuple_to_int(event.pos), self.vertices[0]) >= 55 and \
-                                                         len(self.vertices) > 3:
+                    len(self.vertices) > 3:
                 self.safe = True
 
     def draw(self):
@@ -419,12 +416,12 @@ class GrabTool(Tool):
             if event.button == 1:
                 # Grab the first object at the mouse pointer
                 bodylist = self.game.world.get_bodies_at_pos(
-                                                        tuple_to_int(event.pos),
-                                                        include_static=False)
+                    tuple_to_int(event.pos),
+                    include_static=False)
                 if bodylist and len(bodylist) > 0:
                     if self.game.world.run_physics:
                         self.game.world.add.mouseJoint(bodylist[0],
-                                                        tuple_to_int(event.pos))
+                                                       tuple_to_int(event.pos))
                     else:
                         self._current_body = bodylist[0]
         elif event.type == MOUSEBUTTONUP:
@@ -469,14 +466,14 @@ class JointTool(Tool):
                 # Grab the first body
                 self.jb1pos = tuple_to_int(event.pos)
                 self.jb1 = self.game.world.get_bodies_at_pos(
-                                                        tuple_to_int(event.pos))
+                    tuple_to_int(event.pos))
                 self.jb2 = self.jb2pos = None
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
                 # Grab the second body
                 self.jb2pos = tuple_to_int(event.pos)
                 self.jb2 = self.game.world.get_bodies_at_pos(
-                                                        tuple_to_int(event.pos))
+                    tuple_to_int(event.pos))
                 # If we have two distinct bodies, add a distance joint!
                 if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
                     self.game.world.add.joint(self.jb1[0], self.jb2[0],
@@ -515,7 +512,7 @@ class PinTool(Tool):
         if event.type == MOUSEBUTTONDOWN:
             self.jb1pos = tuple_to_int(event.pos)
             self.jb1 = self.game.world.get_bodies_at_pos(
-                                                        tuple_to_int(event.pos))
+                tuple_to_int(event.pos))
             if self.jb1:
                 self.game.world.add.joint(self.jb1[0], self.jb1pos)
             self.jb1 = self.jb1pos = None
@@ -542,7 +539,7 @@ class MotorTool(Tool):
                 # Grab the first body
                 self.jb1pos = tuple_to_int(event.pos)
                 self.jb1 = self.game.world.get_bodies_at_pos(
-                                                        tuple_to_int(event.pos))
+                    tuple_to_int(event.pos))
                 if self.jb1:
                     self.game.world.add.motor(self.jb1[0], self.jb1pos)
                 self.jb1 = self.jb1pos = None
@@ -591,7 +588,8 @@ class DestroyTool(Tool):
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
         if pygame.mouse.get_pressed()[0]:
-            if not self.vertices: self.vertices = []
+            if not self.vertices:
+                self.vertices = []
             self.vertices.append(tuple_to_int(event.pos))
             if len(self.vertices) > 10:
                 self.vertices.pop(0)
@@ -604,7 +602,7 @@ class DestroyTool(Tool):
                 for key, info in tracklist:
                     trackdex = info[4]
                     if trackdex in tokill[0].userData['track_indices'] and \
-                        info[3] is False:
+                            info[3] is False:
                         self.game.world.world.DestroyBody(info[1])
                         self.game.trackinfo[key][3] = True
                         destroyed_body = True
@@ -712,15 +710,15 @@ class TrackTool(Tool):
                 if 'track_indices' in current_body.userData:
                     current_body.userData['track_indices'].append(trackdex)
                 else:
-                    current_body.userData['track_indices'] = [trackdex] 
+                    current_body.userData['track_indices'] = [trackdex]
 
                 self.game.trackinfo[dictkey] = [0, 1, 2, 4, 5]
                 self.game.trackinfo[dictkey][0] = current_body
                 self.game.trackinfo[dictkey][1] = track_circle
                 self.game.trackinfo[dictkey][2] = color
-                self.game.trackinfo[dictkey][3] = False # Pen destroyed or not.
-                self.game.trackinfo[dictkey][4] = trackdex # Tracking index.
-                self.game.tracked_bodies += 1       # counter of tracked bodies.
+                self.game.trackinfo[dictkey][3] = False  # Pen destroyed or not
+                self.game.trackinfo[dictkey][4] = trackdex  # Tracking index.
+                self.game.tracked_bodies += 1  # counter of tracked bodies
 
 
 def getAllTools():

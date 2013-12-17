@@ -24,7 +24,6 @@ import gtk
 import csv
 import tempfile
 import json
-from StringIO import StringIO
 from gettext import gettext as _
 import logging
 
@@ -67,18 +66,18 @@ class PhysicsActivity(activity.Activity):
                                              self.__configure_cb)
 
         logging.debug(os.path.join(
-                activity.get_activity_root(), 'data', 'data'))
+                      activity.get_activity_root(), 'data', 'data'))
         self._canvas.run_pygame(self.game.run)
 
     def __configure_cb(self, event):
         ''' Screen size has changed '''
         self.write_file(os.path.join(
-                activity.get_activity_root(), 'data', 'data'))
+                        activity.get_activity_root(), 'data', 'data'))
         pygame.display.set_mode((gtk.gdk.screen_width(),
                                  gtk.gdk.screen_height() - 2 * GRID_CELL_SIZE),
                                 pygame.RESIZABLE)
         self.read_file(os.path.join(
-                activity.get_activity_root(), 'data', 'data'))
+                       activity.get_activity_root(), 'data', 'data'))
         self.game.run(True)
 
     def read_file(self, file_path):
@@ -264,7 +263,7 @@ class PhysicsActivity(activity.Activity):
         clear_all_alert = ConfirmationAlert()
         clear_all_alert.props.title = _('Are You Sure?')
         clear_all_alert.props.msg = \
-             _('All your work will be discarded. This cannot be undone!')
+                _('All your work will be discarded. This cannot be undone!')
         clear_all_alert.connect('response', clear_all_alert_cb)
         self.add_alert(clear_all_alert)
 
