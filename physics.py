@@ -118,9 +118,11 @@ class PhysicsGame:
             path = self.opening_queue.encode('ascii', 'convert')
             if os.path.exists(path):
                 self.world.json_load(path, serialized=True)
-                self.full_pos_list = \
-                    self.world.additional_vars['full_pos_list']
-                self.trackinfo = self.world.additional_vars['trackinfo']
+                if 'full_pos_list' in self.world.additional_vars:
+                    self.full_pos_list = \
+                        self.world.additional_vars['full_pos_list']
+                if 'trackinfo' in self.world.additional_vars:
+                    self.trackinfo = self.world.additional_vars['trackinfo']
 
         while self.loop:
             while gtk.events_pending():

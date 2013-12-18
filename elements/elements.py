@@ -595,7 +595,7 @@ class Elements:
         for (k,v) in worldmodel['additional_vars'].items():
             addvars[k] = v
 
-        if serialized:
+        if serialized and 'trackinfo' in addvars:
             trackinfo = addvars['trackinfo']
             for key, info in trackinfo.iteritems():
                 if not info[3]:
