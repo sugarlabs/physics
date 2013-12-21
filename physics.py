@@ -1,29 +1,29 @@
 #!/usr/bin/python
-"""
-    Physics, a 2D Physics Playground for Kids
-    Copyright (C) 2008  Alex Levenson and Brian Jordan
+# Physics, a 2D Physics Playground for Kids
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+# Copyright (C) 2008  Alex Levenson and Brian Jordan
+# Copyright (C) 2012  Daniel Francis
+# Copyright (C) 2012-13  Walter Bender
+# Copyright (C) 2013  Sai Vineet
+# Copyright (C) 2012-13  Sugar Labs
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+#  This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
---
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Elements is Copyright (C) 2008, The Elements Team, <elements@linuxuser.at>
+# Elements is Copyright (C) 2008, The Elements Team, <elements@linuxuser.at>
 
-Wiki:   http://wiki.sugarlabs.org/go/Activities/Physics
-Code:   git://git.sugarlabs.org/physics/mainline.git
-
-"""
+# Wiki:   http://wiki.sugarlabs.org/go/Activities/Physics
+# Code:   git://git.sugarlabs.org/physics/mainline.git
 
 import os
 import sys
@@ -33,10 +33,10 @@ import pygame
 from pygame.locals import *
 from pygame.color import *
 
-sys.path.append("lib/")
+sys.path.append('lib/')
 # If your architecture is different, comment these lines and install
 # the modules in your system.
-sys.path.append("lib/Box2D-2.0.2b1-py2.5-linux-i686.egg")
+sys.path.append('lib/Box2D-2.0.2b1-py2.5-linux-i686.egg')
 import Box2D as box2d
 import elements
 
@@ -80,8 +80,9 @@ class PhysicsGame:
         #Saving to journal
         self.world.add.remove_mouseJoint()
         additional_data = {
-            "trackinfo": self.trackinfo,
-            "full_pos_list": self.full_pos_list
+            'trackinfo': self.trackinfo,
+            'full_pos_list': self.full_pos_list,
+            'tracked_bodies': self.tracked_bodies
         }
         self.world.json_save(path, additional_data, serialize=True)
 
@@ -103,9 +104,9 @@ class PhysicsGame:
                                     (0, 0, 0, 0, 0, 0, 0, 0))
             self.cursor_picture = pygame.image.load('standardcursor.png')
             self.cursor_picture.convert_alpha()
-            self.canvas.connect("enter_notify_event",
+            self.canvas.connect('enter_notify_event',
                                 self.switch_on_fake_pygame_cursor_cb)
-            self.canvas.connect("leave_notify_event",
+            self.canvas.connect('leave_notify_event',
                                 self.switch_off_fake_pygame_cursor_cb)
             self.canvas.add_events(gtk.gdk.ENTER_NOTIFY_MASK
                                    | gtk.gdk.LEAVE_NOTIFY_MASK)
@@ -123,6 +124,9 @@ class PhysicsGame:
                         self.world.additional_vars['full_pos_list']
                 if 'trackinfo' in self.world.additional_vars:
                     self.trackinfo = self.world.additional_vars['trackinfo']
+                if 'tracked_bodies' in self.world.additional_vars:
+                    self.tracked_bodies = \
+                        self.world.additional_vars['tracked_bodies']
 
         while self.loop:
             while gtk.events_pending():
@@ -186,16 +190,16 @@ class PhysicsGame:
                                 self.full_pos_list[trackdex].append(posy)
                             except IndexError:
                                 self.full_pos_list.append([posx, posy])
-
+                    '''
                     for body in self.world.world.GetBodyList():
                         if isinstance(body.userData, dict):
-                            if body.userData.has_key('rollMotor'):
-                                diff = body.userData['rollMotor'] \
-                                    ['targetVelocity'] \
-                                    - body.GetAngularVelocity()
-                                body.ApplyTorque(body.userData['rollMotor'] \
-                                                     ['strength'] * diff \
-                                                     * body.getMassData().I)
+                            if 'rollMotor' in body.userData:
+                                rollmotor = body.userData['rollMotor']
+                                diff = rollmotor['targetVelocity'] - \
+                                       body.GetAngularVelocity()
+                                body.ApplyTorque(rollmotor['strength'] * \
+                                                 diff * body.getMassData().I)
+                    '''
 
                 # Update & Draw World
                 self.world.update()

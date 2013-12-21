@@ -1,9 +1,13 @@
 12
 
-* Removed cjson dependency for elements
+ENHANCEMENTS:
 * Added option to joints to set collideConnected = False
 * Added clear_all (svineet)
 * Added tracking (svineet)
 * Added tracing (svineet)
 * Added erase traces (svineet)
 * Added save/restore of pens and traces (svineet)
+
+BUG FIXES:
+* Removed cjson dependency for elements
+* pep8 cleanup (svineet)

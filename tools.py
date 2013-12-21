@@ -1,27 +1,25 @@
 # -*- coding: utf-8 -*-
-"""
-    Physics, a 2D Physics Playground for Kids
-    Copyright (C) 2008  Alex Levenson and Brian Jordan
+# Physics, a 2D Physics Playground for Kids
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+# Copyright (C) 2008  Alex Levenson and Brian Jordan
+# Copyright (C) 2012  Daniel Francis
+# Copyright (C) 2012-13  Walter Bender
+# Copyright (C) 2013  Sai Vineet
+# Copyright (C) 2012-13  Sugar Labs
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+#  This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-"""
-#==================================================================
-#                           Physics.activity
-#                              Tool Classes
-#                           By Alex Levenson
-#==================================================================
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import pygame
 from pygame.locals import *
 from helpers import *
@@ -34,7 +32,7 @@ import gtk
 class Tool(object):
     name = 'Tool'
     icon = 'icon'
-    toolTip = "Tool Tip"
+    toolTip = 'Tool Tip'
     toolAccelerator = None
 
     def __init__(self, gameInstance):
@@ -45,12 +43,12 @@ class Tool(object):
         handled = True
         # Default event handling
         if event.type == USEREVENT:
-            if hasattr(event, "action"):
-                if event.action == "stop_start_toggle":
+            if hasattr(event, 'action'):
+                if event.action == 'stop_start_toggle':
                     # Stop/start simulation
                     toggle = self.game.world.run_physics
                     self.game.world.run_physics = not toggle
-                elif event.action == "clear_all":
+                elif event.action == 'clear_all':
                     if len(self.game.world.world.GetBodyList()) > 1:
                         # Get bodies and destroy them too
                         for body in self.game.world.world.GetBodyList():
@@ -61,11 +59,11 @@ class Tool(object):
                         # Also clear the points recorded in pens.
                         self.game.full_pos_list = \
                             [[] for _ in self.game.full_pos_list]
-                elif event.action == "focus_in":
+                elif event.action == 'focus_in':
                     self.game.in_focus = True
-                elif event.action == "focus_out":
+                elif event.action == 'focus_out':
                     self.game.in_focus = False
-                elif self.game.toolList.has_key(event.action):
+                elif event.action in self.game.toolList:
                     self.game.setTool(event.action)
         elif event.type == MOUSEBUTTONDOWN and event.button == 1:
             self.game.canvas.grab_focus()
@@ -105,8 +103,8 @@ class Tool(object):
 class CircleTool(Tool):
     name = 'Circle'
     icon = 'circle'
-    toolTip = _("Circle")
-    toolAccelerator = _("<ctrl>c")
+    toolTip = _('Circle')
+    toolAccelerator = _('<ctrl>c')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -146,8 +144,8 @@ class CircleTool(Tool):
 class BoxTool(Tool):
     name = 'Box'
     icon = 'box'
-    toolTip = _("Box")
-    toolAccelerator = _("<ctrl>b")
+    toolTip = _('Box')
+    toolAccelerator = _('<ctrl>b')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -199,8 +197,8 @@ class BoxTool(Tool):
 class TriangleTool(Tool):
     name = 'Triangle'
     icon = 'triangle'
-    toolTip = _("Triangle")
-    toolAccelerator = _("<ctrl>t")
+    toolTip = _('Triangle')
+    toolAccelerator = _('<ctrl>t')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -269,8 +267,8 @@ class TriangleTool(Tool):
 class PolygonTool(Tool):
     name = 'Polygon'
     icon = 'polygon'
-    toolTip = _("Polygon")
-    toolAccelerator = _("<ctrl>p")
+    toolTip = _('Polygon')
+    toolAccelerator = _('<ctrl>p')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -295,12 +293,14 @@ class PolygonTool(Tool):
                     self.vertices = [[i[0] - delta_x, i[1] - delta_y]
                                      for i in self.previous_vertices]
                     self.safe = True
-                    self.game.world.add.complexPoly(self.vertices, dynamic=True,
+                    self.game.world.add.complexPoly(self.vertices,
+                                                    dynamic=True,
                                                     density=1.0,
                                                     restitution=0.16,
                                                     friction=0.5)
                 self.vertices = None
-            elif (event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN):
+            elif (event.type == MOUSEBUTTONUP or
+                  event.type == MOUSEBUTTONDOWN):
                 if self.vertices is None or (tuple_to_int(event.pos)[0]
                                              == self.vertices[-1][0] and
                                              tuple_to_int(event.pos)[1]
@@ -321,7 +321,8 @@ class PolygonTool(Tool):
                     self.vertices = None
                 else:
                     self.vertices.append(tuple_to_int(event.pos))
-                    if distance(tuple_to_int(event.pos), self.vertices[0]) > 54:
+                    if distance(tuple_to_int(event.pos),
+                                self.vertices[0]) > 54:
                         self.safe = True
 
     def draw(self):
@@ -345,8 +346,8 @@ class PolygonTool(Tool):
 class MagicPenTool(Tool):
     name = 'Magicpen'
     icon = 'magicpen'
-    toolTip = _("Draw")
-    toolAccelerator = _("<ctrl>d")
+    toolTip = _('Draw')
+    toolAccelerator = _('<ctrl>d')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -402,8 +403,8 @@ class MagicPenTool(Tool):
 class GrabTool(Tool):
     name = 'Grab'
     icon = 'grab'
-    toolTip = _("Grab")
-    toolAccelerator = _("<ctrl>g")
+    toolTip = _('Grab')
+    toolAccelerator = _('<ctrl>g')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -411,7 +412,7 @@ class GrabTool(Tool):
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
-        # We handle two types of "grab" depending on simulation running or not
+        # We handle two types of 'grab' depending on simulation running or not
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 # Grab the first object at the mouse pointer
@@ -452,8 +453,8 @@ class GrabTool(Tool):
 class JointTool(Tool):
     name = 'Joint'
     icon = 'joint'
-    toolTip = _("Joint")
-    toolAccelerator = "<ctrl>j"
+    toolTip = _('Joint')
+    toolAccelerator = '<ctrl>j'
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -500,8 +501,8 @@ class JointTool(Tool):
 class PinTool(Tool):
     name = 'Pin'
     icon = 'pin'
-    toolTip = _("Pin")
-    toolAccelerator = _("<ctrl>o")
+    toolTip = _('Pin')
+    toolAccelerator = _('<ctrl>o')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -525,8 +526,8 @@ class PinTool(Tool):
 class MotorTool(Tool):
     name = 'Motor'
     icon = 'motor'
-    toolTip = _("Motor")
-    toolAccelerator = _("<ctrl>m")
+    toolTip = _('Motor')
+    toolAccelerator = _('<ctrl>m')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -551,8 +552,8 @@ class MotorTool(Tool):
 class RollTool(Tool):
     name = 'Roll'
     icon = 'roll'
-    toolTip = _("Roll")
-    toolAccelerator = _("<ctrl>r")
+    toolTip = _('Roll')
+    toolAccelerator = _('<ctrl>r')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -564,7 +565,7 @@ class RollTool(Tool):
             if event.button == 1:
                 self.jb1pos = tuple_to_int(event.pos)
                 self.jb1 = self.game.world.get_bodies_at_pos(self.jb1pos)
-                if self.jb1 and type(self.jb1[0].userData) == type({}):
+                if self.jb1 and isinstance(self.jb1[0].userData, dict):
                     self.jb1[0].userData['rollMotor'] = {}
                     self.jb1[0].userData['rollMotor']['targetVelocity'] = -10
                     self.jb1[0].userData['rollMotor']['strength'] = 40
@@ -578,8 +579,8 @@ class RollTool(Tool):
 class DestroyTool(Tool):
     name = 'Destroy'
     icon = 'destroy'
-    toolTip = _("Erase")
-    toolAccelerator = _("<ctrl>e")
+    toolTip = _('Erase')
+    toolAccelerator = _('<ctrl>e')
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -601,8 +602,9 @@ class DestroyTool(Tool):
                 destroyed_body = False
                 for key, info in tracklist:
                     trackdex = info[4]
-                    if trackdex in tokill[0].userData['track_indices'] and \
-                            info[3] is False:
+                    if 'track_indices' in tokill[0].userData and \
+                       trackdex in tokill[0].userData['track_indices'] and \
+                       info[3] is False:
                         self.game.world.world.DestroyBody(info[1])
                         self.game.trackinfo[key][3] = True
                         destroyed_body = True
@@ -632,7 +634,7 @@ class DestroyTool(Tool):
 class EraseAllTool(Tool):
     name = 'Erase All'
     icon = 'destroy-all'
-    toolTip = _("Erase all")
+    toolTip = _('Erase all')
 
     def __init__(self, gameInstance, activity=None):
         super(EraseAllTool, self).__init__(gameInstance)
@@ -645,8 +647,8 @@ class EraseAllTool(Tool):
             if not action:
                 # Add alert for confirm the delete all action.
                 alert = ConfirmationAlert()
-                alert.props.title = _("Delete all shapes?")
-                alert.props.msg = _("This can't be undone!")
+                alert.props.title = _('Delete all shapes?')
+                alert.props.msg = _('This cannot be undone!')
                 alert.connect('response', self.alert_info, event)
                 self.activity.add_alert(alert)
                 return
@@ -682,7 +684,7 @@ class TrackTool(Tool):
     name = 'Track'
     icon = 'track'
     toolTip = _('Track Object')
-    toolAccelerator = _("<ctrl>r")
+    toolAccelerator = _('<ctrl>r')
 
     def __init__(self, game):
         Tool.__init__(self, game)
@@ -703,7 +705,7 @@ class TrackTool(Tool):
                     restitution=0.16, friction=0.1)
                 trackdex = self.game.tracked_bodies
                 track_circle.userData['track_index'] = trackdex
-                dictkey = "pen{0}".format(trackdex)
+                dictkey = 'pen{0}'.format(trackdex)
                 self.game.world.add.joint(
                     track_circle, current_body, point_pos, point_pos, False)
 

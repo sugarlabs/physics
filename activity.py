@@ -87,13 +87,13 @@ class PhysicsActivity(activity.Activity):
         self.game.write_file(file_path)
 
     def get_preview(self):
-        """ Custom preview code to get image from pygame. """
+        ''' Custom preview code to get image from pygame. '''
         if self.preview:
             return self.preview
         surface = pygame.display.get_surface()
         width, height = surface.get_width(), surface.get_height()
         pixbuf = gtk.gdk.pixbuf_new_from_data(pygame.image.tostring(surface,
-                                                                    "RGB"),
+                                                                    'RGB'),
                                               gtk.gdk.COLORSPACE_RGB, 0, 8,
                                               width, height,
                                               3 * width)
@@ -129,10 +129,10 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.toolbar.insert(separator, -1)
         separator.show()
 
-        clear_trace = ToolButton("clear-trace")
-        clear_trace.set_tooltip(_("Clear Trace Marks"))
-        clear_trace.set_accelerator(_("<ctrl>x"))
-        clear_trace.connect("clicked", self.clear_trace_cb)
+        clear_trace = ToolButton('clear-trace')
+        clear_trace.set_tooltip(_('Clear Trace Marks'))
+        clear_trace.set_accelerator(_('<ctrl>x'))
+        clear_trace.connect('clicked', self.clear_trace_cb)
         clear_trace.set_sensitive(False)
         toolbar_box.toolbar.insert(clear_trace, -1)
         clear_trace.show()
@@ -155,14 +155,14 @@ class PhysicsActivity(activity.Activity):
         activity_button.props.page.insert(separator, -1)
         separator.show()
 
-        export_json = ToolButton("save-as-json")
-        export_json.set_tooltip(_("Export tracked objects to journal"))
+        export_json = ToolButton('save-as-json')
+        export_json.set_tooltip(_('Export tracked objects to journal'))
         export_json.connect('clicked', self._export_json_cb)
         activity_button.props.page.insert(export_json, -1)
         export_json.show()
 
-        export_csv = ToolButton("save-as-csv")
-        export_csv.set_tooltip(_("Export tracked objects to journal"))
+        export_csv = ToolButton('save-as-csv')
+        export_csv.set_tooltip(_('Export tracked objects to journal'))
         export_csv.connect('clicked', self._export_csv_cb)
         activity_button.props.page.insert(export_csv, -1)
         export_csv.show()
@@ -180,7 +180,7 @@ class PhysicsActivity(activity.Activity):
     def _insert_stop_play_button(self, toolbar):
         self.stop_play_state = True
         self.stop_play = ToolButton('media-playback-stop')
-        self.stop_play.set_tooltip(_("Stop"))
+        self.stop_play.set_tooltip(_('Stop'))
         self.stop_play.set_accelerator(_('<ctrl>space'))
         self.stop_play.connect('clicked', self.stop_play_cb)
         toolbar.insert(self.stop_play, -1)
@@ -188,7 +188,7 @@ class PhysicsActivity(activity.Activity):
 
     def _insert_clear_all_button(self, toolbar):
         self.clear_all = ToolButton('clear_all')
-        self.clear_all.set_tooltip(_("Erase All"))
+        self.clear_all.set_tooltip(_('Erase All'))
         self.clear_all.set_accelerator(_('<ctrl>a'))
         self.clear_all.connect('clicked', self.clear_all_cb)
         toolbar.insert(self.clear_all, -1)
@@ -243,27 +243,27 @@ class PhysicsActivity(activity.Activity):
 
     def stop_play_cb(self, button):
         pygame.event.post(pygame.event.Event(pygame.USEREVENT,
-                                             action="stop_start_toggle"))
+                                             action='stop_start_toggle'))
         self.stop_play_state = not self.stop_play_state
 
         if self.stop_play_state:
             self.stop_play.set_icon('media-playback-stop')
-            self.stop_play.set_tooltip(_("Stop"))
+            self.stop_play.set_tooltip(_('Stop'))
         else:
             self.stop_play.set_icon('media-playback-start')
-            self.stop_play.set_tooltip(_("Start"))
+            self.stop_play.set_tooltip(_('Start'))
 
     def clear_all_cb(self, button):
         def clear_all_alert_cb(alert, response_id):
             self.remove_alert(alert)
             if response_id is gtk.RESPONSE_OK:
                 pygame.event.post(pygame.event.Event(pygame.USEREVENT,
-                                                     action="clear_all"))
+                                                     action='clear_all'))
 
         clear_all_alert = ConfirmationAlert()
         clear_all_alert.props.title = _('Are You Sure?')
         clear_all_alert.props.msg = \
-                _('All your work will be discarded. This cannot be undone!')
+            _('All your work will be discarded. This cannot be undone!')
         clear_all_alert.connect('response', clear_all_alert_cb)
         self.add_alert(clear_all_alert)
 
@@ -272,30 +272,30 @@ class PhysicsActivity(activity.Activity):
                                              action=self.radioList[button]))
 
     def _focus_event(self, event, data=None):
-        """ Send focus events to pygame to allow it to idle when in
-        background. """
+        ''' Send focus events to pygame to allow it to idle when in
+        background. '''
         if not self.game.pygame_started:
             logging.debug('focus_event: pygame not yet initialized')
             return
         if data.state == gtk.gdk.VISIBILITY_FULLY_OBSCURED:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
-                                                 action="focus_out"))
+                                                 action='focus_out'))
         else:
             self.game.show_fake_cursor = True
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
-                                                 action="focus_in"))
+                                                 action='focus_in'))
 
     def _export_json_cb(self, button):
         jobject = datastore.create()
-        jobject.metadata['title'] = _("Physics export")
-        jobject.metadata['mime_type'] = "text/plain"
+        jobject.metadata['title'] = _('Physics export')
+        jobject.metadata['mime_type'] = 'text/plain'
 
         tmp_dir = os.path.join(self.get_activity_root(), 'instance')
         fd, file_path = tempfile.mkstemp(dir=tmp_dir)
         os.close(fd)
 
         data = self.game.full_pos_list
-        jsonfile = open(file_path, "wb")
+        jsonfile = open(file_path, 'wb')
         jsonfile.write(json.dumps(data))
         jsonfile.close()
 
@@ -304,15 +304,15 @@ class PhysicsActivity(activity.Activity):
 
     def _export_csv_cb(self, button):
         jobject = datastore.create()
-        jobject.metadata['title'] = _("Physics export")
-        jobject.metadata['mime_type'] = "text/csv"
+        jobject.metadata['title'] = _('Physics export')
+        jobject.metadata['mime_type'] = 'text/csv'
 
         tmp_dir = os.path.join(self.get_activity_root(), 'instance')
         fd, file_path = tempfile.mkstemp(dir=tmp_dir)
         os.close(fd)
 
         data = self.game.full_pos_list
-        csvfile = open(file_path, "wb")
+        csvfile = open(file_path, 'wb')
         writer = csv.writer(csvfile)
         writer.writerows(data)
         csvfile.close()
@@ -321,8 +321,8 @@ class PhysicsActivity(activity.Activity):
         datastore.write(jobject)
 
     def _window_event(self, window, event):
-        """ Send focus out event to pygame when switching to a desktop
-        view. """
+        ''' Send focus out event to pygame when switching to a desktop
+        view. '''
         if event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
-                                                 action="focus_out"))
+                                                 action='focus_out'))
