@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="100px"
+   height="77px"
+   viewBox="0 0 100 77"
+   enable-background="new 0 0 100 77"
+   xml:space="preserve"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="icon_5353.svg"><metadata
+   id="metadata15"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>Slice 1</dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs13" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="761"
+   inkscape:window-height="480"
+   id="namedview11"
+   showgrid="false"
+   inkscape:zoom="2.92"
+   inkscape:cx="50"
+   inkscape:cy="38.5"
+   inkscape:window-x="0"
+   inkscape:window-y="27"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Layer_1" />
+<title
+   id="title3">Slice 1</title>
+<description
+   id="description5">Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+<g
+   id="Page_1"
+   style="fill:#ffffff;fill-opacity:1">
+	<g
+   id="Path_2"
+   style="fill:#ffffff;fill-opacity:1">
+	</g>
+	<path
+   id="Path_2_1_"
+   d="M63,25c2-2,12-13,23-13c13,1,24,29-10,24c-3-1-5,0-6,0c2,6,1,12,1,14c0,1-2,3-6,5c0,3,1,9-1,11   c-3,3-11,3-15,0c-1-1-2-4-1-7c-3,0-5,0-6,0c-3,0-5,0-8,0c0,3,0,6-1,7c-3,3-11,3-15,0c-2-2-2-6-1-10c-1,0-3-1-4-2c-5,2-12,3-13,2   c0-3,6-4,11-8c-1-10-4-32,28-31C50,17,58,21,63,25z"
+   style="fill:#ffffff;fill-opacity:1" />
+	<path
+   id="Path_2_decoration"
+   d="M0,0"
+   style="fill:#ffffff;fill-opacity:1" />
+</g>
+</svg>

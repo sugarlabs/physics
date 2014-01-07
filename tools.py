@@ -20,12 +20,42 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+from shutil import copy
 import pygame
+import json
 from pygame.locals import *
 from helpers import *
 from gettext import gettext as _
-from sugar.graphics.alert import ConfirmationAlert
+from sugar.activity import activity
 import gtk
+import math
+
+PALETTE_MODE_SLIDER_ICON = 0
+PALETTE_MODE_ICONS = 1
+PALETTE_MODE_SLIDER_LABEL = 2
+PALETTE_ICON_SETTINGS = [
+    {
+        "name": "density",
+        "icon_count": 3,
+        "icons": ["feather", "wood", "anvil"],
+        "icon_values": [0.5, 1.0, 10.0],
+        "active": "wood"
+    },
+    {
+        "name": "restitution",
+        "icon_count": 3,
+        "icons": ["basketball", "tennis-ball", "bowling-ball"],
+        "icon_values": [1, 0.16, 0.01],
+        "active": "tennis-ball"
+    },
+    {
+        "name": "friction",
+        "icon_count": 3,
+        "icons": ["ice-skate", "shoe", "sneaker"],
+        "icon_values": [0.5, 1, 2],
+        "active": "grass"
+    }]
 
 
 # Tools that can be superlcassed
@@ -34,6 +64,10 @@ class Tool(object):
     icon = 'icon'
     toolTip = 'Tool Tip'
     toolAccelerator = None
+    palette_enabled = False
+    palette_mode = None
+    palette_settings = None
+    palette_data = None
 
     def __init__(self, gameInstance):
         self.game = gameInstance
@@ -49,16 +83,15 @@ class Tool(object):
                     toggle = self.game.world.run_physics
                     self.game.world.run_physics = not toggle
                 elif event.action == 'clear_all':
-                    if len(self.game.world.world.GetBodyList()) > 1:
-                        # Get bodies and destroy them too
-                        for body in self.game.world.world.GetBodyList():
-                            self.game.world.world.DestroyBody(body)
+                    # Get bodies and destroy them too
+                    for body in self.game.world.world.GetBodyList():
+                        self.game.world.world.DestroyBody(body)
 
-                        # Add ground, because we destroyed it before
-                        self.game.world.add.ground()
-                        # Also clear the points recorded in pens.
-                        self.game.full_pos_list = \
-                            [[] for _ in self.game.full_pos_list]
+                    # Add ground, because we destroyed it before
+                    self.game.world.add.ground()
+                    # Also clear the points recorded in pens.
+                    self.game.full_pos_list = \
+                        [[] for _ in self.game.full_pos_list]
                 elif event.action == 'focus_in':
                     self.game.in_focus = True
                 elif event.action == 'focus_out':
@@ -98,6 +131,28 @@ class Tool(object):
         # Default cancel doesn't do anything
         pass
 
+    def add_badge(self, message,
+                  icon="trophy-icon-physics", from_="Physics"):
+        badge = {
+            'icon': icon,
+            'from': from_,
+            'message': message
+        }
+        icon_path = os.path.join(activity.get_bundle_path(),
+                                 "icons",
+                                 (icon+".svg"))
+        sugar_icons = os.path.join(
+            os.path.expanduser('~'),
+            ".icons")
+        copy(icon_path, sugar_icons)
+
+        if 'comments' in self.game.activity.metadata:
+            comments = json.loads(self.game.activity.metadata['comments'])
+            comments.append(badge)
+            self.game.activity.metadata['comments'] = json.dumps(comments)
+        else:
+            self.game.activity.metadata['comments'] = json.dumps([badge])
+
 
 # The circle creation tool
 class CircleTool(Tool):
@@ -105,6 +160,15 @@ class CircleTool(Tool):
     icon = 'circle'
     toolTip = _('Circle')
     toolAccelerator = _('<ctrl>c')
+
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_ICONS
+    palette_settings = PALETTE_ICON_SETTINGS
+    palette_data = {
+        "density": 1.0,
+        "restitution": 0.16,
+        "friction": 1
+    }
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -118,9 +182,11 @@ class CircleTool(Tool):
                 self.pt1 = tuple_to_int(event.pos)
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
-                self.game.world.add.ball(self.pt1, self.radius,
-                                         dynamic=True, density=1.0,
-                                         restitution=0.16, friction=0.5)
+                self.game.world.add.ball(
+                    self.pt1, self.radius,
+                    dynamic=True, density=self.palette_data['density'],
+                    restitution=self.palette_data['restitution'],
+                    friction=self.palette_data['friction'])
                 self.pt1 = None
 
     def draw(self):
@@ -147,6 +213,15 @@ class BoxTool(Tool):
     toolTip = _('Box')
     toolAccelerator = _('<ctrl>b')
 
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_ICONS
+    palette_settings = PALETTE_ICON_SETTINGS
+    palette_data = {
+        "density": 1.0,
+        "restitution": 0.16,
+        "friction": 1
+    }
+
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.pt1 = None
@@ -166,13 +241,14 @@ class BoxTool(Tool):
                     self.rect = pygame.Rect(self.pt1,
                                             (-self.width, -self.height))
                     self.rect.normalize()
-                self.game.world.add.rect(self.rect.center,
-                                         max(self.rect.width, 10) / 2,
-                                         max(self.rect.height, 10) / 2,
-                                         dynamic=True,
-                                         density=1.0,
-                                         restitution=0.16,
-                                         friction=0.5)
+                self.game.world.add.rect(
+                    self.rect.center,
+                    max(self.rect.width, 10) / 2,
+                    max(self.rect.height, 10) / 2,
+                    dynamic=True,
+                    density=self.palette_data['density'],
+                    restitution=self.palette_data['restitution'],
+                    friction=self.palette_data['friction'])
                 self.pt1 = None
 
     def draw(self):
@@ -199,6 +275,15 @@ class TriangleTool(Tool):
     icon = 'triangle'
     toolTip = _('Triangle')
     toolAccelerator = _('<ctrl>t')
+
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_ICONS
+    palette_settings = PALETTE_ICON_SETTINGS
+    palette_data = {
+        "density": 1.0,
+        "restitution": 0.16,
+        "friction": 1
+    }
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -236,11 +321,12 @@ class TriangleTool(Tool):
                     self.vertices = constructTriangleFromLine(self.pt1,
                                                               mouse_x_y)
 
-                self.game.world.add.convexPoly(self.vertices,
-                                               dynamic=True,
-                                               density=1.0,
-                                               restitution=0.16,
-                                               friction=0.5)
+                self.game.world.add.convexPoly(
+                    self.vertices,
+                    dynamic=True,
+                    density=self.palette_data['density'],
+                    restitution=self.palette_data['restitution'],
+                    friction=self.palette_data['friction'])
                 self.pt1 = None
                 self.vertices = None
 
@@ -270,6 +356,15 @@ class PolygonTool(Tool):
     toolTip = _('Polygon')
     toolAccelerator = _('<ctrl>p')
 
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_ICONS
+    palette_settings = PALETTE_ICON_SETTINGS
+    palette_data = {
+        "density": 1.0,
+        "restitution": 0.16,
+        "friction": 1
+    }
+
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.vertices = None
@@ -293,11 +388,12 @@ class PolygonTool(Tool):
                     self.vertices = [[i[0] - delta_x, i[1] - delta_y]
                                      for i in self.previous_vertices]
                     self.safe = True
-                    self.game.world.add.complexPoly(self.vertices,
-                                                    dynamic=True,
-                                                    density=1.0,
-                                                    restitution=0.16,
-                                                    friction=0.5)
+                    self.game.world.add.complexPoly(
+                        self.vertices,
+                        dynamic=True,
+                        density=self.palette_data['density'],
+                        restitution=self.palette_data['restitution'],
+                        friction=self.palette_data['friction'])
                 self.vertices = None
             elif (event.type == MOUSEBUTTONUP or
                   event.type == MOUSEBUTTONDOWN):
@@ -310,11 +406,12 @@ class PolygonTool(Tool):
                 if distance(tuple_to_int(event.pos), self.vertices[0]) < 15 \
                         and self.safe:
                     self.vertices.append(self.vertices[0])  # Connect polygon
-                    self.game.world.add.complexPoly(self.vertices,
-                                                    dynamic=True,
-                                                    density=1.0,
-                                                    restitution=0.16,
-                                                    friction=0.5)
+                    self.game.world.add.complexPoly(
+                        self.vertices,
+                        dynamic=True,
+                        density=self.palette_data['density'],
+                        restitution=self.palette_data['restitution'],
+                        friction=self.palette_data['friction'])
                     self.previous_vertices = self.vertices[:]
                     self.vertices = None
                 elif distance(tuple_to_int(event.pos), self.vertices[0]) < 15:
@@ -349,6 +446,15 @@ class MagicPenTool(Tool):
     toolTip = _('Draw')
     toolAccelerator = _('<ctrl>d')
 
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_ICONS
+    palette_settings = PALETTE_ICON_SETTINGS
+    palette_data = {
+        "density": 1.0,
+        "restitution": 0.16,
+        "friction": 1
+    }
+
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.vertices = None
@@ -369,10 +475,11 @@ class MagicPenTool(Tool):
                                  for i in self.previous_vertices]
                 self.safe = True
             if self.vertices and self.safe:
-                self.game.world.add.complexPoly(self.vertices, dynamic=True,
-                                                density=1.0,
-                                                restitution=0.16,
-                                                friction=0.5)
+                self.game.world.add.complexPoly(
+                    self.vertices, dynamic=True,
+                    density=self.palette_data['density'],
+                    restitution=self.palette_data['restitution'],
+                    friction=self.palette_data['friction'])
                 self.previous_vertices = self.vertices[:]
             self.vertices = None
         elif event.type == MOUSEMOTION and self.vertices:
@@ -528,6 +635,17 @@ class MotorTool(Tool):
     icon = 'motor'
     toolTip = _('Motor')
     toolAccelerator = _('<ctrl>m')
+    # Palette settings
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_SLIDER_ICON
+    palette_settings = {
+        "icon1": "motor-turtle",
+        "icon2": "motor-rabbit",
+        "min": 0,
+        "max": 500
+    }
+    # Default Value
+    palette_data = 10
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -542,7 +660,9 @@ class MotorTool(Tool):
                 self.jb1 = self.game.world.get_bodies_at_pos(
                     tuple_to_int(event.pos))
                 if self.jb1:
-                    self.game.world.add.motor(self.jb1[0], self.jb1pos)
+                    self.game.world.add.motor(
+                        self.jb1[0], self.jb1pos,
+                        speed=self.palette_data)
                 self.jb1 = self.jb1pos = None
 
     def cancel(self):
@@ -631,54 +751,6 @@ class DestroyTool(Tool):
         self.vertices = None
 
 
-class EraseAllTool(Tool):
-    name = 'Erase All'
-    icon = 'destroy-all'
-    toolTip = _('Erase all')
-
-    def __init__(self, gameInstance, activity=None):
-        super(EraseAllTool, self).__init__(gameInstance)
-        self.game = gameInstance
-        self.response_alert = None
-        self.activity = activity
-
-    def handleToolEvent(self, event, action=False):
-        if event.type == MOUSEBUTTONDOWN:
-            if not action:
-                # Add alert for confirm the delete all action.
-                alert = ConfirmationAlert()
-                alert.props.title = _('Delete all shapes?')
-                alert.props.msg = _('This cannot be undone!')
-                alert.connect('response', self.alert_info, event)
-                self.activity.add_alert(alert)
-                return
-        else:
-            if self.response_alert:
-                self.response_alert = False
-                # Obtain all figures
-                bodys = []
-                for body in self.game.world.world.GetBodyList():
-                    bodys.append(body)
-
-                # Erase all ;)
-                for body in bodys:
-                    self.game.world.world.DestroyBody(body)
-
-                # The ground has deleted, restore..
-                self.game.world.add.ground()
-            else:
-                pass
-
-    def alert_info(self, alert, response_id, event):
-        self.activity.remove_alert(alert)
-        if response_id is gtk.RESPONSE_OK:
-            self.response_alert = True
-        elif response_id is gtk.RESPONSE_CANCEL:
-            self.response_alert = False
-
-        self.handleToolEvent(event, True)
-
-
 # Track tool
 class TrackTool(Tool):
     name = 'Track'
@@ -689,6 +761,7 @@ class TrackTool(Tool):
     def __init__(self, game):
         Tool.__init__(self, game)
         self.radius = 1
+        self.added_badge = False
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
@@ -722,6 +795,103 @@ class TrackTool(Tool):
                 self.game.trackinfo[dictkey][4] = trackdex  # Tracking index.
                 self.game.tracked_bodies += 1  # counter of tracked bodies
 
+                if not self.added_badge:
+                    self.add_badge(message="Congratulations! You just added a"
+                                           " Pen to your machine!",
+                                   from_="Isacc Newton")
+                    self.added_badge = True
+
+
+class ChainTool(Tool):
+    name = 'Chain'
+    icon = 'chain'
+    toolTip = _("Chain")
+    toolAccelerator = "<ctrl>i"
+
+    # Palette settings
+    palette_enabled = True
+    palette_mode = PALETTE_MODE_SLIDER_LABEL
+    palette_settings = {}
+    palette_settings = [
+        {
+            "label": "Chain Distance",
+            "min": 25,
+            "max": 50,
+            "data": "distance"
+        },
+        {
+            "label": "Chain Circle Size",
+            "min": 1,
+            "max": 10,
+            "data": "radius"
+        }]
+    palette_data = { 
+        "distance": 25,
+        "radius": 1
+    }
+
+    def __init__(self, gameInstance):
+        Tool.__init__(self, gameInstance)
+        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+
+    def handleToolEvent(self, event):
+        Tool.handleToolEvent(self, event)
+        if event.type == MOUSEBUTTONDOWN:
+            if event.button >= 1:
+                # Grab the first body
+                self.jb1pos = tuple_to_int(event.pos)
+                self.jb1 = self.game.world.get_bodies_at_pos(
+                    tuple_to_int(event.pos))
+                self.jb2 = self.jb2pos = None
+        elif event.type == MOUSEBUTTONUP:
+            if event.button == 1:
+                # Grab the second body
+                self.jb2pos = tuple_to_int(event.pos)
+                self.jb2 = self.game.world.get_bodies_at_pos(
+                    tuple_to_int(event.pos))
+                # If we have two distinct bodies, make the chain.
+                if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
+                    self.make_chain(
+                        self.jb1[0], self.jb2[0], self.jb1pos, self.jb2pos)
+                self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+
+    def draw(self):
+        Tool.draw(self)
+        if self.jb1:
+            pygame.draw.line(self.game.screen, (100, 180, 255), self.jb1pos,
+                             tuple_to_int(pygame.mouse.get_pos()), 3)
+
+    def cancel(self):
+        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+
+    def make_chain(self, bodyA, bodyB, pos1, pos2):
+        d = int(distance(pos1, pos2))
+        x1, y1 = pos1
+        x2, y2 = pos2
+        bearing = math.atan2((y2-y1), (x2-x1))
+        first_iter = True
+        prevcircle = None
+        prevpos = None
+        for p in range(5, d, int(self.palette_data['distance'])):
+            x = x1 + p * math.cos(bearing)
+            y = y1 + p * math.sin(bearing)
+            circle = self.game.world.add.ball(
+                (x, y), self.palette_data['radius'], dynamic=True)
+            circle.userData['color'] = (0, 0, 0)
+            if first_iter:
+                self.game.world.add.joint(circle, bodyA, (x, y), pos1, False)
+                first_iter = False
+                oldcircle = circle
+                prevpos = (x, y)
+            elif (p+25) > d:
+                self.game.world.add.joint(circle, oldcircle, (x, y), prevpos)
+                self.game.world.add.joint(circle, bodyB, (x, y), pos2, False)
+            else:
+                self.game.world.add.joint(circle, oldcircle, (x, y), prevpos,
+                                          False)
+                oldcircle = circle
+                prevpos = (x, y)
+
 
 def getAllTools():
     return [MagicPenTool,
@@ -733,9 +903,8 @@ def getAllTools():
             MotorTool,
             PinTool,
             JointTool,
+            ChainTool,
             TrackTool,
-            DestroyTool,
-            # EraseAllTool,  # moved to main toolbar
-            ]
+            DestroyTool]
 
 allTools = getAllTools()

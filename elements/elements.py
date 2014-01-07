@@ -430,18 +430,18 @@ class Elements:
 
         return variables
 
-    def json_save(self, path, additional_vars = {}, serialize=False):
+    def json_save(self, path, additional_vars={}, serialize=False):
         import json
         worldmodel = {}
 
         save_id_index = 1
-        self.world.GetGroundBody().userData = {"saveid" : 0}
+        self.world.GetGroundBody().userData = {"saveid": 0}
 
         bodylist = []
         for body in self.world.GetBodyList():
             if not body == self.world.GetGroundBody():
-                body.userData["saveid"] = save_id_index #set temporary data
-                save_id_index+=1
+                body.userData["saveid"] = save_id_index  # set temporary data
+                save_id_index += 1
                 shapelist = body.GetShapeList()
                 modelbody = {}
                 modelbody['position'] = body.position.tuple()
@@ -458,7 +458,7 @@ class Elements:
                         modelshape['restitution'] = shape.restitution
                         modelshape['friction'] = shape.friction
                         shapename = shape.__class__.__name__
-                        if  shapename == "b2CircleShape":
+                        if shapename == "b2CircleShape":
                             modelshape['type'] = 'circle'
                             modelshape['radius'] = shape.radius
                             modelshape['localPosition'] = shape.localPosition.tuple()
@@ -493,7 +493,6 @@ class Elements:
             modeljoint['collideConnected'] = joint.collideConnected
             modeljoint['userData'] = joint.userData
 
-
             jointlist.append(modeljoint)
 
         worldmodel['jointlist'] = jointlist
@@ -507,8 +506,11 @@ class Elements:
             backup = trackinfo
             for key, info in backup.iteritems():
                 if not info[3]:
-                    trackinfo[key][0] = info[0].userData['saveid']
-                    trackinfo[key][1] = info[1].userData['saveid']
+                    try:
+                        trackinfo[key][0] = info[0].userData['saveid']
+                        trackinfo[key][1] = info[1].userData['saveid']
+                    except AttributeError:
+                        pass
                 else:
                     addvars['trackinfo'][key][0] = None
                     addvars['trackinfo'][key][1] = None
@@ -516,12 +518,12 @@ class Elements:
             additional_vars['trackinfo'] = trackinfo
 
         worldmodel['additional_vars'] = additional_vars
-        f = open(path,'w')
+        f = open(path, 'w')
         f.write(json.dumps(worldmodel))
         f.close()
 
         for body in self.world.GetBodyList():
-            del body.userData['saveid'] #remove temporary data
+            del body.userData['saveid']  # remove temporary data
 
     def json_load(self, path, serialized=False):
         import json

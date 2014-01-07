@@ -41,6 +41,8 @@ from sugar.graphics.toolbarbox import ToolbarBox
 from sugar.graphics.toolbarbox import ToolbarButton
 from sugar.graphics.style import GRID_CELL_SIZE
 from sugar.datastore import datastore
+from sugar.graphics.icon import Icon
+from sugar.graphics import style
 
 import tools
 import physics
@@ -214,18 +216,121 @@ class PhysicsActivity(activity.Activity):
                 button.set_group(None)
                 firstButton = button
 
-            if c.name == tools.EraseAllTool.name:
-                # Add a separator - Erase all tool is a dangerous tool
-                separator = gtk.SeparatorToolItem()
-                _insert_item(create_toolbar, separator, -1)
-                separator.show()
-
             button.set_tooltip(c.toolTip)
             button.set_accelerator(c.toolAccelerator)
             button.connect('clicked', self.radioClicked)
+            palette = self._build_palette(c)
+            if palette is not None:
+                button.get_palette().set_content(palette)
             _insert_item(create_toolbar, button, -1)
             button.show()
             self.radioList[button] = c.name
+
+    def __icon_path(self, name):
+        activity_path = activity.get_bundle_path()
+        icon_path = os.path.join(activity_path, 'icons',
+                                 name+".svg")
+        return icon_path
+
+    def _build_palette(self, tool):
+        if tool.palette_enabled:
+            if tool.palette_mode == tools.PALETTE_MODE_SLIDER_ICON:
+                settings = tool.palette_settings
+                hbox = gtk.HBox()
+                hbox.set_size_request(-1, 50)
+
+                icon1 = Icon()
+                icon1.set_file(self.__icon_path(settings['icon1']))
+                icon2 = Icon()
+                icon2.set_file(self.__icon_path(settings['icon2']))
+
+                adj = gtk.Adjustment(lower=settings['min'],
+                                     upper=settings['max'],
+                                     step_incr=1)
+                slider = gtk.HScale(adjustment=adj)
+                slider.set_size_request(200, 25)
+                slider.connect("value-changed", self._slider_palette,
+                               tool.name)
+                slider.set_value(settings['min'])
+
+                hbox.pack_start(icon1, False, False, 0)
+                hbox.pack_start(slider, True, True, 0)
+                hbox.pack_start(icon2, False, False, 0)
+                hbox.show_all()
+                return hbox
+            elif tool.palette_mode == tools.PALETTE_MODE_SLIDER_LABEL:
+                table = gtk.Table(rows=len(tool.palette_settings), columns=2)
+
+                table.set_row_spacings(spacing=style.DEFAULT_SPACING)
+                table.set_col_spacings(spacing=style.DEFAULT_SPACING)
+                for row, settings in enumerate(tool.palette_settings):
+                    label = gtk.Label(settings["label"])
+
+                    adj = gtk.Adjustment(lower=settings['min'],
+                                         upper=settings['max'],
+                                         step_incr=1)
+                    slider = gtk.HScale(adjustment=adj)
+
+                    slider.set_size_request(200, 50)
+                    slider.connect("value-changed", self._slider_label_palette,
+                                   tool.name, settings['data'])
+                    slider.set_value(settings['min'])
+
+                    table.attach(label,
+                                 left_attach=0,
+                                 right_attach=1,
+                                 top_attach=row,
+                                 bottom_attach=row+1)
+                    table.attach(slider,
+                                 left_attach=1,
+                                 right_attach=2,
+                                 top_attach=row,
+                                 bottom_attach=row+1)
+                table.show_all()
+                return table
+            elif tool.palette_mode == tools.PALETTE_MODE_ICONS:
+                vbox = gtk.VBox()
+                for settings in tool.palette_settings:
+                    hbox = gtk.HBox()
+                    firstButton = None
+                    for i in range(0, settings['icon_count']):
+                        button = RadioToolButton(
+                            named_icon=settings['icons'][i])
+                        if firstButton:
+                            button.set_group(firstButton)
+                        else:
+                            button.set_group(None)
+                            firstButton = button
+                        button.connect('clicked',
+                                       self._palette_icon_clicked,
+                                       tool.name, 
+                                       settings['name'],
+                                       settings['icon_values'][i])
+                        if settings['active'] == settings['icons'][i]:
+                            button.set_active(True)
+                        hbox.pack_start(button, False, False, 0)
+                    vbox.add(hbox)
+                vbox.show_all()
+                return vbox
+
+        return None
+
+    def _palette_icon_clicked(self, button, toolname, value_name, value):
+        for tool in tools.allTools:
+            if tool.name == toolname:
+                tool.palette_data[value_name] = value
+
+    def _slider_label_palette(self, slider, toolname, dataname):
+        value = slider.get_value()
+        for tool in tools.allTools:
+            if tool.name == toolname:
+                tool.palette_data[dataname] = value
+
+    def _slider_palette(self, slider, toolname):
+        value = slider.get_value()
+        for tool in tools.allTools:
+            if tool.name == toolname:
+                tool.palette_data = value
 
     def clear_trace_alert_cb(self, alert, response):
         self.remove_alert(alert)
@@ -259,13 +364,14 @@ class PhysicsActivity(activity.Activity):
             if response_id is gtk.RESPONSE_OK:
                 pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                      action='clear_all'))
-
-        clear_all_alert = ConfirmationAlert()
-        clear_all_alert.props.title = _('Are You Sure?')
-        clear_all_alert.props.msg = \
-            _('All your work will be discarded. This cannot be undone!')
-        clear_all_alert.connect('response', clear_all_alert_cb)
-        self.add_alert(clear_all_alert)
+        if len(self.game.world.world.GetBodyList()) > 2:
+            print len(self.game.world.world.GetBodyList())
+            clear_all_alert = ConfirmationAlert()
+            clear_all_alert.props.title = _('Are You Sure?')
+            clear_all_alert.props.msg = \
+                _('All your work will be discarded. This cannot be undone!')
+            clear_all_alert.connect('response', clear_all_alert_cb)
+            self.add_alert(clear_all_alert)
 
     def radioClicked(self, button):
         pygame.event.post(pygame.event.Event(pygame.USEREVENT,

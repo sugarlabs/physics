@@ -36,7 +36,7 @@ from pygame.color import *
 sys.path.append('lib/')
 # If your architecture is different, comment these lines and install
 # the modules in your system.
-sys.path.append('lib/Box2D-2.0.2b1-py2.5-linux-i686.egg')
+sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
 import Box2D as box2d
 import elements
 
@@ -54,9 +54,6 @@ class PhysicsGame:
         # Create the name --> instance map for components
         self.toolList = {}
         for c in tools.allTools:
-            if c.name == tools.EraseAllTool.name:
-                self.toolList[c.name] = c(self, activity)
-                continue
             self.toolList[c.name] = c(self)
         self.currentTool = self.toolList[tools.allTools[0].name]
         # Set up the world (instance of Elements)
@@ -148,9 +145,9 @@ class PhysicsGame:
                 if self.world.run_physics:
                     bodies_present = len(self.world.world.GetBodyList())
                     clear_all_active = self.activity.clear_all.get_sensitive()
-                    if (bodies_present > 1) and clear_all_active is False:
+                    if (bodies_present > 2) and clear_all_active is False:
                         self.activity.clear_all.set_sensitive(True)
-                    elif (bodies_present > 1) is False and \
+                    elif (bodies_present > 2) is False and \
                             clear_all_active is True:
                         self.activity.clear_all.set_sensitive(False)
 
