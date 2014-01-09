@@ -318,7 +318,10 @@ class PhysicsActivity(activity.Activity):
     def _palette_icon_clicked(self, button, toolname, value_name, value):
         for tool in tools.allTools:
             if tool.name == toolname:
-                tool.palette_data[value_name] = value
+                if hasattr(tool, 'palette_data_type'):
+                    tool.palette_data_type = value
+                else:
+                    tool.palette_data[value_name] = value
 
     def _slider_label_palette(self, slider, toolname, dataname):
         value = slider.get_value()
