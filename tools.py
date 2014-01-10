@@ -24,6 +24,7 @@ import os
 from shutil import copy
 import pygame
 import json
+import logging
 from pygame.locals import *
 from helpers import *
 from gettext import gettext as _
@@ -34,27 +35,27 @@ import math
 PALETTE_MODE_SLIDER_ICON = 0
 PALETTE_MODE_ICONS = 1
 PALETTE_MODE_SLIDER_LABEL = 2
-PALETTE_ICON_SETTINGS = [
+PALETTE_ICON_OBJECT_SETTINGS = [
     {
-        "name": "density",
-        "icon_count": 3,
-        "icons": ["feather", "wood", "anvil"],
-        "icon_values": [0.5, 1.0, 10.0],
-        "active": "wood"
+        'name': 'density',
+        'icon_count': 3,
+        'icons': ['feather', 'wood', 'anvil'],
+        'icon_values': [0.5, 1.0, 10.0],
+        'active': 'wood'
     },
     {
-        "name": "restitution",
-        "icon_count": 3,
-        "icons": ["basketball", "tennis-ball", "bowling-ball"],
-        "icon_values": [1, 0.16, 0.01],
-        "active": "tennis-ball"
+        'name': 'restitution',
+        'icon_count': 3,
+        'icons': ['basketball', 'tennis-ball', 'bowling-ball'],
+        'icon_values': [1, 0.16, 0.01],
+        'active': 'tennis-ball'
     },
     {
-        "name": "friction",
-        "icon_count": 3,
-        "icons": ["ice-skate", "shoe", "sneaker"],
-        "icon_values": [0.5, 1, 2],
-        "active": "grass"
+        'name': 'friction',
+        'icon_count': 3,
+        'icons': ['ice-skate', 'shoe', 'sneaker'],
+        'icon_values': [0.5, 1, 2],
+        'active': 'grass'
     }]
 
 
@@ -132,18 +133,18 @@ class Tool(object):
         pass
 
     def add_badge(self, message,
-                  icon="trophy-icon-physics", from_="Physics"):
+                  icon='trophy-icon-physics', from_='Physics'):
         badge = {
             'icon': icon,
             'from': from_,
             'message': message
         }
         icon_path = os.path.join(activity.get_bundle_path(),
-                                 "icons",
-                                 (icon+".svg"))
+                                 'icons',
+                                 (icon+'.svg'))
         sugar_icons = os.path.join(
             os.path.expanduser('~'),
-            ".icons")
+            '.icons')
         copy(icon_path, sugar_icons)
 
         if 'comments' in self.game.activity.metadata:
@@ -163,11 +164,11 @@ class CircleTool(Tool):
 
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
-    palette_settings = PALETTE_ICON_SETTINGS
+    palette_settings = PALETTE_ICON_OBJECT_SETTINGS
     palette_data = {
-        "density": 1.0,
-        "restitution": 0.16,
-        "friction": 1
+        'density': 1.0,
+        'restitution': 0.16,
+        'friction': 1
     }
 
     def __init__(self, gameInstance):
@@ -215,11 +216,11 @@ class BoxTool(Tool):
 
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
-    palette_settings = PALETTE_ICON_SETTINGS
+    palette_settings = PALETTE_ICON_OBJECT_SETTINGS
     palette_data = {
-        "density": 1.0,
-        "restitution": 0.16,
-        "friction": 1
+        'density': 1.0,
+        'restitution': 0.16,
+        'friction': 1
     }
 
     def __init__(self, gameInstance):
@@ -278,11 +279,11 @@ class TriangleTool(Tool):
 
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
-    palette_settings = PALETTE_ICON_SETTINGS
+    palette_settings = PALETTE_ICON_OBJECT_SETTINGS
     palette_data = {
-        "density": 1.0,
-        "restitution": 0.16,
-        "friction": 1
+        'density': 1.0,
+        'restitution': 0.16,
+        'friction': 1
     }
 
     def __init__(self, gameInstance):
@@ -358,11 +359,11 @@ class PolygonTool(Tool):
 
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
-    palette_settings = PALETTE_ICON_SETTINGS
+    palette_settings = PALETTE_ICON_OBJECT_SETTINGS
     palette_data = {
-        "density": 1.0,
-        "restitution": 0.16,
-        "friction": 1
+        'density': 1.0,
+        'restitution': 0.16,
+        'friction': 1
     }
 
     def __init__(self, gameInstance):
@@ -448,11 +449,11 @@ class MagicPenTool(Tool):
 
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
-    palette_settings = PALETTE_ICON_SETTINGS
+    palette_settings = PALETTE_ICON_OBJECT_SETTINGS
     palette_data = {
-        "density": 1.0,
-        "restitution": 0.16,
-        "friction": 1
+        'density': 1.0,
+        'restitution': 0.16,
+        'friction': 1
     }
 
     def __init__(self, gameInstance):
@@ -637,15 +638,21 @@ class MotorTool(Tool):
     toolAccelerator = _('<ctrl>m')
     # Palette settings
     palette_enabled = True
-    palette_mode = PALETTE_MODE_SLIDER_ICON
-    palette_settings = {
-        "icon1": "motor-turtle",
-        "icon2": "motor-rabbit",
-        "min": 0,
-        "max": 500
+    palette_mode = PALETTE_MODE_ICONS
+    palette_settings = [
+        {
+            'name': 'speed',
+            'icon_count': 4,
+            'icons': ['motor-rabbit', 'motor-turtle',  'motor-turtle-2',
+                      'motor-rabbit-2'],
+            'icon_values': [100, 20, -20, -100],
+            'active': 'motor-rabbit'
+        },
+    ]
+    # Default value
+    palette_data = {
+        'speed': 100,
     }
-    # Default Value
-    palette_data = 10
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -662,7 +669,7 @@ class MotorTool(Tool):
                 if self.jb1:
                     self.game.world.add.motor(
                         self.jb1[0], self.jb1pos,
-                        speed=self.palette_data)
+                        speed=self.palette_data['speed'])
                 self.jb1 = self.jb1pos = None
 
     def cancel(self):
@@ -796,101 +803,128 @@ class TrackTool(Tool):
                 self.game.tracked_bodies += 1  # counter of tracked bodies
 
                 if not self.added_badge:
-                    self.add_badge(message="Congratulations! You just added a"
-                                           " Pen to your machine!",
-                                   from_="Isacc Newton")
+                    self.add_badge(message='Congratulations! You just added a'
+                                           ' Pen to your machine!',
+                                   from_='Isacc Newton')
                     self.added_badge = True
 
 
 class ChainTool(Tool):
     name = 'Chain'
     icon = 'chain'
-    toolTip = _("Chain")
-    toolAccelerator = "<ctrl>i"
+    toolTip = _('Chain')
+    toolAccelerator = '<ctrl>i'
 
     # Palette settings
     palette_enabled = True
-    palette_mode = PALETTE_MODE_SLIDER_LABEL
-    palette_settings = {}
+    palette_mode = PALETTE_MODE_ICONS
     palette_settings = [
         {
-            "label": "Chain Distance",
-            "min": 25,
-            "max": 50,
-            "data": "distance"
+            'name': 'chain',
+            'icon_count': 3,
+            'icons': ['chain-fine', 'chain-medium', 'chain-coarse'],
+            'icon_values': [0, 1, 2],
+            'active': 'chain-medium'
+        }
+    ]
+    palette_data = [
+        {
+            'link_length': 10,
+            'radius': 3
         },
         {
-            "label": "Chain Circle Size",
-            "min": 1,
-            "max": 10,
-            "data": "radius"
-        }]
-    palette_data = { 
-        "distance": 25,
-        "radius": 1
-    }
+            'link_length': 20,
+            'radius': 6
+        },
+        {
+            'link_length': 40,
+            'radius': 12
+        },
+    ]
+    palette_data_type = 1
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
-        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+        self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
 
     def handleToolEvent(self, event):
+        radius = self.palette_data[self.palette_data_type]['radius']
         Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             if event.button >= 1:
-                # Grab the first body
-                self.jb1pos = tuple_to_int(event.pos)
-                self.jb1 = self.game.world.get_bodies_at_pos(
+                # Find body 1
+                self._pos_1 = tuple_to_int(event.pos)
+                self._body_1 = self.game.world.get_bodies_at_pos(
                     tuple_to_int(event.pos))
-                self.jb2 = self.jb2pos = None
+                if isinstance(self._body_1, list):
+                    if len(self._body_1) > 0:
+                        self._body_1 = self._body_1[0]
+                if self._body_1 is None or self._body_1 == []:
+                    return
         elif event.type == MOUSEBUTTONUP:
+            if self._body_1 is None or self._body_1 == []:
+                return
             if event.button == 1:
-                # Grab the second body
-                self.jb2pos = tuple_to_int(event.pos)
-                self.jb2 = self.game.world.get_bodies_at_pos(
+                # Find body 2 (or create a circle object)
+                self._pos_2 = tuple_to_int(event.pos)
+                self._body_2 = self.game.world.get_bodies_at_pos(
                     tuple_to_int(event.pos))
-                # If we have two distinct bodies, make the chain.
-                if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
-                    self.make_chain(
-                        self.jb1[0], self.jb2[0], self.jb1pos, self.jb2pos)
-                self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+                if isinstance(self._body_2, list):
+                    if len(self._body_2) > 0:
+                        self._body_2 = self._body_2[0]
+                if isinstance(self._body_2, bool) or \
+                   self._body_2 is None or self._body_2 == []:
+                    self._body_2 = self.game.world.add.ball(
+                        self._pos_2, radius, dynamic=True)
+                    self._body_2.userData['color'] = (0, 0, 0)
+                # Don't make a chain from a body to itself
+                if str(self._body_1) == str(self._body_2):
+                    return
+                self.make_chain()
 
     def draw(self):
         Tool.draw(self)
-        if self.jb1:
-            pygame.draw.line(self.game.screen, (100, 180, 255), self.jb1pos,
+        if self._body_1:
+            pygame.draw.line(self.game.screen, (100, 180, 255), self._pos_1,
                              tuple_to_int(pygame.mouse.get_pos()), 3)
 
     def cancel(self):
-        self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+        self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
 
-    def make_chain(self, bodyA, bodyB, pos1, pos2):
-        d = int(distance(pos1, pos2))
-        x1, y1 = pos1
-        x2, y2 = pos2
-        bearing = math.atan2((y2-y1), (x2-x1))
-        first_iter = True
-        prevcircle = None
-        prevpos = None
-        for p in range(5, d, int(self.palette_data['distance'])):
-            x = x1 + p * math.cos(bearing)
-            y = y1 + p * math.sin(bearing)
-            circle = self.game.world.add.ball(
-                (x, y), self.palette_data['radius'], dynamic=True)
+    def make_chain(self):
+        dist = int(distance(self._pos_1, self._pos_2))
+        x1, y1 = self._pos_1
+        x2, y2 = self._pos_2
+        bearing = math.atan2((y2 - y1), (x2 - x1))
+        link_length = self.palette_data[self.palette_data_type]['link_length']
+        radius = self.palette_data[self.palette_data_type]['radius']
+
+        if dist < link_length:  # Too short to make a chain
+            self.game.world.add.joint(
+                self._body_1, self._body_2, self._pos_1, self._pos_2, False)
+            self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
+            return
+
+        prev_circle = self._body_1
+        prev_pos = self._pos_1
+        for current_point in range(int(link_length / 2.), dist,
+                                   int(link_length)):
+            x = x1 + current_point * math.cos(bearing)
+            y = y1 + current_point * math.sin(bearing)
+            circle = self.game.world.add.ball((x, y), radius, dynamic=True)
             circle.userData['color'] = (0, 0, 0)
-            if first_iter:
-                self.game.world.add.joint(circle, bodyA, (x, y), pos1, False)
-                first_iter = False
-                oldcircle = circle
-                prevpos = (x, y)
-            elif (p+25) > d:
-                self.game.world.add.joint(circle, oldcircle, (x, y), prevpos)
-                self.game.world.add.joint(circle, bodyB, (x, y), pos2, False)
+            if (current_point + link_length) >= dist:
+                self.game.world.add.joint(
+                    circle, prev_circle, [x, y], prev_pos, False)
+                self.game.world.add.joint(
+                    circle, self._body_2, [x, y], self._pos_2, False)
             else:
-                self.game.world.add.joint(circle, oldcircle, (x, y), prevpos,
-                                          False)
-                oldcircle = circle
-                prevpos = (x, y)
+                self.game.world.add.joint(
+                    circle, prev_circle, [x, y], prev_pos, False)
+            prev_circle = circle
+            prev_pos = [x, y]
+
+        self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
 
 
 def getAllTools():

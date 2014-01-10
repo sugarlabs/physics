@@ -448,7 +448,6 @@ class Add:
         return pt
 
     def joint(self, *args):
-        print "* Add Joint:", args
 
         if len(args) == 5:
             # Tracking Joint
