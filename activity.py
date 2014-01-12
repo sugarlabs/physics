@@ -234,61 +234,7 @@ class PhysicsActivity(activity.Activity):
 
     def _build_palette(self, tool):
         if tool.palette_enabled:
-            if tool.palette_mode == tools.PALETTE_MODE_SLIDER_ICON:
-                settings = tool.palette_settings
-                hbox = gtk.HBox()
-                hbox.set_size_request(-1, 50)
-
-                icon1 = Icon()
-                icon1.set_file(self.__icon_path(settings['icon1']))
-                icon2 = Icon()
-                icon2.set_file(self.__icon_path(settings['icon2']))
-
-                adj = gtk.Adjustment(lower=settings['min'],
-                                     upper=settings['max'],
-                                     step_incr=1)
-                slider = gtk.HScale(adjustment=adj)
-                slider.set_size_request(200, 25)
-                slider.connect("value-changed", self._slider_palette,
-                               tool.name)
-                slider.set_value(settings['min'])
-
-                hbox.pack_start(icon1, False, False, 0)
-                hbox.pack_start(slider, True, True, 0)
-                hbox.pack_start(icon2, False, False, 0)
-                hbox.show_all()
-                return hbox
-            elif tool.palette_mode == tools.PALETTE_MODE_SLIDER_LABEL:
-                table = gtk.Table(rows=len(tool.palette_settings), columns=2)
-
-                table.set_row_spacings(spacing=style.DEFAULT_SPACING)
-                table.set_col_spacings(spacing=style.DEFAULT_SPACING)
-                for row, settings in enumerate(tool.palette_settings):
-                    label = gtk.Label(settings["label"])
-
-                    adj = gtk.Adjustment(lower=settings['min'],
-                                         upper=settings['max'],
-                                         step_incr=1)
-                    slider = gtk.HScale(adjustment=adj)
-
-                    slider.set_size_request(200, 50)
-                    slider.connect("value-changed", self._slider_label_palette,
-                                   tool.name, settings['data'])
-                    slider.set_value(settings['min'])
-
-                    table.attach(label,
-                                 left_attach=0,
-                                 right_attach=1,
-                                 top_attach=row,
-                                 bottom_attach=row+1)
-                    table.attach(slider,
-                                 left_attach=1,
-                                 right_attach=2,
-                                 top_attach=row,
-                                 bottom_attach=row+1)
-                table.show_all()
-                return table
-            elif tool.palette_mode == tools.PALETTE_MODE_ICONS:
+            if tool.palette_mode == tools.PALETTE_MODE_ICONS:
                 vbox = gtk.VBox()
                 for settings in tool.palette_settings:
                     hbox = gtk.HBox()
@@ -322,18 +268,6 @@ class PhysicsActivity(activity.Activity):
                     tool.palette_data_type = value
                 else:
                     tool.palette_data[value_name] = value
-
-    def _slider_label_palette(self, slider, toolname, dataname):
-        value = slider.get_value()
-        for tool in tools.allTools:
-            if tool.name == toolname:
-                tool.palette_data[dataname] = value
-
-    def _slider_palette(self, slider, toolname):
-        value = slider.get_value()
-        for tool in tools.allTools:
-            if tool.name == toolname:
-                tool.palette_data = value
 
     def clear_trace_alert_cb(self, alert, response):
         self.remove_alert(alert)
