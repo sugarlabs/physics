@@ -1,13 +1,23 @@
+13
+
+ENHANCEMENTS:
+* Added palettes to set density, bouciness, and friction (w/Sai Vineet)
+* Added palette to set motor speed, rotation (w/Sai Vineet)
+* Added chain tool (w/Sai Vineet)
+
+BUG FIX:
+* Updated Box2d version to eliminate some memory leaks (Sai Vineet)
+
 12
 
 ENHANCEMENTS:
 * Added option to joints to set collideConnected = False
-* Added clear_all (svineet)
-* Added tracking (svineet)
-* Added tracing (svineet)
-* Added erase traces (svineet)
-* Added save/restore of pens and traces (svineet)
+* Added clear_all (Sai Vineet)
+* Added tracking (Sai Vineet)
+* Added tracing (Sai Vineet)
+* Added erase traces (Sai Vineet)
+* Added save/restore of pens and traces (Sai Vineet)
 
 BUG FIXES:
 * Removed cjson dependency for elements
-* pep8 cleanup (svineet)
+* pep8 cleanup (Sai Vineet)

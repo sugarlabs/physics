@@ -3,9 +3,9 @@
 
 # Copyright (C) 2008  Alex Levenson and Brian Jordan
 # Copyright (C) 2012  Daniel Francis
-# Copyright (C) 2012-13  Walter Bender
-# Copyright (C) 2013  Sai Vineet
-# Copyright (C) 2012-13  Sugar Labs
+# Copyright (C) 2012-14  Walter Bender
+# Copyright (C) 2013,14  Sai Vineet
+# Copyright (C) 2012-14  Sugar Labs
 
 #  This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -57,6 +57,11 @@ PALETTE_ICON_OBJECT_SETTINGS = [
         'icon_values': [0.5, 1, 2],
         'active': 'grass'
     }]
+PALETTE_OBJECT_DATA = {
+    'density': 1.0,
+    'restitution': 0.16,
+    'friction': 1
+}
 
 
 # Tools that can be superlcassed
@@ -165,11 +170,7 @@ class CircleTool(Tool):
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
     palette_settings = PALETTE_ICON_OBJECT_SETTINGS
-    palette_data = {
-        'density': 1.0,
-        'restitution': 0.16,
-        'friction': 1
-    }
+    palette_data = PALETTE_OBJECT_DATA
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -217,11 +218,7 @@ class BoxTool(Tool):
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
     palette_settings = PALETTE_ICON_OBJECT_SETTINGS
-    palette_data = {
-        'density': 1.0,
-        'restitution': 0.16,
-        'friction': 1
-    }
+    palette_data = PALETTE_OBJECT_DATA
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -280,11 +277,7 @@ class TriangleTool(Tool):
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
     palette_settings = PALETTE_ICON_OBJECT_SETTINGS
-    palette_data = {
-        'density': 1.0,
-        'restitution': 0.16,
-        'friction': 1
-    }
+    palette_data = PALETTE_OBJECT_DATA
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -360,11 +353,7 @@ class PolygonTool(Tool):
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
     palette_settings = PALETTE_ICON_OBJECT_SETTINGS
-    palette_data = {
-        'density': 1.0,
-        'restitution': 0.16,
-        'friction': 1
-    }
+    palette_data = PALETTE_OBJECT_DATA
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -450,11 +439,7 @@ class MagicPenTool(Tool):
     palette_enabled = True
     palette_mode = PALETTE_MODE_ICONS
     palette_settings = PALETTE_ICON_OBJECT_SETTINGS
-    palette_data = {
-        'density': 1.0,
-        'restitution': 0.16,
-        'friction': 1
-    }
+    palette_data = PALETTE_OBJECT_DATA
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
@@ -845,21 +830,19 @@ class ChainTool(Tool):
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
-        self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
+        self._clear()
 
     def handleToolEvent(self, event):
-        radius = self.palette_data[self.palette_data_type]['radius']
+        radius = int(self.palette_data[self.palette_data_type]['radius'])
         Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
+            self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
             if event.button >= 1:
                 # Find body 1
                 self._pos_1 = tuple_to_int(event.pos)
-                self._body_1 = self.game.world.get_bodies_at_pos(
-                    tuple_to_int(event.pos))
-                if isinstance(self._body_1, list):
-                    if len(self._body_1) > 0:
-                        self._body_1 = self._body_1[0]
-                if self._body_1 is None or self._body_1 == []:
+                self._body_1 = self._find_body(event.pos)
+                if self._body_1 is None:
+                    self._clear()
                     return
         elif event.type == MOUSEBUTTONUP:
             if self._body_1 is None or self._body_1 == []:
@@ -867,19 +850,18 @@ class ChainTool(Tool):
             if event.button == 1:
                 # Find body 2 (or create a circle object)
                 self._pos_2 = tuple_to_int(event.pos)
-                self._body_2 = self.game.world.get_bodies_at_pos(
-                    tuple_to_int(event.pos))
-                if isinstance(self._body_2, list):
-                    if len(self._body_2) > 0:
-                        self._body_2 = self._body_2[0]
-                if isinstance(self._body_2, bool) or \
-                   self._body_2 is None or self._body_2 == []:
+                self._body_2 = self._find_body(event.pos)
+                if self._body_2 is None:
                     self._body_2 = self.game.world.add.ball(
-                        self._pos_2, radius, dynamic=True)
+                        self._pos_2, radius, dynamic=True, density=1.0,
+                        restitution=0.16, friction=0.1)
                     self._body_2.userData['color'] = (0, 0, 0)
+                '''
                 # Don't make a chain from a body to itself
                 if str(self._body_1) == str(self._body_2):
+                    self._clear()
                     return
+                '''
                 self.make_chain()
 
     def draw(self):
@@ -888,43 +870,56 @@ class ChainTool(Tool):
             pygame.draw.line(self.game.screen, (100, 180, 255), self._pos_1,
                              tuple_to_int(pygame.mouse.get_pos()), 3)
 
-    def cancel(self):
+    def _clear(self):
         self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
 
+    def cancel(self):
+        self._clear()
+
     def make_chain(self):
-        dist = int(distance(self._pos_1, self._pos_2))
+        dist = int(distance(self._pos_1, self._pos_2) + 0.5)
         x1, y1 = self._pos_1
         x2, y2 = self._pos_2
         bearing = math.atan2((y2 - y1), (x2 - x1))
         link_length = self.palette_data[self.palette_data_type]['link_length']
-        radius = self.palette_data[self.palette_data_type]['radius']
+        radius = int(self.palette_data[self.palette_data_type]['radius'])
 
         if dist < link_length:  # Too short to make a chain
             self.game.world.add.joint(
-                self._body_1, self._body_2, self._pos_1, self._pos_2, False)
-            self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
+                self._body_1, self._body_2, self._pos_1, self._pos_2)
+            self._clear()
             return
 
+        # Draw circles along the path and join them together
         prev_circle = self._body_1
-        prev_pos = self._pos_1
+        prev_pos = tuple_to_int((x1, y1))
         for current_point in range(int(link_length / 2.), dist,
                                    int(link_length)):
-            x = x1 + current_point * math.cos(bearing)
-            y = y1 + current_point * math.sin(bearing)
-            circle = self.game.world.add.ball((x, y), radius, dynamic=True)
+            x = x1 + (current_point) * math.cos(bearing)
+            y = y1 + (current_point) * math.sin(bearing)
+            circle = self.game.world.add.ball(tuple_to_int((x, y)),
+                                              radius, dynamic=True,
+                                              density=1.0,
+                                              restitution=0.16, friction=0.1)
             circle.userData['color'] = (0, 0, 0)
+            self.game.world.add.joint(
+                prev_circle, circle, prev_pos, tuple_to_int((x, y)),
+                False)
             if (current_point + link_length) >= dist:
                 self.game.world.add.joint(
-                    circle, prev_circle, [x, y], prev_pos, False)
-                self.game.world.add.joint(
-                    circle, self._body_2, [x, y], self._pos_2, False)
-            else:
-                self.game.world.add.joint(
-                    circle, prev_circle, [x, y], prev_pos, False)
+                    circle, self._body_2, tuple_to_int((x, y)),
+                    self._pos_2, False)
             prev_circle = circle
-            prev_pos = [x, y]
+            prev_pos = tuple_to_int((x, y))
 
-        self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
+        self._clear()
+
+    def _find_body(self, pos):
+        body = self.game.world.get_bodies_at_pos(tuple_to_int(pos))
+        if isinstance(body, list) and len(body) > 0:
+            return body[0]
+        else:
+            return None
 
 
 def getAllTools():
