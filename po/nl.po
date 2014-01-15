@@ -38,9 +38,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: 2012-11-09 22:04+0200\n"
-"Last-Translator: whe <heppew@yahoo.com>\n"
+"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"PO-Revision-Date: 2014-01-15 03:31+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -50,123 +50,174 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
-#: activity.py:41
 msgid "Physics"
 msgstr "Natuurkunde"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid ""
-"Prove Sir Issac Newton right! Create real life simulations using different "
+"Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
 "Bewijs het gelijk van Sir Isaac Newton! Maak levende simulaties bij gebruik "
 "van verschillende vormen en laat ze tot leven komen met krachten!"
 
-#: activity.py:125
+#: activity.py:124
 msgid "Create"
 msgstr "Maak"
 
-#: activity.py:137 activity.py:171
+#: activity.py:135
+msgid "Clear Trace Marks"
+msgstr "Wis Trace Markeringen"
+
+#: activity.py:136
+msgid "<ctrl>x"
+msgstr "<ctrl>x"
+
+#: activity.py:161 activity.py:167
+msgid "Export tracked objects to journal"
+msgstr "Exporteer opgespoorde objecten naar logboek"
+
+#: activity.py:185 activity.py:293
 msgid "Stop"
 msgstr "Stop"
 
-#: activity.py:138
+#: activity.py:186
 msgid "<ctrl>space"
 msgstr "<ctrl>spatie"
 
-#: activity.py:174
+#: activity.py:193
+msgid "Erase All"
+msgstr "Wis Alles"
+
+#: activity.py:194
+msgid "<ctrl>a"
+msgstr "<ctrl>a"
+
+#: activity.py:280 activity.py:307
+msgid "Are You Sure?"
+msgstr "Weet Je Het Zeker?"
+
+#: activity.py:282
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr "Alle trace punten worden gewist. Dit kan niet ongedaan gemaakt worden!"
+
+#: activity.py:296
 msgid "Start"
 msgstr "Start"
 
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Bron"
+#: activity.py:309
+msgid "All your work will be discarded. This cannot be undone!"
+msgstr "Alle work wordt genegeerd. Dit kan niet ongedaan gemaakt worden!"
 
-#: tools.py:92
+#: activity.py:333 activity.py:350
+msgid "Physics export"
+msgstr "Fysica export"
+
+#: tools.py:167
 msgid "Circle"
 msgstr "Cirkel"
 
-#: tools.py:93
+#: tools.py:168
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:131
+#: tools.py:215
 msgid "Box"
 msgstr "Doos"
 
-#: tools.py:132
+#: tools.py:216
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:181
+#: tools.py:274
 msgid "Triangle"
 msgstr "Driehoek"
 
-#: tools.py:182
+#: tools.py:275
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:249
+#: tools.py:350
 msgid "Polygon"
 msgstr "Polygoon"
 
-#: tools.py:250
+#: tools.py:351
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:315
+#: tools.py:436
 msgid "Draw"
 msgstr "Tekenen"
 
-#: tools.py:316
+#: tools.py:437
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:369
+#: tools.py:499
 msgid "Grab"
 msgstr "Grijp"
 
-#: tools.py:370
+#: tools.py:500
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:416
+#: tools.py:549
 msgid "Joint"
 msgstr "Verbinding"
 
-#: tools.py:460
+#: tools.py:597
 msgid "Pin"
 msgstr "Pin"
 
-#: tools.py:461
+#: tools.py:598
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:483
+#: tools.py:622
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:484
+#: tools.py:623
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:507
+#: tools.py:667
 msgid "Roll"
 msgstr "Wentel"
 
-#: tools.py:508
+#: tools.py:668 tools.py:751
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:534
+#: tools.py:694
 msgid "Erase"
 msgstr "Wissen"
 
-#: tools.py:535
+#: tools.py:695
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
+
+#: tools.py:750
+msgid "Track Object"
+msgstr "Volg Objecten"
+
+#: tools.py:800
+msgid "Chain"
+msgstr "Keten"
+
+#~ msgid "Erase all"
+#~ msgstr "Wis alles"
+
+#~ msgid "Delete all shapes?"
+#~ msgstr "Verwijder alle vormen?"
+
+#~ msgid "This cannot be undone!"
+#~ msgstr "Dit kan niet ongedaan gemaakt worden!"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s Bron"
 
 #~ msgid "c"
 #~ msgstr "c"
