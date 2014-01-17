@@ -21,16 +21,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from shutil import copy
-import pygame
 import json
+import math
 import logging
+import pygame
+from shutil import copy
+from gettext import gettext as _
+
 from pygame.locals import *
 from helpers import *
-from gettext import gettext as _
-from sugar.activity import activity
-import gtk
-import math
+
+from sugar3.activity import activity
 
 PALETTE_MODE_SLIDER_ICON = 0
 PALETTE_MODE_ICONS = 1

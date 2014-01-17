@@ -1,10 +1,11 @@
 # Physics, a 2D Physics Playground for Kids
 
-# Copyright (C) 2008  Alex Levenson and Brian Jordan
-# Copyright (C) 2012  Daniel Francis
-# Copyright (C) 2012-13  Walter Bender
-# Copyright (C) 2013  Sai Vineet
-# Copyright (C) 2012-13  Sugar Labs
+# Copyright (C) 2008 Alex Levenson and Brian Jordan
+# Copyright (C) 2012 Daniel Francis
+# Copyright (C) 2012-14  Walter Bender
+# Copyright (C) 2013 Sai Vineet
+# Copyright (C) 2013-14 Ignacio Rodriguez
+# Copyright (C) 2012-13 Sugar Labs
 
 #  This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,29 +21,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import gtk
 import csv
 import tempfile
 import json
-from gettext import gettext as _
 import logging
+from gettext import gettext as _
 
 import pygame
 import sugargame
 import sugargame.canvas
 
-from sugar.activity import activity
-from sugar.activity.widgets import ActivityToolbarButton
-from sugar.activity.widgets import StopButton
-from sugar.graphics.radiotoolbutton import RadioToolButton
-from sugar.graphics.toolbutton import ToolButton
-from sugar.graphics.alert import ConfirmationAlert
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.graphics.toolbarbox import ToolbarButton
-from sugar.graphics.style import GRID_CELL_SIZE
-from sugar.datastore import datastore
-from sugar.graphics.icon import Icon
-from sugar.graphics import style
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GdkPixbuf
+
+from sugar3.activity import activity
+from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.activity.widgets import StopButton
+from sugar3.graphics.radiotoolbutton import RadioToolButton
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.graphics.alert import ConfirmationAlert
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.graphics.toolbarbox import ToolbarButton
+from sugar3.graphics.style import GRID_CELL_SIZE
+from sugar3.datastore import datastore
+from sugar3.graphics.objectchooser import get_preview_pixbuf
 
 import tools
 import physics
@@ -52,8 +55,8 @@ class PhysicsActivity(activity.Activity):
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
-        self.add_events(gtk.gdk.ALL_EVENTS_MASK |
-                        gtk.gdk.VISIBILITY_NOTIFY_MASK)
+        self.add_events(Gdk.EventMask.ALL_EVENTS_MASK |
+                        Gdk.EventMask.VISIBILITY_NOTIFY_MASK)
 
         self.connect('visibility-notify-event', self._focus_event)
         self.connect('window-state-event', self._window_event)
@@ -64,8 +67,8 @@ class PhysicsActivity(activity.Activity):
         self.build_toolbar()
 
         self.set_canvas(self._canvas)
-        gtk.gdk.screen_get_default().connect('size-changed',
-                                             self.__configure_cb)
+        Gdk.Screen.get_default().connect('size-changed',
+                                         self.__configure_cb)
 
         logging.debug(os.path.join(
                       activity.get_activity_root(), 'data', 'data'))
@@ -75,8 +78,8 @@ class PhysicsActivity(activity.Activity):
         ''' Screen size has changed '''
         self.write_file(os.path.join(
                         activity.get_activity_root(), 'data', 'data'))
-        pygame.display.set_mode((gtk.gdk.screen_width(),
-                                 gtk.gdk.screen_height() - 2 * GRID_CELL_SIZE),
+        pygame.display.set_mode((Gdk.Screen.width(),
+                                 Gdk.Screen.height() - 2 * GRID_CELL_SIZE),
                                 pygame.RESIZABLE)
         self.read_file(os.path.join(
                        activity.get_activity_root(), 'data', 'data'))
@@ -90,18 +93,7 @@ class PhysicsActivity(activity.Activity):
 
     def get_preview(self):
         ''' Custom preview code to get image from pygame. '''
-        if self.preview:
-            return self.preview
-        surface = pygame.display.get_surface()
-        width, height = surface.get_width(), surface.get_height()
-        pixbuf = gtk.gdk.pixbuf_new_from_data(pygame.image.tostring(surface,
-                                                                    'RGB'),
-                                              gtk.gdk.COLORSPACE_RGB, 0, 8,
-                                              width, height,
-                                              3 * width)
-        pixbuf = pixbuf.scale_simple(300, 225, gtk.gdk.INTERP_BILINEAR)
-
-        preview_data = []
+        return self._canvas.get_preview()
 
         def save_func(buf, data):
             data.append(buf)
@@ -119,7 +111,7 @@ class PhysicsActivity(activity.Activity):
         activity_button.show()
 
         create_toolbar = ToolbarButton()
-        create_toolbar.props.page = gtk.Toolbar()
+        create_toolbar.props.page = Gtk.Toolbar()
         create_toolbar.props.icon_name = 'magicpen'
         create_toolbar.props.label = _('Create')
         toolbar_box.toolbar.insert(create_toolbar, -1)
@@ -127,7 +119,7 @@ class PhysicsActivity(activity.Activity):
 
         self._insert_stop_play_button(toolbar_box.toolbar)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         toolbar_box.toolbar.insert(separator, -1)
         separator.show()
 
@@ -142,7 +134,7 @@ class PhysicsActivity(activity.Activity):
 
         self._insert_clear_all_button(toolbar_box.toolbar)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
         separator.set_size_request(0, -1)
         separator.set_expand(True)
@@ -153,7 +145,7 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.toolbar.insert(stop, -1)
         stop.show()
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         activity_button.props.page.insert(separator, -1)
         separator.show()
 
@@ -208,14 +200,13 @@ class PhysicsActivity(activity.Activity):
         # Make + add the component buttons
         self.radioList = {}
         firstButton = None
-        for c in tools.allTools:
-            button = RadioToolButton(named_icon=c.icon)
-            if firstButton:
-                button.set_group(firstButton)
+        for i, c in enumerate(tools.allTools):
+            if i == 0:
+                button = RadioToolButton(group=None)
+                firstbutton = button
             else:
-                button.set_group(None)
-                firstButton = button
-
+                button = RadioToolButton(group=firstbutton)
+            button.set_icon_name(c.icon)
             button.set_tooltip(c.toolTip)
             button.set_accelerator(c.toolAccelerator)
             button.connect('clicked', self.radioClicked)
@@ -235,18 +226,17 @@ class PhysicsActivity(activity.Activity):
     def _build_palette(self, tool):
         if tool.palette_enabled:
             if tool.palette_mode == tools.PALETTE_MODE_ICONS:
-                vbox = gtk.VBox()
+                vbox = Gtk.VBox()
                 for settings in tool.palette_settings:
-                    hbox = gtk.HBox()
+                    hbox = Gtk.HBox()
                     firstButton = None
                     for i in range(0, settings['icon_count']):
-                        button = RadioToolButton(
-                            named_icon=settings['icons'][i])
-                        if firstButton:
-                            button.set_group(firstButton)
+                        if i == 0:
+                            button = RadioToolButton(group=None)
+                            firstbutton = button
                         else:
-                            button.set_group(None)
-                            firstButton = button
+                            button = RadioToolButton(group=firstbutton)
+                        button.set_icon_name(settings['icons'][i])
                         button.connect('clicked',
                                        self._palette_icon_clicked,
                                        tool.name, 
@@ -271,7 +261,7 @@ class PhysicsActivity(activity.Activity):
 
     def clear_trace_alert_cb(self, alert, response):
         self.remove_alert(alert)
-        if response is gtk.RESPONSE_OK:
+        if response is Gtk.ResponseType.OK:
             self.game.full_pos_list = [[] for _ in self.game.full_pos_list]
             self.game.tracked_bodies = 0
 
@@ -298,7 +288,7 @@ class PhysicsActivity(activity.Activity):
     def clear_all_cb(self, button):
         def clear_all_alert_cb(alert, response_id):
             self.remove_alert(alert)
-            if response_id is gtk.RESPONSE_OK:
+            if response_id is Gtk.ResponseType.OK:
                 pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                      action='clear_all'))
         if len(self.game.world.world.GetBodyList()) > 2:
@@ -320,7 +310,7 @@ class PhysicsActivity(activity.Activity):
         if not self.game.pygame_started:
             logging.debug('focus_event: pygame not yet initialized')
             return
-        if data.state == gtk.gdk.VISIBILITY_FULLY_OBSCURED:
+        if data.state == Gdk.VisibilityState.FULLY_OBSCURED:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                  action='focus_out'))
         else:
@@ -366,6 +356,6 @@ class PhysicsActivity(activity.Activity):
     def _window_event(self, window, event):
         ''' Send focus out event to pygame when switching to a desktop
         view. '''
-        if event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED:
+        if event.changed_mask & Gdk.WindowState.ICONIFIED:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                  action='focus_out'))

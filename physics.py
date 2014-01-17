@@ -27,7 +27,9 @@
 
 import os
 import sys
-import gtk
+
+from gi.repository import Gtk
+from gi.repository import Gdk
 
 import pygame
 from pygame.locals import *
@@ -105,8 +107,8 @@ class PhysicsGame:
                                 self.switch_on_fake_pygame_cursor_cb)
             self.canvas.connect('leave_notify_event',
                                 self.switch_off_fake_pygame_cursor_cb)
-            self.canvas.add_events(gtk.gdk.ENTER_NOTIFY_MASK
-                                   | gtk.gdk.LEAVE_NOTIFY_MASK)
+            self.canvas.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK
+                                   | Gdk.EventMask.LEAVE_NOTIFY_MASK)
 
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
@@ -126,8 +128,8 @@ class PhysicsGame:
                         self.world.additional_vars['tracked_bodies']
 
         while self.loop:
-            while gtk.events_pending():
-                gtk.main_iteration()
+            while Gtk.events_pending():
+                Gtk.main_iteration()
 
             if not self.loop:
                 pygame.quit()
