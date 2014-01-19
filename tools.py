@@ -196,6 +196,7 @@ class CircleTool(Tool):
         self.game.world.add.ball(pos, radius, dynamic=True,
                                  density=density, restitution=restitution,
                                  friction=friction)
+
         if share and self.game.activity.we_are_sharing:
             data = json.dumps([pos, radius, density, restitution, friction])
             self.game.activity.send_event('C:' + data)
@@ -244,19 +245,32 @@ class BoxTool(Tool):
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1 and self.pt1 is not None:
                 mouse_x_y = tuple_to_int(event.pos)
-                if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
-                    self.rect = pygame.Rect(self.pt1,
-                                            (-self.width, -self.height))
-                    self.rect.normalize()
-                self.game.world.add.rect(
-                    self.rect.center,
-                    max(self.rect.width, 10) / 2,
-                    max(self.rect.height, 10) / 2,
-                    dynamic=True,
-                    density=self.palette_data['density'],
-                    restitution=self.palette_data['restitution'],
-                    friction=self.palette_data['friction'])
+                self.constructor(self.pt1, mouse_x_y,
+                                 self.palette_data['density'],
+                                 self.palette_data['restitution'],
+                                 self.palette_data['friction'])
                 self.pt1 = None
+
+    def constructor(self, pos1, pos2, density, restitution, friction,
+                    share=True):
+        if pos1[0] == pos2[0] and pos1[1] == pos2[1]:
+            self.rect = pygame.Rect(pos1, (-self.width, -self.height))
+        else:
+            self.width = pos2[0] - pos1[0]
+            self.height = pos2[1] - pos1[1]
+            self.rect = pygame.Rect(pos1, (self.width, self.height))
+        self.rect.normalize()
+        self.game.world.add.rect(self.rect.center,
+                                 max(self.rect.width, 10) / 2,
+                                 max(self.rect.height, 10) / 2,
+                                 dynamic=True,
+                                 density=density,
+                                 restitution=restitution,
+                                 friction=friction)
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos1, pos2, density, restitution, friction])
+            self.game.activity.send_event('B:' + data)
 
     def draw(self):
         Tool.draw(self)
@@ -302,36 +316,46 @@ class TriangleTool(Tool):
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1 and self.pt1 is not None:
                 mouse_x_y = tuple_to_int(event.pos)
-                if mouse_x_y[0] == self.pt1[0] and mouse_x_y[1] == self.pt1[1]:
-                    self.pt1 = [mouse_x_y[0] - self.line_delta[0],
-                                mouse_x_y[1] - self.line_delta[1]]
-                    self.vertices = constructTriangleFromLine(self.pt1,
-                                                              mouse_x_y)
-
-                # Use minimum sized triangle if user input too small
-                minimum_size_check = float(distance(self.pt1, mouse_x_y))
-                if minimum_size_check < 20:
-                    middle_x = (self.pt1[0] + mouse_x_y[0]) / 2.0
-                    self.pt1[0] = middle_x - (((middle_x - self.pt1[0]) /
-                                              minimum_size_check) * 20)
-                    mouse_x_y[0] = middle_x - (((middle_x - mouse_x_y[0]) /
-                                               minimum_size_check) * 20)
-                    middle_y = (self.pt1[1] + mouse_x_y[1]) / 2.0
-                    self.pt1[1] = middle_y - (((middle_y - self.pt1[1]) /
-                                              minimum_size_check) * 20)
-                    mouse_x_y[1] = middle_y - (((middle_y - mouse_x_y[1]) /
-                                               minimum_size_check) * 20)
-                    self.vertices = constructTriangleFromLine(self.pt1,
-                                                              mouse_x_y)
-
-                self.game.world.add.convexPoly(
-                    self.vertices,
-                    dynamic=True,
-                    density=self.palette_data['density'],
-                    restitution=self.palette_data['restitution'],
-                    friction=self.palette_data['friction'])
+                self.constructor(self.pt1, mouse_x_y,
+                                 self.palette_data['density'],
+                                 self.palette_data['restitution'],
+                                 self.palette_data['friction'])
                 self.pt1 = None
-                self.vertices = None
+
+    def constructor(self, pos1, pos2, density, restitution, friction,
+                    share=True):
+        if pos2[0] == pos1[0] and pos2[1] == pos1[1]:
+            pos1 = [pos2[0] - self.line_delta[0],
+                    pos2[1] - self.line_delta[1]]
+        else:
+            self.line_delta = [pos2[0] - pos1[0], pos2[1] - pos1[1]]
+
+        # Use minimum sized triangle if user input too small
+        minimum_size_check = float(distance(pos1, pos2))
+        if minimum_size_check < 20:
+            middle_x = (pos1[0] + pos2[0]) / 2.0
+            pos1[0] = middle_x - (((middle_x - pos1[0]) /
+                                   minimum_size_check) * 20)
+            pos2[0] = middle_x - (((middle_x - pos2[0]) /
+                                   minimum_size_check) * 20)
+            middle_y = (pos1[1] + pos2[1]) / 2.0
+            pos1[1] = middle_y - (((middle_y - pos1[1]) /
+                                   minimum_size_check) * 20)
+            pos2[1] = middle_y - (((middle_y - pos2[1]) /
+                                   minimum_size_check) * 20)
+
+        self.vertices = constructTriangleFromLine(pos1, pos2)
+        self.game.world.add.convexPoly(self.vertices,
+                                       dynamic=True,
+                                       density=density,
+                                       restitution=restitution,
+                                       friction=friction)
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos1, pos2, density, restitution, friction])
+            self.game.activity.send_event('T:' + data)
+
+        self.vertices = None
 
     def draw(self):
         Tool.draw(self)
@@ -570,24 +594,42 @@ class JointTool(Tool):
                 self.jb1pos = tuple_to_int(event.pos)
                 self.jb1 = self.game.world.get_bodies_at_pos(
                     tuple_to_int(event.pos))
-                self.jb2 = self.jb2pos = None
+                self.jb2pos = None
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
-                # Grab the second body
+                # Grab the second position
                 self.jb2pos = tuple_to_int(event.pos)
-                self.jb2 = self.game.world.get_bodies_at_pos(
-                    tuple_to_int(event.pos))
-                # If we have two distinct bodies, add a distance joint!
-                if self.jb1 and self.jb2 and str(self.jb1) != str(self.jb2):
-                    self.game.world.add.joint(self.jb1[0], self.jb2[0],
-                                              self.jb1pos, self.jb2pos)
+                self.constructor(self.jb1pos, self.jb2pos)
                 #add joint to ground body
                 #elif self.jb1:
                 #    groundBody = self.game.world.world.GetGroundBody()
                 #    self.game.world.add.joint(self.jb1[0], groundBody,
                 #                              self.jb1pos, self.jb2pos)
                 # regardless, clean everything up
-                self.jb1 = self.jb2 = self.jb1pos = self.jb2pos = None
+                self.jb1 = self.jb1pos = self.jb2pos = None
+
+    def constructor(self, pos1, pos2, share=True):
+        current_bodies = self.game.world.get_bodies_at_pos(pos1)
+        if current_bodies is not None and current_bodies and \
+           len(current_bodies) > 0:
+            body1 = current_bodies[0]
+        else:
+            body1 = None
+        current_bodies = self.game.world.get_bodies_at_pos(pos2)
+        if current_bodies is not None and current_bodies and \
+           len(current_bodies) > 0:
+            body2 = current_bodies[0]
+        else:
+            body2 = None
+
+        if body1 is None or body2 is None:
+            return
+
+        self.game.world.add.joint(body1, body2, pos1, pos2)
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos1, pos2])
+            self.game.activity.send_event('j:' + data)
 
     def draw(self):
         Tool.draw(self)
@@ -617,8 +659,20 @@ class PinTool(Tool):
             self.jb1 = self.game.world.get_bodies_at_pos(
                 tuple_to_int(event.pos))
             if self.jb1:
-                self.game.world.add.joint(self.jb1[0], self.jb1pos)
+                self.constructor(self.jb1pos)
             self.jb1 = self.jb1pos = None
+
+    def constructor(self, pos, share=True):
+        current_bodies = self.game.world.get_bodies_at_pos(pos)
+        if current_bodies is None or not current_bodies or \
+           len(current_bodies) == 0:
+            return
+        body = current_bodies[0]
+        self.game.world.add.joint(body, pos)
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos])
+            self.game.activity.send_event('p:' + data)
 
     def cancel(self):
         self.jb1 = self.jb1pos = None
@@ -661,10 +715,20 @@ class MotorTool(Tool):
                 self.jb1 = self.game.world.get_bodies_at_pos(
                     tuple_to_int(event.pos))
                 if self.jb1:
-                    self.game.world.add.motor(
-                        self.jb1[0], self.jb1pos,
-                        speed=self.palette_data['speed'])
+                    self.constructor(self.jb1pos, self.palette_data['speed'])
                 self.jb1 = self.jb1pos = None
+
+    def constructor(self, pos, speed, share=True):
+        current_bodies = self.game.world.get_bodies_at_pos(pos)
+        if current_bodies is None or not current_bodies or \
+           len(current_bodies) == 0:
+            return
+        body = current_bodies[0]
+        self.game.world.add.motor(body, pos, speed=speed)
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos, speed])
+            self.game.activity.send_event('m:' + data)
 
     def cancel(self):
         self.jb1 = self.jb1pos = None
@@ -771,36 +835,47 @@ class TrackTool(Tool):
             current_body = self.game.world.get_bodies_at_pos(
                 tuple_to_int(event.pos))
             if current_body:
-                current_body = current_body[0]
-                color = current_body.userData['color']
+                body = current_body[0]
+                color = body.userData['color']
                 point_pos = tuple_to_int(event.pos)
-                track_circle = self.game.world.add.ball(
-                    point_pos, self.radius, dynamic=True, density=0.001,
-                    restitution=0.16, friction=0.1)
-                trackdex = self.game.tracked_bodies
-                track_circle.userData['track_index'] = trackdex
-                dictkey = 'pen{0}'.format(trackdex)
-                self.game.world.add.joint(
-                    track_circle, current_body, point_pos, point_pos, False)
-
-                if 'track_indices' in current_body.userData:
-                    current_body.userData['track_indices'].append(trackdex)
-                else:
-                    current_body.userData['track_indices'] = [trackdex]
-
-                self.game.trackinfo[dictkey] = [0, 1, 2, 4, 5]
-                self.game.trackinfo[dictkey][0] = current_body
-                self.game.trackinfo[dictkey][1] = track_circle
-                self.game.trackinfo[dictkey][2] = color
-                self.game.trackinfo[dictkey][3] = False  # Pen destroyed or not
-                self.game.trackinfo[dictkey][4] = trackdex  # Tracking index.
-                self.game.tracked_bodies += 1  # counter of tracked bodies
+                self.constructor(point_pos, color)
 
                 if not self.added_badge:
                     self.add_badge(message='Congratulations! You just added a'
                                            ' Pen to your machine!',
                                    from_='Isacc Newton')
                     self.added_badge = True
+
+    def constructor(self, pos, color, share=True):
+        current_bodies = self.game.world.get_bodies_at_pos(pos)
+        if current_bodies is None or not current_bodies or \
+           len(current_bodies) == 0:
+            return
+        body = current_bodies[0]
+        track_circle = self.game.world.add.ball(
+            pos, self.radius, dynamic=True, density=0.001,
+            restitution=0.16, friction=0.1)
+        trackdex = self.game.tracked_bodies
+        track_circle.userData['track_index'] = trackdex
+        dictkey = 'pen{0}'.format(trackdex)
+        self.game.world.add.joint(track_circle, body, pos, pos, False)
+
+        if 'track_indices' in body.userData:
+            body.userData['track_indices'].append(trackdex)
+        else:
+            body.userData['track_indices'] = [trackdex]
+
+        self.game.trackinfo[dictkey] = [0, 1, 2, 4, 5]
+        self.game.trackinfo[dictkey][0] = body
+        self.game.trackinfo[dictkey][1] = track_circle
+        self.game.trackinfo[dictkey][2] = color
+        self.game.trackinfo[dictkey][3] = False  # Pen destroyed or not
+        self.game.trackinfo[dictkey][4] = trackdex  # Tracking index.
+        self.game.tracked_bodies += 1  # counter of tracked bodies
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos, color])
+            self.game.activity.send_event('t:' + data)
 
 
 class ChainTool(Tool):
@@ -845,7 +920,7 @@ class ChainTool(Tool):
         radius = int(self.palette_data[self.palette_data_type]['radius'])
         Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
-            self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
+            self._body_1 = self._pos_1 = self._pos_2 = None
             if event.button >= 1:
                 # Find body 1
                 self._pos_1 = tuple_to_int(event.pos)
@@ -857,21 +932,35 @@ class ChainTool(Tool):
             if self._body_1 is None or self._body_1 == []:
                 return
             if event.button == 1:
-                # Find body 2 (or create a circle object)
                 self._pos_2 = tuple_to_int(event.pos)
-                self._body_2 = self._find_body(event.pos)
-                if self._body_2 is None:
-                    self._body_2 = self.game.world.add.ball(
-                        self._pos_2, radius, dynamic=True, density=1.0,
-                        restitution=0.16, friction=0.1)
-                    self._body_2.userData['color'] = (0, 0, 0)
-                '''
-                # Don't make a chain from a body to itself
-                if str(self._body_1) == str(self._body_2):
-                    self._clear()
-                    return
-                '''
-                self.make_chain()
+                link_length = \
+                    self.palette_data[self.palette_data_type]['link_length']
+                radius = \
+                    int(self.palette_data[self.palette_data_type]['radius'])
+                self.constructor(self._pos_1, self._pos_2, link_length, radius)
+
+    def constructor(self, pos1, pos2, link_length, radius, share=True):
+        current_bodies = self.game.world.get_bodies_at_pos(pos1)
+        if current_bodies is not None and current_bodies and \
+           len(current_bodies) > 0:
+            body1 = current_bodies[0]
+        else:
+            return
+        current_bodies = self.game.world.get_bodies_at_pos(pos2)
+        if current_bodies is not None and current_bodies and \
+           len(current_bodies) > 0:
+            body2 = current_bodies[0]
+        else:
+            body2 = self.game.world.add.ball(
+                pos2, radius, dynamic=True, density=1.0, restitution=0.16,
+                friction=0.1)
+            body2.userData['color'] = (0, 0, 0)
+
+        self.make_chain(body1, body2, pos1, pos2, link_length, radius)
+
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos1, pos2, link_length, radius])
+            self.game.activity.send_event('c:' + data)
 
     def draw(self):
         Tool.draw(self)
@@ -880,27 +969,24 @@ class ChainTool(Tool):
                              tuple_to_int(pygame.mouse.get_pos()), 3)
 
     def _clear(self):
-        self._body_1 = self._body_2 = self._pos_1 = self._pos_2 = None
+        self._body_1 = self._pos_1 = self._pos_2 = None
 
     def cancel(self):
         self._clear()
 
-    def make_chain(self):
-        dist = int(distance(self._pos_1, self._pos_2) + 0.5)
-        x1, y1 = self._pos_1
-        x2, y2 = self._pos_2
+    def make_chain(self, body1, body2, pos1, pos2, link_length, radius):
+        dist = int(distance(pos1, pos2) + 0.5)
+        x1, y1 = pos1
+        x2, y2 = pos2
         bearing = math.atan2((y2 - y1), (x2 - x1))
-        link_length = self.palette_data[self.palette_data_type]['link_length']
-        radius = int(self.palette_data[self.palette_data_type]['radius'])
 
         if dist < link_length:  # Too short to make a chain
-            self.game.world.add.joint(
-                self._body_1, self._body_2, self._pos_1, self._pos_2)
+            self.game.world.add.joint(body1, body2, pos1, pos2)
             self._clear()
             return
 
         # Draw circles along the path and join them together
-        prev_circle = self._body_1
+        prev_circle = body1
         prev_pos = tuple_to_int((x1, y1))
         for current_point in range(int(link_length / 2.), dist,
                                    int(link_length)):
@@ -912,12 +998,10 @@ class ChainTool(Tool):
                                               restitution=0.16, friction=0.1)
             circle.userData['color'] = (0, 0, 0)
             self.game.world.add.joint(
-                prev_circle, circle, prev_pos, tuple_to_int((x, y)),
-                False)
+                prev_circle, circle, prev_pos, tuple_to_int((x, y)), False)
             if (current_point + link_length) >= dist:
                 self.game.world.add.joint(
-                    circle, self._body_2, tuple_to_int((x, y)),
-                    self._pos_2, False)
+                    circle, body2, tuple_to_int((x, y)), pos2, False)
             prev_circle = circle
             prev_pos = tuple_to_int((x, y))
 

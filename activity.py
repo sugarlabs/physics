@@ -320,10 +320,10 @@ class PhysicsActivity(activity.Activity):
         self.stop_play_state = not self.stop_play_state
 
         if self.stop_play_state:
-            self.stop_play.set_icon('media-playback-stop')
+            self.stop_play.set_icon_name('media-playback-stop')
             self.stop_play.set_tooltip(_('Stop'))
         else:
-            self.stop_play.set_icon('media-playback-start')
+            self.stop_play.set_icon_name('media-playback-start')
             self.stop_play.set_tooltip(_('Start'))
 
     def clear_all_cb(self, button):
@@ -507,6 +507,13 @@ class PhysicsActivity(activity.Activity):
     def event_received_cb(self, text):
         ''' Data is passed as tuples: cmd:text '''
         dispatch_table = {'C': self._construct_shared_circle,
+                          'B': self._construct_shared_box,
+                          'T': self._construct_shared_triangle,
+                          'j': self._add_shared_joint,
+                          'p': self._add_shared_pin,
+                          'm': self._add_shared_motor,
+                          't': self._add_shared_track,
+                          'c': self._add_shared_chain,
                           }
         logging.debug('<<< %s' % (text[0]))
         dispatch_table[text[0]](text[2:])
@@ -520,6 +527,58 @@ class PhysicsActivity(activity.Activity):
         friction = circle_data[4]
         self._constructors['Circle'](pos, radius, density, restitution,
                                      friction, share=False)
+
+    def _construct_shared_box(self, data):
+        box_data = json.loads(data)
+        pos1 = box_data[0]
+        pos2 = box_data[1]
+        density = box_data[2]
+        restitution = box_data[3]
+        friction = box_data[4]
+        self._constructors['Box'](pos1, pos2, density, restitution,
+                                  friction, share=False)
+
+    def _construct_shared_triangle(self, data):
+        triangle_data = json.loads(data)
+        pos1 = triangle_data[0]
+        pos2 = triangle_data[1]
+        density = triangle_data[2]
+        restitution = triangle_data[3]
+        friction = triangle_data[4]
+        self._constructors['Triangle'](pos1, pos2, density, restitution,
+                                       friction, share=False)
+
+    def _add_shared_joint(self, data):
+        joint_data = json.loads(data)
+        pos1 = joint_data[0]
+        pos2 = joint_data[1]
+        self._constructors['Joint'](pos1, pos2, share=False)
+
+    def _add_shared_pin(self, data):
+        joint_data = json.loads(data)
+        pos = joint_data[0]
+        self._constructors['Pin'](pos, share=False)
+
+    def _add_shared_motor(self, data):
+        joint_data = json.loads(data)
+        pos = joint_data[0]
+        speed = joint_data[1]
+        self._constructors['Motor'](pos, speed, share=False)
+
+    def _add_shared_track(self, data):
+        joint_data = json.loads(data)
+        pos = joint_data[0]
+        color = joint_data[1]
+        self._constructors['Track'](pos, color, share=False)
+
+    def _add_shared_chain(self, data):
+        joint_data = json.loads(data)
+        pos1 = joint_data[0]
+        pos2 = joint_data[1]
+        link_length = joint_data[2]
+        radius = joint_data[3]
+        self._constructors['Chain'](pos1, pos2, link_length, radius,
+                                    share=False)
 
     def send_event(self, text):
         ''' Send event through the tube. '''
