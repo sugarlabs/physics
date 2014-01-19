@@ -185,12 +185,20 @@ class CircleTool(Tool):
                 self.pt1 = tuple_to_int(event.pos)
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
-                self.game.world.add.ball(
-                    self.pt1, self.radius,
-                    dynamic=True, density=self.palette_data['density'],
-                    restitution=self.palette_data['restitution'],
-                    friction=self.palette_data['friction'])
+                self.constructor(self.pt1, self.radius,
+                                self.palette_data['density'],
+                                self.palette_data['restitution'],
+                                self.palette_data['friction'])
                 self.pt1 = None
+
+    def constructor(self, pos, radius, density, restitution, friction,
+                    share=True):
+        self.game.world.add.ball(pos, radius, dynamic=True,
+                                 density=density, restitution=restitution,
+                                 friction=friction)
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([pos, radius, density, restitution, friction])
+            self.game.activity.send_event('C:' + data)
 
     def draw(self):
         Tool.draw(self)
