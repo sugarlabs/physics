@@ -282,7 +282,7 @@ class PhysicsActivity(activity.Activity):
                                        self._palette_icon_clicked,
                                        tool.name, 
                                        settings['name'],
-                                       settings['icons'][i])
+                                       icon_value)
                         grid.attach(button, i, s, 1, 1)
                         button.show()
                         if settings['active'] == icon_value:
