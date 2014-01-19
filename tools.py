@@ -39,21 +39,18 @@ PALETTE_MODE_SLIDER_LABEL = 2
 PALETTE_ICON_OBJECT_SETTINGS = [
     {
         'name': 'density',
-        'icon_count': 3,
         'icons': ['feather', 'wood', 'anvil'],
         'icon_values': [0.5, 1.0, 10.0],
         'active': 'wood'
     },
     {
         'name': 'restitution',
-        'icon_count': 3,
         'icons': ['basketball', 'tennis-ball', 'bowling-ball'],
         'icon_values': [1, 0.16, 0.01],
         'active': 'tennis-ball'
     },
     {
         'name': 'friction',
-        'icon_count': 3,
         'icons': ['ice-skate', 'shoe', 'sneaker'],
         'icon_values': [0.5, 1, 2],
         'active': 'grass'
@@ -690,7 +687,6 @@ class MotorTool(Tool):
     palette_settings = [
         {
             'name': 'speed',
-            'icon_count': 4,
             'icons': ['motor-rabbit', 'motor-turtle',  'motor-turtle-2',
                       'motor-rabbit-2'],
             'icon_values': [100, 20, -20, -100],
@@ -890,7 +886,6 @@ class ChainTool(Tool):
     palette_settings = [
         {
             'name': 'chain',
-            'icon_count': 3,
             'icons': ['chain-fine', 'chain-medium', 'chain-coarse'],
             'icon_values': [0, 1, 2],
             'active': 'chain-medium'

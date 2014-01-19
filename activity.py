@@ -250,6 +250,7 @@ class PhysicsActivity(activity.Activity):
             button.connect('clicked', self.radioClicked)
             palette = self._build_palette(c)
             if palette is not None:
+                palette.show()
                 button.get_palette().set_content(palette)
             _insert_item(create_toolbar, button, -1)
             button.show()
@@ -267,11 +268,10 @@ class PhysicsActivity(activity.Activity):
     def _build_palette(self, tool):
         if tool.palette_enabled:
             if tool.palette_mode == tools.PALETTE_MODE_ICONS:
-                vbox = Gtk.VBox()
-                for settings in tool.palette_settings:
-                    hbox = Gtk.HBox()
+                grid = Gtk.Grid()
+                for s, settings in enumerate(tool.palette_settings):
                     firstButton = None
-                    for i in range(0, settings['icon_count']):
+                    for i, icon_value in enumerate(settings['icon_values']):
                         if i == 0:
                             button = RadioToolButton(group=None)
                             firstbutton = button
@@ -282,13 +282,12 @@ class PhysicsActivity(activity.Activity):
                                        self._palette_icon_clicked,
                                        tool.name, 
                                        settings['name'],
-                                       settings['icon_values'][i])
-                        if settings['active'] == settings['icons'][i]:
+                                       settings['icons'][i])
+                        grid.attach(button, i, s, 1, 1)
+                        button.show()
+                        if settings['active'] == icon_value:
                             button.set_active(True)
-                        hbox.pack_start(button, False, False, 0)
-                    vbox.add(hbox)
-                vbox.show_all()
-                return vbox
+                return grid
 
         return None
 
