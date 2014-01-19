@@ -158,8 +158,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-12 00:31-0500\n"
-"PO-Revision-Date: 2013-12-13 04:41+0200\n"
+"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"PO-Revision-Date: 2014-01-20 00:43+0200\n"
 "Last-Translator: AlanJAS <alanjas@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -176,152 +176,165 @@ msgstr "Física"
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid ""
-"Prove Sir Issac Newton right! Create real life simulations using different "
+"Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
 "¡Comprueba que Isaac Newton tenía razón! Crea simulaciones de la vida real "
 "usando las diferentes formas y viendo como cobran vida con las fuerzas."
 
-#: activity.py:123
+#: activity.py:124
 msgid "Create"
 msgstr "Crear"
 
-#: activity.py:151 activity.py:157
-#, fuzzy
+#: activity.py:135
+msgid "Clear Trace Marks"
+msgstr "Limpiar Marcas de Trazo"
+
+#: activity.py:136
+msgid "<ctrl>x"
+msgstr "<ctrl>x"
+
+#: activity.py:161 activity.py:167
 msgid "Export tracked objects to journal"
 msgstr "Exportar objetos al Diario"
 
-#: activity.py:175 activity.py:228
+#: activity.py:185 activity.py:293
 msgid "Stop"
 msgstr "Detener"
 
-#: activity.py:176
+#: activity.py:186
 msgid "<ctrl>space"
 msgstr "<ctrl>Espacio"
 
-#: activity.py:183
+#: activity.py:193
 msgid "Erase All"
 msgstr "Borrar todo"
 
-#: activity.py:184
+#: activity.py:194
 msgid "<ctrl>a"
 msgstr "<ctrl>a"
 
-#: activity.py:231
-msgid "Start"
-msgstr "Avanzar"
-
-#: activity.py:241
+#: activity.py:280 activity.py:307
 msgid "Are You Sure?"
 msgstr "¿Estás seguro?"
 
-#: activity.py:243
+#: activity.py:282
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr "Todos los puntos trazados serán borrados. ¡Ésto no puede deshacerse!"
+
+#: activity.py:296
+msgid "Start"
+msgstr "Avanzar"
+
+#: activity.py:309
 msgid "All your work will be discarded. This cannot be undone!"
 msgstr "Todo tu trabajo será descartado. ¡Esto no se puede deshacer!"
 
-#: activity.py:267 activity.py:284
+#: activity.py:333 activity.py:350
 msgid "Physics export"
 msgstr "Exportar Física"
 
-#: tools.py:109
+#: tools.py:167
 msgid "Circle"
 msgstr "Círculo"
 
-#: tools.py:110
+#: tools.py:168
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:150
+#: tools.py:215
 msgid "Box"
 msgstr "Bloque"
 
-#: tools.py:151
+#: tools.py:216
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:203
+#: tools.py:274
 msgid "Triangle"
 msgstr "Triángulo"
 
-#: tools.py:204
+#: tools.py:275
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:273
+#: tools.py:350
 msgid "Polygon"
 msgstr "Polígono"
 
-#: tools.py:274
+#: tools.py:351
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:349
+#: tools.py:436
 msgid "Draw"
 msgstr "Dibujar"
 
-#: tools.py:350
+#: tools.py:437
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:406
+#: tools.py:499
 msgid "Grab"
 msgstr "Agarrar"
 
-#: tools.py:407
+#: tools.py:500
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:456
+#: tools.py:549
 msgid "Joint"
 msgstr "Unión"
 
-#: tools.py:504
+#: tools.py:597
 msgid "Pin"
 msgstr "Tachuela"
 
-#: tools.py:505
+#: tools.py:598
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:529
+#: tools.py:622
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:530
+#: tools.py:623
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:555
+#: tools.py:667
 msgid "Roll"
 msgstr "Rodar"
 
-#: tools.py:556 tools.py:674
+#: tools.py:668 tools.py:751
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:582
+#: tools.py:694
 msgid "Erase"
 msgstr "Borrar"
 
-#: tools.py:583
+#: tools.py:695
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
 
-#: tools.py:624
-msgid "Erase all"
-msgstr "Borrar todo"
-
-#: tools.py:637
-msgid "Delete all shapes?"
-msgstr "¿Borrar todas las formas?"
-
-#: tools.py:638
-msgid "This can't be undone!"
-msgstr "¡Esto no puede ser revertido!"
-
-#: tools.py:673
+#: tools.py:750
 msgid "Track Object"
 msgstr "Seguir Objeto"
+
+#: tools.py:800
+msgid "Chain"
+msgstr "Cadena"
+
+#~ msgid "Erase all"
+#~ msgstr "Borrar todo"
+
+#~ msgid "Delete all shapes?"
+#~ msgstr "¿Borrar todas las formas?"
+
+#, fuzzy
+#~ msgid "This cannot be undone!"
+#~ msgstr "¡Esto no puede ser revertido!"
 
 #, python-format
 #~ msgid "%s Source"
