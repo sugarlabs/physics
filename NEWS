@@ -1,7 +1,10 @@
 15
 
-ENHANCEMENTS:
+ENHANCEMENT:
 * Added support for collaboration
+
+BUG FIX:
+* Fix problem with pause/play button
 
 14
 
