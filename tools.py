@@ -53,7 +53,7 @@ PALETTE_ICON_OBJECT_SETTINGS = [
         'name': 'friction',
         'icons': ['ice-skate', 'shoe', 'sneaker'],
         'icon_values': [0.5, 1, 2],
-        'active': 'grass'
+        'active': 'shoe'
     }]
 PALETTE_OBJECT_DATA = {
     'density': 1.0,
@@ -76,6 +76,7 @@ class Tool(object):
     def __init__(self, gameInstance):
         self.game = gameInstance
         self.name = self.__class__.name
+        self.buttons = []
 
     def handleEvents(self, event):
         handled = True

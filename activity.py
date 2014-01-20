@@ -270,6 +270,7 @@ class PhysicsActivity(activity.Activity):
             if tool.palette_mode == tools.PALETTE_MODE_ICONS:
                 grid = Gtk.Grid()
                 for s, settings in enumerate(tool.palette_settings):
+                    self.game.toolList[tool.name].buttons.append([])
                     firstButton = None
                     for i, icon_value in enumerate(settings['icon_values']):
                         if i == 0:
@@ -281,19 +282,33 @@ class PhysicsActivity(activity.Activity):
                         button.connect('clicked',
                                        self._palette_icon_clicked,
                                        tool.name, 
+                                       s,
                                        settings['name'],
                                        icon_value)
                         grid.attach(button, i, s, 1, 1)
+                        self.game.toolList[tool.name].buttons[s].append(button)
                         button.show()
-                        if settings['active'] == icon_value:
-                            button.set_active(True)
+                        # Radio buttons are not highlighting in the palette
+                        # so adding highlight by hand
+                        if settings['active'] == settings['icons'][i]:
+                            button.set_icon_name(settings['icons'][i] + \
+                                                 '-selected')
+                            button.set_active(True)  # Why doesn't this work?
                 return grid
+        else:
+            return None
 
-        return None
-
-    def _palette_icon_clicked(self, button, toolname, value_name, value):
+    def _palette_icon_clicked(self, widget, toolname, s, value_name, value):
         for tool in tools.allTools:
             if tool.name == toolname:
+                setting = self.game.toolList[tool.name].palette_settings[s]
+                for i, button in enumerate(
+                        self.game.toolList[tool.name].buttons[s]):
+                    icon_name = setting['icons'][i]
+                    if button == widget:
+                        button.set_icon_name(icon_name + '-selected')
+                    else:
+                        button.set_icon_name(icon_name)
                 if hasattr(tool, 'palette_data_type'):
                     tool.palette_data_type = value
                 else:
