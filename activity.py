@@ -288,12 +288,10 @@ class PhysicsActivity(activity.Activity):
                         grid.attach(button, i, s, 1, 1)
                         self.game.toolList[tool.name].buttons[s].append(button)
                         button.show()
-                        # Radio buttons are not highlighting in the palette
-                        # so adding highlight by hand
                         if settings['active'] == settings['icons'][i]:
                             button.set_icon_name(settings['icons'][i] + \
                                                  '-selected')
-                            button.set_active(True)  # Why doesn't this work?
+                            button.set_active(True)
                 return grid
         else:
             return None
@@ -301,6 +299,8 @@ class PhysicsActivity(activity.Activity):
     def _palette_icon_clicked(self, widget, toolname, s, value_name, value):
         for tool in tools.allTools:
             if tool.name == toolname:
+                # Radio buttons are not highlighting in the palette
+                # so adding highlight by hand
                 setting = self.game.toolList[tool.name].palette_settings[s]
                 for i, button in enumerate(
                         self.game.toolList[tool.name].buttons[s]):
