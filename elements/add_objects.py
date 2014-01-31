@@ -390,14 +390,14 @@ class Add:
 
         if tools_poly.is_line(vertices):
             # Lines shall be drawn by self.concavePoly(...)
-            print "is line"
+            # print "is line"
             is_convex = False
                     
         if is_convex:
-            print "convex"
+            # print "convex"
             return self.convexPoly(vertices, dynamic, density, restitution, friction), vertices
         else:
-            print "concave"
+            # print "concave"
             return self.concavePoly(vertices, dynamic, density, restitution, friction), vertices        
         
 
@@ -421,7 +421,7 @@ class Add:
             tolerance += 1    
             v_new = tools_poly.reduce_poly(vertices, tolerance)
             
-        print "convexPoly: Polygon reduced from %i to %i vertices | tolerance: %i" % (len(vertices), len(v_new), tolerance)
+        # print "convexPoly: Polygon reduced from %i to %i vertices | tolerance: %i" % (len(vertices), len(v_new), tolerance)
         vertices = v_new
              
         # So poly should be alright now

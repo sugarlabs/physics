@@ -163,3 +163,12 @@ def tuple_to_int(tuple_input):
     """Cast tuple values to ints to avoid gtk+ and pygame's dislike of floats.
     """
     return [int(i) for i in tuple_input]
+
+
+def find_body(world, pos):
+    body = world.get_bodies_at_pos(tuple_to_int(pos))
+    if isinstance(body, list) and len(body) > 0:
+        return body[0]
+    else:
+        return None
+

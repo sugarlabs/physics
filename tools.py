@@ -409,9 +409,8 @@ class PolygonTool(Tool):
                     self.vertices = [[i[0] - delta_x, i[1] - delta_y]
                                      for i in self.previous_vertices]
                     self.safe = True
-                    self.game.world.add.complexPoly(
+                    self.constructor(
                         self.vertices,
-                        dynamic=True,
                         density=self.palette_data['density'],
                         restitution=self.palette_data['restitution'],
                         friction=self.palette_data['friction'])
@@ -427,9 +426,8 @@ class PolygonTool(Tool):
                 if distance(tuple_to_int(event.pos), self.vertices[0]) < 15 \
                         and self.safe:
                     self.vertices.append(self.vertices[0])  # Connect polygon
-                    self.game.world.add.complexPoly(
+                    self.constructor(
                         self.vertices,
-                        dynamic=True,
                         density=self.palette_data['density'],
                         restitution=self.palette_data['restitution'],
                         friction=self.palette_data['friction'])
@@ -442,6 +440,16 @@ class PolygonTool(Tool):
                     if distance(tuple_to_int(event.pos),
                                 self.vertices[0]) > 54:
                         self.safe = True
+
+    def constructor(self, vertices, density, restitution, friction,
+                    share=True):
+        self.game.world.add.complexPoly(vertices, dynamic=True,
+                                        density=density,
+                                        restitution=restitution,
+                                        friction=friction)
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([vertices, density, restitution, friction])
+            self.game.activity.send_event('P:' + data)
 
     def draw(self):
         Tool.draw(self)
@@ -492,8 +500,8 @@ class MagicPenTool(Tool):
                                  for i in self.previous_vertices]
                 self.safe = True
             if self.vertices and self.safe:
-                self.game.world.add.complexPoly(
-                    self.vertices, dynamic=True,
+                self.constructor(
+                    self.vertices,
                     density=self.palette_data['density'],
                     restitution=self.palette_data['restitution'],
                     friction=self.palette_data['friction'])
@@ -504,6 +512,16 @@ class MagicPenTool(Tool):
             if distance(tuple_to_int(event.pos), self.vertices[0]) >= 55 and \
                     len(self.vertices) > 3:
                 self.safe = True
+
+    def constructor(self, vertices, density, restitution, friction,
+                    share=True):
+        self.game.world.add.complexPoly(vertices, dynamic=True,
+                                        density=density,
+                                        restitution=restitution,
+                                        friction=friction)
+        if share and self.game.activity.we_are_sharing:
+            data = json.dumps([vertices, density, restitution, friction])
+            self.game.activity.send_event('M:' + data)
 
     def draw(self):
         Tool.draw(self)
@@ -590,8 +608,7 @@ class JointTool(Tool):
             if event.button >= 1:
                 # Grab the first body
                 self.jb1pos = tuple_to_int(event.pos)
-                self.jb1 = self.game.world.get_bodies_at_pos(
-                    tuple_to_int(event.pos))
+                self.jb1 = find_body(self.game.world, event.pos)
                 self.jb2pos = None
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
@@ -607,19 +624,8 @@ class JointTool(Tool):
                 self.jb1 = self.jb1pos = self.jb2pos = None
 
     def constructor(self, pos1, pos2, share=True):
-        current_bodies = self.game.world.get_bodies_at_pos(pos1)
-        if current_bodies is not None and current_bodies and \
-           len(current_bodies) > 0:
-            body1 = current_bodies[0]
-        else:
-            body1 = None
-        current_bodies = self.game.world.get_bodies_at_pos(pos2)
-        if current_bodies is not None and current_bodies and \
-           len(current_bodies) > 0:
-            body2 = current_bodies[0]
-        else:
-            body2 = None
-
+        body1 = find_body(self.game.world, pos1)
+        body2 = find_body(self.game.world, pos2)
         if body1 is None or body2 is None:
             return
 
@@ -654,18 +660,13 @@ class PinTool(Tool):
         Tool.handleToolEvent(self, event)
         if event.type == MOUSEBUTTONDOWN:
             self.jb1pos = tuple_to_int(event.pos)
-            self.jb1 = self.game.world.get_bodies_at_pos(
-                tuple_to_int(event.pos))
-            if self.jb1:
+            self.jb1 = find_body(self.game.world, event.pos)
+            if self.jb1 is not None:
                 self.constructor(self.jb1pos)
             self.jb1 = self.jb1pos = None
 
     def constructor(self, pos, share=True):
-        current_bodies = self.game.world.get_bodies_at_pos(pos)
-        if current_bodies is None or not current_bodies or \
-           len(current_bodies) == 0:
-            return
-        body = current_bodies[0]
+        body = find_body(self.game.world, pos)
         self.game.world.add.joint(body, pos)
 
         if share and self.game.activity.we_are_sharing:
@@ -709,18 +710,13 @@ class MotorTool(Tool):
             if event.button >= 1:
                 # Grab the first body
                 self.jb1pos = tuple_to_int(event.pos)
-                self.jb1 = self.game.world.get_bodies_at_pos(
-                    tuple_to_int(event.pos))
-                if self.jb1:
+                self.jb1 = find_body(self.game.world, event.pos)
+                if self.jb1 is not None:
                     self.constructor(self.jb1pos, self.palette_data['speed'])
                 self.jb1 = self.jb1pos = None
 
     def constructor(self, pos, speed, share=True):
-        current_bodies = self.game.world.get_bodies_at_pos(pos)
-        if current_bodies is None or not current_bodies or \
-           len(current_bodies) == 0:
-            return
-        body = current_bodies[0]
+        body = find_body(self.game.world, pos)
         self.game.world.add.motor(body, pos, speed=speed)
 
         if share and self.game.activity.we_are_sharing:
@@ -746,8 +742,8 @@ class RollTool(Tool):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.jb1pos = tuple_to_int(event.pos)
-                self.jb1 = self.game.world.get_bodies_at_pos(self.jb1pos)
-                if self.jb1 and isinstance(self.jb1[0].userData, dict):
+                self.jb1 = find_body(self.game.world, event.pos)
+                if self.jb1 is not None:
                     self.jb1[0].userData['rollMotor'] = {}
                     self.jb1[0].userData['rollMotor']['targetVelocity'] = -10
                     self.jb1[0].userData['rollMotor']['strength'] = 40
@@ -777,9 +773,8 @@ class DestroyTool(Tool):
             if len(self.vertices) > 10:
                 self.vertices.pop(0)
 
-            tokill = self.game.world.get_bodies_at_pos(tuple_to_int(event.pos))
-
-            if tokill:
+            tokill = find_body(self.game.world, event.pos)
+            if tokill is not None:
                 tracklist = self.game.trackinfo.items()
                 destroyed_body = False
                 for key, info in tracklist:
@@ -829,10 +824,8 @@ class TrackTool(Tool):
         Tool.handleToolEvent(self, event)
 
         if pygame.mouse.get_pressed()[0]:
-            current_body = self.game.world.get_bodies_at_pos(
-                tuple_to_int(event.pos))
-            if current_body:
-                body = current_body[0]
+            body = find_body(self.game.world, event.pos)
+            if body is not None:
                 color = body.userData['color']
                 point_pos = tuple_to_int(event.pos)
                 self.constructor(point_pos, color)
@@ -844,11 +837,7 @@ class TrackTool(Tool):
                     self.added_badge = True
 
     def constructor(self, pos, color, share=True):
-        current_bodies = self.game.world.get_bodies_at_pos(pos)
-        if current_bodies is None or not current_bodies or \
-           len(current_bodies) == 0:
-            return
-        body = current_bodies[0]
+        body = find_body(self.game.world, pos)
         track_circle = self.game.world.add.ball(
             pos, self.radius, dynamic=True, density=0.001,
             restitution=0.16, friction=0.1)
@@ -920,7 +909,7 @@ class ChainTool(Tool):
             if event.button >= 1:
                 # Find body 1
                 self._pos_1 = tuple_to_int(event.pos)
-                self._body_1 = self._find_body(event.pos)
+                self._body_1 = find_body(self.game.world, event.pos)
                 if self._body_1 is None:
                     self._clear()
                     return
@@ -936,17 +925,11 @@ class ChainTool(Tool):
                 self.constructor(self._pos_1, self._pos_2, link_length, radius)
 
     def constructor(self, pos1, pos2, link_length, radius, share=True):
-        current_bodies = self.game.world.get_bodies_at_pos(pos1)
-        if current_bodies is not None and current_bodies and \
-           len(current_bodies) > 0:
-            body1 = current_bodies[0]
-        else:
+        body1 = find_body(self.game.world, pos1)
+        if body1 is None:
             return
-        current_bodies = self.game.world.get_bodies_at_pos(pos2)
-        if current_bodies is not None and current_bodies and \
-           len(current_bodies) > 0:
-            body2 = current_bodies[0]
-        else:
+        body2 = find_body(self.game.world, pos2)
+        if body2 is None:
             body2 = self.game.world.add.ball(
                 pos2, radius, dynamic=True, density=1.0, restitution=0.16,
                 friction=0.1)
@@ -1002,13 +985,6 @@ class ChainTool(Tool):
             prev_pos = tuple_to_int((x, y))
 
         self._clear()
-
-    def _find_body(self, pos):
-        body = self.game.world.get_bodies_at_pos(tuple_to_int(pos))
-        if isinstance(body, list) and len(body) > 0:
-            return body[0]
-        else:
-            return None
 
 
 def getAllTools():

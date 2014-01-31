@@ -4,6 +4,6 @@ summary = Prove Sir Isaac Newton right! Create real life simulations using diffe
 bundle_id = org.laptop.physics
 exec = sugar-activity activity.PhysicsActivity
 icon = activity-physics
-activity_version = 15
+activity_version = 16
 show_launcher = yes
 mime_types = application/x-physics-activity;

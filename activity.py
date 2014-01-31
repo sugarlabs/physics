@@ -523,6 +523,8 @@ class PhysicsActivity(activity.Activity):
         dispatch_table = {'C': self._construct_shared_circle,
                           'B': self._construct_shared_box,
                           'T': self._construct_shared_triangle,
+                          'P': self._construct_shared_polygon,
+                          'M': self._construct_shared_magicpen,
                           'j': self._add_shared_joint,
                           'p': self._add_shared_pin,
                           'm': self._add_shared_motor,
@@ -561,6 +563,24 @@ class PhysicsActivity(activity.Activity):
         friction = triangle_data[4]
         self._constructors['Triangle'](pos1, pos2, density, restitution,
                                        friction, share=False)
+
+    def _construct_shared_polygon(self, data):
+        polygon_data = json.loads(data)
+        verticies = polygon_data[0]
+        density = polygon_data[1]
+        restitution = polygon_data[2]
+        friction = polygon_data[3]
+        self._constructors['Polygon'](verticies, density, restitution,
+                                      friction, share=False)
+
+    def _construct_shared_magicpen(self, data):
+        magicpen_data = json.loads(data)
+        verticies = magicpen_data[0]
+        density = magicpen_data[1]
+        restitution = magicpen_data[2]
+        friction = magicpen_data[3]
+        self._constructors['Magicpen'](verticies, density, restitution,
+                                      friction, share=False)
 
     def _add_shared_joint(self, data):
         joint_data = json.loads(data)
