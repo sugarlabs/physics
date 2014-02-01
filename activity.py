@@ -301,6 +301,7 @@ class PhysicsActivity(activity.Activity):
             if tool.name == toolname:
                 # Radio buttons are not highlighting in the palette
                 # so adding highlight by hand
+                # See http://bugs.sugarlabs.org/ticket/305
                 setting = self.game.toolList[tool.name].palette_settings[s]
                 for i, button in enumerate(
                         self.game.toolList[tool.name].buttons[s]):
