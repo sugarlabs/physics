@@ -609,8 +609,8 @@ class PhysicsActivity(activity.Activity):
     def _add_shared_chain(self, data):
         joint_data = json.loads(data)
         vertices = joint_data[0]
-        link_length = joint_data[2]
-        radius = joint_data[3]
+        link_length = joint_data[1]
+        radius = joint_data[2]
         self._constructors['Chain'](vertices, link_length, radius,
                                     share=False)
 
