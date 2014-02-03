@@ -567,20 +567,20 @@ class PhysicsActivity(activity.Activity):
 
     def _construct_shared_polygon(self, data):
         polygon_data = json.loads(data)
-        verticies = polygon_data[0]
+        vertices = polygon_data[0]
         density = polygon_data[1]
         restitution = polygon_data[2]
         friction = polygon_data[3]
-        self._constructors['Polygon'](verticies, density, restitution,
+        self._constructors['Polygon'](vertices, density, restitution,
                                       friction, share=False)
 
     def _construct_shared_magicpen(self, data):
         magicpen_data = json.loads(data)
-        verticies = magicpen_data[0]
+        vertices = magicpen_data[0]
         density = magicpen_data[1]
         restitution = magicpen_data[2]
         friction = magicpen_data[3]
-        self._constructors['Magicpen'](verticies, density, restitution,
+        self._constructors['Magicpen'](vertices, density, restitution,
                                       friction, share=False)
 
     def _add_shared_joint(self, data):
@@ -608,11 +608,10 @@ class PhysicsActivity(activity.Activity):
 
     def _add_shared_chain(self, data):
         joint_data = json.loads(data)
-        pos1 = joint_data[0]
-        pos2 = joint_data[1]
+        vertices = joint_data[0]
         link_length = joint_data[2]
         radius = joint_data[3]
-        self._constructors['Chain'](pos1, pos2, link_length, radius,
+        self._constructors['Chain'](vertices, link_length, radius,
                                     share=False)
 
     def send_event(self, text):

@@ -899,59 +899,92 @@ class ChainTool(Tool):
 
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
-        self._clear()
+        self.vertices = None
+        self.previous_vertices = None
+        self.safe = False
 
     def handleToolEvent(self, event):
         radius = int(self.palette_data[self.palette_data_type]['radius'])
+        link_length = \
+            self.palette_data[self.palette_data_type]['link_length']
         Tool.handleToolEvent(self, event)
-        if event.type == MOUSEBUTTONDOWN:
-            self._body_1 = self._pos_1 = self._pos_2 = None
-            if event.button >= 1:
-                # Find body 1
-                self._pos_1 = tuple_to_int(event.pos)
-                self._body_1 = find_body(self.game.world, event.pos)
-                if self._body_1 is None:
-                    self._clear()
-                    return
-        elif event.type == MOUSEBUTTONUP:
-            if self._body_1 is None or self._body_1 == []:
-                return
-            if event.button == 1:
-                self._pos_2 = tuple_to_int(event.pos)
-                link_length = \
-                    self.palette_data[self.palette_data_type]['link_length']
-                radius = \
-                    int(self.palette_data[self.palette_data_type]['radius'])
-                self.constructor(self._pos_1, self._pos_2, link_length, radius)
+        if event.type == MOUSEBUTTONDOWN and event.button == 1:
+            self.vertices = [tuple_to_int(event.pos)]
+            self.safe = False
+        elif event.type == MOUSEBUTTONUP and event.button == 1:
+            if len(self.vertices) == 1 and self.previous_vertices is not None:
+                last_x_y = self.previous_vertices[-1]
+                delta_x = last_x_y[0] - tuple_to_int(event.pos)[0]
+                delta_y = last_x_y[1] - tuple_to_int(event.pos)[1]
+                self.vertices = [[i[0] - delta_x, i[1] - delta_y]
+                                 for i in self.previous_vertices]
+                self.safe = True
+            if self.vertices and self.safe:
+                self.constructor(self.vertices, link_length, radius)
+                self.previous_vertices = self.vertices[:]
+            self.vertices = None
+        elif event.type == MOUSEMOTION and self.vertices:
+            last_x_y = self.vertices[-1]
+            if distance(tuple_to_int(event.pos), last_x_y) >= link_length:
+                self.vertices.append(tuple_to_int(event.pos))
+            if distance(tuple_to_int(event.pos),
+                        self.vertices[0]) >= link_length * 5 and \
+                    len(self.vertices) > 3:
+                self.safe = True
 
-    def constructor(self, pos1, pos2, link_length, radius, share=True):
+    def constructor(self, vertices, link_length, radius, share=True):
+        logging.debug(vertices)
+        pos1 = vertices[0][:]
         body1 = find_body(self.game.world, pos1)
         if body1 is None:
-            return
-        body2 = find_body(self.game.world, pos2)
-        if body2 is None:
-            body2 = self.game.world.add.ball(
-                pos2, radius, dynamic=True, density=1.0, restitution=0.16,
-                friction=0.1)
-            body2.userData['color'] = (0, 0, 0)
+            body1 = self.game.world.add.ball(
+                    pos1, radius, dynamic=True, density=1.0, restitution=0.16,
+                    friction=0.1)
+            body1.userData['color'] = (0, 0, 0)
+        for i, pos2 in enumerate(vertices):
+            if i == 0:
+                continue
+            logging.debug(pos2)
+            body2 = find_body(self.game.world, pos2)
+            if body2 is None:
+                body2 = self.game.world.add.ball(
+                    pos2, radius, dynamic=True, density=1.0, restitution=0.16,
+                    friction=0.1)
+                body2.userData['color'] = (0, 0, 0)
 
-        self.make_chain(body1, body2, pos1, pos2, link_length, radius)
+            self.make_chain(body1, body2, pos1, pos2, link_length, radius)
+            body1 = body2
+            pos1 = pos2[:]
+
+        # Close the chain if the start and end were near each other
+        if distance(vertices[0], vertices[-1]) < link_length * 2:
+            pos1 = vertices[0][:]
+            body1 = find_body(self.game.world, pos1)
+            pos2 = vertices[-1][:]
+            body2 = find_body(self.game.world, pos2)
+            if body1 != body2:
+                self.make_chain(body1, body2, pos1, pos2, link_length, radius)
 
         if share and self.game.activity.we_are_sharing:
-            data = json.dumps([pos1, pos2, link_length, radius])
+            data = json.dumps([vertices, link_length, radius])
             self.game.activity.send_event('c:' + data)
 
     def draw(self):
         Tool.draw(self)
-        if self._body_1:
-            pygame.draw.line(self.game.screen, (100, 180, 255), self._pos_1,
-                             tuple_to_int(pygame.mouse.get_pos()), 3)
-
-    def _clear(self):
-        self._body_1 = self._pos_1 = self._pos_2 = None
+        # Draw the poly being created
+        if self.vertices:
+            if len(self.vertices) > 1:
+                for i in range(len(self.vertices) - 1):
+                    pygame.draw.line(self.game.screen, (100, 180, 255),
+                                     self.vertices[i], self.vertices[i + 1], 3)
+                pygame.draw.line(self.game.screen, (100, 180, 255),
+                                 self.vertices[-1],
+                                 tuple_to_int(pygame.mouse.get_pos()), 3)
+                pygame.draw.circle(self.game.screen, (100, 180, 255),
+                                   self.vertices[0], 15, 3)
 
     def cancel(self):
-        self._clear()
+        self.vertices = None
 
     def make_chain(self, body1, body2, pos1, pos2, link_length, radius):
         dist = int(distance(pos1, pos2) + 0.5)
@@ -961,7 +994,6 @@ class ChainTool(Tool):
 
         if dist < link_length:  # Too short to make a chain
             self.game.world.add.joint(body1, body2, pos1, pos2)
-            self._clear()
             return
 
         # Draw circles along the path and join them together
@@ -983,8 +1015,6 @@ class ChainTool(Tool):
                     circle, body2, tuple_to_int((x, y)), pos2, False)
             prev_circle = circle
             prev_pos = tuple_to_int((x, y))
-
-        self._clear()
 
 
 def getAllTools():
