@@ -574,7 +574,7 @@ class GrabTool(Tool):
                     self.game.world.add.remove_mouseJoint()
                 else:
                     self._current_body = None
-        elif event.type == MOUSEMOTION and event.buttons[0]:
+        elif event.type == MOUSEMOTION:  # and event.buttons[0]:
             # Move it around
             if self.game.world.run_physics:
                 # Use box2D mouse motion
