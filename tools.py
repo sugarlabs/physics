@@ -773,26 +773,26 @@ class DestroyTool(Tool):
             if len(self.vertices) > 10:
                 self.vertices.pop(0)
 
-            tokill = find_body(self.game.world, event.pos)
-            if tokill is not None:
+            body_to_remove = find_body(self.game.world, event.pos)
+            if body_to_remove is not None:
                 tracklist = self.game.trackinfo.items()
                 destroyed_body = False
                 for key, info in tracklist:
                     trackdex = info[4]
-                    if 'track_indices' in tokill[0].userData and \
-                       trackdex in tokill[0].userData['track_indices'] and \
-                       info[3] is False:
+                    if 'track_indices' in body_to_remove.userData and \
+                       trackdex in body_to_remove.userData['track_indices'] \
+                       and info[3] is False:
                         self.game.world.world.DestroyBody(info[1])
                         self.game.trackinfo[key][3] = True
                         destroyed_body = True
                         break
 
-                jointnode = tokill[0].GetJointList()
+                jointnode = body_to_remove.GetJointList()
                 if jointnode and not destroyed_body:
                     joint = jointnode.joint
                     self.game.world.world.DestroyJoint(joint)
                 elif not destroyed_body:
-                    self.game.world.world.DestroyBody(tokill[0])
+                    self.game.world.world.DestroyBody(body_to_remove)
         elif event.type == MOUSEBUTTONUP and event.button == 1:
             self.cancel()
 
