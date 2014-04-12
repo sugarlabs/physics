@@ -933,7 +933,6 @@ class ChainTool(Tool):
                 self.safe = True
 
     def constructor(self, vertices, link_length, radius, share=True):
-        logging.debug(vertices)
         pos1 = vertices[0][:]
         body1 = find_body(self.game.world, pos1)
         if body1 is None:
@@ -944,7 +943,6 @@ class ChainTool(Tool):
         for i, pos2 in enumerate(vertices):
             if i == 0:
                 continue
-            logging.debug(pos2)
             body2 = find_body(self.game.world, pos2)
             if body2 is None:
                 body2 = self.game.world.add.ball(
