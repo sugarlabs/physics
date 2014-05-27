@@ -42,9 +42,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: 2012-11-24 17:25+0200\n"
-"Last-Translator: Lionel Laské <llaske@c2s.fr>\n"
+"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"PO-Revision-Date: 2014-04-06 08:51+0200\n"
+"Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -54,124 +54,169 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
-#: activity.py:41
 msgid "Physics"
 msgstr "Physique"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid ""
-"Prove Sir Issac Newton right! Create real life simulations using different "
+"Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
-"Prouves la théorie d'Issac Newton ! Crée des simulations de la vie réelle en "
-"utilisant des formes différentes et regardes les prendre vie avec la force "
+"Prouvez la théorie d'Issac Newton ! Créez des simulations de la vie réelle "
+"en utilisant des formes différentes et regardez-les s'animer avec la force "
 "d'attraction !"
 
-#: activity.py:125
+#: activity.py:124
 msgid "Create"
 msgstr "Créer"
 
-#: activity.py:137 activity.py:171
+#: activity.py:135
+msgid "Clear Trace Marks"
+msgstr "Effacer les marques de trace"
+
+#: activity.py:136
+msgid "<ctrl>x"
+msgstr "<ctrl>x"
+
+#: activity.py:161 activity.py:167
+msgid "Export tracked objects to journal"
+msgstr "Exporter les objets tracés vers les Journal"
+
+#: activity.py:185 activity.py:293
 msgid "Stop"
 msgstr "Arrêter"
 
-#: activity.py:138
+#: activity.py:186
 msgid "<ctrl>space"
 msgstr "<ctrl>espace"
 
-#: activity.py:174
+#: activity.py:193
+msgid "Erase All"
+msgstr "Effacer tout"
+
+#: activity.py:194
+msgid "<ctrl>a"
+msgstr "<ctrl>a"
+
+#: activity.py:280 activity.py:307
+msgid "Are You Sure?"
+msgstr "Voulez-vous réellement effacer tout ?"
+
+#: activity.py:282
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr ""
+"Tous les points de trace seront effacés. Cette opération ne pourra pas être "
+"annulée."
+
+#: activity.py:296
 msgid "Start"
 msgstr "Commencer"
 
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr "%s Source"
+#: activity.py:309
+msgid "All your work will be discarded. This cannot be undone!"
+msgstr ""
+"Tout votre travail sera annulé. Cette opération ne pourra pas être annulée."
 
-#: tools.py:92
+#: activity.py:333 activity.py:350
+msgid "Physics export"
+msgstr "Exportation de Physique"
+
+#: tools.py:167
 msgid "Circle"
 msgstr "Cercle"
 
-#: tools.py:93
+#: tools.py:168
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:131
+#: tools.py:215
 msgid "Box"
 msgstr "Boîte"
 
-#: tools.py:132
+#: tools.py:216
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:181
+#: tools.py:274
 msgid "Triangle"
 msgstr "Triangle"
 
-#: tools.py:182
+#: tools.py:275
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:249
+#: tools.py:350
 msgid "Polygon"
 msgstr "Polygone"
 
-#: tools.py:250
+#: tools.py:351
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:315
+#: tools.py:436
 msgid "Draw"
 msgstr "Dessiner"
 
-#: tools.py:316
+#: tools.py:437
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:369
+#: tools.py:499
 msgid "Grab"
 msgstr "Prendre"
 
-#: tools.py:370
+#: tools.py:500
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:416
+#: tools.py:549
 msgid "Joint"
 msgstr "Articulation"
 
-#: tools.py:460
+#: tools.py:597
 msgid "Pin"
 msgstr "Punaise"
 
-#: tools.py:461
+#: tools.py:598
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:483
+#: tools.py:622
 msgid "Motor"
 msgstr "Moteur"
 
-#: tools.py:484
+#: tools.py:623
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:507
+#: tools.py:667
 msgid "Roll"
 msgstr "Roulement"
 
-#: tools.py:508
+#: tools.py:668 tools.py:751
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:534
+#: tools.py:694
 msgid "Erase"
 msgstr "Effacer"
 
-#: tools.py:535
+#: tools.py:695
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
+
+#: tools.py:750
+msgid "Track Object"
+msgstr "Suivre la trace de l'objet"
+
+#: tools.py:800
+msgid "Chain"
+msgstr "Chaîne"
+
+#, python-format
+#~ msgid "%s Source"
+#~ msgstr "%s Source"
 
 #~ msgid "c"
 #~ msgstr "c"

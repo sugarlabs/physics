@@ -2,133 +2,175 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"PO-Revision-Date: 2014-05-20 19:27+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pbs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.7.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
-#: activity.py:41
 msgid "Physics"
-msgstr ""
+msgstr "lichja'aun"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid ""
-"Prove Sir Issac Newton right! Create real life simulations using different "
+"Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
+"¡Miant se ne Isaac Newton lik'iajam likiajaí re se ve'eje'! Vichjaut "
+"latsja'aun re manup lik'iajam ki't re lixa'au vakjá maiñ vijiaut peuk vat'ei "
+"k'ejé manup re vajap."
 
-#: activity.py:125
+#: activity.py:124
 msgid "Create"
-msgstr ""
+msgstr "Matsjau"
 
-#: activity.py:137 activity.py:171
+#: activity.py:135
+msgid "Clear Trace Marks"
+msgstr "Matseiñ se lichja'aun me'es"
+
+#: activity.py:136
+msgid "<ctrl>x"
+msgstr "<ctrl>x"
+
+#: activity.py:161 activity.py:167
+msgid "Export tracked objects to journal"
+msgstr "Ma'ujuñ sad-ia nimia pu xiñi'iu matsjau"
+
+#: activity.py:185 activity.py:293
 msgid "Stop"
-msgstr ""
+msgstr "Mama'ai"
 
-#: activity.py:138
+#: activity.py:186
 msgid "<ctrl>space"
-msgstr ""
+msgstr "<ctrl>Tijiap"
 
-#: activity.py:174
+#: activity.py:193
+msgid "Erase All"
+msgstr "Mavun mi'ia"
+
+#: activity.py:194
+msgid "<ctrl>a"
+msgstr "<ctrl>a"
+
+#: activity.py:280 activity.py:307
+msgid "Are You Sure?"
+msgstr "¿Ki'ieje' lik'iajam?"
+
+#: activity.py:282
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr "Mi'ia pu me'es matsjau mavunt. ¡Ranji nip mvania'at majuat!"
+
+#: activity.py:296
 msgid "Start"
-msgstr ""
+msgstr "Ndapup"
 
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
-msgstr ""
+#: activity.py:309
+msgid "All your work will be discarded. This cannot be undone!"
+msgstr "Mi'ia pu ngul'ajau majaiñ. ¡Ranjí ni mvania'at majuat!"
 
-#: tools.py:92
+#: activity.py:333 activity.py:350
+msgid "Physics export"
+msgstr "Ma'ujuñ lichajaun'"
+
+#: tools.py:167
 msgid "Circle"
-msgstr ""
+msgstr "Ndimjiuly'"
 
-#: tools.py:93
+#: tools.py:168
 msgid "<ctrl>c"
-msgstr ""
+msgstr "<ctrl>c"
 
-#: tools.py:131
+#: tools.py:215
 msgid "Box"
-msgstr ""
+msgstr "kad-a kichjau'"
 
-#: tools.py:132
+#: tools.py:216
 msgid "<ctrl>b"
-msgstr ""
+msgstr "<ctrl>b"
 
-#: tools.py:181
+#: tools.py:274
 msgid "Triangle"
-msgstr ""
+msgstr "Ranju'mú"
 
-#: tools.py:182
+#: tools.py:275
 msgid "<ctrl>t"
-msgstr ""
+msgstr "<ctrl>t"
 
-#: tools.py:249
+#: tools.py:350
 msgid "Polygon"
-msgstr ""
+msgstr "Polígono"
 
-#: tools.py:250
+#: tools.py:351
 msgid "<ctrl>p"
-msgstr ""
+msgstr "<ctrl>p"
 
-#: tools.py:315
+#: tools.py:436
 msgid "Draw"
-msgstr ""
+msgstr "Matsjau makeje' sania'"
 
-#: tools.py:316
+#: tools.py:437
 msgid "<ctrl>d"
-msgstr ""
+msgstr "<ctrl>d"
 
-#: tools.py:369
+#: tools.py:499
 msgid "Grab"
-msgstr ""
+msgstr "maka'ang"
 
-#: tools.py:370
+#: tools.py:500
 msgid "<ctrl>g"
-msgstr ""
+msgstr "<ctrl>g"
 
-#: tools.py:416
+#: tools.py:549
 msgid "Joint"
-msgstr ""
+msgstr "mavuch'"
 
-#: tools.py:460
+#: tools.py:597
 msgid "Pin"
-msgstr ""
+msgstr "Tachuela"
 
-#: tools.py:461
+#: tools.py:598
 msgid "<ctrl>o"
-msgstr ""
+msgstr "<ctrl>o"
 
-#: tools.py:483
+#: tools.py:622
 msgid "Motor"
-msgstr ""
+msgstr "Motor"
 
-#: tools.py:484
+#: tools.py:623
 msgid "<ctrl>m"
-msgstr ""
+msgstr "<ctrl>m"
 
-#: tools.py:507
+#: tools.py:667
 msgid "Roll"
-msgstr ""
+msgstr "Malamaiñ"
 
-#: tools.py:508
+#: tools.py:668 tools.py:751
 msgid "<ctrl>r"
-msgstr ""
+msgstr "<ctrl>r"
 
-#: tools.py:534
+#: tools.py:694
 msgid "Erase"
-msgstr ""
+msgstr "Mavun"
 
-#: tools.py:535
+#: tools.py:695
 msgid "<ctrl>e"
-msgstr ""
+msgstr "<ctrl>e"
+
+#: tools.py:750
+msgid "Track Object"
+msgstr "vujú sania'"
+
+#: tools.py:800
+msgid "Chain"
+msgstr "ngute'e"
