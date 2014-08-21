@@ -139,8 +139,8 @@ class PhysicsGame:
             for event in pygame.event.get():
                 self.currentTool.handleEvents(event)
                 if event.type == MOUSEBUTTONUP:
-                    if event.button == 1:
-                        self.show_fake_cursor = True
+                    # if event.button == 1:
+                    self.show_fake_cursor = True
 
             if self.in_focus:
                 # Drive motors
