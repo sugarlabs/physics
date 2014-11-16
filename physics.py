@@ -40,7 +40,7 @@ sys.path.append('lib/')
 # the modules in your system.
 sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
 import Box2D as box2d
-import elements
+import myelements as elements
 
 import tools
 from helpers import *
