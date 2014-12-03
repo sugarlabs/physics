@@ -136,27 +136,9 @@ class Tool(object):
         # Default cancel doesn't do anything
         pass
 
-    def add_badge(self, message,
-                  icon='trophy-icon-physics', from_='Physics'):
-        badge = {
-            'icon': icon,
-            'from': from_,
-            'message': message
-        }
-        icon_path = os.path.join(activity.get_bundle_path(),
-                                 'icons',
-                                 (icon+'.svg'))
-        sugar_icons = os.path.join(
-            os.path.expanduser('~'),
-            '.icons')
-        copy(icon_path, sugar_icons)
-
-        if 'comments' in self.game.activity.metadata:
-            comments = json.loads(self.game.activity.metadata['comments'])
-            comments.append(badge)
-            self.game.activity.metadata['comments'] = json.dumps(comments)
-        else:
-            self.game.activity.metadata['comments'] = json.dumps([badge])
+    def add_badge(self, *args, **kwargs):
+        parent_activity = self.game.get_activity()
+        parent_activity.add_badge(*args, **kwargs)
 
 
 # The circle creation tool
@@ -655,6 +637,7 @@ class PinTool(Tool):
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
+        self.added_badge = False
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
@@ -672,6 +655,15 @@ class PinTool(Tool):
         if share and self.game.activity.we_are_sharing:
             data = json.dumps([pos])
             self.game.activity.send_event('p:' + data)
+
+        if not self.added_badge:
+            self.add_badge(
+                icon='trophy-icon-physics',
+                name='Werner Heisenberg',
+                message='Congratulations! You certainly did a great job'
+                        ' by adding a Pin to your machine!'
+                )
+            self.added_badge = True
 
     def cancel(self):
         self.jb1 = self.jb1pos = None
@@ -703,6 +695,7 @@ class MotorTool(Tool):
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
+        self.added_badge = False
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
@@ -722,6 +715,15 @@ class MotorTool(Tool):
         if share and self.game.activity.we_are_sharing:
             data = json.dumps([pos, speed])
             self.game.activity.send_event('m:' + data)
+
+        if not self.added_badge:
+            self.add_badge(
+                icon='trophy-icon-physics',
+                name='Nikola Tesla',
+                message='Congratulations! Great Motor you '
+                        'got there, friend'
+                )
+            self.added_badge = True
 
     def cancel(self):
         self.jb1 = self.jb1pos = None
@@ -831,9 +833,12 @@ class TrackTool(Tool):
                 self.constructor(point_pos, color)
 
                 if not self.added_badge:
-                    self.add_badge(message='Congratulations! You just added a'
-                                           ' Pen to your machine!',
-                                   from_='Isacc Newton')
+                    self.add_badge(
+                        icon='trophy-icon-physics',
+                        name='Isaac Newton',
+                        message='Congratulations! You just added a'
+                                ' Pen to your machine!'
+                        )
                     self.added_badge = True
 
     def constructor(self, pos, color, share=True):

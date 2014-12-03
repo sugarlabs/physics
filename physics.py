@@ -223,6 +223,9 @@ class PhysicsGame:
         self.currentTool.cancel()
         self.currentTool = self.toolList[tool]
 
+    def get_activity(self):
+        return self.activity
+
 
 def main(activity):
     game = PhysicsGame(activity)
