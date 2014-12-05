@@ -237,7 +237,6 @@ class PhysicsActivity(activity.Activity):
 
         # Make + add the component buttons
         self.radioList = {}
-        firstButton = None
         for i, c in enumerate(tools.allTools):
             if i == 0:
                 button = RadioToolButton(group=None)
