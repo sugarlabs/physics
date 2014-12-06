@@ -20,18 +20,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
+import sys
 import json
 import math
 import logging
 import pygame
-from shutil import copy
 from gettext import gettext as _
 
 from pygame.locals import *
 from helpers import *
 
-from sugar3.activity import activity
+sys.path.append('lib/')
+# If your architecture is different, comment these lines and install
+# the modules in your system.
+sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
+import Box2D as box2d
+
 
 PALETTE_MODE_SLIDER_ICON = 0
 PALETTE_MODE_ICONS = 1
@@ -77,6 +81,10 @@ class Tool(object):
         self.game = gameInstance
         self.name = self.__class__.name
         self.buttons = []
+
+    def button_activated(self):
+        # Called when radio button is pressed
+        pass
 
     def handleEvents(self, event):
         handled = True
@@ -136,27 +144,9 @@ class Tool(object):
         # Default cancel doesn't do anything
         pass
 
-    def add_badge(self, message,
-                  icon='trophy-icon-physics', from_='Physics'):
-        badge = {
-            'icon': icon,
-            'from': from_,
-            'message': message
-        }
-        icon_path = os.path.join(activity.get_bundle_path(),
-                                 'icons',
-                                 (icon+'.svg'))
-        sugar_icons = os.path.join(
-            os.path.expanduser('~'),
-            '.icons')
-        copy(icon_path, sugar_icons)
-
-        if 'comments' in self.game.activity.metadata:
-            comments = json.loads(self.game.activity.metadata['comments'])
-            comments.append(badge)
-            self.game.activity.metadata['comments'] = json.dumps(comments)
-        else:
-            self.game.activity.metadata['comments'] = json.dumps([badge])
+    def add_badge(self, *args, **kwargs):
+        parent_activity = self.game.get_activity()
+        parent_activity.add_badge(*args, **kwargs)
 
 
 # The circle creation tool
@@ -184,9 +174,9 @@ class CircleTool(Tool):
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
                 self.constructor(self.pt1, self.radius,
-                                self.palette_data['density'],
-                                self.palette_data['restitution'],
-                                self.palette_data['friction'])
+                                 self.palette_data['density'],
+                                 self.palette_data['restitution'],
+                                 self.palette_data['friction'])
                 self.pt1 = None
 
     def constructor(self, pos, radius, density, restitution, friction,
@@ -551,12 +541,55 @@ class GrabTool(Tool):
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self._current_body = None
+        self._moving_pm = None
+
+        self.DEFAULT_PR_RADIUS = 2
+        self.PIN_MOTOR_RADIUS = 5
+
+        self.pm_mode_active = False
+        self.pm_x = 0
+        self.pm_y = 0
+        self._game_run_prev_state = True
+
+    def button_activated(self):
+        self.game.world.set_pin_motor_radius(self.PIN_MOTOR_RADIUS)
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
+
         # We handle two types of 'grab' depending on simulation running or not
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
+                # Give preference to pins and motors being caught
+                for joint in self.game.world.world.jointList[:]:
+                    x, y = joint.GetAnchor1()
+                    ppm = self.game.world.ppm
+                    x, y = self.game.world.to_screen((x*ppm, y*ppm))
+                    wh_half = self.PIN_MOTOR_RADIUS
+                    wh = 2*self.PIN_MOTOR_RADIUS
+                    rect = pygame.Rect(x-wh_half, y-wh_half, wh, wh)
+                    if isinstance(joint, box2d.b2RevoluteJoint) \
+                       and rect.collidepoint(tuple_to_int(event.pos)):
+                        logging.debug("found a pin or motor")
+
+                        self._moving_pm = joint
+                        self.pm_mode_active = True
+                        self.pm_x = x
+                        self.pm_y = y
+                        self.game.world.world.DestroyJoint(joint)
+
+                        break
+
+                if self.pm_mode_active:
+                    # Game is stopped when moving pins and motors
+                    # So that the game doesn't mess up, and for user
+                    # convenience
+                    self._game_run_prev_state = self.game.world.run_physics
+                    self.game.world.run_physics = False
+
+                    return
+                    # Don't want to register the body under too
+
                 # Grab the first object at the mouse pointer
                 bodylist = self.game.world.get_bodies_at_pos(
                     tuple_to_int(event.pos),
@@ -573,6 +606,24 @@ class GrabTool(Tool):
                 if self.game.world.run_physics:
                     self.game.world.add.remove_mouseJoint()
                 else:
+                    if self.pm_mode_active:
+                        pos = event.pos
+                        body = find_body(self.game.world, pos)
+                        if body is not None:
+                            if self._moving_pm.enableMotor:
+                                self.game.world.add.motor(
+                                    body, pos,
+                                    speed=MotorTool.palette_data['speed'])
+                            else:
+                                self.game.world.add.joint(body, pos)
+
+                        # Check motor/pin and add joint accordingly
+
+                        self.pm_mode_active = False
+                        self._moving_pm = None
+
+                        self.game.world.run_physics = self._game_run_prev_state
+
                     self._current_body = None
         elif event.type == MOUSEMOTION:  # and event.buttons[0]:
             # Move it around
@@ -580,6 +631,10 @@ class GrabTool(Tool):
                 # Use box2D mouse motion
                 self.game.world.mouse_move(tuple_to_int(event.pos))
             else:
+                if self.pm_mode_active:
+                    self.pm_x, self.pm_y = event.pos
+                    return
+
                 # Position directly (if we have a current body)
                 if self._current_body is not None:
                     x, y = self.game.world.to_world(tuple_to_int(event.pos))
@@ -587,8 +642,17 @@ class GrabTool(Tool):
                     y /= self.game.world.ppm
                     self._current_body.position = (x, y)
 
+    def draw(self):
+        Tool.draw(self)
+        if self.pm_mode_active:
+            pygame.draw.circle(
+                self.game.screen, (255, 255, 255),
+                tuple_to_int((self.pm_x, self.pm_y)),
+                self.PIN_MOTOR_RADIUS, 0)
+
     def cancel(self):
         self.game.world.add.remove_mouseJoint()
+        self.game.world.set_pin_motor_radius(self.DEFAULT_PR_RADIUS)
 
 
 # The joint tool
@@ -615,8 +679,8 @@ class JointTool(Tool):
                 # Grab the second position
                 self.jb2pos = tuple_to_int(event.pos)
                 self.constructor(self.jb1pos, self.jb2pos)
-                #add joint to ground body
-                #elif self.jb1:
+                # add joint to ground body
+                # elif self.jb1:
                 #    groundBody = self.game.world.world.GetGroundBody()
                 #    self.game.world.add.joint(self.jb1[0], groundBody,
                 #                              self.jb1pos, self.jb2pos)
@@ -655,6 +719,7 @@ class PinTool(Tool):
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
+        self.added_badge = False
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
@@ -672,6 +737,15 @@ class PinTool(Tool):
         if share and self.game.activity.we_are_sharing:
             data = json.dumps([pos])
             self.game.activity.send_event('p:' + data)
+
+        if not self.added_badge:
+            self.add_badge(
+                icon='trophy-icon-physics',
+                name='Werner Heisenberg',
+                message='Congratulations! You certainly did a great job'
+                        ' by adding a Pin to your machine!'
+                )
+            self.added_badge = True
 
     def cancel(self):
         self.jb1 = self.jb1pos = None
@@ -703,6 +777,7 @@ class MotorTool(Tool):
     def __init__(self, gameInstance):
         Tool.__init__(self, gameInstance)
         self.jb1 = self.jb1pos = None
+        self.added_badge = False
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
@@ -722,6 +797,15 @@ class MotorTool(Tool):
         if share and self.game.activity.we_are_sharing:
             data = json.dumps([pos, speed])
             self.game.activity.send_event('m:' + data)
+
+        if not self.added_badge:
+            self.add_badge(
+                icon='trophy-icon-physics',
+                name='Nikola Tesla',
+                message='Congratulations! Great Motor you '
+                        'got there, friend'
+                )
+            self.added_badge = True
 
     def cancel(self):
         self.jb1 = self.jb1pos = None
@@ -831,9 +915,12 @@ class TrackTool(Tool):
                 self.constructor(point_pos, color)
 
                 if not self.added_badge:
-                    self.add_badge(message='Congratulations! You just added a'
-                                           ' Pen to your machine!',
-                                   from_='Isacc Newton')
+                    self.add_badge(
+                        icon='trophy-icon-physics',
+                        name='Isaac Newton',
+                        message='Congratulations! You just added a'
+                                ' Pen to your machine!'
+                        )
                     self.added_badge = True
 
     def constructor(self, pos, color, share=True):
@@ -937,8 +1024,8 @@ class ChainTool(Tool):
         body1 = find_body(self.game.world, pos1)
         if body1 is None:
             body1 = self.game.world.add.ball(
-                    pos1, radius, dynamic=True, density=1.0, restitution=0.16,
-                    friction=0.1)
+                pos1, radius, dynamic=True, density=1.0, restitution=0.16,
+                friction=0.1)
             body1.userData['color'] = (0, 0, 0)
         for i, pos2 in enumerate(vertices):
             if i == 0:

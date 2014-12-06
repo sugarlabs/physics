@@ -109,6 +109,7 @@ class Elements:
         # Gravity + Bodies will sleep on outside
         self.gravity = gravity
         self.doSleep = True
+        self.PIN_MOTOR_RADIUS = 2
 
         # Create the World
         self.world = box2d.b2World(self.worldAABB, self.gravity, self.doSleep)
@@ -354,9 +355,9 @@ class Elements:
                     clr = self.colors[0]
 
             for shape in body.shapeList:
-                type = shape.GetType()
+                type_ = shape.GetType()
 
-                if type == box2d.e_circleShape:
+                if type_ == box2d.e_circleShape:
                     position = box2d.b2Mul(xform, shape.GetLocalPosition())
 
                     pos = self.to_screen((position.x * self.ppm,
@@ -365,7 +366,7 @@ class Elements:
                     self.renderer.draw_circle(
                         clr, pos, self.meter_to_screen(shape.radius), angle)
 
-                elif type == box2d.e_polygonShape:
+                elif type_ == box2d.e_polygonShape:
                     points = []
                     for v in shape.vertices:
                         pt = box2d.b2Mul(xform, v)
@@ -385,8 +386,9 @@ class Elements:
             p1 = joint.GetAnchor2()
             p1 = self.to_screen((p1.x * self.ppm, p1.y * self.ppm))
 
-            if p1 == p2:
-                self.renderer.draw_circle((255, 255, 255), p1, 2, 0)
+            if isinstance(joint, box2d.b2RevoluteJoint):
+                self.renderer.draw_circle((255, 255, 255), p1,
+                                          self.PIN_MOTOR_RADIUS, 0)
             else:
                 self.renderer.draw_lines((0, 0, 0), False, [p1, p2], 3)
 
@@ -394,6 +396,9 @@ class Elements:
         self.renderer.after_drawing()
 
         return True
+
+    def set_pin_motor_radius(self, radius):
+        self.PIN_MOTOR_RADIUS = radius
 
     def mouse_move(self, pos):
         pos = self.to_world(pos)

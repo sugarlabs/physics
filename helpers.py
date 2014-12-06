@@ -16,11 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-#==================================================================
+# ==================================================================
 #                           Physics.activity
 #                     Helper classes and functions
 #                           By Alex Levenson
-#==================================================================
+# ==================================================================
 import math
 
 
@@ -171,4 +171,3 @@ def find_body(world, pos):
         return body[0]
     else:
         return None
-
