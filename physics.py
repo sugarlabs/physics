@@ -76,7 +76,7 @@ class PhysicsGame:
         self.show_fake_cursor = True
 
     def write_file(self, path):
-        #Saving to journal
+        # Saving to journal
         self.world.add.remove_mouseJoint()
         additional_data = {
             'trackinfo': self.trackinfo,
@@ -86,7 +86,7 @@ class PhysicsGame:
         self.world.json_save(path, additional_data, serialize=True)
 
     def read_file(self, path):
-        #Loading from journal
+        # Loading from journal
         self.opening_queue = path
 
     def run(self, restart=False):

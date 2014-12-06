@@ -25,7 +25,6 @@ import json
 import math
 import logging
 import pygame
-from shutil import copy
 from gettext import gettext as _
 
 from pygame.locals import *
@@ -37,7 +36,6 @@ sys.path.append('lib/')
 sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
 import Box2D as box2d
 
-from sugar3.activity import activity
 
 PALETTE_MODE_SLIDER_ICON = 0
 PALETTE_MODE_ICONS = 1
@@ -176,9 +174,9 @@ class CircleTool(Tool):
         elif event.type == MOUSEBUTTONUP:
             if event.button == 1:
                 self.constructor(self.pt1, self.radius,
-                                self.palette_data['density'],
-                                self.palette_data['restitution'],
-                                self.palette_data['friction'])
+                                 self.palette_data['density'],
+                                 self.palette_data['restitution'],
+                                 self.palette_data['friction'])
                 self.pt1 = None
 
     def constructor(self, pos, radius, density, restitution, friction,
@@ -681,8 +679,8 @@ class JointTool(Tool):
                 # Grab the second position
                 self.jb2pos = tuple_to_int(event.pos)
                 self.constructor(self.jb1pos, self.jb2pos)
-                #add joint to ground body
-                #elif self.jb1:
+                # add joint to ground body
+                # elif self.jb1:
                 #    groundBody = self.game.world.world.GetGroundBody()
                 #    self.game.world.add.joint(self.jb1[0], groundBody,
                 #                              self.jb1pos, self.jb2pos)
@@ -1026,8 +1024,8 @@ class ChainTool(Tool):
         body1 = find_body(self.game.world, pos1)
         if body1 is None:
             body1 = self.game.world.add.ball(
-                    pos1, radius, dynamic=True, density=1.0, restitution=0.16,
-                    friction=0.1)
+                pos1, radius, dynamic=True, density=1.0, restitution=0.16,
+                friction=0.1)
             body1.userData['color'] = (0, 0, 0)
         for i, pos2 in enumerate(vertices):
             if i == 0:

@@ -34,7 +34,6 @@ import sugargame.canvas
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Gdk
-from gi.repository import GdkPixbuf
 
 from sugar3.activity import activity
 from sugar3.activity.widgets import ActivityToolbarButton
@@ -46,7 +45,6 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbarbox import ToolbarButton
 from sugar3.graphics.style import GRID_CELL_SIZE
 from sugar3.datastore import datastore
-from sugar3.graphics.objectchooser import get_preview_pixbuf
 from sugar3.graphics.alert import Alert
 from sugar3.graphics.icon import Icon
 from sugar3.graphics.xocolor import XoColor
@@ -131,14 +129,6 @@ class PhysicsActivity(activity.Activity):
     def get_preview(self):
         ''' Custom preview code to get image from pygame. '''
         return self._canvas.get_preview()
-
-        def save_func(buf, data):
-            data.append(buf)
-
-        pixbuf.save_to_callback(save_func, 'png', user_data=preview_data)
-        preview_data = ''.join(preview_data)
-
-        return preview_data
 
     def build_toolbar(self):
         self.max_participants = 4
@@ -270,7 +260,6 @@ class PhysicsActivity(activity.Activity):
                 grid = Gtk.Grid()
                 for s, settings in enumerate(tool.palette_settings):
                     self.game.toolList[tool.name].buttons.append([])
-                    firstButton = None
                     for i, icon_value in enumerate(settings['icon_values']):
                         if i == 0:
                             button = RadioToolButton(group=None)
@@ -280,7 +269,7 @@ class PhysicsActivity(activity.Activity):
                         button.set_icon_name(settings['icons'][i])
                         button.connect('clicked',
                                        self._palette_icon_clicked,
-                                       tool.name, 
+                                       tool.name,
                                        s,
                                        settings['name'],
                                        icon_value)
@@ -288,7 +277,7 @@ class PhysicsActivity(activity.Activity):
                         self.game.toolList[tool.name].buttons[s].append(button)
                         button.show()
                         if settings['active'] == settings['icons'][i]:
-                            button.set_icon_name(settings['icons'][i] + \
+                            button.set_icon_name(settings['icons'][i] +
                                                  '-selected')
                             button.set_active(True)
                 return grid
@@ -462,7 +451,7 @@ class PhysicsActivity(activity.Activity):
         self.tubes_chan = self.shared_activity.telepathy_tubes_chan
         self.text_chan = self.shared_activity.telepathy_text_chan
 
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(\
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(
             'NewTube', self._new_tube_cb)
 
         logging.debug('I am joining an activity: waiting for a tube...')
@@ -503,20 +492,21 @@ class PhysicsActivity(activity.Activity):
     def _new_tube_cb(self, id, initiator, type, service, params, state):
         ''' Create a new tube. '''
         logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
-                     'params=%r state=%d', id, initiator, type, service,
-                     params, state)
+                      'params=%r state=%d', id, initiator, type, service,
+                      params, state)
 
         if (type == telepathy.TUBE_TYPE_DBUS and service == SERVICE):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[ \
-                              telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
+                self.tubes_chan[
+                    telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
 
-            tube_conn = TubeConnection(self.conn,
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], id, \
+            tube_conn = TubeConnection(
+                self.conn,
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], id,
                 group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
 
-            self.chattube = ChatTube(tube_conn, self.initiating, \
-                self.event_received_cb)
+            self.chattube = ChatTube(tube_conn, self.initiating,
+                                     self.event_received_cb)
 
     def event_received_cb(self, text):
         ''' Data is passed as tuples: cmd:text '''
@@ -580,7 +570,7 @@ class PhysicsActivity(activity.Activity):
         restitution = magicpen_data[2]
         friction = magicpen_data[3]
         self._constructors['Magicpen'](vertices, density, restitution,
-                                      friction, share=False)
+                                       friction, share=False)
 
     def _add_shared_joint(self, data):
         joint_data = json.loads(data)
