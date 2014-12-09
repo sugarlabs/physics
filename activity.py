@@ -63,6 +63,11 @@ SERVICE = 'org.laptop.physics'
 IFACE = SERVICE
 PATH = '/org/laptop/physics'
 
+# For some reason increasing FPS decreases execution speed :/
+SLOWEST_FPS = 90
+SLOW_FPS = 70
+FAST_FPS = 50
+
 
 class PhysicsActivity(activity.Activity):
     def __init__(self, handle):
@@ -200,13 +205,47 @@ class PhysicsActivity(activity.Activity):
         return True
 
     def _insert_stop_play_button(self, toolbar):
+
+        self.stop_play_toolbar = ToolbarButton()
+        st_toolbar = self.stop_play_toolbar
+        st_toolbar.props.page = Gtk.Toolbar()
+        st_toolbar.props.icon_name = 'media-playback-stop'
+
         self.stop_play_state = True
         self.stop_play = ToolButton('media-playback-stop')
         self.stop_play.set_tooltip(_('Stop'))
         self.stop_play.set_accelerator(_('<ctrl>space'))
         self.stop_play.connect('clicked', self.stop_play_cb)
-        toolbar.insert(self.stop_play, -1)
+        self._insert_item(st_toolbar, self.stop_play)
         self.stop_play.show()
+
+        slowest_button = RadioToolButton(group=None)
+        slowest_button.set_icon_name("slow-walk-milton-raposo")
+        slowest_button.set_tooltip(_("Run slower"))
+        slowest_button.connect('clicked', self._set_fps_cb, SLOWEST_FPS)
+        self._insert_item(st_toolbar, slowest_button)
+        slowest_button.show()
+
+        slow_button = RadioToolButton(group=slowest_button)
+        slow_button.set_icon_name("walking")
+        slow_button.set_tooltip(_("Run slow"))
+        slow_button.connect('clicked', self._set_fps_cb, SLOW_FPS)
+        self._insert_item(st_toolbar, slow_button)
+        slow_button.show()
+
+        fast_button = RadioToolButton(group=slowest_button)
+        fast_button.set_icon_name("running")
+        fast_button.set_tooltip("Run fast")
+        fast_button.connect('clicked', self._set_fps_cb, FAST_FPS)
+        self._insert_item(st_toolbar, fast_button)
+        fast_button.show()
+        fast_button.set_active(True)
+
+        toolbar.insert(self.stop_play_toolbar, -1)
+        self.stop_play_toolbar.show_all()
+
+    def _set_fps_cb(self, button, value):
+        self.game.set_game_fps(value)
 
     def _insert_clear_all_button(self, toolbar):
         self.clear_all = ToolButton('clear_all')
@@ -217,14 +256,13 @@ class PhysicsActivity(activity.Activity):
         self.clear_all.set_sensitive(False)
         self.clear_all.show()
 
+    def _insert_item(self, toolbar, item, pos=-1):
+        if hasattr(toolbar, 'insert'):
+            toolbar.insert(item, pos)
+        else:
+            toolbar.props.page.insert(item, pos)
+
     def _insert_create_tools(self, create_toolbar):
-
-        def _insert_item(toolbar, item, pos=-1):
-            if hasattr(toolbar, 'insert'):
-                toolbar.insert(item, pos)
-            else:
-                toolbar.props.page.insert(item, pos)
-
         # Make + add the component buttons
         self.radioList = {}
         for i, c in enumerate(tools.allTools):
@@ -241,7 +279,7 @@ class PhysicsActivity(activity.Activity):
             if palette is not None:
                 palette.show()
                 button.get_palette().set_content(palette)
-            _insert_item(create_toolbar, button, -1)
+            self._insert_item(create_toolbar, button, -1)
             button.show()
             self.radioList[button] = c.name
             if hasattr(c, 'constructor'):
@@ -325,9 +363,13 @@ class PhysicsActivity(activity.Activity):
         if self.stop_play_state:
             self.stop_play.set_icon_name('media-playback-stop')
             self.stop_play.set_tooltip(_('Stop'))
+
+            self.stop_play_toolbar.set_icon_name('media-playback-stop')
         else:
             self.stop_play.set_icon_name('media-playback-start')
             self.stop_play.set_tooltip(_('Start'))
+
+            self.stop_play_toolbar.set_icon_name('media-playback-start')
 
     def clear_all_cb(self, button):
         def clear_all_alert_cb(alert, response_id):
