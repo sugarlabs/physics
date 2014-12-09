@@ -152,10 +152,6 @@ class PhysicsActivity(activity.Activity):
 
         self._insert_stop_play_button(toolbar_box.toolbar)
 
-        separator = Gtk.SeparatorToolItem()
-        toolbar_box.toolbar.insert(separator, -1)
-        separator.show()
-
         clear_trace = ToolButton('clear-trace')
         clear_trace.set_tooltip(_('Clear Trace Marks'))
         clear_trace.set_accelerator(_('<ctrl>x'))

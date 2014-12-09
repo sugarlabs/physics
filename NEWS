@@ -1,3 +1,8 @@
+24
+
+* Added controls for simulation speed (Sai Vineet)
+* Added the ability to drag motors and pins (Sai Vineet)
+
 23
 
 * Rename local copy of elements to eliminate name conflict on SoaS
