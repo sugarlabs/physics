@@ -24,8 +24,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from locals import *
-from elements import box2d
+from .locals import *
+from .elements import box2d
 
 
 class CallbackHandler:
@@ -43,37 +43,37 @@ class CallbackHandler:
             self.callbacks[i] = []
 
     def add(self, callback_type, callback_handler, *args):
-            """ Users can add callbacks for certain (or all) collisions
+        """ Users can add callbacks for certain (or all) collisions
 
-               Parameters:
-                 callback_type ......... CALLBACK_CONTACT
-                                         (nothing else for now)
-                 callback_handler ...... a callback function
-                 args (optional) ....... a list of parameters which can be
-                                         used with callbacks.get
+           Parameters:
+             callback_type ......... CALLBACK_CONTACT
+                                     (nothing else for now)
+             callback_handler ...... a callback function
+             args (optional) ....... a list of parameters which can be
+                                     used with callbacks.get
 
-               Return:
-                 callback_id ... used to remove a callback later (int)
-            """
-            # Create contact listener if required
-            if callback_type in [CALLBACK_CONTACT_ADD,
-                                 CALLBACK_CONTACT_PERSIST,
-                                 CALLBACK_CONTACT_REMOVE]:
-                if self.parent.listener is None:
-                    self.parent.listener = kContactListener(self.get)
-                    self.parent.world.SetContactListener(self.parent.listener)
-                    print "* ContactListener added"
+           Return:
+             callback_id ... used to remove a callback later (int)
+        """
+        # Create contact listener if required
+        if callback_type in [CALLBACK_CONTACT_ADD,
+                             CALLBACK_CONTACT_PERSIST,
+                             CALLBACK_CONTACT_REMOVE]:
+            if self.parent.listener is None:
+                self.parent.listener = kContactListener(self.get)
+                self.parent.world.SetContactListener(self.parent.listener)
+                print "* ContactListener added"
 
-            # Get callback dict for this callback_type
-            c = self.callbacks[callback_type]
+        # Get callback dict for this callback_type
+        c = self.callbacks[callback_type]
 
-            # Append to the Callback Dictionary
-            c.append([callback_handler, args])
-            self.callbacks[callback_type] = c
+        # Append to the Callback Dictionary
+        c.append([callback_handler, args])
+        self.callbacks[callback_type] = c
 
-            # Return Callback ID
-            # ID = callback_type.callback_index (1...n)
-            return "%i.%i" % (callback_type, len(c))
+        # Return Callback ID
+        # ID = callback_type.callback_index (1...n)
+        return "%i.%i" % (callback_type, len(c))
 
     def get(self, callback_type):
         return self.callbacks[callback_type]

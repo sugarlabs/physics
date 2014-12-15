@@ -24,10 +24,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from locals import *
+from .locals import *
 
 
 class Camera:
+
     """ The Camera class. We will see :)
         Please also see: http://www.assembla.com/spaces/elements/tickets/31
 
@@ -89,7 +90,7 @@ class Camera:
         else:
             x, y = offset
 
-        self._set_offset((x/self.parent.ppm, y/self.parent.ppm))
+        self._set_offset((x / self.parent.ppm, y / self.parent.ppm))
 
     def inc_offset(self, offset, screenCoord=True, stopTrack=True):
         """ Increment an offset from the screen to the world cs -- in world

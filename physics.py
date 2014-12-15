@@ -47,6 +47,7 @@ from helpers import *
 
 
 class PhysicsGame:
+
     def __init__(self, activity):
         self.activity = activity
         # Get everything set up

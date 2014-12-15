@@ -28,7 +28,7 @@ from math import pi
 from math import cos
 from math import sin
 
-import tools
+from . import tools
 
 # Functions of a rendering class
 # mandatory:
@@ -54,6 +54,7 @@ import tools
 
 
 class draw_pygame(object):
+
     """ This class handles the drawing with pygame, which is really
         simple since we only need draw_ellipse and draw_polygon.
     """
@@ -153,6 +154,7 @@ class draw_pygame(object):
 
 
 class draw_cairo(object):
+
     """ This class handles the drawing with cairo, which is really
         simple since we only need draw_ellipse and draw_polygon.
     """
@@ -321,6 +323,7 @@ class draw_cairo(object):
 
 
 class draw_opengl_pyglet(object):
+
     """ This class handles the drawing with pyglet
     """
     lineWidth = 0
@@ -350,7 +353,7 @@ class draw_opengl_pyglet(object):
 
         self.gl.glBegin(self.gl.GL_LINE_LOOP)
         for n in range(segs):
-            rads = n*coef
+            rads = n * coef
             self.gl.glVertex2f(radius * cos(rads + a) + x,
                                radius * sin(rads + a) + y)
         self.gl.glVertex2f(x, y)
