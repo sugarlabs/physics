@@ -38,9 +38,11 @@ from gi.repository import Gdk
 from sugar3.activity import activity
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
+from sugar3.graphics.objectchooser import ObjectChooser
 from sugar3.graphics.radiotoolbutton import RadioToolButton
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.graphics.alert import ConfirmationAlert
+from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbarbox import ToolbarButton
 from sugar3.graphics.style import GRID_CELL_SIZE
@@ -190,6 +192,12 @@ class PhysicsActivity(activity.Activity):
         export_csv.connect('clicked', self._export_csv_cb)
         activity_button.props.page.insert(export_csv, -1)
         export_csv.show()
+
+        load_project = ToolButton('load-project')
+        load_project.set_tooltip(_('Load project from journal'))
+        load_project.connect('clicked', self._load_project)
+        activity_button.props.page.insert(load_project, -1)
+        load_project.show()
 
         self.set_toolbar_box(toolbar_box)
         toolbar_box.show_all()
@@ -647,6 +655,35 @@ class PhysicsActivity(activity.Activity):
         if hasattr(self, 'chattube') and self.chattube is not None:
             logging.debug('>>> %s' % (text[0]))
             self.chattube.SendText(text)
+
+    def _load_project(self, button):
+        chooser = ObjectChooser(parent=self)
+        result = chooser.run()
+        if result == Gtk.ResponseType.ACCEPT:
+            dsobject = chooser.get_selected_object()
+            file_path = dsobject.get_file_path()
+            try:
+                f = open(file_path, 'r')
+                # Test if the file is valid project.
+                json.loads(f.read())
+                f.close()
+
+                self.read_file(file_path)
+                self.game.run(True)
+            except:
+                title = _("Load project from journal")
+                msg = _(
+                    "Error: The file seems to be corrupt, or isn't a physics project")
+                alert = NotifyAlert(5)
+                alert.props.title = title
+                alert.props.msg = msg
+                alert.connect(
+                    'response',
+                    lambda alert,
+                    response: self.remove_alert(alert))
+                self.add_alert(alert)
+
+            chooser.destroy()
 
 
 class ChatTube(ExportedGObject):
