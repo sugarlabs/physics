@@ -225,22 +225,22 @@ class PhysicsActivity(activity.Activity):
         self.stop_play.show()
 
         slowest_button = RadioToolButton(group=None)
-        slowest_button.set_icon_name("slow-walk-milton-raposo")
-        slowest_button.set_tooltip(_("Run slower"))
+        slowest_button.set_icon_name('slow-walk-milton-raposo')
+        slowest_button.set_tooltip(_('Run slower'))
         slowest_button.connect('clicked', self._set_fps_cb, SLOWEST_FPS)
         self._insert_item(st_toolbar, slowest_button)
         slowest_button.show()
 
         slow_button = RadioToolButton(group=slowest_button)
-        slow_button.set_icon_name("walking")
-        slow_button.set_tooltip(_("Run slow"))
+        slow_button.set_icon_name('walking')
+        slow_button.set_tooltip(_('Run slow'))
         slow_button.connect('clicked', self._set_fps_cb, SLOW_FPS)
         self._insert_item(st_toolbar, slow_button)
         slow_button.show()
 
         fast_button = RadioToolButton(group=slowest_button)
-        fast_button.set_icon_name("running")
-        fast_button.set_tooltip("Run fast")
+        fast_button.set_icon_name('running')
+        fast_button.set_tooltip('Run fast')
         fast_button.connect('clicked', self._set_fps_cb, FAST_FPS)
         self._insert_item(st_toolbar, fast_button)
         fast_button.show()
@@ -294,7 +294,7 @@ class PhysicsActivity(activity.Activity):
     def __icon_path(self, name):
         activity_path = activity.get_bundle_path()
         icon_path = os.path.join(activity_path, 'icons',
-                                 name + ".svg")
+                                 name + '.svg')
         return icon_path
 
     def _build_palette(self, tool):
@@ -671,9 +671,9 @@ class PhysicsActivity(activity.Activity):
                 self.read_file(file_path)
                 self.game.run(True)
             except:
-                title = _("Load project from journal")
+                title = _('Load project from journal')
                 msg = _(
-                    "Error: The file seems to be corrupt, or isn't a physics project")
+                    'Error: Cannot open Physics project from this file.')
                 alert = NotifyAlert(5)
                 alert.props.title = title
                 alert.props.msg = msg
