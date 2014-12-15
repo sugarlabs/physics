@@ -43,19 +43,20 @@ except:
 from random import shuffle
 
 # Load Elements Definitions
-from locals import *
+from .locals import *
 
 # Load Elements Modules
-import tools
-import drawing
-import add_objects
-import callbacks
-import camera
+from . import tools
+from . import drawing
+from . import add_objects
+from . import callbacks
+from . import camera
 
 # Main Class
 
 
 class Elements:
+
     """The class which handles all interaction with the box2d engine
     """
     # Settings
@@ -422,7 +423,7 @@ class Elements:
 
         try:
             pickle.dump(save_values, open(fn, 'wb'))
-        except Exception, s:
+        except Exception as s:
             print 'Pickling failed: ', s
             return
 
@@ -439,7 +440,7 @@ class Elements:
             world, variables = pickle.load(open(fn, 'rb'))
             world = world._pickle_finalize()
             variables = box2d.pickle_fix(world, variables, 'load')
-        except Exception, s:
+        except Exception as s:
             print 'Error while loading world: ', s
             return
 

@@ -135,7 +135,7 @@ class Tool(object):
                 pos_list = self.game.full_pos_list[trackdex]
                 for i in range(0, len(pos_list), 2):
                     posx = int(pos_list[i])
-                    posy = int(pos_list[i+1])
+                    posy = int(pos_list[i + 1])
                     pygame.draw.circle(surface, color, (posx, posy), 2)
             except IndexError:
                 pass
@@ -564,10 +564,10 @@ class GrabTool(Tool):
                 for joint in self.game.world.world.jointList[:]:
                     x, y = joint.GetAnchor1()
                     ppm = self.game.world.ppm
-                    x, y = self.game.world.to_screen((x*ppm, y*ppm))
+                    x, y = self.game.world.to_screen((x * ppm, y * ppm))
                     wh_half = self.PIN_MOTOR_RADIUS
-                    wh = 2*self.PIN_MOTOR_RADIUS
-                    rect = pygame.Rect(x-wh_half, y-wh_half, wh, wh)
+                    wh = 2 * self.PIN_MOTOR_RADIUS
+                    rect = pygame.Rect(x - wh_half, y - wh_half, wh, wh)
                     if isinstance(joint, box2d.b2RevoluteJoint) \
                        and rect.collidepoint(tuple_to_int(event.pos)):
                         logging.debug("found a pin or motor")
@@ -744,7 +744,7 @@ class PinTool(Tool):
                 name='Werner Heisenberg',
                 message='Congratulations! You certainly did a great job'
                         ' by adding a Pin to your machine!'
-                )
+            )
             self.added_badge = True
 
     def cancel(self):
@@ -763,7 +763,7 @@ class MotorTool(Tool):
     palette_settings = [
         {
             'name': 'speed',
-            'icons': ['motor-rabbit', 'motor-turtle',  'motor-turtle-2',
+            'icons': ['motor-rabbit', 'motor-turtle', 'motor-turtle-2',
                       'motor-rabbit-2'],
             'icon_values': [100, 20, -20, -100],
             'active': 'motor-rabbit'
@@ -804,7 +804,7 @@ class MotorTool(Tool):
                 name='Nikola Tesla',
                 message='Congratulations! Great Motor you '
                         'got there, friend'
-                )
+            )
             self.added_badge = True
 
     def cancel(self):
@@ -920,7 +920,7 @@ class TrackTool(Tool):
                         name='Isaac Newton',
                         message='Congratulations! You just added a'
                                 ' Pen to your machine!'
-                        )
+                    )
                     self.added_badge = True
 
     def constructor(self, pos, color, share=True):

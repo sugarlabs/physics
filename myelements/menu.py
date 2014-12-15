@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import pygame
 from pygame.locals import *
 
-import tools
+from . import tools
 
 COLOR_HEX_BLUE1 = "6491a4"
 COLOR_HEX_BLUE2 = "9ec9ff"
@@ -90,6 +90,7 @@ class MenuItem:
 
 
 class MenuClass:
+
     """ Important: Never delete an Item, just overwrite it if deleting,
         else the menuitem id's get messed up
     """
@@ -133,7 +134,7 @@ class MenuClass:
 
         if parent:
             # Set the info that the item has a child to the parent item
-            self.items[parent-1].childs.append(len(self.items) - 1)
+            self.items[parent - 1].childs.append(len(self.items) - 1)
 
         else:
             # New next drawing position

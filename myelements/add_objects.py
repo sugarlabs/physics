@@ -24,15 +24,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from locals import *
-from elements import box2d
+from .locals import *
+from .elements import box2d
 
 # Imports
 from math import pi
 from math import sqrt
 from math import asin
 
-import tools_poly
+from . import tools_poly
 
 
 class Add:
@@ -408,7 +408,7 @@ class Add:
         # 3. Step: Detect if convex or concave
         # 4. Step: Start self.convexPoly or self.concavePoly
         vertices, is_convex = tools_poly.reduce_poly_by_angle(vertices)
-        #print "->", is_convex
+        # print "->", is_convex
 
         # If start and endpoints are close to each other, close polygon
         x1, y1 = vertices[0]
@@ -480,7 +480,7 @@ class Add:
                          friction)
 
     def to_b2vec(self, pt):
-    # Convert vector to a b2vect
+        # Convert vector to a b2vect
         pt = self.parent.to_world(pt)
         ptx, pty = pt
         ptx /= self.parent.ppm

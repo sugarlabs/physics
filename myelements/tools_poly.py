@@ -32,7 +32,7 @@ from math import atan2
 from math import degrees
 from math import acos
 
-from locals import *
+from .locals import *
 
 
 def calc_center(points):
@@ -173,7 +173,7 @@ def reduce_poly_by_angle(vertices, tolerance=10.0, minlen=20):
             angle = degrees(acos(a / (b * c)))
         except:
             # cos=1.0
-            print "cos=", a/(b * c)
+            print "cos=", a / (b * c)
             continue
 
         # Check if inside tolerance
@@ -241,7 +241,7 @@ def reduce_poly_by_angle(vertices, tolerance=10.0, minlen=20):
         # If the new vector differs from the old one, we add the old point
         # to the output list, as the line changed it's way :)
         if alpha_diff > tolerance:
-            #print ">",alpha_diff, "\t", vx, vy, l
+            # print ">",alpha_diff, "\t", vx, vy, l
             p_new.append(vertices[i - 1])
 
     # We also want to append the last point :)
@@ -332,7 +332,7 @@ def convex_hull(points):
 
     :return: Convex hull as a list of (x,y)
     """
-    ### Find lowest rightmost point
+    # Find lowest rightmost point
     p0 = points[0]
     for p in points[1:]:
         if p[1] < p0[1]:
@@ -341,13 +341,13 @@ def convex_hull(points):
             p0 = p
     points.remove(p0)
 
-    ### Sort the points angularly about p0 as center
+    # Sort the points angularly about p0 as center
     f = partial(is_left, p0)
     points.sort(cmp=f)
     points.reverse()
     points.insert(0, p0)
 
-    ### Find the hull points
+    # Find the hull points
     hull = [p0, points[1]]
 
     for p in points[2:]:

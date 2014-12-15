@@ -52,7 +52,7 @@ def rgb2floats(rgb):
 
 
 def point_in_poly(point, poly):
-    #print ">", point, poly
+    # print ">", point, poly
     x, y = point
     n = len(poly)
     inside = False

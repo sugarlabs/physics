@@ -3,20 +3,22 @@ from gi.repository import Gtk
 from gi.repository import GObject
 from sugar3.activity.activity import PREVIEW_SIZE
 import pygame
-import event
+from . import event
 
 CANVAS = None
+
 
 class PygameCanvas(Gtk.EventBox):
 
     """
     mainwindow is the activity intself.
     """
-    def __init__(self, mainwindow, pointer_hint = True):
+
+    def __init__(self, mainwindow, pointer_hint=True):
         GObject.GObject.__init__(self)
 
         global CANVAS
-        assert CANVAS == None, "Only one PygameCanvas can be created, ever."
+        assert CANVAS is None, "Only one PygameCanvas can be created, ever."
         CANVAS = self
 
         # Initialize Events translator before widget gets "realized".
@@ -42,7 +44,7 @@ class PygameCanvas(Gtk.EventBox):
         """
 
         _tmp_dir = os.path.join(self._mainwindow.get_activity_root(),
-            'tmp')
+                                'tmp')
         _file_path = os.path.join(_tmp_dir, 'preview.png')
 
         width = PREVIEW_SIZE[0]
@@ -54,7 +56,7 @@ class PygameCanvas(Gtk.EventBox):
         preview = f.read()
         f.close()
         os.remove(_file_path)
-	
+
         return preview
 
     def run_pygame(self, main_fn):
@@ -83,7 +85,7 @@ class PygameCanvas(Gtk.EventBox):
         r = self.get_allocation()
         # pygame.display.set_mode((r.width, r.height), pygame.RESIZABLE)
         self._screen = pygame.display.set_mode((r.width, r.height),
-            pygame.RESIZABLE)
+                                               pygame.RESIZABLE)
 
         # Hook certain Pygame functions with GTK equivalents.
         self.translator.hook_pygame()

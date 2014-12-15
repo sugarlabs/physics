@@ -70,6 +70,7 @@ FAST_FPS = 50
 
 
 class PhysicsActivity(activity.Activity):
+
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
         self.metadata['mime_type'] = 'application/x-physics-activity'
@@ -285,7 +286,7 @@ class PhysicsActivity(activity.Activity):
     def __icon_path(self, name):
         activity_path = activity.get_bundle_path()
         icon_path = os.path.join(activity_path, 'icons',
-                                 name+".svg")
+                                 name + ".svg")
         return icon_path
 
     def _build_palette(self, tool):
@@ -649,7 +650,9 @@ class PhysicsActivity(activity.Activity):
 
 
 class ChatTube(ExportedGObject):
+
     ''' Class for setting up tube for sharing '''
+
     def __init__(self, tube, is_initiator, stack_received_cb):
         super(ChatTube, self).__init__(tube, PATH)
         self.tube = tube
