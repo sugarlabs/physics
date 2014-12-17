@@ -52,7 +52,7 @@ class PhysicsGame:
         self.activity = activity
         # Get everything set up
         self.clock = pygame.time.Clock()
-        self.canvas = activity.canvas
+        self.canvas = activity.game_canvas
         self.in_focus = True
         # Create the name --> instance map for components
         self.toolList = {}
