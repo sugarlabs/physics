@@ -388,6 +388,8 @@ class PolygonTool(Tool):
             if event.type == MOUSEBUTTONDOWN and self.vertices is None:
                 self.vertices = [tuple_to_int(event.pos)]
                 self.safe = False
+            if not self.vertices:
+                return
             if event.type == MOUSEBUTTONUP and self.vertices is not None and \
                     len(self.vertices) == 1 and \
                     tuple_to_int(event.pos)[0] == self.vertices[0][0] and \
@@ -482,6 +484,8 @@ class MagicPenTool(Tool):
             self.vertices = [tuple_to_int(event.pos)]
             self.safe = False
         elif event.type == MOUSEBUTTONUP and event.button == 1:
+            if not self.vertices:
+                return
             if len(self.vertices) == 1 and self.previous_vertices is not None:
                 last_x_y = self.previous_vertices[-1]
                 delta_x = last_x_y[0] - tuple_to_int(event.pos)[0]
@@ -499,6 +503,8 @@ class MagicPenTool(Tool):
             self.vertices = None
         elif event.type == MOUSEMOTION and self.vertices:
             self.vertices.append(tuple_to_int(event.pos))
+            if not self.vertices:
+                return
             if distance(tuple_to_int(event.pos), self.vertices[0]) >= 55 and \
                     len(self.vertices) > 3:
                 self.safe = True
@@ -999,6 +1005,8 @@ class ChainTool(Tool):
             self.vertices = [tuple_to_int(event.pos)]
             self.safe = False
         elif event.type == MOUSEBUTTONUP and event.button == 1:
+            if not self.vertices:
+                return
             if len(self.vertices) == 1 and self.previous_vertices is not None:
                 last_x_y = self.previous_vertices[-1]
                 delta_x = last_x_y[0] - tuple_to_int(event.pos)[0]
@@ -1014,6 +1022,8 @@ class ChainTool(Tool):
             last_x_y = self.vertices[-1]
             if distance(tuple_to_int(event.pos), last_x_y) >= link_length:
                 self.vertices.append(tuple_to_int(event.pos))
+            if not self.vertices:
+                return
             if distance(tuple_to_int(event.pos),
                         self.vertices[0]) >= link_length * 5 and \
                     len(self.vertices) > 3:

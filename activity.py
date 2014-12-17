@@ -25,6 +25,7 @@ import csv
 import tempfile
 import json
 import logging
+import glob
 from gettext import gettext as _
 
 import pygame
@@ -34,6 +35,7 @@ import sugargame.canvas
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import GdkPixbuf
 
 from sugar3.activity import activity
 from sugar3.activity.widgets import ActivityToolbarButton
@@ -82,22 +84,32 @@ class PhysicsActivity(activity.Activity):
         self.connect('visibility-notify-event', self._focus_event)
         self.connect('window-state-event', self._window_event)
 
-        self._canvas = sugargame.canvas.PygameCanvas(self)
+        self.game_canvas = sugargame.canvas.PygameCanvas(self)
         self.game = physics.main(self)
 
         self.preview = None
+        self._sample_window = None
+
+        self._fixed = Gtk.Fixed()
+        self._fixed.put(self.game_canvas, 0, 0)
+
+        w = Gdk.Screen.width()
+        h = Gdk.Screen.height() - 2 * GRID_CELL_SIZE
+
+        self.game_canvas.set_size_request(w, h)
 
         self._constructors = {}
         self.build_toolbar()
 
-        self.set_canvas(self._canvas)
+        self.set_canvas(self._fixed)
         Gdk.Screen.get_default().connect('size-changed',
                                          self.__configure_cb)
 
         logging.debug(os.path.join(
                       activity.get_activity_root(), 'data', 'data'))
-        self._canvas.run_pygame(self.game.run)
+        self.game_canvas.run_pygame(self.game.run)
         GObject.idle_add(self._setup_sharing)
+        self.show_all()
 
     def _setup_sharing(self):
         self.we_are_sharing = False
@@ -121,8 +133,9 @@ class PhysicsActivity(activity.Activity):
         ''' Screen size has changed '''
         self.write_file(os.path.join(
                         activity.get_activity_root(), 'data', 'data'))
-        pygame.display.set_mode((Gdk.Screen.width(),
-                                 Gdk.Screen.height() - 2 * GRID_CELL_SIZE),
+        w = Gdk.Screen.width()
+        h = Gdk.Screen.height() - 2 * GRID_CELL_SIZE
+        pygame.display.set_mode((w, h),
                                 pygame.RESIZABLE)
         self.read_file(os.path.join(
                        activity.get_activity_root(), 'data', 'data'))
@@ -136,7 +149,7 @@ class PhysicsActivity(activity.Activity):
 
     def get_preview(self):
         ''' Custom preview code to get image from pygame. '''
-        return self._canvas.get_preview()
+        return self.game_canvas.get_preview()
 
     def build_toolbar(self):
         self.max_participants = 4
@@ -165,6 +178,14 @@ class PhysicsActivity(activity.Activity):
         self.clear_trace = clear_trace
 
         self._insert_clear_all_button(toolbar_box.toolbar)
+
+        load_example = ToolButton('load-sample')
+        load_example.set_tooltip(_('Show sample projects'))
+        load_example.connect('clicked', self._create_store)
+
+        toolbar_box.toolbar.insert(Gtk.SeparatorToolItem(), -1)
+        toolbar_box.toolbar.insert(load_example, -1)
+        load_example.show()
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
@@ -662,6 +683,20 @@ class PhysicsActivity(activity.Activity):
         if result == Gtk.ResponseType.ACCEPT:
             dsobject = chooser.get_selected_object()
             file_path = dsobject.get_file_path()
+            self.__load_game(file_path, True)
+            chooser.destroy()
+
+    def __load_game(self, file_path, journal=False):
+        confirmation_alert = ConfirmationAlert()
+        confirmation_alert.props.title = _('Are You Sure?')
+        confirmation_alert.props.msg = \
+            _('All your work will be discarded. This cannot be undone!')
+
+        def action(alert, response):
+            self.remove_alert(alert)
+            if not response is Gtk.ResponseType.OK:
+                return
+
             try:
                 f = open(file_path, 'r')
                 # Test if the file is valid project.
@@ -672,6 +707,8 @@ class PhysicsActivity(activity.Activity):
                 self.game.run(True)
             except:
                 title = _('Load project from journal')
+                if not journal:
+                    title = _('Load example')
                 msg = _(
                     'Error: Cannot open Physics project from this file.')
                 alert = NotifyAlert(5)
@@ -683,7 +720,119 @@ class PhysicsActivity(activity.Activity):
                     response: self.remove_alert(alert))
                 self.add_alert(alert)
 
-            chooser.destroy()
+        confirmation_alert.connect('response', action)
+        self.add_alert(confirmation_alert)
+
+    def _create_store(self, widget=None):
+        width = Gdk.Screen.width() / 4
+        height = Gdk.Screen.height() / 4
+
+        if self._sample_window is None:
+            self._sample_box = Gtk.EventBox()
+
+            vbox = Gtk.VBox()
+            self._sample_window = Gtk.ScrolledWindow()
+            self._sample_window.set_policy(Gtk.PolicyType.NEVER,
+                                           Gtk.PolicyType.AUTOMATIC)
+            self._sample_window.set_border_width(4)
+            w = Gdk.Screen.width() / 2
+            h = Gdk.Screen.height() / 2
+            self._sample_window.set_size_request(w, h)
+            self._sample_window.show()
+
+            store = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
+
+            icon_view = Gtk.IconView()
+            icon_view.set_model(store)
+            icon_view.set_selection_mode(Gtk.SelectionMode.SINGLE)
+            icon_view.connect('selection-changed', self._sample_selected,
+                              store)
+            icon_view.set_pixbuf_column(0)
+            icon_view.grab_focus()
+            self._sample_window.add(icon_view)
+            icon_view.show()
+            self._fill_samples_list(store)
+
+            title = Gtk.HBox()
+            title_label = Gtk.Label(_("Select a sample..."))
+            separator = Gtk.HSeparator()
+            separator.props.expand = True
+            separator.props.visible = False
+
+            btn = Gtk.Button.new_from_stock(Gtk.STOCK_CANCEL)
+            btn.connect('clicked', lambda button: self._sample_box.hide())
+
+            title.pack_start(title_label, False, False, 5)
+            title.pack_start(separator, False, False, 0)
+            title.pack_end(btn, False, False, 0)
+
+            vbox.pack_start(title, False, False, 5)
+            vbox.pack_end(self._sample_window, True, True, 0)
+
+            self._sample_box.add(vbox)
+
+            self._fixed.put(self._sample_box, width, height)
+
+        if self._sample_window:
+            # Remove and add again. Maybe its on portrait mode.
+            self._fixed.remove(self._sample_box)
+            self._fixed.put(self._sample_box, width, height)
+
+        self._sample_box.show_all()
+
+    def _get_selected_path(self, widget, store):
+        try:
+            iter_ = store.get_iter(widget.get_selected_items()[0])
+            image_path = store.get(iter_, 1)[0]
+
+            return image_path, iter_
+        except:
+            return None
+
+    def _sample_selected(self, widget, store):
+        selected = self._get_selected_path(widget, store)
+
+        if selected is None:
+            self._selected_sample = None
+            self._sample_box.hide()
+            return
+
+        image_path, _iter = selected
+        iter_ = store.get_iter(widget.get_selected_items()[0])
+        image_path = store.get(iter_, 1)[0]
+
+        self._selected_sample = image_path
+        self._sample_box.hide()
+
+        self.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+        GObject.idle_add(self._sample_loader)
+
+    def _sample_loader(self):
+        # Convert from thumbnail path to sample path
+        basename = os.path.basename(self._selected_sample)[:-4]
+        file_path = os.path.join(activity.get_bundle_path(),
+                                 'samples', basename + '.json')
+        self.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.LEFT_PTR))
+        self.__load_game(file_path)
+
+    def _fill_samples_list(self, store):
+        '''
+        Append images from the artwork_paths to the store.
+        '''
+        for filepath in self._scan_for_samples():
+            pixbuf = None
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filepath, 100, 100)
+            store.append([pixbuf, filepath])
+
+    def _scan_for_samples(self):
+        samples = sorted(
+            glob.glob(
+                os.path.join(
+                    activity.get_bundle_path(),
+                    'samples',
+                    'thumbnails',
+                    '*.png')))
+        return samples
 
 
 class ChatTube(ExportedGObject):
