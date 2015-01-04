@@ -20,6 +20,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+from shutil import copy
 import sys
 import json
 import math
@@ -36,6 +38,7 @@ sys.path.append('lib/')
 sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
 import Box2D as box2d
 
+from sugar3.activity import activity
 
 PALETTE_MODE_SLIDER_ICON = 0
 PALETTE_MODE_ICONS = 1
@@ -66,7 +69,7 @@ PALETTE_OBJECT_DATA = {
 }
 
 
-# Tools that can be superlcassed
+# Tools that can be superclassed
 class Tool(object):
     name = 'Tool'
     icon = 'icon'
@@ -144,9 +147,24 @@ class Tool(object):
         # Default cancel doesn't do anything
         pass
 
-    def add_badge(self, *args, **kwargs):
-        parent_activity = self.game.get_activity()
-        parent_activity.add_badge(*args, **kwargs)
+    def add_badge(self, message, icon='trophy-icon-physics', name='Physics'):
+        badge = {
+            'icon': icon,
+            'from': name,
+            'message': message
+        }
+        icon_path = os.path.join(activity.get_bundle_path(),
+                                 'icons',
+                                 (icon+'.svg'))
+        sugar_icons = os.path.join(os.path.expanduser('~'), '.icons')
+        copy(icon_path, sugar_icons)
+
+        if 'comments' in self.game.activity.metadata:
+            comments = json.loads(self.game.activity.metadata['comments'])
+            comments.append(badge)
+            self.game.activity.metadata['comments'] = json.dumps(comments)
+        else:
+            self.game.activity.metadata['comments'] = json.dumps([badge])
 
 
 # The circle creation tool
