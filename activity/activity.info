@@ -7,3 +7,4 @@ icon = activity-physics
 activity_version = 26
 show_launcher = yes
 mime_types = application/x-physics-activity;
+category = science game art
