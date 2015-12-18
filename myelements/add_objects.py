@@ -108,20 +108,23 @@ class Add:
         # Create the Body
         if not dynamic:
             density = 0
+        else:
+            bodyDef.type = box2d.b2_dynamicBody
 
         body = self.parent.world.CreateBody(bodyDef)
 
         self.parent.element_count += 1
 
         # Add a shape to the Body
-        circleDef = box2d.b2CircleDef()
+        circleShape = box2d.b2CircleShape()
+        circleShape.radius = radius
+        circleDef = box2d.b2FixtureDef()
+        circleDef.shape = circleShape
         circleDef.density = density
-        circleDef.radius = radius
         circleDef.restitution = restitution
         circleDef.friction = friction
 
-        body.CreateShape(circleDef)
-        body.SetMassFromShapes()
+        body.CreateFixture(circleDef)
 
         return body
 
@@ -217,21 +220,23 @@ class Add:
         # Create the Body
         if not dynamic:
             density = 0
+        else:
+            bodyDef.type = box2d.b2_dynamicBody
 
         body = self.parent.world.CreateBody(bodyDef)
 
         self.parent.element_count += 1
 
         # Add a shape to the Body
-        boxDef = box2d.b2PolygonDef()
+        boxDef = box2d.b2FixtureDef()
 
-        boxDef.SetAsBox(width, height, (0, 0), angle)
+        polygonShape = box2d.b2PolygonShape()
+        polygonShape.SetAsBox(width, height, (0, 0), angle)
+        boxDef.shape = polygonShape
         boxDef.density = density
         boxDef.restitution = restitution
         boxDef.friction = friction
-        body.CreateShape(boxDef)
-
-        body.SetMassFromShapes()
+        body.CreateFixture(boxDef)
 
         return body
 
@@ -286,21 +291,23 @@ class Add:
         # Create the Body
         if not dynamic:
             density = 0
+        else:
+            bodyDef.type = box2d.b2_dynamicBody
 
         body = self.parent.world.CreateBody(bodyDef)
 
         self.parent.element_count += 1
 
         # Add a shape to the Body
-        polyDef = box2d.b2PolygonDef()
+        polyDef = box2d.b2FixtureDef()
 
-        polyDef.setVertices(vertices)
+        polygonShape = box2d.b2PolygonShape()
+        polygonShape.vertices = vertices
+        polyDef.shape = polygonShape
         polyDef.density = density
         polyDef.restitution = restitution
         polyDef.friction = friction
-
-        body.CreateShape(polyDef)
-        body.SetMassFromShapes()
+        body.CreateFixture(polyDef)
 
         return body
 
@@ -340,21 +347,28 @@ class Add:
         # Create the Body
         if not dynamic:
             density = 0
+        else:
+            bodyDef.type = box2d.b2_dynamicBody
 
         body = self.parent.world.CreateBody(bodyDef)
 
         self.parent.element_count += 1
 
         # Create the reusable Box2D polygon and circle definitions
-        polyDef = box2d.b2PolygonDef()
-        polyDef.vertexCount = 4  # rectangle
+        polyDef = box2d.b2FixtureDef()
+
+        polygonShape = box2d.b2PolygonShape()
+        polygonShape.vertexCount = 4  # rectangle
+        polyDef.shape = polygonShape
         polyDef.density = density
         polyDef.restitution = restitution
         polyDef.friction = friction
 
-        circleDef = box2d.b2CircleDef()
+        circleShape = box2d.b2CircleShape()
+        circleShape.radius = 0.086
+        circleDef = box2d.b2FixtureDef()
+        circleDef.shape = circleShape
         circleDef.density = density
-        circleDef.radius = 0.086
         circleDef.restitution = restitution
         circleDef.friction = friction
 
@@ -376,27 +390,24 @@ class Add:
 
             # Create a line (rect) for each part of the polygon,
             # and attach it to the body
-            polyDef.setVertices([vi / self.parent.ppm for vi in v])
+            polyDef.shape.vertices = [vi / self.parent.ppm for vi in v]
 
             try:
-                polyDef.checkValues()
+                polyDef.shape.valid
             except ValueError:
                 print "concavePoly: Created an invalid polygon!"
                 return None
 
-            body.CreateShape(polyDef)
+            body.CreateFixture(polyDef)
 
             # Now add a circle to the points between the rects
             # to avoid sharp edges and gaps
-            if not is_closed and v2.tuple() == vertices[-1]:
+            if not is_closed and v2 == vertices[-1]:
                 # Don't add a circle at the end
                 break
 
             circleDef.localPosition = v2 / self.parent.ppm
-            body.CreateShape(circleDef)
-
-        # Now, all shapes have been attached
-        body.SetMassFromShapes()
+            body.CreateFixture(circleDef)
 
         # Return hard and soft reduced vertices
         return body
@@ -514,7 +525,10 @@ class Add:
             jointDef.Initialize(b1, b2, p1, p2)
             jointDef.collideConnected = True
 
-            self.parent.world.CreateJoint(jointDef)
+            try:
+                self.parent.world.CreateJoint(jointDef)
+            except AssertionError:
+                pass
 
         elif len(args) == 3:
             # Revolute Joint between two bodies (unimplemented)
@@ -522,28 +536,35 @@ class Add:
 
         elif len(args) == 2:
             # Revolute Joint to the Background, at point
-            b1 = self.parent.world.GetGroundBody()
+            b1 = self.parent.world.groundBody
             b2 = args[0]
             p1 = self.to_b2vec(args[1])
 
             jointDef = box2d.b2RevoluteJointDef()
             jointDef.Initialize(b1, b2, p1)
-            self.parent.world.CreateJoint(jointDef)
+
+            try:
+                self.parent.world.CreateJoint(jointDef)
+            except AssertionError:
+                pass
 
         elif len(args) == 1:
             # Revolute Joint to the Background, body center
-            b1 = self.parent.world.GetGroundBody()
+            b1 = self.parent.world.groundBody
             b2 = args[0]
             p1 = b2.GetWorldCenter()
 
             jointDef = box2d.b2RevoluteJointDef()
             jointDef.Initialize(b1, b2, p1)
 
-            self.parent.world.CreateJoint(jointDef)
+            try:
+                self.parent.world.CreateJoint(jointDef)
+            except AssertionError:
+                pass
 
     def motor(self, body, pt, torque=900, speed=-10):
         # Revolute joint to the background with motor torque applied
-        b1 = self.parent.world.GetGroundBody()
+        b1 = self.parent.world.groundBody
         pt = self.to_b2vec(pt)
 
         jointDef = box2d.b2RevoluteJointDef()
@@ -561,16 +582,16 @@ class Add:
         y /= self.parent.ppm
 
         mj = box2d.b2MouseJointDef()
-        mj.body1 = self.parent.world.GetGroundBody()
-        mj.body2 = body
+        mj.bodyA = self.parent.world.groundBody
+        mj.bodyB = body
         mj.target = (x, y)
-        mj.maxForce = jointForce * body.GetMass()
+        mj.maxForce = jointForce * body.mass
         if 'getAsType' in dir(box2d.b2Joint):
             self.parent.mouseJoint = \
                 self.parent.world.CreateJoint(mj).getAsType()
         else:
             self.parent.mouseJoint = self.parent.world.CreateJoint(mj)
-        body.WakeUp()
+        body.awake = True
 
     def remove_mouseJoint(self):
         if self.parent.mouseJoint:

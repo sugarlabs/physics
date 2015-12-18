@@ -134,7 +134,7 @@ class draw_pygame(object):
             Return: -
         """
         self.draw.polygon(self.surface, clr, points, self.lineWidth)
-        #self.draw.lines(self.surface, clr, True, points)
+        # self.draw.lines(self.surface, clr, True, points)
 
     def draw_lines(self, clr, closed, points, width=None):
         """ Draw a polygon
@@ -173,7 +173,7 @@ class draw_cairo(object):
         import cairo
         self.cairo = cairo
         self.set_drawing_method(drawMethod)
-        #self.draw_box = self.draw_box_image
+        # self.draw_box = self.draw_box_image
 
     def set_lineWidth(self, lw):  # unused
         self.lineWidth = lw
@@ -192,7 +192,7 @@ class draw_cairo(object):
     def set_drawing_method(self, type):
         """ type = filled, image """
         self.draw_circle = getattr(self, "draw_circle_%s" % type)
-        #self.draw_box    = getattr(self, "draw_box_%s" % type)
+        # self.draw_box    = getattr(self, "draw_box_%s" % type)
 
     def start_drawing(self):
         self.width, self.height = self.window.get_size()
@@ -212,7 +212,7 @@ class draw_cairo(object):
         # LINE_CAP_BUTT, LINE_CAP_ROUND, LINE_CAP_SQUARE,
         # LINE_JOIN_BEVEL, LINE_JOIN_MITER, LINE_JOIN_ROUND
 
-        #ctx.set_dash([20/4.0, 20/4.0], 0)
+        # ctx.set_dash([20/4.0, 20/4.0], 0)
 
     def after_drawing(self):
         dest_ctx = self.window.cairo_create()

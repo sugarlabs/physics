@@ -403,7 +403,7 @@ class PhysicsActivity(activity.Activity):
             if response_id is Gtk.ResponseType.OK:
                 pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                      action='clear_all'))
-        if len(self.game.world.world.GetBodyList()) > 2:
+        if len(self.game.world.world.bodies) > 2:
             clear_all_alert = ConfirmationAlert()
             clear_all_alert.props.title = _('Are You Sure?')
             clear_all_alert.props.msg = \
@@ -694,7 +694,7 @@ class PhysicsActivity(activity.Activity):
 
         def action(alert, response):
             self.remove_alert(alert)
-            if not response is Gtk.ResponseType.OK:
+            if response is not Gtk.ResponseType.OK:
                 return
 
             try:

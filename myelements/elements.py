@@ -102,18 +102,15 @@ class Elements:
         self.callbacks = callbacks.CallbackHandler(self)
         self.camera = camera.Camera(self)
 
-        # Set Boundaries
-        self.worldAABB = box2d.b2AABB()
-        self.worldAABB.lowerBound = (-100.0, -100.0)
-        self.worldAABB.upperBound = (100.0, 100.0)
-
         # Gravity + Bodies will sleep on outside
         self.gravity = gravity
         self.doSleep = True
         self.PIN_MOTOR_RADIUS = 2
 
         # Create the World
-        self.world = box2d.b2World(self.worldAABB, self.gravity, self.doSleep)
+        self.world = box2d.b2World(self.gravity, self.doSleep)
+        bodyDef = box2d.b2BodyDef()
+        self.world.groundBody = self.world.CreateBody(bodyDef)
 
         # Init Colors
         self.init_colors()
@@ -301,22 +298,23 @@ class Elements:
         AABB.lowerBound = (sx - f, sy - f)
         AABB.upperBound = (sx + f, sy + f)
 
-        amount, shapes = self.world.Query(AABB, 2)
+        query_cb = Query_CB()
 
-        if amount == 0:
-            return False
-        else:
-            bodylist = []
-            for s in shapes:
-                body = s.GetBody()
-                if not include_static:
-                    if body.IsStatic() or body.GetMass() == 0.0:
-                        continue
+        self.world.QueryAABB(query_cb, AABB)
 
-                if s.TestPoint(body.GetXForm(), (sx, sy)):
-                    bodylist.append(body)
+        bodylist = []
+        for s in query_cb.fixtures:
+            body = s.body
+            if body is None:
+                continue
+            if not include_static:
+                if body.type == box2d.b2_staticBody or body.mass == 0.0:
+                    continue
 
-            return bodylist
+            if s.TestPoint((sx, sy)):
+                bodylist.append(body)
+
+        return bodylist
 
     def draw(self):
         """ If a drawing method is specified, this function passes the objects
@@ -343,33 +341,34 @@ class Elements:
         # Walk through all known elements
         self.renderer.start_drawing()
 
-        for body in self.world.bodyList:
-            xform = body.GetXForm()
-            shape = body.GetShapeList()
-            angle = body.GetAngle()
+        for body in self.world.bodies:
+            xform = body.transform
+            shape = body.fixtures
+            angle = body.angle
 
             if shape:
-                userdata = body.GetUserData()
+                userdata = body.userData
                 if 'color' in userdata:
                     clr = userdata['color']
                 else:
                     clr = self.colors[0]
 
-            for shape in body.shapeList:
-                type_ = shape.GetType()
+            for shape in body.fixtures:
+                type_ = shape.type
 
-                if type_ == box2d.e_circleShape:
-                    position = box2d.b2Mul(xform, shape.GetLocalPosition())
+                if type_ == box2d.b2Shape.e_circle:
+                    position = box2d.b2Mul(xform, shape.shape.pos)
 
                     pos = self.to_screen((position.x * self.ppm,
                                           position.y * self.ppm))
 
                     self.renderer.draw_circle(
-                        clr, pos, self.meter_to_screen(shape.radius), angle)
+                        clr, pos, self.meter_to_screen(shape.shape.radius),
+                        angle)
 
-                elif type_ == box2d.e_polygonShape:
+                elif type_ == box2d.b2Shape.e_polygon:
                     points = []
-                    for v in shape.vertices:
+                    for v in shape.shape.vertices:
                         pt = box2d.b2Mul(xform, v)
                         x, y = self.to_screen((pt.x * self.ppm,
                                                pt.y * self.ppm))
@@ -378,13 +377,13 @@ class Elements:
                     self.renderer.draw_polygon(clr, points)
 
                 else:
-                    print "unknown shape type:%d" % shape.GetType()
+                    print "unknown shape type:%d" % shape.type
 
-        for joint in self.world.jointList:
-            p2 = joint.GetAnchor1()
+        for joint in self.world.joints:
+            p2 = joint.anchorA
             p2 = self.to_screen((p2.x * self.ppm, p2.y * self.ppm))
 
-            p1 = joint.GetAnchor2()
+            p1 = joint.anchorB
             p1 = self.to_screen((p1.x * self.ppm, p1.y * self.ppm))
 
             if isinstance(joint, box2d.b2RevoluteJoint):
@@ -408,7 +407,7 @@ class Elements:
         y /= self.ppm
 
         if self.mouseJoint:
-            self.mouseJoint.SetTarget((x, y))
+            self.mouseJoint.target = (x, y)
 
     def pickle_save(self, fn, additional_vars={}):
         import cPickle as pickle
@@ -463,21 +462,21 @@ class Elements:
         worldmodel = {}
 
         save_id_index = 1
-        self.world.GetGroundBody().userData = {"saveid": 0}
+        self.world.groundBody.userData = {"saveid": 0}
 
         bodylist = []
-        for body in self.world.GetBodyList():
-            if not body == self.world.GetGroundBody():
+        for body in self.world.bodies:
+            if not body == self.world.groundBody:
                 body.userData["saveid"] = save_id_index  # set temporary data
                 save_id_index += 1
-                shapelist = body.GetShapeList()
+                shapelist = body.fixtures
                 modelbody = {}
-                modelbody['position'] = body.position.tuple()
-                modelbody['dynamic'] = body.IsDynamic()
+                modelbody['position'] = body.position.tuple
+                modelbody['dynamic'] = body.type == box2d.b2_dynamicBody
                 modelbody['userData'] = body.userData
                 modelbody['angle'] = body.angle
                 modelbody['angularVelocity'] = body.angularVelocity
-                modelbody['linearVelocity'] = body.linearVelocity.tuple()
+                modelbody['linearVelocity'] = body.linearVelocity.tuple
                 if shapelist and len(shapelist) > 0:
                     shapes = []
                     for shape in shapelist:
@@ -485,15 +484,14 @@ class Elements:
                         modelshape['density'] = shape.density
                         modelshape['restitution'] = shape.restitution
                         modelshape['friction'] = shape.friction
-                        shapename = shape.__class__.__name__
+                        shapename = shape.shape.__class__.__name__
                         if shapename == "b2CircleShape":
                             modelshape['type'] = 'circle'
-                            modelshape['radius'] = shape.radius
-                            modelshape['localPosition'] = \
-                                shape.localPosition.tuple()
+                            modelshape['radius'] = shape.shape.radius
+                            modelshape['localPosition'] = shape.shape.pos.tuple
                         if shapename == "b2PolygonShape":
                             modelshape['type'] = 'polygon'
-                            modelshape['vertices'] = shape.vertices
+                            modelshape['vertices'] = shape.shape.vertices
                         shapes.append(modelshape)
                     modelbody['shapes'] = shapes
 
@@ -503,22 +501,22 @@ class Elements:
 
         jointlist = []
 
-        for joint in self.world.GetJointList():
+        for joint in self.world.joints:
             modeljoint = {}
 
             if joint.__class__.__name__ == "b2RevoluteJoint":
                 modeljoint['type'] = 'revolute'
-                modeljoint['anchor'] = joint.GetAnchor1().tuple()
-                modeljoint['enableMotor'] = joint.enableMotor
+                modeljoint['anchor'] = joint.anchorA.tuple
+                modeljoint['enableMotor'] = joint.motorEnabled
                 modeljoint['motorSpeed'] = joint.motorSpeed
-                modeljoint['maxMotorTorque'] = joint.maxMotorTorque
+                modeljoint['maxMotorTorque'] = joint.GetMaxMotorTorque()
             elif joint.__class__.__name__ == "b2DistanceJoint":
                 modeljoint['type'] = 'distance'
-                modeljoint['anchor1'] = joint.GetAnchor1().tuple()
-                modeljoint['anchor2'] = joint.GetAnchor2().tuple()
+                modeljoint['anchor1'] = joint.anchorA.tuple
+                modeljoint['anchor2'] = joint.anchorB.tuple
 
-            modeljoint['body1'] = joint.body1.userData['saveid']
-            modeljoint['body2'] = joint.body2.userData['saveid']
+            modeljoint['body1'] = joint.bodyA.userData['saveid']
+            modeljoint['body2'] = joint.bodyB.userData['saveid']
             modeljoint['collideConnected'] = joint.collideConnected
             modeljoint['userData'] = joint.userData
 
@@ -551,52 +549,57 @@ class Elements:
         f.write(json.dumps(worldmodel))
         f.close()
 
-        for body in self.world.GetBodyList():
+        for body in self.world.bodies:
             del body.userData['saveid']  # remove temporary data
 
     def json_load(self, path, serialized=False):
         import json
 
-        self.world.GetGroundBody().userData = {"saveid": 0}
+        self.world.groundBody.userData = {"saveid": 0}
 
         f = open(path, 'r')
         worldmodel = json.loads(f.read())
         f.close()
         # clean world
-        for joint in self.world.GetJointList():
+        for joint in self.world.joints:
             self.world.DestroyJoint(joint)
-        for body in self.world.GetBodyList():
-            if body != self.world.GetGroundBody():
+        for body in self.world.bodies:
+            if body != self.world.groundBody:
                 self.world.DestroyBody(body)
 
         # load bodies
         for body in worldmodel['bodylist']:
             bodyDef = box2d.b2BodyDef()
+            if body['dynamic']:
+                bodyDef.type = box2d.b2_dynamicBody
             bodyDef.position = body['position']
             bodyDef.userData = body['userData']
             bodyDef.angle = body['angle']
             newBody = self.world.CreateBody(bodyDef)
-            #_logger.debug(newBody)
+            # _logger.debug(newBody)
             newBody.angularVelocity = body['angularVelocity']
             newBody.linearVelocity = body['linearVelocity']
             if 'shapes' in body:
                 for shape in body['shapes']:
                     if shape['type'] == 'polygon':
-                        polyDef = box2d.b2PolygonDef()
-                        polyDef.setVertices(shape['vertices'])
+                        polyDef = box2d.b2FixtureDef()
+                        polyShape = box2d.b2PolygonShape()
+                        polyShape.vertices = shape['vertices']
+                        polyDef.shape = polyShape
                         polyDef.density = shape['density']
                         polyDef.restitution = shape['restitution']
                         polyDef.friction = shape['friction']
-                        newBody.CreateShape(polyDef)
+                        newBody.CreateFixture(polyDef)
                     if shape['type'] == 'circle':
-                        circleDef = box2d.b2CircleDef()
-                        circleDef.radius = shape['radius']
+                        circleDef = box2d.b2FixtureDef()
+                        circleShape = box2d.b2CircleShape()
+                        circleShape.radius = shape['radius']
+                        circleShape.pos = shape['localPosition']
+                        circleDef.shape = circleShape
                         circleDef.density = shape['density']
                         circleDef.restitution = shape['restitution']
                         circleDef.friction = shape['friction']
-                        circleDef.localPosition = shape['localPosition']
-                        newBody.CreateShape(circleDef)
-                newBody.SetMassFromShapes()
+                        newBody.CreateFixture(circleDef)
 
         for joint in worldmodel['jointlist']:
             if joint['type'] == 'distance':
@@ -607,7 +610,7 @@ class Elements:
                 anch2 = joint['anchor2']
                 jointDef.collideConnected = joint['collideConnected']
                 jointDef.Initialize(body1, body2, anch1, anch2)
-                jointDef.SetUserData(joint['userData'])
+                jointDef.userData = joint['userData']
                 self.world.CreateJoint(jointDef)
             if joint['type'] == 'revolute':
                 jointDef = box2d.b2RevoluteJointDef()
@@ -615,8 +618,8 @@ class Elements:
                 body2 = self.getBodyWithSaveId(joint['body2'])
                 anchor = joint['anchor']
                 jointDef.Initialize(body1, body2, anchor)
-                jointDef.SetUserData(joint['userData'])
-                jointDef.enableMotor = joint['enableMotor']
+                jointDef.userData = joint['userData']
+                jointDef.motorEnabled = joint['enableMotor']
                 jointDef.motorSpeed = joint['motorSpeed']
                 jointDef.maxMotorTorque = joint['maxMotorTorque']
                 self.world.CreateJoint(jointDef)
@@ -640,10 +643,21 @@ class Elements:
 
         self.additional_vars = addvars
 
-        for body in self.world.GetBodyList():
+        for body in self.world.bodies:
             del body.userData['saveid']  # remove temporary data
 
     def getBodyWithSaveId(self, saveid):
-        for body in self.world.GetBodyList():
+        for body in self.world.bodies:
             if body.userData['saveid'] == saveid:
                 return body
+
+
+class Query_CB(box2d.b2QueryCallback):
+
+    def __init__(self):
+        box2d.b2QueryCallback.__init__(self)
+        self.fixtures = []
+
+    def ReportFixture(self, fixture):
+        self.fixtures.append(fixture)
+        return True

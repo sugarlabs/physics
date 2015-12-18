@@ -100,7 +100,7 @@ class Tool(object):
                     self.game.world.run_physics = not toggle
                 elif event.action == 'clear_all':
                     # Get bodies and destroy them too
-                    for body in self.game.world.world.GetBodyList():
+                    for body in self.game.world.world.bodies:
                         self.game.world.world.DestroyBody(body)
 
                     # Add ground, because we destroyed it before
@@ -585,8 +585,8 @@ class GrabTool(Tool):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 # Give preference to pins and motors being caught
-                for joint in self.game.world.world.jointList[:]:
-                    x, y = joint.GetAnchor1()
+                for joint in self.game.world.world.joints:
+                    x, y = joint.anchorA
                     ppm = self.game.world.ppm
                     x, y = self.game.world.to_screen((x * ppm, y * ppm))
                     wh_half = self.PIN_MOTOR_RADIUS
@@ -874,7 +874,7 @@ class DestroyTool(Tool):
 
     def handleToolEvent(self, event):
         Tool.handleToolEvent(self, event)
-        if pygame.mouse.get_pressed()[0]:
+        if pygame.mouse.get_pressed()[0] and hasattr(event, "pos"):
             if not self.vertices:
                 self.vertices = []
             self.vertices.append(tuple_to_int(event.pos))
@@ -895,9 +895,9 @@ class DestroyTool(Tool):
                         destroyed_body = True
                         break
 
-                jointnode = body_to_remove.GetJointList()
+                jointnode = body_to_remove.joints
                 if jointnode and not destroyed_body:
-                    joint = jointnode.joint
+                    joint = jointnode[-1].joint
                     self.game.world.world.DestroyJoint(joint)
                 elif not destroyed_body:
                     self.game.world.world.DestroyBody(body_to_remove)

@@ -36,9 +36,6 @@ from pygame.locals import *
 from pygame.color import *
 
 sys.path.append('lib/')
-# If your architecture is different, comment these lines and install
-# the modules in your system.
-sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
 import Box2D as box2d
 import myelements as elements
 
@@ -151,7 +148,7 @@ class PhysicsGame:
             if self.in_focus:
                 # Drive motors
                 if self.world.run_physics:
-                    bodies_present = len(self.world.world.GetBodyList())
+                    bodies_present = len(self.world.world.bodies)
                     clear_all_active = self.activity.clear_all.get_sensitive()
                     if (bodies_present > 2) and clear_all_active is False:
                         self.activity.clear_all.set_sensitive(True)
