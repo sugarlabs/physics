@@ -35,7 +35,7 @@ import pygame
 from pygame.locals import *
 from pygame.color import *
 
-sys.path.append('lib/')
+sys.path.insert(0, 'lib/')
 import Box2D as box2d
 import myelements as elements
 
