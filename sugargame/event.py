@@ -216,7 +216,8 @@ class Translator(object):
         return True
 
     def _mousemove_cb(self, widget, event):
-        # From http://www.learningpython.com/2006/07/25/writing-a-custom-widget-using-pygtk/
+        # From
+        # www.learningpython.com/2006/07/25/writing-a-custom-widget-using-pygtk
         # if this is a hint, then let's get all the necessary
         # information, if not it's all we need.
         if event.is_hint:

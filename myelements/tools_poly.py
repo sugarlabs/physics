@@ -275,7 +275,7 @@ def is_convex(points):
 
     :return: True if the polygon is convex, False otherwise
     """
-    #assert len(points) > 2, "not enough points to form a polygon"
+    # assert len(points) > 2, "not enough points to form a polygon"
 
     p0 = points[0]
     p1 = points[1]
