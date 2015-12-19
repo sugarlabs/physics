@@ -1,3 +1,6 @@
+27
+* Updated VTE and Box2D support; cleaned up support for ARM (Ezequiel Pereira)
+
 26
 * Add missing add_badge code (the toolkit badge code is not yet upstream).
 
