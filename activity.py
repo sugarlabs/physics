@@ -54,7 +54,10 @@ from sugar3.graphics.icon import Icon
 from sugar3.graphics.xocolor import XoColor
 from sugar3 import profile
 
-from sugar3.presence.wrapper import CollabWrapper
+try:
+    from sugar3.presence.wrapper import CollabWrapper
+except ImportError:
+    from collabwrapper import CollabWrapper
 
 import tools
 import physics
