@@ -54,18 +54,10 @@ from sugar3.graphics.icon import Icon
 from sugar3.graphics.xocolor import XoColor
 from sugar3 import profile
 
-import telepathy
-from dbus.service import signal
-from dbus.gobject_service import ExportedGObject
-from sugar3.presence import presenceservice
-from sugar3.presence.tubeconn import TubeConnection
+from sugar3.presence.wrapper import CollabWrapper
 
 import tools
 import physics
-
-SERVICE = 'org.laptop.physics'
-IFACE = SERVICE
-PATH = '/org/laptop/physics'
 
 # For some reason increasing FPS decreases execution speed :/
 SLOWEST_FPS = 90
@@ -77,6 +69,8 @@ class PhysicsActivity(activity.Activity):
 
     def __init__(self, handle):
         super(PhysicsActivity, self).__init__(handle)
+        self._collab = CollabWrapper(self)
+        self._collab.message.connect(self.__message_cb)
         self.metadata['mime_type'] = 'application/x-physics-activity'
         self.add_events(Gdk.EventMask.ALL_EVENTS_MASK |
                         Gdk.EventMask.VISIBILITY_NOTIFY_MASK)
@@ -108,26 +102,8 @@ class PhysicsActivity(activity.Activity):
         logging.debug(os.path.join(
                       activity.get_activity_root(), 'data', 'data'))
         self.game_canvas.run_pygame(self.game.run)
-        GObject.idle_add(self._setup_sharing)
         self.show_all()
-
-    def _setup_sharing(self):
-        self.we_are_sharing = False
-
-        if self.shared_activity:
-            # We're joining
-            if not self.get_shared():
-                xocolors = XoColor(profile.get_color().to_string())
-                share_icon = Icon(icon_name='zoom-neighborhood',
-                                  xo_color=xocolors)
-                self._joined_alert = Alert()
-                self._joined_alert.props.icon = share_icon
-                self._joined_alert.props.title = _('Please wait')
-                self._joined_alert.props.msg = _('Starting connection...')
-                self.add_alert(self._joined_alert)
-                self._waiting_cursor()
-
-        self._setup_presence_service()
+        self._collab.setup()
 
     def __configure_cb(self, event):
         ''' Screen size has changed '''
@@ -471,70 +447,6 @@ class PhysicsActivity(activity.Activity):
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                  action='focus_out'))
 
-    def _setup_presence_service(self):
-        ''' Setup the Presence Service. '''
-        self.pservice = presenceservice.get_instance()
-
-        owner = self.pservice.get_owner()
-        self.owner = owner
-        self.buddies = [owner]
-        self._share = ''
-        self.connect('shared', self._shared_cb)
-        self.connect('joined', self._joined_cb)
-
-    def _shared_cb(self, activity):
-        ''' Either set up initial share...'''
-        if self.get_shared_activity() is None:
-            logging.error('Failed to share or join activity ... \
-                shared_activity is null in _shared_cb()')
-            return
-
-        self.initiating = True
-        self.waiting = False
-        self.we_are_sharing = True
-        logging.debug('I am sharing...')
-
-        self.conn = self.shared_activity.telepathy_conn
-        self.tubes_chan = self.shared_activity.telepathy_tubes_chan
-        self.text_chan = self.shared_activity.telepathy_text_chan
-
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(
-            'NewTube', self._new_tube_cb)
-
-        logging.debug('This is my activity: making a tube...')
-        id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
-            SERVICE, {})
-
-    def _joined_cb(self, activity):
-        ''' ...or join an exisiting share. '''
-        if self.get_shared_activity() is None:
-            logging.error('Failed to share or join activity ... \
-                shared_activity is null in _shared_cb()')
-            return
-
-        self.initiating = False
-        logging.debug('I joined a shared activity.')
-
-        self.conn = self.shared_activity.telepathy_conn
-        self.tubes_chan = self.shared_activity.telepathy_tubes_chan
-        self.text_chan = self.shared_activity.telepathy_text_chan
-
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].connect_to_signal(
-            'NewTube', self._new_tube_cb)
-
-        logging.debug('I am joining an activity: waiting for a tube...')
-        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
-            reply_handler=self._list_tubes_reply_cb,
-            error_handler=self._list_tubes_error_cb)
-
-        self.waiting = True
-
-        if self._joined_alert is not None:
-            self.remove_alert(self._joined_alert)
-            self._joined_alert = None
-            self._restore_cursor()
-            self.we_are_sharing = True
-
     def _restore_cursor(self):
         ''' No longer waiting, so restore standard cursor. '''
         if not hasattr(self, 'get_window'):
@@ -548,36 +460,13 @@ class PhysicsActivity(activity.Activity):
         self.old_cursor = self.get_window().get_cursor()
         self.get_window().set_cursor(Gdk.Cursor.new(Gdk.CursorType.WATCH))
 
-    def _list_tubes_reply_cb(self, tubes):
-        ''' Reply to a list request. '''
-        for tube_info in tubes:
-            self._new_tube_cb(*tube_info)
-
-    def _list_tubes_error_cb(self, e):
-        ''' Log errors. '''
-        logging.error('ListTubes() failed: %s', e)
-
-    def _new_tube_cb(self, id, initiator, type, service, params, state):
-        ''' Create a new tube. '''
-        logging.debug('New tube: ID=%d initator=%d type=%d service=%s '
-                      'params=%r state=%d', id, initiator, type, service,
-                      params, state)
-
-        if (type == telepathy.TUBE_TYPE_DBUS and service == SERVICE):
-            if state == telepathy.TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[
-                    telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
-
-            tube_conn = TubeConnection(
-                self.conn,
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES], id,
-                group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
-
-            self.chattube = ChatTube(tube_conn, self.initiating,
-                                     self.event_received_cb)
-
-    def event_received_cb(self, text):
+    def __message_cb(self, collab, buddy, msg):
         ''' Data is passed as tuples: cmd:text '''
+        action = msg.get('action')
+        if action != 'text':
+            return
+
+        text = msg['text']
         dispatch_table = {'C': self._construct_shared_circle,
                           'B': self._construct_shared_box,
                           'T': self._construct_shared_triangle,
@@ -672,10 +561,7 @@ class PhysicsActivity(activity.Activity):
                                     share=False)
 
     def send_event(self, text):
-        ''' Send event through the tube. '''
-        if hasattr(self, 'chattube') and self.chattube is not None:
-            logging.debug('>>> %s' % (text[0]))
-            self.chattube.SendText(text)
+        self._collab.post(dict(action='text', text=text))
 
     def _load_project(self, button):
         chooser = ObjectChooser(parent=self)
@@ -833,28 +719,3 @@ class PhysicsActivity(activity.Activity):
                     'thumbnails',
                     '*.png')))
         return samples
-
-
-class ChatTube(ExportedGObject):
-
-    ''' Class for setting up tube for sharing '''
-
-    def __init__(self, tube, is_initiator, stack_received_cb):
-        super(ChatTube, self).__init__(tube, PATH)
-        self.tube = tube
-        self.is_initiator = is_initiator  # Are we sharing or joining activity?
-        self.stack_received_cb = stack_received_cb
-        self.stack = ''
-
-        self.tube.add_signal_receiver(self.send_stack_cb, 'SendText', IFACE,
-                                      path=PATH, sender_keyword='sender')
-
-    def send_stack_cb(self, text, sender=None):
-        if sender == self.tube.get_unique_name():
-            return
-        self.stack = text
-        self.stack_received_cb(text)
-
-    @signal(dbus_interface=IFACE, signature='s')
-    def SendText(self, text):
-        self.stack = text

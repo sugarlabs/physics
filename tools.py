@@ -203,7 +203,7 @@ class CircleTool(Tool):
                                  density=density, restitution=restitution,
                                  friction=friction)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos, radius, density, restitution, friction])
             self.game.activity.send_event('C:' + data)
 
@@ -274,7 +274,7 @@ class BoxTool(Tool):
                                  restitution=restitution,
                                  friction=friction)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos1, pos2, density, restitution, friction])
             self.game.activity.send_event('B:' + data)
 
@@ -357,7 +357,7 @@ class TriangleTool(Tool):
                                        restitution=restitution,
                                        friction=friction)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos1, pos2, density, restitution, friction])
             self.game.activity.send_event('T:' + data)
 
@@ -457,7 +457,7 @@ class PolygonTool(Tool):
                                         density=density,
                                         restitution=restitution,
                                         friction=friction)
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([vertices, density, restitution, friction])
             self.game.activity.send_event('P:' + data)
 
@@ -533,7 +533,7 @@ class MagicPenTool(Tool):
                                         density=density,
                                         restitution=restitution,
                                         friction=friction)
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([vertices, density, restitution, friction])
             self.game.activity.send_event('M:' + data)
 
@@ -719,7 +719,7 @@ class JointTool(Tool):
 
         self.game.world.add.joint(body1, body2, pos1, pos2)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos1, pos2])
             self.game.activity.send_event('j:' + data)
 
@@ -758,7 +758,7 @@ class PinTool(Tool):
         body = find_body(self.game.world, pos)
         self.game.world.add.joint(body, pos)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos])
             self.game.activity.send_event('p:' + data)
 
@@ -818,7 +818,7 @@ class MotorTool(Tool):
         body = find_body(self.game.world, pos)
         self.game.world.add.motor(body, pos, speed=speed)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos, speed])
             self.game.activity.send_event('m:' + data)
 
@@ -970,7 +970,7 @@ class TrackTool(Tool):
         self.game.trackinfo[dictkey][4] = trackdex  # Tracking index.
         self.game.tracked_bodies += 1  # counter of tracked bodies
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([pos, color])
             self.game.activity.send_event('t:' + data)
 
@@ -1078,7 +1078,7 @@ class ChainTool(Tool):
             if body1 != body2:
                 self.make_chain(body1, body2, pos1, pos2, link_length, radius)
 
-        if share and self.game.activity.we_are_sharing:
+        if share:
             data = json.dumps([vertices, link_length, radius])
             self.game.activity.send_event('c:' + data)
 
