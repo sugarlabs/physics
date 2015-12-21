@@ -1,3 +1,6 @@
+28
+* More robust strategy for finding Box2D module.
+
 27
 * Updated VTE and Box2D support; cleaned up support for ARM (Ezequiel Pereira)
 
