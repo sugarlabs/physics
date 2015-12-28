@@ -7,5 +7,6 @@ else:
         from box2d_64 import *
     else:
         from ctypes import cdll
-        libstdc = cdll.LoadLibrary("lib/libstdc++.so")
+        libstdc = cdll.LoadLibrary("lib/box2d_32/libstdc++.so")
+        libstdc = cdll.LoadLibrary("lib/box2d_32/libstdc++.so.6")
         from box2d_32 import *
