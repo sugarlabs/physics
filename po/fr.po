@@ -63,7 +63,7 @@ msgid ""
 "Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
-"Prouvez la théorie d'Issac Newton ! Créez des simulations de la vie réelle "
+"Prouvez la théorie d'Isaac Newton ! Créez des simulations de la vie réelle "
 "en utilisant des formes différentes et regardez-les s'animer avec la force "
 "d'attraction !"
 
