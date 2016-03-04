@@ -57,7 +57,7 @@ msgstr "物理"
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid ""
-"Prove Sir Issac Newton right! Create real life simulations using different "
+"Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr "证明牛顿爵士正确！使用不同形状模拟创建现实生活，并观察在生活中的受力！"
 
