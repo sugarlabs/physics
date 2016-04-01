@@ -1,0 +1,17 @@
+sugar-physics-activity (30-0~quozl2) xenial; urgency=medium
+
+  * rebuild
+
+ -- James Cameron <quozl@laptop.org>  Fri, 01 Apr 2016 16:45:09 +1100
+
+sugar-physics-activity (30-0~quozl1) trusty; urgency=medium
+
+  * New upstream version
+
+ -- James Cameron <quozl@laptop.org>  Wed, 09 Mar 2016 13:42:17 +1100
+
+sugar-physics-activity (26-1~godiard1) UNRELEASED; urgency=low
+
+  * Initial version for Debian.
+
+ -- Debian Sugar Team <pkg-sugar-devel@lists.alioth.debian.org>  Fri, 17 Jul 2015 12:14:51 -0300
