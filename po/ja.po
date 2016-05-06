@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2011-12-05 03:17+0200\n"
+"Last-Translator: shirayuki <shirayuking@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
+msgid "Physics"
+msgstr "Physics/物理シミュレーション"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Isaac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
+
+#: activity.py:125
+msgid "Create"
+msgstr "作成"
+
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "停止"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>space"
+
+#: activity.py:174
+msgid "Start"
+msgstr "開始"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s ソース"
+
+#: tools.py:92
+msgid "Circle"
+msgstr "円"
+
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>c"
+
+#: tools.py:131
+msgid "Box"
+msgstr "四角形"
+
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr "<ctrl>b"
+
+#: tools.py:181
+msgid "Triangle"
+msgstr "三角形"
+
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>t"
+
+#: tools.py:249
+msgid "Polygon"
+msgstr "多角形"
+
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<ctrl>p"
+
+#: tools.py:315
+msgid "Draw"
+msgstr "描画"
+
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>d"
+
+#: tools.py:369
+msgid "Grab"
+msgstr "つかむ"
+
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr "<ctrl>g"
+
+#: tools.py:416
+msgid "Joint"
+msgstr "つなぐ"
+
+#: tools.py:460
+msgid "Pin"
+msgstr "ピンで止める"
+
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr "<ctrl>o"
+
+#: tools.py:483
+msgid "Motor"
+msgstr "動力"
+
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
+
+#: tools.py:507
+msgid "Roll"
+msgstr "回転"
+
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr "<ctrl>r"
+
+#: tools.py:534
+msgid "Erase"
+msgstr "消す"
+
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr "<ctrl>e"
+
+#~ msgid "c"
+#~ msgstr "c"
+
+#~ msgid "b"
+#~ msgstr "b"
+
+#~ msgid "t"
+#~ msgstr "t"
+
+#~ msgid "p"
+#~ msgstr "p"
+
+#~ msgid "d"
+#~ msgstr "d"
+
+#~ msgid "g"
+#~ msgstr "g"
+
+#~ msgid "o"
+#~ msgstr "o"
+
+#~ msgid "m"
+#~ msgstr "m"
+
+#~ msgid "e"
+#~ msgstr "e"

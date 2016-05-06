@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2013-06-28 07:08+0200\n"
+"Last-Translator: andika <andika@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
+msgid "Physics"
+msgstr "Fisika"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Isaac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
+"Buktikan bahwa Sir Isaac Newton benar! Buat simulasi kehidupan nyata memakai "
+"bentuk-bentuk yang berbeda dan lihatlah mereka menjadi hidup dengan gaya!"
+
+#: activity.py:125
+msgid "Create"
+msgstr "Buat"
+
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Berhenti"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>spasi"
+
+#: activity.py:174
+msgid "Start"
+msgstr "Mulai"
+
+#: olpcgames/canvas.py:151
+#, python-format
+#, python-format, 
+msgid "%s Source"
+msgstr "Sumber %s"
+
+#: tools.py:92
+msgid "Circle"
+msgstr "Lingkaran"
+
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>l"
+
+#: tools.py:131
+msgid "Box"
+msgstr "Kotak"
+
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr "<ctrl>k"
+
+#: tools.py:181
+msgid "Triangle"
+msgstr "Segitiga"
+
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>s"
+
+#: tools.py:249
+msgid "Polygon"
+msgstr "Poligon"
+
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<trl>p"
+
+#: tools.py:315
+msgid "Draw"
+msgstr "Gambar"
+
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>g"
+
+#: tools.py:369
+msgid "Grab"
+msgstr "Pegang"
+
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr "<ctrl>e"
+
+#: tools.py:416
+msgid "Joint"
+msgstr "Sambung"
+
+#: tools.py:460
+msgid "Pin"
+msgstr ""
+
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr ""
+
+#: tools.py:483
+msgid "Motor"
+msgstr "Motor"
+
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
+
+#: tools.py:507
+msgid "Roll"
+msgstr "Gelinding"
+
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr "<ctrl>i"
+
+#: tools.py:534
+msgid "Erase"
+msgstr "Hapus"
+
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr "<ctrl>h"

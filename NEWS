@@ -1,0 +1,111 @@
+30
+* New translations
+* Typo fixed
+* Added repository link to activity.info
+
+29
+* Merged Samdroid's new collaboration wrapper
+
+28
+* More robust strategy for finding Box2D module.
+
+27
+* Updated VTE and Box2D support; cleaned up support for ARM (Ezequiel Pereira)
+
+26
+* Add missing add_badge code (the toolkit badge code is not yet upstream).
+
+25
+
+* Added gallery of sample projects (Ignacio Rodriguez)
+
+24
+
+* Added controls for simulation speed (Sai Vineet)
+* Added the ability to drag motors and pins (Sai Vineet)
+
+23
+
+* Rename local copy of elements to eliminate name conflict on SoaS
+
+22
+
+* Fix problem with right mouse click cursor disappearing
+
+21
+
+* New translations
+
+20
+
+* pep8 cleanup of Elements package
+* Added more robust error checks in Elements
+* Fixed color conversion bug in Elements
+
+19
+
+BUG FIX:
+* Fix regression in delete tool introduced in v17
+
+18
+
+BUG FIX:
+* Fixed problem with using drag with touch.
+
+17
+
+ENHANCEMENT:
+* Chain tool behaves like magic pen: you can make loops and closed paths
+
+16
+
+ENHANCEMENT:
+* Add sharing to magic pen and polygon
+
+* Clean up of some internals
+
+15
+
+ENHANCEMENT:
+* Added support for collaboration
+
+BUG FIX:
+* Fix problem with pause/play button
+
+14
+
+ENHANCEMENTS:
+* New translations
+* GTK3 conversion by Ignacio Rodriguez
+
+13
+
+ENHANCEMENTS:
+* Added palettes to set density, bouciness, and friction (w/Sai Vineet)
+* Added palette to set motor speed, rotation (w/Sai Vineet)
+* Added chain tool (w/Sai Vineet)
+
+BUG FIX:
+* Updated Box2d version to eliminate some memory leaks (Sai Vineet)
+
+12
+
+ENHANCEMENTS:
+* Added option to joints to set collideConnected = False
+* Added clear_all (Sai Vineet)
+* Added tracking (Sai Vineet)
+* Added tracing (Sai Vineet)
+* Added erase traces (Sai Vineet)
+* Added save/restore of pens and traces (Sai Vineet)
+
+BUG FIXES:
+* Removed cjson dependency for elements
+* pep8 cleanup (Sai Vineet)
+
+11.9
+
+* Removed cjson dependency for elements
+* Added option to joints to set collideConnected = False
+* Added clear_all (svineet)
+* Added tracking (svineet)
+* Added tracing (svineet)

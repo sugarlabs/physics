@@ -1,0 +1,160 @@
+# Amos Batto <amosbatt@yahoo.com>, 2011.
+# Irma <sankaypillo@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2011-11-20 01:51+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: Voluntarios Quechua Sugar Camp\n"
+"Language: quz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#  "Física"
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
+msgid "Physics"
+msgstr "Física nisqa"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Isaac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
+
+#  "Crear"
+#: activity.py:125
+msgid "Create"
+msgstr "Kamariy"
+
+#  "Detener"
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Sayachiy"
+
+#  "<ctrl>Espacio"
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>s"
+
+#  "Avanzar"
+#: activity.py:174
+msgid "Start"
+msgstr "Qallariy"
+
+#  "%s Fuente"
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Chimpu"
+
+#  "Círculo"
+#: tools.py:92
+msgid "Circle"
+msgstr "Muyu"
+
+#  "<ctrl>c"
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>c"
+
+#  "Bloque"
+#: tools.py:131
+msgid "Box"
+msgstr "Tawak'uchu"
+
+#  "<ctrl>b"
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr "<ctrl>b"
+
+#  "Triángulo"
+#: tools.py:181
+msgid "Triangle"
+msgstr "Kimsak'uchu"
+
+#  "<ctrl>t"
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>t"
+
+#  "Polígono"
+#: tools.py:249
+msgid "Polygon"
+msgstr "Achkha k'uchu"
+
+#  "<ctrl>p"
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<ctrl>p"
+
+#  "Dibujar"
+#: tools.py:315
+msgid "Draw"
+msgstr "Siq'ichay"
+
+#  "<ctrl>d"
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>d"
+
+#  "Agarrar"
+#: tools.py:369
+msgid "Grab"
+msgstr "Hap'iy"
+
+#  "<ctrl>g"
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr "<ctrl>g"
+
+#  "Unión"
+#: tools.py:416
+msgid "Joint"
+msgstr "Tinkuna"
+
+#  "Tachuela"
+#: tools.py:460
+msgid "Pin"
+msgstr "Tisi"
+
+#  "<ctrl>o"
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr "<ctrl>o"
+
+#  "Motor"
+#: tools.py:483
+msgid "Motor"
+msgstr "Kuyuchina"
+
+#  "<ctrl>m"
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
+
+#  "Rodar"
+#: tools.py:507
+msgid "Roll"
+msgstr "Ch'uwiy"
+
+#  "<ctrl>r"
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr "<ctrl>r"
+
+#  "Borrar"
+#: tools.py:534
+msgid "Erase"
+msgstr "Pichay"
+
+#  "<ctrl>e"
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr "<ctrl>e"

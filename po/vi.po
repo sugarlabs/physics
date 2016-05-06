@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"PO-Revision-Date: 2010-03-07 17:03+0200\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#. TRANS: "name" option from activity.info file
+#: activity.py:41
+msgid "Physics"
+msgstr "Vật lý"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Isaac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
+
+#: activity.py:125
+msgid "Create"
+msgstr "Tạo"
+
+#: activity.py:137 activity.py:171
+msgid "Stop"
+msgstr "Dừng"
+
+#: activity.py:138
+msgid "<ctrl>space"
+msgstr "<ctrl>phím_dài"
+
+#: activity.py:174
+msgid "Start"
+msgstr "Chạy"
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "Nguồn %s"
+
+#: tools.py:92
+msgid "Circle"
+msgstr "Tròn"
+
+#: tools.py:93
+msgid "<ctrl>c"
+msgstr "<ctrl>r"
+
+#: tools.py:131
+msgid "Box"
+msgstr "Hộp"
+
+#: tools.py:132
+msgid "<ctrl>b"
+msgstr "<ctrl>h"
+
+#: tools.py:181
+msgid "Triangle"
+msgstr "Tam giác"
+
+#: tools.py:182
+msgid "<ctrl>t"
+msgstr "<ctrl>t"
+
+#: tools.py:249
+msgid "Polygon"
+msgstr "Đa giác"
+
+#: tools.py:250
+msgid "<ctrl>p"
+msgstr "<ctrl>g"
+
+#: tools.py:315
+msgid "Draw"
+msgstr "Vẽ"
+
+#: tools.py:316
+msgid "<ctrl>d"
+msgstr "<ctrl>v"
+
+#: tools.py:369
+msgid "Grab"
+msgstr "Lấy"
+
+#: tools.py:370
+msgid "<ctrl>g"
+msgstr "<ctrl>l"
+
+#: tools.py:416
+msgid "Joint"
+msgstr "Chỗ nối"
+
+#: tools.py:460
+msgid "Pin"
+msgstr "Ghim"
+
+#: tools.py:461
+msgid "<ctrl>o"
+msgstr "<ctrl>g"
+
+#: tools.py:483
+msgid "Motor"
+msgstr "Mô tô"
+
+#: tools.py:484
+msgid "<ctrl>m"
+msgstr "<ctrl>m"
+
+#: tools.py:507
+msgid "Roll"
+msgstr "Cuộn"
+
+#: tools.py:508
+msgid "<ctrl>r"
+msgstr "<ctrl>c"
+
+#: tools.py:534
+msgid "Erase"
+msgstr "Xoá"
+
+#: tools.py:535
+msgid "<ctrl>e"
+msgstr "<ctrl>x"
+
+#~ msgid "c"
+#~ msgstr "r"
+
+#~ msgid "b"
+#~ msgstr "h"
+
+#~ msgid "t"
+#~ msgstr "t"
+
+#~ msgid "p"
+#~ msgstr "g"
+
+#~ msgid "d"
+#~ msgstr "v"
+
+#~ msgid "g"
+#~ msgstr "l"
+
+#~ msgid "o"
+#~ msgstr "g"
+
+#~ msgid "m"
+#~ msgstr "m"
+
+#~ msgid "e"
+#~ msgstr "x"

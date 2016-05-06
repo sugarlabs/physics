@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!DOCTYPE svg  PUBLIC "-//W3C//DTD SVG 1.1//EN"  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="clipping-text">
+	<g display="inline">
+		<g>
+			<polygon fill="&fill_color;" points="10.932,6.088 31.874,6.088 43.818,18.027 43.818,48.914 10.932,48.914" stroke="&stroke_color;" stroke-width="3.5"/>
+			<polyline fill="none" points="43.818,18.027 31.874,18.027 31.874,6.088" stroke="&stroke_color;" stroke-width="3.5"/>
+            
+            <circle cx="20.5" cy="28.75" r="5" fill="&fill_color;" stroke="&stroke_color;" stroke-width="1.75"/>
+            <path d="M 28.5 23.5 l 9 -1.25 l 1.25 9 l -9 1.25 z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="1.75"/>
+            <path d="M 21.5 44.5 l 6 -7 l 6 7 z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="1.5"/>
+            <path d="M 15.5 35 l 23.5 -3 l .5 2.75 l -23.5 3 z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="1.5"/>
+		</g>
+	</g>
+</g></svg>
