@@ -5,6 +5,7 @@ bundle_id = org.laptop.physics
 exec = sugar-activity activity.PhysicsActivity
 icon = activity-physics
 activity_version = 30
+max_participants = 4
 show_launcher = yes
 mime_types = application/x-physics-activity;
 category = science game art
