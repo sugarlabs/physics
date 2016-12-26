@@ -459,10 +459,20 @@ class Elements:
 
     def json_save(self, path, additional_vars={}, serialize=False):
         import json
-        worldmodel = {}
 
-        save_id_index = 1
+        worldmodel = self.get_world_model(additional_vars, serialize)
         self.world.groundBody.userData = {"saveid": 0}
+
+        f = open(path, 'w')
+        f.write(json.dumps(worldmodel))
+        f.close()
+
+        for body in self.world.bodies:
+            del body.userData['saveid']  # remove temporary data
+
+    def get_world_model(self, additional_vars={}, serialize=False):
+        worldmodel = {}
+        save_id_index = 1
 
         bodylist = []
         for body in self.world.bodies:
@@ -545,12 +555,8 @@ class Elements:
             additional_vars['trackinfo'] = trackinfo
 
         worldmodel['additional_vars'] = additional_vars
-        f = open(path, 'w')
-        f.write(json.dumps(worldmodel))
-        f.close()
 
-        for body in self.world.bodies:
-            del body.userData['saveid']  # remove temporary data
+        return worldmodel
 
     def json_load(self, path, serialized=False):
         import json
