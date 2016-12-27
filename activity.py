@@ -410,12 +410,9 @@ class PhysicsActivity(activity.Activity):
         fd, file_path = tempfile.mkstemp(dir=tmp_dir)
         os.close(fd)
 
-        data = self.game.world.get_world_model()
-        jsonfile = open(file_path, 'wb')
-        jsonfile.write(json.dumps(data))
-        jsonfile.close()
+        self.game.world.json_save(file_path)
 
-        jobject.set_file_path(os.path.abspath(jsonfile.name))
+        jobject.set_file_path(file_path)
         datastore.write(jobject)
 
     def _window_event(self, window, event):
