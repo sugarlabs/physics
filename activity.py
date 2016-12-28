@@ -21,7 +21,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import csv
 import tempfile
 import json
 import logging
@@ -186,12 +185,6 @@ class PhysicsActivity(activity.Activity):
         export_json.connect('clicked', self._export_json_cb)
         activity_button.props.page.insert(export_json, -1)
         export_json.show()
-
-        export_csv = ToolButton('save-as-csv')
-        export_csv.set_tooltip(_('Export tracked objects to journal'))
-        export_csv.connect('clicked', self._export_csv_cb)
-        activity_button.props.page.insert(export_csv, -1)
-        export_csv.show()
 
         load_project = ToolButton('load-project')
         load_project.set_tooltip(_('Load project from journal'))
@@ -417,30 +410,9 @@ class PhysicsActivity(activity.Activity):
         fd, file_path = tempfile.mkstemp(dir=tmp_dir)
         os.close(fd)
 
-        data = self.game.full_pos_list
-        jsonfile = open(file_path, 'wb')
-        jsonfile.write(json.dumps(data))
-        jsonfile.close()
+        self.game.world.json_save(file_path)
 
-        jobject.set_file_path(os.path.abspath(jsonfile.name))
-        datastore.write(jobject)
-
-    def _export_csv_cb(self, button):
-        jobject = datastore.create()
-        jobject.metadata['title'] = _('Physics export')
-        jobject.metadata['mime_type'] = 'text/csv'
-
-        tmp_dir = os.path.join(self.get_activity_root(), 'instance')
-        fd, file_path = tempfile.mkstemp(dir=tmp_dir)
-        os.close(fd)
-
-        data = self.game.full_pos_list
-        csvfile = open(file_path, 'wb')
-        writer = csv.writer(csvfile)
-        writer.writerows(data)
-        csvfile.close()
-
-        jobject.set_file_path(os.path.abspath(csvfile.name))
+        jobject.set_file_path(file_path)
         datastore.write(jobject)
 
     def _window_event(self, window, event):

@@ -2,24 +2,26 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-04-11 17:36+0000\n"
+"Last-Translator: jenni_fercamila <jennifermalikk@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: gn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.7.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1428773811.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #: activity.py:41
 msgid "Physics"
-msgstr ""
+msgstr "Mba'ekuaa"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
@@ -30,105 +32,112 @@ msgstr ""
 
 #: activity.py:125
 msgid "Create"
-msgstr ""
+msgstr "Ejapo"
 
 #: activity.py:137 activity.py:171
 msgid "Stop"
-msgstr ""
+msgstr "Mbopyta"
 
 #: activity.py:138
 msgid "<ctrl>space"
-msgstr ""
+msgstr "<ctrl>Arapy"
 
 #: activity.py:174
 msgid "Start"
-msgstr ""
+msgstr "Ñemotenonde"
 
 #: olpcgames/canvas.py:151
 #, python-format
 msgid "%s Source"
-msgstr ""
+msgstr "%s Ñepyrũ"
 
 #: tools.py:92
 msgid "Circle"
-msgstr ""
+msgstr "Kora"
 
 #: tools.py:93
 msgid "<ctrl>c"
-msgstr ""
+msgstr "<ctrl>c"
 
 #: tools.py:131
 msgid "Box"
-msgstr ""
+msgstr "Ryru"
 
 #: tools.py:132
 msgid "<ctrl>b"
-msgstr ""
+msgstr "<ctrl>b"
 
 #: tools.py:181
 msgid "Triangle"
-msgstr ""
+msgstr "Takamby mbohapyjoja"
 
 #: tools.py:182
 msgid "<ctrl>t"
-msgstr ""
+msgstr "<ctrl>t"
 
 #: tools.py:249
 msgid "Polygon"
-msgstr ""
+msgstr "Heta takamby"
 
 #: tools.py:250
 msgid "<ctrl>p"
-msgstr ""
+msgstr "<ctrl>p"
 
 #: tools.py:315
 msgid "Draw"
-msgstr ""
+msgstr "Ha'ãngahai"
 
 #: tools.py:316
 msgid "<ctrl>d"
-msgstr ""
+msgstr "<ctrl>d"
 
 #: tools.py:369
 msgid "Grab"
-msgstr ""
+msgstr "Pyhy"
 
 #: tools.py:370
 msgid "<ctrl>g"
-msgstr ""
+msgstr "<ctrl>g"
 
 #: tools.py:416
 msgid "Joint"
-msgstr ""
+msgstr "Joaju"
 
 #: tools.py:460
 msgid "Pin"
-msgstr ""
+msgstr "Kutuha"
 
 #: tools.py:461
 msgid "<ctrl>o"
-msgstr ""
+msgstr "<ctrl>o"
 
 #: tools.py:483
 msgid "Motor"
-msgstr ""
+msgstr "Momyiha"
 
 #: tools.py:484
 msgid "<ctrl>m"
-msgstr ""
+msgstr "<ctrl>m"
 
 #: tools.py:507
 msgid "Roll"
-msgstr ""
+msgstr "Japajerei"
 
 #: tools.py:508
 msgid "<ctrl>r"
-msgstr ""
+msgstr "<ctrl>r"
 
 #: tools.py:534
 msgid "Erase"
-msgstr ""
+msgstr "Mbogue"
 
 #: tools.py:535
 msgid "<ctrl>e"
-msgstr ""
+msgstr "<ctrl>e"
+
+#~ msgid ""
+#~ "Prove Sir Issac Newton right! Create real life simulations using different "
+#~ "shapes and see them come to life with forces!"
+#~ msgstr ""
+#~ "Ehechauka Karai Issac Newton oikuaaha! Ejapo tekove ha'ete ñembojapo ha "
+#~ "reipuru oikoéva moha'anga, ha ehecha umia oiko remyañandive!"

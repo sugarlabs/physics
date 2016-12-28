@@ -459,43 +459,52 @@ class Elements:
 
     def json_save(self, path, additional_vars={}, serialize=False):
         import json
-        worldmodel = {}
 
-        save_id_index = 1
+        worldmodel = self.get_world_model(additional_vars, serialize)
         self.world.groundBody.userData = {"saveid": 0}
+
+        f = open(path, 'w')
+        f.write(json.dumps(worldmodel))
+        f.close()
+
+        for body in self.world.bodies:
+            del body.userData['saveid']  # remove temporary data
+
+    def get_world_model(self, additional_vars={}, serialize=False):
+        worldmodel = {}
+        save_id_index = 1
 
         bodylist = []
         for body in self.world.bodies:
-            if not body == self.world.groundBody:
-                body.userData["saveid"] = save_id_index  # set temporary data
-                save_id_index += 1
-                shapelist = body.fixtures
-                modelbody = {}
-                modelbody['position'] = body.position.tuple
-                modelbody['dynamic'] = body.type == box2d.b2_dynamicBody
-                modelbody['userData'] = body.userData
-                modelbody['angle'] = body.angle
-                modelbody['angularVelocity'] = body.angularVelocity
-                modelbody['linearVelocity'] = body.linearVelocity.tuple
-                if shapelist and len(shapelist) > 0:
-                    shapes = []
-                    for shape in shapelist:
-                        modelshape = {}
-                        modelshape['density'] = shape.density
-                        modelshape['restitution'] = shape.restitution
-                        modelshape['friction'] = shape.friction
-                        shapename = shape.shape.__class__.__name__
-                        if shapename == "b2CircleShape":
-                            modelshape['type'] = 'circle'
-                            modelshape['radius'] = shape.shape.radius
-                            modelshape['localPosition'] = shape.shape.pos.tuple
-                        if shapename == "b2PolygonShape":
-                            modelshape['type'] = 'polygon'
-                            modelshape['vertices'] = shape.shape.vertices
-                        shapes.append(modelshape)
-                    modelbody['shapes'] = shapes
+            body.userData["saveid"] = save_id_index  # set temporary data
+            save_id_index += 1
+            shapelist = body.fixtures
+            modelbody = {}
+            modelbody['position'] = body.position.tuple
+            modelbody['dynamic'] = body.type == box2d.b2_dynamicBody
+            modelbody['userData'] = body.userData
+            modelbody['angle'] = body.angle
+            modelbody['angularVelocity'] = body.angularVelocity
+            modelbody['linearVelocity'] = body.linearVelocity.tuple
+            if shapelist and len(shapelist) > 0:
+                shapes = []
+                for shape in shapelist:
+                    modelshape = {}
+                    modelshape['density'] = shape.density
+                    modelshape['restitution'] = shape.restitution
+                    modelshape['friction'] = shape.friction
+                    shapename = shape.shape.__class__.__name__
+                    if shapename == "b2CircleShape":
+                        modelshape['type'] = 'circle'
+                        modelshape['radius'] = shape.shape.radius
+                        modelshape['localPosition'] = shape.shape.pos.tuple
+                    if shapename == "b2PolygonShape":
+                        modelshape['type'] = 'polygon'
+                        modelshape['vertices'] = shape.shape.vertices
+                    shapes.append(modelshape)
+                modelbody['shapes'] = shapes
 
-                bodylist.append(modelbody)
+            bodylist.append(modelbody)
 
         worldmodel['bodylist'] = bodylist
 
@@ -545,12 +554,8 @@ class Elements:
             additional_vars['trackinfo'] = trackinfo
 
         worldmodel['additional_vars'] = additional_vars
-        f = open(path, 'w')
-        f.write(json.dumps(worldmodel))
-        f.close()
 
-        for body in self.world.bodies:
-            del body.userData['saveid']  # remove temporary data
+        return worldmodel
 
     def json_load(self, path, serialized=False):
         import json
