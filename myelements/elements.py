@@ -476,35 +476,36 @@ class Elements:
 
         bodylist = []
         for body in self.world.bodies:
-            body.userData["saveid"] = save_id_index  # set temporary data
-            save_id_index += 1
-            shapelist = body.fixtures
-            modelbody = {}
-            modelbody['position'] = body.position.tuple
-            modelbody['dynamic'] = body.type == box2d.b2_dynamicBody
-            modelbody['userData'] = body.userData
-            modelbody['angle'] = body.angle
-            modelbody['angularVelocity'] = body.angularVelocity
-            modelbody['linearVelocity'] = body.linearVelocity.tuple
-            if shapelist and len(shapelist) > 0:
-                shapes = []
-                for shape in shapelist:
-                    modelshape = {}
-                    modelshape['density'] = shape.density
-                    modelshape['restitution'] = shape.restitution
-                    modelshape['friction'] = shape.friction
-                    shapename = shape.shape.__class__.__name__
-                    if shapename == "b2CircleShape":
-                        modelshape['type'] = 'circle'
-                        modelshape['radius'] = shape.shape.radius
-                        modelshape['localPosition'] = shape.shape.pos.tuple
-                    if shapename == "b2PolygonShape":
-                        modelshape['type'] = 'polygon'
-                        modelshape['vertices'] = shape.shape.vertices
-                    shapes.append(modelshape)
-                modelbody['shapes'] = shapes
-
-            bodylist.append(modelbody)
+            if not body == self.world.groundBody:
+                body.userData["saveid"] = save_id_index  # set temporary data
+                save_id_index += 1
+                shapelist = body.fixtures
+                modelbody = {}
+                modelbody['position'] = body.position.tuple
+                modelbody['dynamic'] = body.type == box2d.b2_dynamicBody
+                modelbody['userData'] = body.userData
+                modelbody['angle'] = body.angle
+                modelbody['angularVelocity'] = body.angularVelocity
+                modelbody['linearVelocity'] = body.linearVelocity.tuple
+                if shapelist and len(shapelist) > 0:
+                    shapes = []
+                    for shape in shapelist:
+                        modelshape = {}
+                        modelshape['density'] = shape.density
+                        modelshape['restitution'] = shape.restitution
+                        modelshape['friction'] = shape.friction
+                        shapename = shape.shape.__class__.__name__
+                        if shapename == "b2CircleShape":
+                            modelshape['type'] = 'circle'
+                            modelshape['radius'] = shape.shape.radius
+                            modelshape['localPosition'] = shape.shape.pos.tuple
+                        if shapename == "b2PolygonShape":
+                            modelshape['type'] = 'polygon'
+                            modelshape['vertices'] = shape.shape.vertices
+                        shapes.append(modelshape)
+                    modelbody['shapes'] = shapes
+    
+                bodylist.append(modelbody)
 
         worldmodel['bodylist'] = bodylist
 
