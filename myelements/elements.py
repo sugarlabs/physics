@@ -476,6 +476,8 @@ class Elements:
 
         bodylist = []
         for body in self.world.bodies:
+            if body == self.world.groundBody:
+                continue
             body.userData["saveid"] = save_id_index  # set temporary data
             save_id_index += 1
             shapelist = body.fixtures
