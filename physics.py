@@ -206,7 +206,7 @@ class PhysicsGame:
 
                 # Update & Draw World
                 self.world.update(fps=self.box2d_fps)
-                self.screen.fill((255, 255, 255))  # 255 for white
+                self.screen.fill((240, 240, 240))  # same as #f0f0f0, or light-grey color
                 self.world.draw()
 
                 # Draw output from tools
