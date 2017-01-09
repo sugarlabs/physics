@@ -152,7 +152,6 @@ class PhysicsActivity(activity.Activity):
 	color.show()
 
 	self.randomColor = ToggleToolButton('Random Color')
-	self.randomColor.set_tooltip(_('Click to Randomize Block Colors'))
 	self.randomColor.props.icon_name = 'colorRandom'
 	self.randomColor.connect('toggled', self.resetColors)
 	toolbar_box.toolbar.insert(self.randomColor, -1)
@@ -160,6 +159,7 @@ class PhysicsActivity(activity.Activity):
 	self.randomColor.show()
 	
         color = ColorToolButton('Color Button')
+        self.randomColor.set_tooltip(_('Toggle random color'))
         self._insert_stop_play_button(toolbar_box.toolbar)
 
         clear_trace = ToolButton('clear-trace')
