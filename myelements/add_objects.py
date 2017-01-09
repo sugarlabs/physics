@@ -42,10 +42,10 @@ class Add:
         self.parent = parent
 
     def setColor(self, objectColor):
-	self.parent.set_color(objectColor)
+        self.parent.set_color(objectColor)
 
     def resetColor(self):
-	self.parent.reset_color()
+        self.parent.reset_color()
 
     def ground(self):
         """ Add a static ground to the scene

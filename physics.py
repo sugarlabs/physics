@@ -26,7 +26,6 @@
 # Code:   git://git.sugarlabs.org/physics/mainline.git
 
 import os
-import sys
 
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -206,7 +205,7 @@ class PhysicsGame:
 
                 # Update & Draw World
                 self.world.update(fps=self.box2d_fps)
-                self.screen.fill((240, 240, 240))  # same as #f0f0f0, or light-grey color
+                self.screen.fill((240, 240, 240))  # #f0f0f0, light-grey
                 self.world.draw()
 
                 # Draw output from tools
