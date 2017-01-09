@@ -46,6 +46,7 @@ from sugar3.graphics.alert import ConfirmationAlert
 from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbarbox import ToolbarButton
+from sugar3.graphics.toggletoolbutton import ToggleToolButton
 from sugar3.graphics.style import GRID_CELL_SIZE
 from sugar3.datastore import datastore
 from sugar3.graphics.alert import Alert
@@ -53,6 +54,7 @@ from sugar3.graphics.icon import Icon
 from sugar3.graphics.xocolor import XoColor
 from sugar3 import profile
 
+from ColorPalette import ColorPalette
 try:
     from sugar3.presence.wrapper import CollabWrapper
 except ImportError:
@@ -144,6 +146,20 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.toolbar.insert(create_toolbar, -1)
         self._insert_create_tools(create_toolbar)
 
+	color = ColorPalette('Color Button')
+	color.props.icon_name = 'color'
+	color.connect('notify::color', self.returnChosenColor)
+	toolbar_box.toolbar.insert(color, -1)
+	color.show()
+
+	self.randomColor = ToggleToolButton('Random Color')
+	self.randomColor.set_tooltip(_('Click to Randomize Block Colors'))
+	self.randomColor.props.icon_name = 'colorRandom'
+	self.randomColor.connect('toggled', self.resetColors)
+	toolbar_box.toolbar.insert(self.randomColor, -1)
+	self.randomColor.set_active(True)
+	self.randomColor.show()
+	
         self._insert_stop_play_button(toolbar_box.toolbar)
 
         clear_trace = ToolButton('clear-trace')
@@ -196,6 +212,26 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.show_all()
         create_toolbar.set_expanded(True)
         return toolbar_box
+
+    def returnChosenColor(self, widget, pspec):
+	'''
+	input: used as a connect function for Gtk Color widget
+	The conversion that follows is required because Gtk Color is stored in RGB
+	with the highest value being 65535, whereas this program stores color
+	with the highest value being 255. 		
+	'''
+	color = widget.get_color()
+	red = (color.red / 65535.0) * 255
+        green = (color.green / 65535.0) * 255
+        blue = (color.blue / 65535.0) * 255
+	objectColor = ((red),(green), (blue))
+	self.randomColor.set_active(False)
+
+        self.game.world.add.setColor(objectColor)
+
+
+    def resetColors(self, button):
+	self.game.world.add.resetColor()
 
     def can_close(self):
         self.preview = self.get_preview()
