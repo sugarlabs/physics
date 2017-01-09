@@ -54,7 +54,7 @@ from sugar3.graphics.icon import Icon
 from sugar3.graphics.xocolor import XoColor
 from sugar3 import profile
 
-from ColorPalette import ColorPalette
+from colorbutton import ColorToolButton
 try:
     from sugar3.presence.wrapper import CollabWrapper
 except ImportError:
@@ -146,7 +146,6 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.toolbar.insert(create_toolbar, -1)
         self._insert_create_tools(create_toolbar)
 
-	color = ColorPalette('Color Button')
 	color.props.icon_name = 'color'
 	color.connect('notify::color', self.returnChosenColor)
 	toolbar_box.toolbar.insert(color, -1)
@@ -160,6 +159,7 @@ class PhysicsActivity(activity.Activity):
 	self.randomColor.set_active(True)
 	self.randomColor.show()
 	
+        color = ColorToolButton('Color Button')
         self._insert_stop_play_button(toolbar_box.toolbar)
 
         clear_trace = ToolButton('clear-trace')

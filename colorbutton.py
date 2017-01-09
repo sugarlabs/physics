@@ -41,6 +41,7 @@ class _ColorButton(Gtk.Button):
     """This is a ColorButton for Sugar. It is similar to the Gtk.ColorButton,
     but does not have any alpha support.
     Instead of a color selector dialog it will pop up a Sugar palette.
+
     As a preview an sugar3.graphics.Icon is used. The fill color will be set to
     the current color, and the stroke color is set to the font color.
     """
