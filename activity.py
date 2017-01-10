@@ -142,19 +142,22 @@ class PhysicsActivity(activity.Activity):
         toolbar_box.toolbar.insert(create_toolbar, -1)
         self._insert_create_tools(create_toolbar)
 
-        color = ColorToolButton('Color Button')
-        color.props.icon_name = 'color'
-        color.connect('notify::color', self.returnChosenColor)
+        color = ColorToolButton('color')
+        color.connect('notify::color', self.__color_notify_cb)
         toolbar_box.toolbar.insert(color, -1)
         color.show()
 
-        self.randomColor = ToggleToolButton('Random Color')
-        self.randomColor.set_tooltip(_('Toggle random color'))
-        self.randomColor.props.icon_name = 'colorRandom'
-        self.randomColor.connect('toggled', self.resetColors)
-        toolbar_box.toolbar.insert(self.randomColor, -1)
-        self.randomColor.set_active(True)
-        self.randomColor.show()
+        random = ToggleToolButton('colorRandom')
+        random.set_tooltip(_('Toggle random color'))
+        toolbar_box.toolbar.insert(random, -1)
+        random.set_active(True)
+        random.connect('toggled', self.__random_toggled_cb)
+        random.show()
+
+        color.random = random
+        random.color = color
+
+        random.timeout_id = GObject.timeout_add(100, self.__timeout_cb, random)
 
         self._insert_stop_play_button(toolbar_box.toolbar)
 
@@ -209,24 +212,66 @@ class PhysicsActivity(activity.Activity):
         create_toolbar.set_expanded(True)
         return toolbar_box
 
-    def returnChosenColor(self, widget, pspec):
-        '''
-        input: used as a connect function for Gtk Color widget The
-        conversion that follows is required because Gtk Color is
-        stored in RGB with the highest value being 65535, whereas this
-        program stores color with the highest value being 255.
-        '''
-        color = widget.get_color()
-        red = (color.red / 65535.0) * 255
-        green = (color.green / 65535.0) * 255
-        blue = (color.blue / 65535.0) * 255
-        objectColor = ((red), (green), (blue))
-        self.randomColor.set_active(False)
+    def __color_notify_cb(self, button, pdesc):
+        """ when a color is chosen;
+        change world object add color,
+        and change color of buttons. """
 
-        self.game.world.add.setColor(objectColor)
+        color = button.get_color()
+        self._set_color(color)
+        button.random.set_active(False)
+        button.random.get_icon_widget().set_stroke_color(self._rgb8x(color))
 
-    def resetColors(self, button):
-        self.game.world.add.resetColor()
+    def __random_toggled_cb(self, random):
+        if random.props.active:
+            self._random_on(random)
+        else:
+            self._random_off(random)
+
+    def _random_on(self, random):
+        """ when random is turned on;
+        reset world object add color,
+        and begin watching for changed world object add color. """
+
+        self.game.world.add.reset_color()
+
+        if random.timeout_id is None:
+            random.timeout_id = GObject.timeout_add(100, self.__timeout_cb,
+                                                    random)
+            self.__timeout_cb(random)
+
+    def _random_off(self, random):
+        """ when random is turned off;
+        change world object add color back to chosen color,
+        change color of buttons,
+        and stop watching for changed world object add color. """
+
+        color = random.color.get_color()
+        self._set_color(color)
+        random.get_icon_widget().set_stroke_color(self._rgb8x(color))
+
+        if random.timeout_id is not None:
+            GObject.source_remove(random.timeout_id)
+            random.timeout_id = None
+
+    def __timeout_cb(self, random):
+        """ copy the next color to the random button stroke color. """
+        if hasattr(self.game, "world"):
+            color = self.game.world.add.next_color()
+            random.get_icon_widget().set_stroke_color('#%.2X%.2X%.2X' % color)
+        return True
+
+    def _set_color(self, color):
+        """ set world object add color. """
+        self.game.world.add.set_color(self._rgb8(color))
+
+    def _rgb8x(self, color):
+        """ convert a Gdk.Color into hex triplet. """
+        return '#%.2X%.2X%.2X' % self._rgb8(color)
+
+    def _rgb8(self, color):
+        """ convert a Gdk.Color into an 8-bit RGB tuple. """
+        return (color.red / 256, color.green / 256, color.blue / 256)
 
     def can_close(self):
         self.preview = self.get_preview()

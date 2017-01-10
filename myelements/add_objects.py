@@ -41,10 +41,10 @@ class Add:
     def __init__(self, parent):
         self.parent = parent
 
-    def setColor(self, objectColor):
-        self.parent.set_color(objectColor)
+    def set_color(self, color):
+        self.parent.set_color(color)
 
-    def resetColor(self):
+    def reset_color(self):
         self.parent.reset_color()
 
     def next_color(self):
