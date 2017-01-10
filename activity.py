@@ -27,6 +27,9 @@ import logging
 import glob
 from gettext import gettext as _
 
+import gi
+gi.require_version('Gtk', '3.0')
+
 import pygame
 import sugargame
 import sugargame.canvas
