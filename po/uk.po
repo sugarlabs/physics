@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: 2015-10-31 08:47+0000\n"
-"Last-Translator: lxlalexlxl <pilipchukap@rambler.ru>\n"
+"PO-Revision-Date: 2017-04-07 13:18+0000\n"
+"Last-Translator: yurchor <yurchor@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1446281245.000000\n"
+"X-POOTLE-MTIME: 1491571116.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #: activity.py:41
@@ -50,6 +50,8 @@ msgid ""
 "Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
+"Доведіть, що сер Ісак Ньютон був правий! Створіть імітацію реального світу "
+"за допомогою різних предметів і спостерігайте, як сили рухають ці предмети!"
 
 #: activity.py:125
 msgid "Create"
@@ -70,7 +72,7 @@ msgstr "Почати"
 #: olpcgames/canvas.py:151
 #, python-format
 msgid "%s Source"
-msgstr "%s Джерело"
+msgstr "Код %s"
 
 #: tools.py:92
 msgid "Circle"

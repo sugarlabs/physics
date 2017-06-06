@@ -1,4 +1,21 @@
+32
+
+* Fix ground bodies bug (Cristian García),
+* Fix Keep Error (Nicholas Kernan),
+* Add colour controls, specific and random choice (James Cameron),
+* Fixes for collaboration wrapper (Sam Parkinson),
+* Fix warnings in log (James Cameron),
+* Fix Box2D import again (James Cameron).
+
+31
+
+* New translations (Chris Leonard et al),
+* JSON imports/exports fixed (Cristian García),
+* CSV imports/exports removed,
+* Set maximum participants (Abhijit Patel).
+
 30
+
 * New translations
 * Typo fixed
 * Added repository link to activity.info

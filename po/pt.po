@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-12 00:31-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2013-12-14 20:51+0200\n"
 "Last-Translator: Eduardo H. <hoboprimate@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,7 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Física"
 
@@ -55,149 +56,145 @@ msgid ""
 "Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
-"Prova que Isaac Newton tinha razão! Cria simulações da vida real utilizando "
-"as diferentes formas e vê como ganham vida com as forças!"
 
-#: activity.py:123
+#: activity.py:125
 msgid "Create"
 msgstr "Criar"
 
-#: activity.py:151 activity.py:157
-msgid "Export tracked objects to journal"
-msgstr "Exportar objetos seguidos para o diário"
-
-#: activity.py:175 activity.py:228
+#: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "Parar"
 
-#: activity.py:176
+#: activity.py:138
 msgid "<ctrl>space"
 msgstr "<ctrl>espaço"
 
-#: activity.py:183
-msgid "Erase All"
-msgstr "Apagar Tudo"
-
-#: activity.py:184
-msgid "<ctrl>a"
-msgstr "<ctrl>a"
-
-#: activity.py:231
+#: activity.py:174
 msgid "Start"
 msgstr "Iniciar"
 
-#: activity.py:241
-msgid "Are You Sure?"
-msgstr "Tens a certeza?"
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "Código-fonte %s"
 
-#: activity.py:243
-msgid "All your work will be discarded. This cannot be undone!"
-msgstr "Todo o teu trabalho será descartado. Isto não pode ser desfeito!"
-
-#: activity.py:267 activity.py:284
-msgid "Physics export"
-msgstr "Exportar Física"
-
-#: tools.py:109
+#: tools.py:92
 msgid "Circle"
 msgstr "Círculo"
 
-#: tools.py:110
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:150
+#: tools.py:131
 msgid "Box"
 msgstr "Caixa"
 
-#: tools.py:151
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:203
+#: tools.py:181
 msgid "Triangle"
 msgstr "Triângulo"
 
-#: tools.py:204
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:273
+#: tools.py:249
 msgid "Polygon"
 msgstr "Polígono"
 
-#: tools.py:274
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:349
+#: tools.py:315
 msgid "Draw"
 msgstr "Desenhar"
 
-#: tools.py:350
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:406
+#: tools.py:369
 msgid "Grab"
 msgstr "Agarrar"
 
-#: tools.py:407
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:456
+#: tools.py:416
 msgid "Joint"
 msgstr "Articulação"
 
-#: tools.py:504
+#: tools.py:460
 msgid "Pin"
 msgstr "Prender"
 
-#: tools.py:505
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:529
+#: tools.py:483
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:530
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:555
+#: tools.py:507
 msgid "Roll"
 msgstr "Rolar"
 
-#: tools.py:556 tools.py:674
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:582
+#: tools.py:534
 msgid "Erase"
 msgstr "Apagar"
 
-#: tools.py:583
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
 
-#: tools.py:624
-msgid "Erase all"
-msgstr "Apagar tudo"
+#~ msgid ""
+#~ "Prove Sir Issac Newton right! Create real life simulations using different "
+#~ "shapes and see them come to life with forces!"
+#~ msgstr ""
+#~ "Prova que Isaac Newton tinha razão! Cria simulações da vida real utilizando "
+#~ "as diferentes formas e vê como ganham vida com as forças!"
 
-#: tools.py:637
-msgid "Delete all shapes?"
-msgstr "Apagar todas as formas?"
+#~ msgid "Export tracked objects to journal"
+#~ msgstr "Exportar objetos seguidos para o diário"
 
-#: tools.py:638
-msgid "This can't be undone!"
-msgstr "Isto não pode ser desfeito!"
+#~ msgid "Erase All"
+#~ msgstr "Apagar Tudo"
 
-#: tools.py:673
-msgid "Track Object"
-msgstr "Seguir Objeto"
+#~ msgid "<ctrl>a"
+#~ msgstr "<ctrl>a"
 
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "Código-fonte %s"
+#~ msgid "Are You Sure?"
+#~ msgstr "Tens a certeza?"
+
+#~ msgid "All your work will be discarded. This cannot be undone!"
+#~ msgstr "Todo o teu trabalho será descartado. Isto não pode ser desfeito!"
+
+#~ msgid "Physics export"
+#~ msgstr "Exportar Física"
+
+#~ msgid "Erase all"
+#~ msgstr "Apagar tudo"
+
+#~ msgid "Delete all shapes?"
+#~ msgstr "Apagar todas as formas?"
+
+#~ msgid "This can't be undone!"
+#~ msgstr "Isto não pode ser desfeito!"
+
+#~ msgid "Track Object"
+#~ msgstr "Seguir Objeto"

@@ -42,7 +42,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2014-04-06 08:51+0200\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,6 +54,7 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Physique"
 
@@ -63,160 +64,150 @@ msgid ""
 "Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
-"Prouvez la théorie d'Isaac Newton ! Créez des simulations de la vie réelle "
+"Prouvez la théorie d'Issac Newton ! Créez des simulations de la vie réelle "
 "en utilisant des formes différentes et regardez-les s'animer avec la force "
 "d'attraction !"
 
-#: activity.py:124
+#: activity.py:125
 msgid "Create"
 msgstr "Créer"
 
-#: activity.py:135
-msgid "Clear Trace Marks"
-msgstr "Effacer les marques de trace"
-
-#: activity.py:136
-msgid "<ctrl>x"
-msgstr "<ctrl>x"
-
-#: activity.py:161 activity.py:167
-msgid "Export tracked objects to journal"
-msgstr "Exporter les objets tracés vers les Journal"
-
-#: activity.py:185 activity.py:293
+#: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "Arrêter"
 
-#: activity.py:186
+#: activity.py:138
 msgid "<ctrl>space"
 msgstr "<ctrl>espace"
 
-#: activity.py:193
-msgid "Erase All"
-msgstr "Effacer tout"
-
-#: activity.py:194
-msgid "<ctrl>a"
-msgstr "<ctrl>a"
-
-#: activity.py:280 activity.py:307
-msgid "Are You Sure?"
-msgstr "Voulez-vous réellement effacer tout ?"
-
-#: activity.py:282
-msgid "All trace points will be erased. This cannot be undone!"
-msgstr ""
-"Tous les points de trace seront effacés. Cette opération ne pourra pas être "
-"annulée."
-
-#: activity.py:296
+#: activity.py:174
 msgid "Start"
 msgstr "Commencer"
 
-#: activity.py:309
-msgid "All your work will be discarded. This cannot be undone!"
-msgstr ""
-"Tout votre travail sera annulé. Cette opération ne pourra pas être annulée."
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Source"
 
-#: activity.py:333 activity.py:350
-msgid "Physics export"
-msgstr "Exportation de Physique"
-
-#: tools.py:167
+#: tools.py:92
 msgid "Circle"
 msgstr "Cercle"
 
-#: tools.py:168
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:215
+#: tools.py:131
 msgid "Box"
 msgstr "Boîte"
 
-#: tools.py:216
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:274
+#: tools.py:181
 msgid "Triangle"
 msgstr "Triangle"
 
-#: tools.py:275
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:350
+#: tools.py:249
 msgid "Polygon"
 msgstr "Polygone"
 
-#: tools.py:351
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:436
+#: tools.py:315
 msgid "Draw"
 msgstr "Dessiner"
 
-#: tools.py:437
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:499
+#: tools.py:369
 msgid "Grab"
 msgstr "Prendre"
 
-#: tools.py:500
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:549
+#: tools.py:416
 msgid "Joint"
 msgstr "Articulation"
 
-#: tools.py:597
+#: tools.py:460
 msgid "Pin"
 msgstr "Punaise"
 
-#: tools.py:598
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:622
+#: tools.py:483
 msgid "Motor"
 msgstr "Moteur"
 
-#: tools.py:623
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:667
+#: tools.py:507
 msgid "Roll"
 msgstr "Roulement"
 
-#: tools.py:668 tools.py:751
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:694
+#: tools.py:534
 msgid "Erase"
 msgstr "Effacer"
 
-#: tools.py:695
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
 
-#: tools.py:750
-msgid "Track Object"
-msgstr "Suivre la trace de l'objet"
+#~ msgid "Clear Trace Marks"
+#~ msgstr "Effacer les marques de trace"
 
-#: tools.py:800
-msgid "Chain"
-msgstr "Chaîne"
+#~ msgid "<ctrl>x"
+#~ msgstr "<ctrl>x"
 
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s Source"
+#~ msgid "Export tracked objects to journal"
+#~ msgstr "Exporter les objets tracés vers les Journal"
+
+#~ msgid "Erase All"
+#~ msgstr "Effacer tout"
+
+#~ msgid "<ctrl>a"
+#~ msgstr "<ctrl>a"
+
+#~ msgid "Are You Sure?"
+#~ msgstr "Voulez-vous réellement effacer tout ?"
+
+#~ msgid "All trace points will be erased. This cannot be undone!"
+#~ msgstr ""
+#~ "Tous les points de trace seront effacés. Cette opération ne pourra pas être "
+#~ "annulée."
+
+#~ msgid "All your work will be discarded. This cannot be undone!"
+#~ msgstr ""
+#~ "Tout votre travail sera annulé. Cette opération ne pourra pas être annulée."
+
+#~ msgid "Physics export"
+#~ msgstr "Exportation de Physique"
+
+#~ msgid "Track Object"
+#~ msgstr "Suivre la trace de l'objet"
+
+#~ msgid "Chain"
+#~ msgstr "Chaîne"
 
 #~ msgid "c"
 #~ msgstr "c"
