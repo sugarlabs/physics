@@ -30,7 +30,7 @@ __contact__ = '<elements@linuxuser.at>'
 
 # Load Box2D
 try:
-    import lib.Box2D as box2d
+    import Box2D as box2d
 except:
     print 'Could not load the pybox2d library (Box2D).'
     print 'Please run "setup.py install" to install the dependencies.'

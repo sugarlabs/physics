@@ -34,9 +34,7 @@ import pygame
 from pygame.locals import *
 from pygame.color import *
 
-# from sugar3.activity import activity
-# sys.path.insert(0, os.path.join(activity.get_bundle_path(), 'lib'))
-import lib.Box2D as box2d
+import Box2D as box2d
 import myelements as elements
 
 import tools
