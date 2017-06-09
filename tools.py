@@ -32,7 +32,7 @@ from gettext import gettext as _
 from pygame.locals import *
 from helpers import *
 
-import lib.Box2D as box2d
+import Box2D as box2d
 
 from sugar3.activity import activity
 
