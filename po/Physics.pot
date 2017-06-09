@@ -8,127 +8,225 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-03 00:32-0400\n"
+"POT-Creation-Date: 2017-06-06 14:02+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. TRANS: "name" option from activity.info file
-#: activity.py:41
+#: activity/activity.info:2
 msgid "Physics"
 msgstr ""
 
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:3
 msgid ""
 "Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
 
-#: activity.py:125
+#: activity.py:144
 msgid "Create"
 msgstr ""
 
-#: activity.py:137 activity.py:171
+#: activity.py:154
+msgid "Toggle random color"
+msgstr ""
+
+#: activity.py:168
+msgid "Clear Trace Marks"
+msgstr ""
+
+#: activity.py:169
+msgid "<ctrl>x"
+msgstr ""
+
+#: activity.py:179
+msgid "Show sample projects"
+msgstr ""
+
+#: activity.py:202
+msgid "Export tracked objects to journal"
+msgstr ""
+
+#: activity.py:208 activity.py:649
+msgid "Load project from journal"
+msgstr ""
+
+#: activity.py:293 activity.py:442
 msgid "Stop"
 msgstr ""
 
-#: activity.py:138
+#: activity.py:294
 msgid "<ctrl>space"
 msgstr ""
 
-#: activity.py:174
+#: activity.py:301
+msgid "Run slower"
+msgstr ""
+
+#: activity.py:308
+msgid "Run slow"
+msgstr ""
+
+#: activity.py:329
+msgid "Erase All"
+msgstr ""
+
+#: activity.py:330
+msgid "<ctrl>a"
+msgstr ""
+
+#: activity.py:429 activity.py:459 activity.py:631
+msgid "Are You Sure?"
+msgstr ""
+
+#: activity.py:431
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr ""
+
+#: activity.py:447
 msgid "Start"
 msgstr ""
 
-#: olpcgames/canvas.py:151
-#, python-format
-msgid "%s Source"
+#: activity.py:461 activity.py:633
+msgid "All your work will be discarded. This cannot be undone!"
 msgstr ""
 
-#: tools.py:92
+#: activity.py:485
+msgid "Physics export"
+msgstr ""
+
+#: activity.py:651
+msgid "Load example"
+msgstr ""
+
+#: activity.py:653
+msgid "Error: Cannot open Physics project from this file."
+msgstr ""
+
+#: activity.py:697
+msgid "Select a sample..."
+msgstr ""
+
+#: collabwrapper.py:178
+msgid "Joining activity..."
+msgstr ""
+
+#: collabwrapper.py:179 collabwrapper.py:191
+msgid "Please wait for the connection..."
+msgstr ""
+
+#: collabwrapper.py:190
+msgid "Resuming shared activity..."
+msgstr ""
+
+#: colorbutton.py:54
+msgid "Choose a color"
+msgstr ""
+
+#: colorbutton.py:279
+msgid "Red"
+msgstr ""
+
+#: colorbutton.py:281
+msgid "Green"
+msgstr ""
+
+#: colorbutton.py:283
+msgid "Blue"
+msgstr ""
+
+#: tools.py:170
 msgid "Circle"
 msgstr ""
 
-#: tools.py:93
+#: tools.py:171
 msgid "<ctrl>c"
 msgstr ""
 
-#: tools.py:131
+#: tools.py:227
 msgid "Box"
 msgstr ""
 
-#: tools.py:132
+#: tools.py:228
 msgid "<ctrl>b"
 msgstr ""
 
-#: tools.py:181
+#: tools.py:299
 msgid "Triangle"
 msgstr ""
 
-#: tools.py:182
+#: tools.py:300
 msgid "<ctrl>t"
 msgstr ""
 
-#: tools.py:249
+#: tools.py:385
 msgid "Polygon"
 msgstr ""
 
-#: tools.py:250
+#: tools.py:386
 msgid "<ctrl>p"
 msgstr ""
 
-#: tools.py:315
+#: tools.py:481
 msgid "Draw"
 msgstr ""
 
-#: tools.py:316
+#: tools.py:482
 msgid "<ctrl>d"
 msgstr ""
 
-#: tools.py:369
+#: tools.py:558
 msgid "Grab"
 msgstr ""
 
-#: tools.py:370
+#: tools.py:559
 msgid "<ctrl>g"
 msgstr ""
 
-#: tools.py:416
+#: tools.py:682
 msgid "Joint"
 msgstr ""
 
-#: tools.py:460
+#: tools.py:736
 msgid "Pin"
 msgstr ""
 
-#: tools.py:461
+#: tools.py:737
 msgid "<ctrl>o"
 msgstr ""
 
-#: tools.py:483
+#: tools.py:778
 msgid "Motor"
 msgstr ""
 
-#: tools.py:484
+#: tools.py:779
 msgid "<ctrl>m"
 msgstr ""
 
-#: tools.py:507
+#: tools.py:837
 msgid "Roll"
 msgstr ""
 
-#: tools.py:508
+#: tools.py:838 tools.py:920
 msgid "<ctrl>r"
 msgstr ""
 
-#: tools.py:534
+#: tools.py:864
 msgid "Erase"
 msgstr ""
 
-#: tools.py:535
+#: tools.py:865
 msgid "<ctrl>e"
+msgstr ""
+
+#: tools.py:919
+msgid "Track Object"
+msgstr ""
+
+#: tools.py:977
+msgid "Chain"
 msgstr ""

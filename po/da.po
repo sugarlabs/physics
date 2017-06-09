@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2014-05-22 23:28+0200\n"
 "Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "Fysik"
 
@@ -30,149 +31,143 @@ msgstr ""
 "Bevis at Sir Isaac Newton havde ret! Opret ægte, levende simuleringer som "
 "anvender forskellige former og se dem komme til live med kræfter!"
 
-#: activity.py:124
+#: activity.py:125
 msgid "Create"
 msgstr "Opret"
 
-#: activity.py:135
-msgid "Clear Trace Marks"
-msgstr "Ryd sporingsmærker"
-
-#: activity.py:136
-msgid "<ctrl>x"
-msgstr "<ctrl>x"
-
-#: activity.py:161 activity.py:167
-msgid "Export tracked objects to journal"
-msgstr "Eksportér sporede objekter til journal"
-
-#: activity.py:185 activity.py:293
+#: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "Stop"
 
-#: activity.py:186
+#: activity.py:138
 msgid "<ctrl>space"
 msgstr "<ctrl>mellemrum"
 
-#: activity.py:193
-msgid "Erase All"
-msgstr "Slet alt"
-
-#: activity.py:194
-msgid "<ctrl>a"
-msgstr "<ctrl>a"
-
-#: activity.py:280 activity.py:307
-msgid "Are You Sure?"
-msgstr "Er du sikker?"
-
-#: activity.py:282
-msgid "All trace points will be erased. This cannot be undone!"
-msgstr "Alle sporingspunkter vil blive slettet. Dette kan ikke fortrydes!"
-
-#: activity.py:296
+#: activity.py:174
 msgid "Start"
 msgstr "Start"
 
-#: activity.py:309
-msgid "All your work will be discarded. This cannot be undone!"
-msgstr "Alt dit arbejde blive blive smidt væk. Dette kan ikke fortrydes!"
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s Kilde"
 
-#: activity.py:333 activity.py:350
-msgid "Physics export"
-msgstr "Fysik-eksport"
-
-#: tools.py:167
+#: tools.py:92
 msgid "Circle"
 msgstr "Cirkel"
 
-#: tools.py:168
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:215
+#: tools.py:131
 msgid "Box"
 msgstr "Boks"
 
-#: tools.py:216
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:274
+#: tools.py:181
 msgid "Triangle"
 msgstr "Trekant"
 
-#: tools.py:275
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:350
+#: tools.py:249
 msgid "Polygon"
 msgstr "Polygon"
 
-#: tools.py:351
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:436
+#: tools.py:315
 msgid "Draw"
 msgstr "Tegn"
 
-#: tools.py:437
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:499
+#: tools.py:369
 msgid "Grab"
 msgstr "Grib"
 
-#: tools.py:500
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:549
+#: tools.py:416
 msgid "Joint"
 msgstr "Fælles"
 
-#: tools.py:597
+#: tools.py:460
 msgid "Pin"
 msgstr "Fastgør"
 
-#: tools.py:598
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:622
+#: tools.py:483
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:623
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:667
+#: tools.py:507
 msgid "Roll"
 msgstr "Rul"
 
-#: tools.py:668 tools.py:751
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:694
+#: tools.py:534
 msgid "Erase"
 msgstr "Slet"
 
-#: tools.py:695
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>s"
 
-#: tools.py:750
-msgid "Track Object"
-msgstr "Foretag sporing af objekt"
+#~ msgid "Clear Trace Marks"
+#~ msgstr "Ryd sporingsmærker"
 
-#: tools.py:800
-msgid "Chain"
-msgstr "Kæde"
+#~ msgid "<ctrl>x"
+#~ msgstr "<ctrl>x"
+
+#~ msgid "Export tracked objects to journal"
+#~ msgstr "Eksportér sporede objekter til journal"
+
+#~ msgid "Erase All"
+#~ msgstr "Slet alt"
+
+#~ msgid "<ctrl>a"
+#~ msgstr "<ctrl>a"
+
+#~ msgid "Are You Sure?"
+#~ msgstr "Er du sikker?"
+
+#~ msgid "All trace points will be erased. This cannot be undone!"
+#~ msgstr "Alle sporingspunkter vil blive slettet. Dette kan ikke fortrydes!"
+
+#~ msgid "All your work will be discarded. This cannot be undone!"
+#~ msgstr "Alt dit arbejde blive blive smidt væk. Dette kan ikke fortrydes!"
+
+#~ msgid "Physics export"
+#~ msgstr "Fysik-eksport"
+
+#~ msgid "Track Object"
+#~ msgstr "Foretag sporing af objekt"
+
+#~ msgid "Chain"
+#~ msgstr "Kæde"
 
 #~ msgid "Erase all"
 #~ msgstr "Slet alt"
@@ -183,7 +178,3 @@ msgstr "Kæde"
 #, fuzzy
 #~ msgid "This cannot be undone!"
 #~ msgstr "Dette kan ikke fortrydes!"
-
-#, python-format
-#~ msgid "%s Source"
-#~ msgstr "%s Kilde"

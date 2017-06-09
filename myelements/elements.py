@@ -196,6 +196,30 @@ class Elements:
         """
         self.fixed_color = None
 
+    def _get_color(self):
+        """ Get a color - either the fixed one or the next from self.colors
+
+            Return: clr = ((R), (G), (B))
+        """
+        if self.cur_color == len(self.colors):
+            self.cur_color = 0
+            shuffle(self.colors)
+
+        clr = self.colors[self.cur_color]
+        if clr[0] == "#":
+            clr = tools.hex2rgb(clr)
+
+        return clr
+
+    def next_color(self):
+        """ Next color - either the fixed one of the next from self.colors
+
+            Return: clr = ((R), (G), (B))
+        """
+        if self.fixed_color is not None:
+            return self.fixed_color
+        return self._get_color()
+
     def get_color(self):
         """ Get a color - either the fixed one or the next from self.colors
 
@@ -204,13 +228,7 @@ class Elements:
         if self.fixed_color is not None:
             return self.fixed_color
 
-        if self.cur_color == len(self.colors):
-            self.cur_color = 0
-            shuffle(self.colors)
-
-        clr = self.colors[self.cur_color]
-        if clr[0] == "#":
-            clr = tools.hex2rgb(clr)
+        clr = self._get_color()
 
         self.cur_color += 1
         return clr
@@ -476,6 +494,8 @@ class Elements:
 
         bodylist = []
         for body in self.world.bodies:
+            if body == self.world.groundBody:
+                continue
             body.userData["saveid"] = save_id_index  # set temporary data
             save_id_index += 1
             shapelist = body.fixtures

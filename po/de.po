@@ -59,7 +59,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-03 00:32-0400\n"
-"PO-Revision-Date: 2016-04-09 18:14+0000\n"
+"PO-Revision-Date: 2017-02-21 21:50+0000\n"
 "Last-Translator: Markus <m.slg@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -68,7 +68,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1460225640.000000\n"
+"X-POOTLE-MTIME: 1487713819.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #: activity.py:41
@@ -81,6 +81,9 @@ msgid ""
 "Prove Sir Isaac Newton right! Create real life simulations using different "
 "shapes and see them come to life with forces!"
 msgstr ""
+"Zeige, dass Sir Isaac Newton recht hat! Erzeuge realistische Simulationen "
+"mit verschiedenen Figuren und lass sie unter dem Einfluss von Kräften "
+"lebendig werden!"
 
 #: activity.py:125
 msgid "Create"

@@ -32,11 +32,7 @@ from gettext import gettext as _
 from pygame.locals import *
 from helpers import *
 
-sys.path.append('lib/')
-# If your architecture is different, comment these lines and install
-# the modules in your system.
-sys.path.append('lib/Box2D-2.0.2b2-py2.7-linux-i686.egg')
-import Box2D as box2d
+import lib.Box2D as box2d
 
 from sugar3.activity import activity
 

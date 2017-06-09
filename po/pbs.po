@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 00:31-0500\n"
+"POT-Creation-Date: 2012-10-03 00:32-0400\n"
 "PO-Revision-Date: 2014-05-20 19:27+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 #. TRANS: "name" option from activity.info file
+#: activity.py:41
 msgid "Physics"
 msgstr "lichja'aun"
 
@@ -31,146 +32,140 @@ msgstr ""
 "latsja'aun re manup lik'iajam ki't re lixa'au vakjá maiñ vijiaut peuk vat'ei "
 "k'ejé manup re vajap."
 
-#: activity.py:124
+#: activity.py:125
 msgid "Create"
 msgstr "Matsjau"
 
-#: activity.py:135
-msgid "Clear Trace Marks"
-msgstr "Matseiñ se lichja'aun me'es"
-
-#: activity.py:136
-msgid "<ctrl>x"
-msgstr "<ctrl>x"
-
-#: activity.py:161 activity.py:167
-msgid "Export tracked objects to journal"
-msgstr "Ma'ujuñ sad-ia nimia pu xiñi'iu matsjau"
-
-#: activity.py:185 activity.py:293
+#: activity.py:137 activity.py:171
 msgid "Stop"
 msgstr "Mama'ai"
 
-#: activity.py:186
+#: activity.py:138
 msgid "<ctrl>space"
 msgstr "<ctrl>Tijiap"
 
-#: activity.py:193
-msgid "Erase All"
-msgstr "Mavun mi'ia"
-
-#: activity.py:194
-msgid "<ctrl>a"
-msgstr "<ctrl>a"
-
-#: activity.py:280 activity.py:307
-msgid "Are You Sure?"
-msgstr "¿Ki'ieje' lik'iajam?"
-
-#: activity.py:282
-msgid "All trace points will be erased. This cannot be undone!"
-msgstr "Mi'ia pu me'es matsjau mavunt. ¡Ranji nip mvania'at majuat!"
-
-#: activity.py:296
+#: activity.py:174
 msgid "Start"
 msgstr "Ndapup"
 
-#: activity.py:309
-msgid "All your work will be discarded. This cannot be undone!"
-msgstr "Mi'ia pu ngul'ajau majaiñ. ¡Ranjí ni mvania'at majuat!"
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr ""
 
-#: activity.py:333 activity.py:350
-msgid "Physics export"
-msgstr "Ma'ujuñ lichajaun'"
-
-#: tools.py:167
+#: tools.py:92
 msgid "Circle"
 msgstr "Ndimjiuly'"
 
-#: tools.py:168
+#: tools.py:93
 msgid "<ctrl>c"
 msgstr "<ctrl>c"
 
-#: tools.py:215
+#: tools.py:131
 msgid "Box"
 msgstr "kad-a kichjau'"
 
-#: tools.py:216
+#: tools.py:132
 msgid "<ctrl>b"
 msgstr "<ctrl>b"
 
-#: tools.py:274
+#: tools.py:181
 msgid "Triangle"
 msgstr "Ranju'mú"
 
-#: tools.py:275
+#: tools.py:182
 msgid "<ctrl>t"
 msgstr "<ctrl>t"
 
-#: tools.py:350
+#: tools.py:249
 msgid "Polygon"
 msgstr "Polígono"
 
-#: tools.py:351
+#: tools.py:250
 msgid "<ctrl>p"
 msgstr "<ctrl>p"
 
-#: tools.py:436
+#: tools.py:315
 msgid "Draw"
 msgstr "Matsjau makeje' sania'"
 
-#: tools.py:437
+#: tools.py:316
 msgid "<ctrl>d"
 msgstr "<ctrl>d"
 
-#: tools.py:499
+#: tools.py:369
 msgid "Grab"
 msgstr "maka'ang"
 
-#: tools.py:500
+#: tools.py:370
 msgid "<ctrl>g"
 msgstr "<ctrl>g"
 
-#: tools.py:549
+#: tools.py:416
 msgid "Joint"
 msgstr "mavuch'"
 
-#: tools.py:597
+#: tools.py:460
 msgid "Pin"
 msgstr "Tachuela"
 
-#: tools.py:598
+#: tools.py:461
 msgid "<ctrl>o"
 msgstr "<ctrl>o"
 
-#: tools.py:622
+#: tools.py:483
 msgid "Motor"
 msgstr "Motor"
 
-#: tools.py:623
+#: tools.py:484
 msgid "<ctrl>m"
 msgstr "<ctrl>m"
 
-#: tools.py:667
+#: tools.py:507
 msgid "Roll"
 msgstr "Malamaiñ"
 
-#: tools.py:668 tools.py:751
+#: tools.py:508
 msgid "<ctrl>r"
 msgstr "<ctrl>r"
 
-#: tools.py:694
+#: tools.py:534
 msgid "Erase"
 msgstr "Mavun"
 
-#: tools.py:695
+#: tools.py:535
 msgid "<ctrl>e"
 msgstr "<ctrl>e"
 
-#: tools.py:750
-msgid "Track Object"
-msgstr "vujú sania'"
+#~ msgid "Clear Trace Marks"
+#~ msgstr "Matseiñ se lichja'aun me'es"
 
-#: tools.py:800
-msgid "Chain"
-msgstr "ngute'e"
+#~ msgid "<ctrl>x"
+#~ msgstr "<ctrl>x"
+
+#~ msgid "Export tracked objects to journal"
+#~ msgstr "Ma'ujuñ sad-ia nimia pu xiñi'iu matsjau"
+
+#~ msgid "Erase All"
+#~ msgstr "Mavun mi'ia"
+
+#~ msgid "<ctrl>a"
+#~ msgstr "<ctrl>a"
+
+#~ msgid "Are You Sure?"
+#~ msgstr "¿Ki'ieje' lik'iajam?"
+
+#~ msgid "All trace points will be erased. This cannot be undone!"
+#~ msgstr "Mi'ia pu me'es matsjau mavunt. ¡Ranji nip mvania'at majuat!"
+
+#~ msgid "All your work will be discarded. This cannot be undone!"
+#~ msgstr "Mi'ia pu ngul'ajau majaiñ. ¡Ranjí ni mvania'at majuat!"
+
+#~ msgid "Physics export"
+#~ msgstr "Ma'ujuñ lichajaun'"
+
+#~ msgid "Track Object"
+#~ msgstr "vujú sania'"
+
+#~ msgid "Chain"
+#~ msgstr "ngute'e"
