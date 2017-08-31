@@ -87,8 +87,8 @@ class PhysicsActivity(activity.Activity):
         self.preview = None
         self._sample_window = None
 
-        self._fixed = Gtk.Fixed()
-        self._fixed.put(self.game_canvas, 0, 0)
+        self._notebook = Gtk.Notebook(show_tabs=False)
+        self._notebook.add(self.game_canvas)
 
         w = Gdk.Screen.width()
         h = Gdk.Screen.height() - 2 * GRID_CELL_SIZE
@@ -98,7 +98,7 @@ class PhysicsActivity(activity.Activity):
         self._constructors = {}
         self.build_toolbar()
 
-        self.set_canvas(self._fixed)
+        self.set_canvas(self._notebook)
         Gdk.Screen.get_default().connect('size-changed',
                                          self.__configure_cb)
 
@@ -700,7 +700,7 @@ class PhysicsActivity(activity.Activity):
             separator.props.visible = False
 
             btn = Gtk.Button.new_from_stock(Gtk.STOCK_CANCEL)
-            btn.connect('clicked', lambda button: self._sample_box.hide())
+            btn.connect('clicked', self._cancel_clicked_cb)
 
             title.pack_start(title_label, False, False, 5)
             title.pack_start(separator, False, False, 0)
@@ -710,15 +710,13 @@ class PhysicsActivity(activity.Activity):
             vbox.pack_end(self._sample_window, True, True, 0)
 
             self._sample_box.add(vbox)
+            self._sample_box.show_all()
+            self._notebook.add(self._sample_box)
 
-            self._fixed.put(self._sample_box, width, height)
+        self._notebook.set_current_page(1)
 
-        if self._sample_window:
-            # Remove and add again. Maybe its on portrait mode.
-            self._fixed.remove(self._sample_box)
-            self._fixed.put(self._sample_box, width, height)
-
-        self._sample_box.show_all()
+    def _cancel_clicked_cb(self, button=None):
+        self._notebook.set_current_page(0)
 
     def _get_selected_path(self, widget, store):
         try:
@@ -734,7 +732,7 @@ class PhysicsActivity(activity.Activity):
 
         if selected is None:
             self._selected_sample = None
-            self._sample_box.hide()
+            self._cancel_clicked_cb()
             return
 
         image_path, _iter = selected
@@ -742,7 +740,7 @@ class PhysicsActivity(activity.Activity):
         image_path = store.get(iter_, 1)[0]
 
         self._selected_sample = image_path
-        self._sample_box.hide()
+        self._cancel_clicked_cb()
 
         self.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
         GObject.idle_add(self._sample_loader)
