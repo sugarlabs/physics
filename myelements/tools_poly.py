@@ -111,7 +111,6 @@ def is_line(vertices, tolerance=25.0):
 
     # Get maximum difference
     alpha_diff = fabs(alphas[-1] - alphas[0])
-    print "alpha difference:", alpha_diff
 
     if alpha_diff < tolerance:
         return True
