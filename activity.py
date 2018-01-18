@@ -81,19 +81,20 @@ class PhysicsActivity(activity.Activity):
         self.connect('visibility-notify-event', self._focus_event)
         self.connect('window-state-event', self._window_event)
 
-        self.game_canvas = sugargame.canvas.PygameCanvas(self)
         self.game = physics.main(self)
+        self.game.canvas = sugargame.canvas.PygameCanvas(self,
+            main=self.game.run, modules=[pygame.display, pygame.font])
 
         self.preview = None
         self._sample_window = None
 
         self._notebook = Gtk.Notebook(show_tabs=False)
-        self._notebook.add(self.game_canvas)
+        self._notebook.add(self.game.canvas)
 
         w = Gdk.Screen.width()
         h = Gdk.Screen.height() - 2 * GRID_CELL_SIZE
 
-        self.game_canvas.set_size_request(w, h)
+        self.game.canvas.set_size_request(w, h)
 
         self._constructors = {}
         self.build_toolbar()
@@ -102,9 +103,6 @@ class PhysicsActivity(activity.Activity):
         Gdk.Screen.get_default().connect('size-changed',
                                          self.__configure_cb)
 
-        logging.debug(os.path.join(
-                      activity.get_activity_root(), 'data', 'data'))
-        self.game_canvas.run_pygame(self.game.run)
         self.show_all()
         self._collab.setup()
 
@@ -128,7 +126,7 @@ class PhysicsActivity(activity.Activity):
 
     def get_preview(self):
         ''' Custom preview code to get image from pygame. '''
-        return self.game_canvas.get_preview()
+        return self.game.canvas.get_preview()
 
     def build_toolbar(self):
         self.max_participants = 4
