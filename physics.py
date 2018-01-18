@@ -49,7 +49,6 @@ class PhysicsGame:
         self.activity = activity
         # Get everything set up
         self.clock = pygame.time.Clock()
-        self.canvas = activity.game_canvas
         self.in_focus = True
         # Create the name --> instance map for components
         self.toolList = {}
@@ -95,9 +94,7 @@ class PhysicsGame:
     def run(self, restart=False):
         self.screen = pygame.display.get_surface()
         if not restart:
-            pygame.init()
             pygame.display.init()
-            # pygame.mixer.quit()
             self.pygame_started = True
 
             # Fake a Sugar cursor for the pyGame canvas area
