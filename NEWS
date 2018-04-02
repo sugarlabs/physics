@@ -1,3 +1,12 @@
+33
+
+* Add license metadata (Walter Bender),
+* Fix for Fedora 18 32-bit fail to start #4926 (James Cameron),
+* Remove duplicate LICENSE (James Cameron),
+* Fix missing samples widget on Fedora 18 (James Cameron),
+* Remove old log messages (James Cameron),
+* Port to Sugargame v1.2 (James Cameron),
+
 32
 
 * Fix ground bodies bug (Cristian García),
