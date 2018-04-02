@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 14:02+1000\n"
+"POT-Creation-Date: 2018-04-02 14:52+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,91 +23,91 @@ msgstr ""
 
 #: activity/activity.info:3
 msgid ""
-"Prove Sir Isaac Newton right! Create real life simulations using different "
-"shapes and see them come to life with forces!"
+"Prove Sir Isaac Newton correct. Create real-life simulations using different "
+"shapes and see them come to life with forces."
 msgstr ""
 
-#: activity.py:144
+#: activity.py:142
 msgid "Create"
 msgstr ""
 
-#: activity.py:154
+#: activity.py:152
 msgid "Toggle random color"
 msgstr ""
 
-#: activity.py:168
+#: activity.py:166
 msgid "Clear Trace Marks"
 msgstr ""
 
-#: activity.py:169
+#: activity.py:167
 msgid "<ctrl>x"
 msgstr ""
 
-#: activity.py:179
+#: activity.py:177
 msgid "Show sample projects"
 msgstr ""
 
-#: activity.py:202
+#: activity.py:200
 msgid "Export tracked objects to journal"
 msgstr ""
 
-#: activity.py:208 activity.py:649
+#: activity.py:206 activity.py:647
 msgid "Load project from journal"
 msgstr ""
 
-#: activity.py:293 activity.py:442
+#: activity.py:291 activity.py:440
 msgid "Stop"
 msgstr ""
 
-#: activity.py:294
+#: activity.py:292
 msgid "<ctrl>space"
 msgstr ""
 
-#: activity.py:301
+#: activity.py:299
 msgid "Run slower"
 msgstr ""
 
-#: activity.py:308
+#: activity.py:306
 msgid "Run slow"
 msgstr ""
 
-#: activity.py:329
+#: activity.py:327
 msgid "Erase All"
 msgstr ""
 
-#: activity.py:330
+#: activity.py:328
 msgid "<ctrl>a"
 msgstr ""
 
-#: activity.py:429 activity.py:459 activity.py:631
+#: activity.py:427 activity.py:457 activity.py:629
 msgid "Are You Sure?"
 msgstr ""
 
-#: activity.py:431
+#: activity.py:429
 msgid "All trace points will be erased. This cannot be undone!"
 msgstr ""
 
-#: activity.py:447
+#: activity.py:445
 msgid "Start"
 msgstr ""
 
-#: activity.py:461 activity.py:633
+#: activity.py:459 activity.py:631
 msgid "All your work will be discarded. This cannot be undone!"
 msgstr ""
 
-#: activity.py:485
+#: activity.py:483
 msgid "Physics export"
 msgstr ""
 
-#: activity.py:651
+#: activity.py:649
 msgid "Load example"
 msgstr ""
 
-#: activity.py:653
+#: activity.py:651
 msgid "Error: Cannot open Physics project from this file."
 msgstr ""
 
-#: activity.py:697
+#: activity.py:695
 msgid "Select a sample..."
 msgstr ""
 
