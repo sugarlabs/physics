@@ -53,7 +53,7 @@ from sugar3.graphics.toggletoolbutton import ToggleToolButton
 from sugar3.graphics.style import GRID_CELL_SIZE
 from sugar3.datastore import datastore
 
-from colorbutton import ColorToolButton
+from sugar3.graphics.colorbutton import ColorToolButton
 try:
     from sugar3.presence.wrapper import CollabWrapper
 except ImportError:
