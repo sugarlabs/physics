@@ -31,16 +31,12 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 
 import pygame
-from pygame.locals import *
-from pygame.color import *
+from pygame.locals import MOUSEBUTTONUP
 
-# from sugar3.activity import activity
-# sys.path.insert(0, os.path.join(activity.get_bundle_path(), 'lib'))
 import lib.Box2D as box2d
 import myelements as elements
 
 import tools
-from helpers import *
 
 
 class PhysicsGame:
@@ -107,8 +103,8 @@ class PhysicsGame:
                                 self.switch_on_fake_pygame_cursor_cb)
             self.canvas.connect('leave_notify_event',
                                 self.switch_off_fake_pygame_cursor_cb)
-            self.canvas.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK
-                                   | Gdk.EventMask.LEAVE_NOTIFY_MASK)
+            self.canvas.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK |
+                                   Gdk.EventMask.LEAVE_NOTIFY_MASK)
 
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
@@ -231,6 +227,7 @@ class PhysicsGame:
 def main(activity):
     game = PhysicsGame(activity)
     return game
+
 
 # Make sure that main get's called
 if __name__ == '__main__':

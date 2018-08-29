@@ -82,8 +82,8 @@ class PhysicsActivity(activity.Activity):
         self.connect('window-state-event', self._window_event)
 
         self.game = physics.main(self)
-        self.game.canvas = sugargame.canvas.PygameCanvas(self,
-            main=self.game.run, modules=[pygame.display, pygame.font])
+        self.game.canvas = sugargame.canvas.PygameCanvas(
+            self, main=self.game.run, modules=[pygame.display, pygame.font])
 
         self.preview = None
         self._sample_window = None
@@ -662,9 +662,6 @@ class PhysicsActivity(activity.Activity):
         self.add_alert(confirmation_alert)
 
     def _create_store(self, widget=None):
-        width = Gdk.Screen.width() / 4
-        height = Gdk.Screen.height() / 4
-
         if self._sample_window is None:
             self._sample_box = Gtk.EventBox()
 
@@ -673,9 +670,9 @@ class PhysicsActivity(activity.Activity):
             self._sample_window.set_policy(Gtk.PolicyType.NEVER,
                                            Gtk.PolicyType.AUTOMATIC)
             self._sample_window.set_border_width(4)
-            w = Gdk.Screen.width() / 2
-            h = Gdk.Screen.height() / 2
-            self._sample_window.set_size_request(w, h)
+
+            self._sample_window.set_size_request(
+                Gdk.Screen.width() / 2, Gdk.Screen.height() / 2)
             self._sample_window.show()
 
             store = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
