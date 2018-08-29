@@ -1,6 +1,5 @@
 import os
 from gi.repository import Gtk
-from gi.repository import GObject
 from gi.repository import GLib
 from sugar3.activity.activity import PREVIEW_SIZE
 import pygame
@@ -12,7 +11,7 @@ CANVAS = None
 class PygameCanvas(Gtk.EventBox):
     def __init__(self, activity, pointer_hint=True,
                  main=None, modules=[pygame]):
-        GObject.GObject.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         global CANVAS
         assert CANVAS == None, "Only one PygameCanvas can be created, ever."
