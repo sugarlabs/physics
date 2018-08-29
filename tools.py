@@ -22,15 +22,16 @@
 
 import os
 from shutil import copy
-import sys
 import json
 import math
 import logging
 import pygame
 from gettext import gettext as _
 
-from pygame.locals import *
-from helpers import *
+from pygame.locals import \
+    USEREVENT, MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION
+from helpers import \
+    tuple_to_int, distance, constructTriangleFromLine, find_body
 
 import Box2D as box2d
 
@@ -151,7 +152,7 @@ class Tool(object):
         }
         icon_path = os.path.join(activity.get_bundle_path(),
                                  'icons',
-                                 (icon+'.svg'))
+                                 (icon + '.svg'))
         sugar_icons = os.path.join(os.path.expanduser('~'), '.icons')
         copy(icon_path, sugar_icons)
 
@@ -423,10 +424,10 @@ class PolygonTool(Tool):
                 self.vertices = None
             elif (event.type == MOUSEBUTTONUP or
                   event.type == MOUSEBUTTONDOWN):
-                if self.vertices is None or (tuple_to_int(event.pos)[0]
-                                             == self.vertices[-1][0] and
-                                             tuple_to_int(event.pos)[1]
-                                             == self.vertices[-1][1]):
+                if self.vertices is None or (tuple_to_int(event.pos)[0] ==
+                                             self.vertices[-1][0] and
+                                             tuple_to_int(event.pos)[1] ==
+                                             self.vertices[-1][1]):
                     # Skip if coordinate is same as last one
                     return
                 if distance(tuple_to_int(event.pos), self.vertices[0]) < 15 \
@@ -1139,5 +1140,6 @@ def getAllTools():
             ChainTool,
             TrackTool,
             DestroyTool]
+
 
 allTools = getAllTools()
