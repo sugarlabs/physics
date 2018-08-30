@@ -31,7 +31,6 @@ import gi
 gi.require_version('Gtk', '3.0')
 
 import pygame
-import sugargame
 import sugargame.canvas
 
 from gi.repository import GObject
@@ -60,7 +59,7 @@ except ImportError:
     from collabwrapper import CollabWrapper
 
 import tools
-import physics
+from physics import PhysicsGame
 
 # For some reason increasing FPS decreases execution speed :/
 SLOWEST_FPS = 90
@@ -81,7 +80,7 @@ class PhysicsActivity(activity.Activity):
         self.connect('visibility-notify-event', self._focus_event)
         self.connect('window-state-event', self._window_event)
 
-        self.game = physics.main(self)
+        self.game = PhysicsGame(self)
         self.game.canvas = sugargame.canvas.PygameCanvas(
             self, main=self.game.run, modules=[pygame.display, pygame.font])
 
@@ -116,7 +115,6 @@ class PhysicsActivity(activity.Activity):
                                 pygame.RESIZABLE)
         self.read_file(os.path.join(
                        activity.get_activity_root(), 'data', 'data'))
-        self.game.run(True)
 
     def read_file(self, file_path):
         self.game.read_file(file_path)
@@ -276,7 +274,7 @@ class PhysicsActivity(activity.Activity):
 
     def can_close(self):
         self.preview = self.get_preview()
-        self.game.loop = False
+        self.game.running = False
         return True
 
     def _insert_stop_play_button(self, toolbar):
@@ -467,9 +465,6 @@ class PhysicsActivity(activity.Activity):
     def _focus_event(self, event, data=None):
         ''' Send focus events to pygame to allow it to idle when in
         background. '''
-        if not self.game.pygame_started:
-            logging.debug('focus_event: pygame not yet initialized')
-            return
         if data.state == Gdk.VisibilityState.FULLY_OBSCURED:
             pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                                  action='focus_out'))
@@ -642,7 +637,6 @@ class PhysicsActivity(activity.Activity):
                 f.close()
 
                 self.read_file(file_path)
-                self.game.run(True)
             except:
                 title = _('Load project from journal')
                 if not journal:
