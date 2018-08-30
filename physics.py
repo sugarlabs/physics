@@ -54,8 +54,8 @@ class PhysicsGame:
         # Set up the world (instance of Elements)
         self.box2d = box2d
         self.opening_queue = None
-        self.loop = True
-        self.pygame_started = False
+        self.running = True
+        self.initialise = True
 
         self.full_pos_list = []
         self.tracked_bodies = 0
@@ -87,11 +87,9 @@ class PhysicsGame:
         # Loading from journal
         self.opening_queue = path
 
-    def run(self, restart=False):
-        self.screen = pygame.display.get_surface()
-        if not restart:
-            pygame.display.init()
-            self.pygame_started = True
+    def run(self):
+        if self.initialise:
+            self.initialise = False
 
             # Fake a Sugar cursor for the pyGame canvas area
             self.show_fake_cursor = True
@@ -106,6 +104,7 @@ class PhysicsGame:
             self.canvas.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK |
                                    Gdk.EventMask.LEAVE_NOTIFY_MASK)
 
+        self.screen = pygame.display.get_surface()
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
         self.world.add.ground()
@@ -123,17 +122,23 @@ class PhysicsGame:
                     self.tracked_bodies = \
                         self.world.additional_vars['tracked_bodies']
 
-        while self.loop:
+        while self.running:
+
+            # Pump GTK messages.
             while Gtk.events_pending():
                 Gtk.main_iteration()
-
-            if not self.loop:
-                pygame.quit()
-                self.pygame_started = False
+            if not self.running:
                 break
 
+            # Pump PyGame messages.
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
+                elif event.type == pygame.VIDEORESIZE:
+                    pygame.display.set_mode(event.size, pygame.RESIZABLE)
+
                 self.currentTool.handleEvents(event)
+
                 if event.type == MOUSEBUTTONUP:
                     # if event.button == 1:
                     self.show_fake_cursor = True
@@ -215,6 +220,8 @@ class PhysicsGame:
             # Stay < 30 FPS to help keep the rest of the platform responsive
             self.clock.tick(30)  # Originally 50
 
+        return False
+
     def setTool(self, tool):
         self.currentTool.cancel()
         self.currentTool = self.toolList[tool]
@@ -222,13 +229,3 @@ class PhysicsGame:
 
     def get_activity(self):
         return self.activity
-
-
-def main(activity):
-    game = PhysicsGame(activity)
-    return game
-
-
-# Make sure that main get's called
-if __name__ == '__main__':
-    main()
