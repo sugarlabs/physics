@@ -53,10 +53,7 @@ from sugar3.graphics.style import GRID_CELL_SIZE
 from sugar3.datastore import datastore
 
 from sugar3.graphics.colorbutton import ColorToolButton
-try:
-    from sugar3.presence.wrapper import CollabWrapper
-except ImportError:
-    from collabwrapper import CollabWrapper
+from collabwrapper import CollabWrapper
 
 import tools
 from physics import PhysicsGame
@@ -104,6 +101,14 @@ class PhysicsActivity(activity.Activity):
 
         self.show_all()
         self._collab.setup()
+
+    def get_data(self):
+        """ FIXME: not implemented, thus objects created before
+        sharing starts are not shared """
+        return dict()
+
+    def set_data(self, data):
+        pass
 
     def __configure_cb(self, event):
         ''' Screen size has changed '''
