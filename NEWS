@@ -1,3 +1,13 @@
+34
+
+* New translations (Chris Leonard, et al),
+* Remove source code no longer needed (James Cameron),
+* Update collaboration wrapper (James Cameron),
+* Ensure source code formatting (James Cameron),
+* Fix video system not initialised error on stop (James Cameron),
+* Port from GObject to GLib (James Cameron),
+* Fix traceback during sharing (James Cameron),
+
 33
 
 * Add license metadata (Walter Bender),
