@@ -33,7 +33,7 @@ gi.require_version('Gtk', '3.0')
 import pygame
 import sugargame.canvas
 
-from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -156,7 +156,7 @@ class PhysicsActivity(activity.Activity):
         color.random = random
         random.color = color
 
-        random.timeout_id = GObject.timeout_add(100, self.__timeout_cb, random)
+        random.timeout_id = GLib.timeout_add(100, self.__timeout_cb, random)
 
         self._insert_stop_play_button(toolbar_box.toolbar)
 
@@ -235,8 +235,8 @@ class PhysicsActivity(activity.Activity):
         self.game.world.add.reset_color()
 
         if random.timeout_id is None:
-            random.timeout_id = GObject.timeout_add(100, self.__timeout_cb,
-                                                    random)
+            random.timeout_id = GLib.timeout_add(100, self.__timeout_cb,
+                                                 random)
             self.__timeout_cb(random)
 
     def _random_off(self, random):
@@ -250,7 +250,7 @@ class PhysicsActivity(activity.Activity):
         random.get_icon_widget().set_stroke_color(self._rgb8x(color))
 
         if random.timeout_id is not None:
-            GObject.source_remove(random.timeout_id)
+            GLib.source_remove(random.timeout_id)
             random.timeout_id = None
 
     def __timeout_cb(self, random):
@@ -732,7 +732,7 @@ class PhysicsActivity(activity.Activity):
         self._cancel_clicked_cb()
 
         self.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-        GObject.idle_add(self._sample_loader)
+        GLib.idle_add(self._sample_loader)
 
     def _sample_loader(self):
         # Convert from thumbnail path to sample path
