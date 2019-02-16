@@ -77,6 +77,9 @@ def is_line(vertices, tolerance=25.0):
     if len(vertices) <= 2:
         return True
 
+    if len(vertices) == 3 and vertices[0] == vertices[2]:
+        return True
+
     # Step 1: Points -> Vectors
     p_old = vertices[0]
     alphas = []
