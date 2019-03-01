@@ -28,14 +28,15 @@ import glob
 from gettext import gettext as _
 
 import gi
+gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
 
 import pygame
 import sugargame.canvas
 
 from gi.repository import GLib
-from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 
 from sugar3.activity import activity

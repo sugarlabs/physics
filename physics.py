@@ -26,9 +26,12 @@
 # Code:   git://git.sugarlabs.org/physics/mainline.git
 
 import os
+import gi
+gi.require_version('Gdk', '3.0')
+gi.require_version('Gtk', '3.0')
 
-from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import Gtk
 
 import pygame
 from pygame.locals import MOUSEBUTTONUP
