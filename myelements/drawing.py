@@ -185,7 +185,7 @@ class draw_cairo(object):
         """
         self.da = da
         self.window = da.window
-        print "* Cairo renderer drawing area set"
+        print("* Cairo renderer drawing area set")
 
     def set_drawing_method(self, type):
         """ type = filled, image """

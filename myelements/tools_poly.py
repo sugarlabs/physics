@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from functools import partial
+from functools import partial, cmp_to_key
 
 from math import fabs
 from math import sqrt
@@ -143,7 +143,7 @@ def reduce_poly_by_angle(vertices, tolerance=10.0, minlen=20):
     dir = None
     is_convex = True
 
-    for i in xrange(len(vertices) - 1):
+    for i in range(len(vertices) - 1):
         if i == 0:
             p_old = vertices[i]
             continue
@@ -175,7 +175,7 @@ def reduce_poly_by_angle(vertices, tolerance=10.0, minlen=20):
             angle = degrees(acos(a / (b * c)))
         except:
             # cos=1.0
-            print "cos=", a / (b * c)
+            print("cos=", a / (b * c))
             continue
 
         # Check if inside tolerance
@@ -345,7 +345,7 @@ def convex_hull(points):
 
     # Sort the points angularly about p0 as center
     f = partial(is_left, p0)
-    points.sort(cmp=f)
+    points.sort(key=cmp_to_key(f))
     points.reverse()
     points.insert(0, p0)
 

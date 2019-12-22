@@ -33,7 +33,7 @@ from pygame.locals import \
 from helpers import \
     tuple_to_int, distance, constructTriangleFromLine, find_body
 
-import lib.Box2D as box2d
+import Box2D as box2d
 
 from sugar3.activity import activity
 
@@ -128,7 +128,7 @@ class Tool(object):
     def draw(self):
         # Default drawing method is draw the pen points.
         surface = self.game.world.renderer.get_surface()
-        for key, info in self.game.trackinfo.iteritems():
+        for key, info in self.game.trackinfo.items():
             color = info[2]
             trackdex = info[4]
             try:
@@ -880,7 +880,7 @@ class DestroyTool(Tool):
 
             body_to_remove = find_body(self.game.world, event.pos)
             if body_to_remove is not None:
-                tracklist = self.game.trackinfo.items()
+                tracklist = list(self.game.trackinfo.items())
                 destroyed_body = False
                 for key, info in tracklist:
                     trackdex = info[4]
