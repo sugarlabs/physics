@@ -1,0 +1,12 @@
+#/usr/bin/env bash
+
+# Installation Script for pybox2d 
+# Run this script to update pybox2d or install it for the first time
+# Alternatively install respective py2box installation for your
+# Linux distro
+
+git clone https://github.com/pybox2d/pybox2d.git
+cd pybox2d
+python3 setup.py build
+pip3 install . --user
+
