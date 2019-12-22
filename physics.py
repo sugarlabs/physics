@@ -33,7 +33,7 @@ from gi.repository import Gdk
 import pygame
 from pygame.locals import MOUSEBUTTONUP
 
-import lib.Box2D as box2d
+import Box2D as box2d
 import myelements as elements
 
 import tools
@@ -165,7 +165,7 @@ class PhysicsGame:
                             if clear_trace_active is False:
                                 self.activity.clear_trace.set_sensitive(True)
 
-                    for key, info in self.trackinfo.iteritems():
+                    for key, info in self.trackinfo.items():
                         # [host_body, tracker, color, destroyed?]
                         body = info[1]
                         if info[3] is False:  # Not destroyed the pen
