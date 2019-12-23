@@ -29,7 +29,8 @@ cd pybox2d
 ./setup.py build
 pip3 install .
 ```
-
+> NOTE: There is PYPI package for PyBox2d. However, somethings not working at the moment.
+> If you find it working, consider opening an Issue to replace the BUILD instructions.
 
 ## master branch
 
