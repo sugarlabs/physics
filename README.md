@@ -6,31 +6,32 @@ a box2d playpen
 
 * clone the repository
 * The `Box2D` has a dependency `swig`.
-   - Install it on Ubuntu by running 
+   - Install it on Ubuntu/Debian by running 
     ```sudo apt install swig```
-   - On Fedora systems, run 
+   - On Fedora/RHEL systems, run 
     ```sudo dnf install swig```
+* To install python packages, you will need python and dependencies
+   - Install it on Ubuntu/Debian by running
+   ```sudo apt install python3 python3-setuptools python3-pip python3-all-dev ```
+   - Install it on Fedora/RHEL by running
+   ```sudo dnf install python3-pip python3-setuptools```
 * Clone the `pybox2d` repository and build it and install it. See [Installling PyBox](#installing-pybox2d)
 * Install the activity in the normal procedure.
 
 ### Installing PyBox2D
-You may follow any of the option
-#### A : Use the automated bash script
-* Just run
-```
-./install-pybox2d
-```
-### B : Manual PyBox2d Installation
+
 * Run the following commands
 ```
 git clone https://github.com/pybox2d/pybox2d
 cd pybox2d
 # Make sure you have installed swig
-./setup.py build
-pip3 install .
+python3 setup.py build
+pip3 install . --system
+
 ```
-> NOTE: There is PYPI package for PyBox2d. However, somethings not working at the moment.
+> * NOTE: There is PYPI package for PyBox2d. However, somethings not working at the moment.
 > If you find it working, consider opening an Issue to replace the BUILD instructions.
+> * `--system` may be replaced by `--user` too. 
 
 ## master branch
 
