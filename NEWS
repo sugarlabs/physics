@@ -1,3 +1,18 @@
+35
+
+* Check for identical vertices in is_line (Josh Bicking),
+* Fix PyGObject warnings (Aniket Mathur),
+* Update POT file (Aniket Mathur),
+* Update Sugargame to v1.3 (Ayush Nawal),
+* Port to Python 3, update CollabWrapper, use Box2D upstream (Srevin Saju),
+* Add an installation script for smooth handling (Srevin Saju),
+* Add instructions to install PYBox2d in README.md (Srevin Saju),
+* Add Note in README regarding pypi package (Srevin Saju),
+* Update activity.info to sugar-activity3 (Srevin Saju),
+* Add more dependent packages for physics activity (Srevin Saju),
+* Workaround the require bytes issue (Srevin Saju),
+* Remove empty translations (James Cameron),
+
 34
 
 * New translations (Chris Leonard, et al),
