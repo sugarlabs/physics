@@ -18,7 +18,7 @@ How to upgrade?
 ===============
 
 On Sugar desktop systems;
-* use [My Settings](https://help.sugarlabs.org/my_settings.html), [Software Update](https://help.sugarlabs.org/my_settings.html#software-update), or;
+* use [My Settings](https://help.sugarlabs.org/my_settings.html), [Software Update](https://help.sugarlabs.org/my_settings.html#software-update).
 
 How to integrate?
 =================
