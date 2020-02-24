@@ -36,11 +36,3 @@ pip3 install . --system
 ## master branch
 
 * does include library `elements`.
-
-## dfsg branch
-
-* does not include library `box2d`, please install Debian package `python-box2d`, or Fedora package `Box2D`,
-
-* does include library `elements`,
-
-* is regularly rebased on `master` branch.
