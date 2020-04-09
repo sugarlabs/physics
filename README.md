@@ -12,7 +12,7 @@ Physics is not part of the Sugar desktop, but can be added.  Please refer to;
 
 * [How to Get Sugar on sugarlabs.org](https://sugarlabs.org/),
 * [How to use Sugar](https://help.sugarlabs.org/),
-* [How to use Physics](https://help.sugarlabs.org/physics.html)
+* [How to use Physics](https://help.sugarlabs.org/physics.html).
 
 How to upgrade?
 ===============
