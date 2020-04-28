@@ -276,7 +276,7 @@ class PhysicsActivity(activity.Activity):
 
     def _rgb8(self, color):
         """ convert a Gdk.Color into an 8-bit RGB tuple. """
-        return (color.red / 256, color.green / 256, color.blue / 256)
+        return (color.red // 256, color.green // 256, color.blue // 256)
 
     def can_close(self):
         self.preview = self.get_preview()
