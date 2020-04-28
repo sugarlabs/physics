@@ -491,6 +491,7 @@ class Elements:
     def get_world_model(self, additional_vars={}, serialize=False):
         worldmodel = {}
         save_id_index = 1
+        self.world.groundBody.userData = {"saveid": 0}
 
         bodylist = []
         for body in self.world.bodies:
