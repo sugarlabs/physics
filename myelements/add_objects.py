@@ -415,7 +415,7 @@ class Add:
                 # Don't add a circle at the end
                 break
 
-            circleDef.localPosition = v2 / self.parent.ppm
+            circleShape.pos = v2 / self.parent.ppm
             body.CreateFixture(circleDef)
 
         # Return hard and soft reduced vertices
