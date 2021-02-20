@@ -87,6 +87,7 @@ class PhysicsActivity(activity.Activity):
 
         self._notebook = Gtk.Notebook(show_tabs=False)
         self._notebook.add(self.game.canvas)
+        self._notebook.show()
 
         w = Gdk.Screen.width()
         h = Gdk.Screen.height() - 2 * GRID_CELL_SIZE
@@ -97,10 +98,10 @@ class PhysicsActivity(activity.Activity):
         self.build_toolbar()
 
         self.set_canvas(self._notebook)
+        self.game.canvas.grab_focus()
         Gdk.Screen.get_default().connect('size-changed',
                                          self.__configure_cb)
 
-        self.show_all()
         self._collab.setup()
 
     def get_data(self):
@@ -136,8 +137,11 @@ class PhysicsActivity(activity.Activity):
         self.max_participants = 4
 
         toolbar_box = ToolbarBox()
+        self.set_toolbar_box(toolbar_box)
+        toolbar_box.show()
+
         activity_button = ActivityToolbarButton(self)
-        toolbar_box.toolbar.insert(activity_button, 0)
+        toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
 
         create_toolbar = ToolbarButton()
@@ -212,8 +216,6 @@ class PhysicsActivity(activity.Activity):
         activity_button.props.page.insert(load_project, -1)
         load_project.show()
 
-        self.set_toolbar_box(toolbar_box)
-        toolbar_box.show_all()
         create_toolbar.set_expanded(True)
         return toolbar_box
 
