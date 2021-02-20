@@ -39,7 +39,8 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 
-from sugar3.activity import activity
+from sugar3.activity.activity import Activity
+from sugar3.activity.activity import get_activity_root, get_bundle_path
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
 from sugar3.graphics.objectchooser import ObjectChooser
@@ -65,10 +66,10 @@ SLOW_FPS = 70
 FAST_FPS = 50
 
 
-class PhysicsActivity(activity.Activity):
+class PhysicsActivity(Activity):
 
     def __init__(self, handle):
-        super(PhysicsActivity, self).__init__(handle)
+        Activity.__init__(self, handle)
         self._collab = CollabWrapper(self)
         self._collab.message.connect(self.__message_cb)
         self.metadata['mime_type'] = 'application/x-physics-activity'
@@ -115,13 +116,13 @@ class PhysicsActivity(activity.Activity):
     def __configure_cb(self, event):
         ''' Screen size has changed '''
         self.write_file(os.path.join(
-                        activity.get_activity_root(), 'data', 'data'))
+                        get_activity_root(), 'data', 'data'))
         w = Gdk.Screen.width()
         h = Gdk.Screen.height() - 2 * GRID_CELL_SIZE
         pygame.display.set_mode((w, h),
                                 pygame.RESIZABLE)
         self.read_file(os.path.join(
-                       activity.get_activity_root(), 'data', 'data'))
+                       get_activity_root(), 'data', 'data'))
 
     def read_file(self, file_path):
         self.game.read_file(file_path)
@@ -368,7 +369,7 @@ class PhysicsActivity(activity.Activity):
                     self.game.toolList[c.name].constructor
 
     def __icon_path(self, name):
-        activity_path = activity.get_bundle_path()
+        activity_path = get_bundle_path()
         icon_path = os.path.join(activity_path, 'icons',
                                  name + '.svg')
         return icon_path
@@ -745,7 +746,7 @@ class PhysicsActivity(activity.Activity):
     def _sample_loader(self):
         # Convert from thumbnail path to sample path
         basename = os.path.basename(self._selected_sample)[:-4]
-        file_path = os.path.join(activity.get_bundle_path(),
+        file_path = os.path.join(get_bundle_path(),
                                  'samples', basename + '.json')
         self.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.LEFT_PTR))
         self.__load_game(file_path)
@@ -763,7 +764,7 @@ class PhysicsActivity(activity.Activity):
         samples = sorted(
             glob.glob(
                 os.path.join(
-                    activity.get_bundle_path(),
+                    get_bundle_path(),
                     'samples',
                     'thumbnails',
                     '*.png')))
