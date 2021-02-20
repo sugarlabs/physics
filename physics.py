@@ -97,9 +97,9 @@ class PhysicsGame:
                                     (0, 0, 0, 0, 0, 0, 0, 0))
             self.cursor_picture = pygame.image.load('standardcursor.png')
             self.cursor_picture.convert_alpha()
-            self.canvas.connect('enter_notify_event',
+            self.canvas.connect('enter-notify-event',
                                 self.switch_on_fake_pygame_cursor_cb)
-            self.canvas.connect('leave_notify_event',
+            self.canvas.connect('leave-notify-event',
                                 self.switch_off_fake_pygame_cursor_cb)
             self.canvas.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK |
                                    Gdk.EventMask.LEAVE_NOTIFY_MASK)
