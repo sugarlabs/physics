@@ -87,6 +87,20 @@ class PhysicsGame:
         # Loading from journal
         self.opening_queue = path
 
+    def check_queue(self):
+        if self.opening_queue:
+            path = self.opening_queue.encode('ascii', 'convert')
+            if os.path.exists(path):
+                self.world.json_load(path, serialized=True)
+                if 'full_pos_list' in self.world.additional_vars:
+                    self.full_pos_list = \
+                        self.world.additional_vars['full_pos_list']
+                if 'trackinfo' in self.world.additional_vars:
+                    self.trackinfo = self.world.additional_vars['trackinfo']
+                if 'tracked_bodies' in self.world.additional_vars:
+                    self.tracked_bodies = \
+                        self.world.additional_vars['tracked_bodies']
+
     def run(self):
         if self.initialise:
             self.initialise = False
@@ -108,19 +122,8 @@ class PhysicsGame:
         self.world = elements.Elements(self.screen.get_size())
         self.world.renderer.set_surface(self.screen)
         self.world.add.ground()
+        self.check_queue()
 
-        if self.opening_queue:
-            path = self.opening_queue.encode('ascii', 'convert')
-            if os.path.exists(path):
-                self.world.json_load(path, serialized=True)
-                if 'full_pos_list' in self.world.additional_vars:
-                    self.full_pos_list = \
-                        self.world.additional_vars['full_pos_list']
-                if 'trackinfo' in self.world.additional_vars:
-                    self.trackinfo = self.world.additional_vars['trackinfo']
-                if 'tracked_bodies' in self.world.additional_vars:
-                    self.tracked_bodies = \
-                        self.world.additional_vars['tracked_bodies']
 
         while self.running:
 

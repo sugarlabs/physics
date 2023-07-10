@@ -646,6 +646,7 @@ class PhysicsActivity(Activity):
                 f.close()
 
                 self.read_file(file_path)
+                self.game.check_queue()
             except:
                 title = _('Load project from journal')
                 if not journal:
