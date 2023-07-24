@@ -218,7 +218,6 @@ class PhysicsActivity(Activity):
         activity_button.props.page.insert(load_project, -1)
         load_project.show()
 
-        create_toolbar.set_expanded(True)
         return toolbar_box
 
     def __color_notify_cb(self, button, pdesc):
