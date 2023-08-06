@@ -50,7 +50,7 @@ PALETTE_ICON_OBJECT_SETTINGS = [
     {
         'name': 'restitution',
         'icons': ['basketball', 'tennis-ball', 'bowling-ball'],
-        'icon_values': [0.16, 0.16, 0.01],
+        'icon_values': [0.7, 0.16, 0.01],
         'active': 'tennis-ball'
     },
     {
