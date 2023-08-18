@@ -1,3 +1,16 @@
+36
+
+* Close the create_toolbar by default (Sparsh Goenka),
+* Fix create toolbar button (Sparsh Goenka),
+* Fix the use of incorrect GTK signal names  (James Cameron),
+* Simplify Activity class component usage  (James Cameron),
+* Use conventional widget show sequence  (James Cameron),
+* Apply the MIT license (Wade Brainerd),
+* Fix circles in centre of polygons (James Cameron),
+* Fix TypeErrors (Saumya Mishra),
+* Fix punctuation in list (James Cameron),
+* Fix XML parse error (James Cameron),
+
 35
 
 * Check for identical vertices in is_line (Josh Bicking),
