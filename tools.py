@@ -98,7 +98,8 @@ class Tool(object):
                 elif event.action == 'clear_all':
                     # Get bodies and destroy them too
                     for body in self.game.world.world.bodies:
-                        self.game.world.world.DestroyBody(body)
+                        if body != self.game.world.world.groundBody:
+                            self.game.world.world.DestroyBody(body)
 
                     # Add ground, because we destroyed it before
                     self.game.world.add.ground()
