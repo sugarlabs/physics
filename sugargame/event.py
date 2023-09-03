@@ -150,7 +150,7 @@ class Translator(object):
         pygame.K_F11,
         pygame.K_F12,
         pygame.K_PRINT,
-        pygame.K_SCROLLLOCK,
+        pygame.K_SCROLLOCK,
         pygame.K_BREAK,
         pygame.K_INSERT,
         pygame.K_HOME,
