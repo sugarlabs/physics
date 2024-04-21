@@ -228,7 +228,7 @@ class Translator(object):
         # Callback functions to link the event systems
         self._activity.connect('unrealize', self._quit_cb)
         self._activity.connect('visibility-notify-event', self._visibility_cb)
-        self._activity.connect('configure-event', self._resize_cb)
+        self._inner_evb.connect('size-allocate', self._resize_cb)
         self._inner_evb.connect('key-press-event', self._keydown_cb)
         self._inner_evb.connect('key-release-event', self._keyup_cb)
         self._inner_evb.connect('button-press-event', self._mousedown_cb)
@@ -256,11 +256,11 @@ class Translator(object):
         if pygame.display.get_init():
             pygame.event.post(pygame.event.Event(pygame.VIDEOEXPOSE))
 
-    def _resize_cb(self, widget, event):
+    def _resize_cb(self, widget, allocation):
         if pygame.display.get_init():
             evt = pygame.event.Event(pygame.VIDEORESIZE,
-                                     size=(event.width, event.height),
-                                     width=event.width, height=event.height)
+                                     size=(allocation.width, allocation.height),
+                                     width=allocation.width, height=allocation.height)
             pygame.event.post(evt)
         return False  # continue processing
 
