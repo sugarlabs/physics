@@ -29,6 +29,8 @@ On Debian and Ubuntu systems;
 apt install sugar-physics-activity
 ```
 
+(Unavailable on Ubuntu 24.04)
+
 On Fedora systems;
 
 ```
@@ -74,6 +76,5 @@ git clone https://github.com/pybox2d/pybox2d
 cd pybox2d
 # Make sure you have installed swig
 python3 setup.py build
-pip3 install . --system
-
+pip3 install . --break-system-packages
 ```
