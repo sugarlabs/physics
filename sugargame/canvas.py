@@ -57,7 +57,20 @@ class PygameCanvas(Gtk.EventBox):
 
         # Preinitialize Pygame with the X window ID.
         os.environ['SDL_WINDOWID'] = str(widget.get_id())
+
+        # Initialize Pygame
         for module in self._modules:
+            if module != pygame.mixer:
+                module.init()
+                continue
+
+            try:
+                module.init()
+                continue
+            except pygame.error as e:
+                pass
+
+            os.environ['SDL_AUDIODRIVER'] = 'dummy'
             module.init()
 
         # Restore the default cursor.
