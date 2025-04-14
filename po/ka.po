@@ -8,17 +8,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-04 11:10+1100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-04-14 13:22+0000\n"
+"Last-Translator: NF <rkavt@smartprojects.ge>\n"
+"Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
+"sugar-activities/physics/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.2\n"
 
 #: activity/activity.info:2
 msgid "Physics"
-msgstr ""
+msgstr "ფიზიკა"
 
 #: activity/activity.info:3
 msgid ""
@@ -28,7 +31,7 @@ msgstr ""
 
 #: activity.py:146
 msgid "Create"
-msgstr ""
+msgstr "შექმნა"
 
 #: activity.py:156
 msgid "Toggle random color"
@@ -56,11 +59,11 @@ msgstr ""
 
 #: activity.py:295 activity.py:444
 msgid "Stop"
-msgstr ""
+msgstr "გაჩერება"
 
 #: activity.py:296
 msgid "<ctrl>space"
-msgstr ""
+msgstr "<Ctrl>ჰარე"
 
 #: activity.py:303
 msgid "Run slower"
@@ -88,7 +91,7 @@ msgstr ""
 
 #: activity.py:449
 msgid "Start"
-msgstr ""
+msgstr "დაწყება"
 
 #: activity.py:463 activity.py:632
 msgid "All your work will be discarded. This cannot be undone!"
@@ -124,87 +127,87 @@ msgstr ""
 
 #: tools.py:171
 msgid "Circle"
-msgstr ""
+msgstr "წრე"
 
 #: tools.py:172
 msgid "<ctrl>c"
-msgstr ""
+msgstr "<Ctrl>C"
 
 #: tools.py:228
 msgid "Box"
-msgstr ""
+msgstr "ყუთი"
 
 #: tools.py:229
 msgid "<ctrl>b"
-msgstr ""
+msgstr "<ctrl>b"
 
 #: tools.py:300
 msgid "Triangle"
-msgstr ""
+msgstr "სამკუთხედი"
 
 #: tools.py:301
 msgid "<ctrl>t"
-msgstr ""
+msgstr "<ctrl>t"
 
 #: tools.py:386
 msgid "Polygon"
-msgstr ""
+msgstr "მრავალკუთხედი"
 
 #: tools.py:387
 msgid "<ctrl>p"
-msgstr ""
+msgstr "<ctrl>p"
 
 #: tools.py:482
 msgid "Draw"
-msgstr ""
+msgstr "დახატვა"
 
 #: tools.py:483
 msgid "<ctrl>d"
-msgstr ""
+msgstr "<ctrl>d"
 
 #: tools.py:559
 msgid "Grab"
-msgstr ""
+msgstr "აღება"
 
 #: tools.py:560
 msgid "<ctrl>g"
-msgstr ""
+msgstr "<ctrl>g"
 
 #: tools.py:683
 msgid "Joint"
-msgstr ""
+msgstr "შეერთება"
 
 #: tools.py:737
 msgid "Pin"
-msgstr ""
+msgstr "მიმაგრება"
 
 #: tools.py:738
 msgid "<ctrl>o"
-msgstr ""
+msgstr "<ctrl>o"
 
 #: tools.py:779
 msgid "Motor"
-msgstr ""
+msgstr "ძრავა"
 
 #: tools.py:780
 msgid "<ctrl>m"
-msgstr ""
+msgstr "<ctrl>m"
 
 #: tools.py:838
 msgid "Roll"
-msgstr ""
+msgstr "გაგორება"
 
 #: tools.py:839 tools.py:921
 msgid "<ctrl>r"
-msgstr ""
+msgstr "<ctrl>r"
 
 #: tools.py:865
 msgid "Erase"
-msgstr ""
+msgstr "წაშლა"
 
 #: tools.py:866
 msgid "<ctrl>e"
-msgstr ""
+msgstr "<ctrl>e"
 
 #: tools.py:920
 msgid "Track Object"
@@ -213,3 +216,17 @@ msgstr ""
 #: tools.py:978
 msgid "Chain"
 msgstr ""
+
+#: olpcgames/canvas.py:151
+#, python-format
+msgid "%s Source"
+msgstr "%s-ის წყარო"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid ""
+"Prove Sir Isaac Newton right! Create real life simulations using different "
+"shapes and see them come to life with forces!"
+msgstr ""
+"დაამტკიცეთ სერ ისააკ ნიუტონის იდეები! შექმენით რეალური სიმულაციები "
+"სხვადასხვა ფიგურებისგან და ნახეთ, როგორ გაცოცხლდებიან ისინი!"
