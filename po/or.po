@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-04 11:10+1100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: or\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: activity/activity.info:2
+msgid "Physics"
+msgstr ""
+
+#: activity/activity.info:3
+msgid ""
+"Prove Sir Isaac Newton correct. Create real-life simulations using different "
+"shapes and see them come to life with forces."
+msgstr ""
+
+#: activity.py:146
+msgid "Create"
+msgstr ""
+
+#: activity.py:156
+msgid "Toggle random color"
+msgstr ""
+
+#: activity.py:170
+msgid "Clear Trace Marks"
+msgstr ""
+
+#: activity.py:171
+msgid "<ctrl>x"
+msgstr ""
+
+#: activity.py:181
+msgid "Show sample projects"
+msgstr ""
+
+#: activity.py:204
+msgid "Export tracked objects to journal"
+msgstr ""
+
+#: activity.py:210 activity.py:647
+msgid "Load project from journal"
+msgstr ""
+
+#: activity.py:295 activity.py:444
+msgid "Stop"
+msgstr ""
+
+#: activity.py:296
+msgid "<ctrl>space"
+msgstr ""
+
+#: activity.py:303
+msgid "Run slower"
+msgstr ""
+
+#: activity.py:310
+msgid "Run slow"
+msgstr ""
+
+#: activity.py:331
+msgid "Erase All"
+msgstr ""
+
+#: activity.py:332
+msgid "<ctrl>a"
+msgstr ""
+
+#: activity.py:431 activity.py:461 activity.py:630
+msgid "Are You Sure?"
+msgstr ""
+
+#: activity.py:433
+msgid "All trace points will be erased. This cannot be undone!"
+msgstr ""
+
+#: activity.py:449
+msgid "Start"
+msgstr ""
+
+#: activity.py:463 activity.py:632
+msgid "All your work will be discarded. This cannot be undone!"
+msgstr ""
+
+#: activity.py:484
+msgid "Physics export"
+msgstr ""
+
+#: activity.py:649
+msgid "Load example"
+msgstr ""
+
+#: activity.py:651
+msgid "Error: Cannot open Physics project from this file."
+msgstr ""
+
+#: activity.py:692
+msgid "Select a sample..."
+msgstr ""
+
+#: collabwrapper.py:192
+msgid "Joining activity..."
+msgstr ""
+
+#: collabwrapper.py:193 collabwrapper.py:205
+msgid "Please wait for the connection..."
+msgstr ""
+
+#: collabwrapper.py:204
+msgid "Resuming shared activity..."
+msgstr ""
+
+#: tools.py:171
+msgid "Circle"
+msgstr ""
+
+#: tools.py:172
+msgid "<ctrl>c"
+msgstr ""
+
+#: tools.py:228
+msgid "Box"
+msgstr ""
+
+#: tools.py:229
+msgid "<ctrl>b"
+msgstr ""
+
+#: tools.py:300
+msgid "Triangle"
+msgstr ""
+
+#: tools.py:301
+msgid "<ctrl>t"
+msgstr ""
+
+#: tools.py:386
+msgid "Polygon"
+msgstr ""
+
+#: tools.py:387
+msgid "<ctrl>p"
+msgstr ""
+
+#: tools.py:482
+msgid "Draw"
+msgstr ""
+
+#: tools.py:483
+msgid "<ctrl>d"
+msgstr ""
+
+#: tools.py:559
+msgid "Grab"
+msgstr ""
+
+#: tools.py:560
+msgid "<ctrl>g"
+msgstr ""
+
+#: tools.py:683
+msgid "Joint"
+msgstr ""
+
+#: tools.py:737
+msgid "Pin"
+msgstr ""
+
+#: tools.py:738
+msgid "<ctrl>o"
+msgstr ""
+
+#: tools.py:779
+msgid "Motor"
+msgstr ""
+
+#: tools.py:780
+msgid "<ctrl>m"
+msgstr ""
+
+#: tools.py:838
+msgid "Roll"
+msgstr ""
+
+#: tools.py:839 tools.py:921
+msgid "<ctrl>r"
+msgstr ""
+
+#: tools.py:865
+msgid "Erase"
+msgstr ""
+
+#: tools.py:866
+msgid "<ctrl>e"
+msgstr ""
+
+#: tools.py:920
+msgid "Track Object"
+msgstr ""
+
+#: tools.py:978
+msgid "Chain"
+msgstr ""
