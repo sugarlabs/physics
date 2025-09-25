@@ -1,3 +1,19 @@
+36
+
+* Fix XML parse error (James Cameron),
+* Fix TypeError: %X format: an integer is required, not float (Saumya Mishra),
+* Fix TypeError: NoneType object is not subscriptable (Saumya Mishra),
+* Fix circles in centre polygons (James Cameron),
+* Fix the use of incorrect GTK signal names (Jui Pradhan),
+* Use conventional widget show sequence (James Cameron),
+* Simplify Activity class component usage (James Cameron),
+* Fix create toolbar button (Sparsh Goenka),
+* Close the create_toolbar by default (Sparsh Goenka),
+* Set basketball restitution to 70% (Sparsh Goenka),
+* Fix how to install dependencies (James Cameron),
+* Added translation using Weblate (weblate.sugarlabs.org),
+* Use python3 in setup (Chihurumnaya Ibiam)
+
 35
 
 * Check for identical vertices in is_line (Josh Bicking),
