@@ -1,3 +1,3 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from sugar3.activity import bundlebuilder
 bundlebuilder.start()
