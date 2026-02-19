@@ -233,7 +233,7 @@ class Elements:
         self.cur_color += 1
         return clr
 
-    def update(self, fps=50.0, vel_iterations=10, pos_iterations=8):
+    def update(self, fps=50.0, vel_iterations=10, pos_iterations=8, real_dt=None):
         """ Update the physics, if not paused (self.run_physics)
 
             Parameters:
@@ -246,7 +246,11 @@ class Elements:
             Return: -
         """
         if self.run_physics:
-            self.world.Step(1.0 / fps, vel_iterations, pos_iterations)
+            if real_dt is not None:
+                dt = min(real_dt, 1.0 / fps)
+            else:
+                dt = 1.0 / fps
+            self.world.Step(dt, vel_iterations, pos_iterations)
 
     def translate_coord(self, point):
         """ Flips the coordinates in another coordinate system orientation,
@@ -598,6 +602,7 @@ class Elements:
             bodyDef = box2d.b2BodyDef()
             if body['dynamic']:
                 bodyDef.type = box2d.b2_dynamicBody
+                bodyDef.bullet = True
             bodyDef.position = body['position']
             bodyDef.userData = body['userData']
             bodyDef.angle = body['angle']
