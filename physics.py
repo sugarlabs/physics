@@ -38,6 +38,8 @@ import myelements as elements
 
 import tools
 
+PHYSICS_DT = 1.0 / 120.0
+
 
 class PhysicsGame:
 
@@ -63,6 +65,7 @@ class PhysicsGame:
         self.trackinfo = {}
 
         self.box2d_fps = 50
+        self._physics_accumulator = PHYSICS_DT
 
     def set_game_fps(self, fps):
         self.box2d_fps = fps
@@ -204,8 +207,11 @@ class PhysicsGame:
                                                  diff * body.getMassData().I)
                     '''
 
-                # Update & Draw World
-                self.world.update(fps=self.box2d_fps)
+                elapsed = min(max(self.clock.get_time(), 1) / 1000.0, 0.05)
+                self._physics_accumulator += elapsed
+                while self._physics_accumulator >= PHYSICS_DT:
+                    self.world.update(fps=int(1.0 / PHYSICS_DT))
+                    self._physics_accumulator -= PHYSICS_DT
                 self.screen.fill((240, 240, 240))  # #f0f0f0, light-grey
                 self.world.draw()
 
@@ -221,7 +227,7 @@ class PhysicsGame:
                 pygame.display.flip()
 
             # Stay < 30 FPS to help keep the rest of the platform responsive
-            self.clock.tick(30)  # Originally 50
+            self.clock.tick_busy_loop(30)
 
         return False
 
