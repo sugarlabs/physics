@@ -27,6 +27,28 @@ import pygame
 import pygame.event
 
 
+class KeyStateMap:
+    def __init__(self):
+        self._data = {}
+
+    def __getitem__(self, key):
+        return self._data.get(key, 0)
+
+    def __setitem__(self, key, value):
+        self._data[key] = value
+
+    def __len__(self):
+        return max(self._data.keys(), default=0) + 1
+
+    def __iter__(self):
+        if not self._data:
+            return iter([])
+        return (self._data.get(i, 0) for i in range(len(self)))
+
+    def __contains__(self, key):
+        return key in self._data
+
+
 class _MockEvent(object):
     def __init__(self, keyval):
         self.keyval = keyval
@@ -100,7 +122,7 @@ class Translator(object):
         self._inner_evb.connect('screen-changed', self._screen_changed_cb)
 
         # Internal data
-        self.__keystate = [0] * 323
+        self.__keystate = KeyStateMap()
         self.__button_state = [0, 0, 0]
         self.__mouse_pos = (0, 0)
         self.__repeat = (None, None)
