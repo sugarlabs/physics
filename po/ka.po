@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-04 11:10+1100\n"
-"PO-Revision-Date: 2026-06-15 04:31+0000\n"
+"PO-Revision-Date: 2026-06-15 07:48+0000\n"
 "Last-Translator: NF <rkavt@smartprojects.ge>\n"
 "Language-Team: Georgian <http://weblate.sugarlabs.org/projects/"
 "sugar-activities/physics/ka/>\n"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: activity.py:449
 msgid "Start"
-msgstr "დაწყება"
+msgstr "გაშვება"
 
 #: activity.py:463 activity.py:632
 msgid "All your work will be discarded. This cannot be undone!"
@@ -131,7 +131,7 @@ msgstr "წრე"
 
 #: tools.py:172
 msgid "<ctrl>c"
-msgstr "<Ctrl>C"
+msgstr "<ctrl>c"
 
 #: tools.py:228
 msgid "Box"
